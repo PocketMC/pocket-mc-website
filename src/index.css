@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 20% 5%;
+    --foreground: 220 20% 90%;
+
+    --card: 240 15% 10%;
+    --card-foreground: 220 20% 90%;
+
+    --popover: 240 15% 10%;
+    --popover-foreground: 220 20% 90%;
+
+    --primary: 142 60% 50%;
+    --primary-foreground: 240 20% 5%;
+
+    --secondary: 240 15% 15%;
+    --secondary-foreground: 220 20% 90%;
+
+    --muted: 240 10% 18%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 220 70% 55%;
+    --accent-foreground: 220 20% 95%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 10% 18%;
+    --input: 240 10% 18%;
+    --ring: 142 60% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 240 15% 8%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-primary: 142 60% 50%;
+    --sidebar-primary-foreground: 240 20% 5%;
+    --sidebar-accent: 240 15% 15%;
+    --sidebar-accent-foreground: 220 20% 90%;
+    --sidebar-border: 240 10% 18%;
+    --sidebar-ring: 142 60% 50%;
+
+    /* PocketMC custom tokens */
+    --pmc-green: 142 60% 50%;
+    --pmc-blue: 220 70% 55%;
+    --pmc-gold: 40 90% 55%;
+    --pmc-purple: 270 60% 55%;
+    --pmc-surface: 240 15% 10%;
+    --pmc-surface-hover: 240 15% 14%;
+    --pmc-glass: 240 15% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-[hsl(var(--pmc-glass)/0.6)] backdrop-blur-xl border border-[hsl(var(--border)/0.5)];
+  }
+  .glass-strong {
+    @apply bg-[hsl(var(--pmc-glass)/0.8)] backdrop-blur-2xl border border-[hsl(var(--border)/0.6)];
+  }
+  .text-gradient-green {
+    @apply bg-gradient-to-r from-[hsl(var(--pmc-green))] to-[hsl(160,60%,45%)] bg-clip-text text-transparent;
+  }
+  .text-gradient-hero {
+    @apply bg-gradient-to-r from-[hsl(var(--pmc-green))] via-[hsl(180,50%,50%)] to-[hsl(var(--pmc-blue))] bg-clip-text text-transparent;
+  }
+  .glow-green {
+    box-shadow: 0 0 60px hsl(142 60% 50% / 0.15), 0 0 120px hsl(142 60% 50% / 0.05);
+  }
+}
+
+/* Scroll reveal */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(3deg); }
+}
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-marquee, .animate-float, .animate-float-slow {
+    animation: none;
+  }
+}
