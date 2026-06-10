@@ -1249,11 +1249,15 @@ function App() {
                       onTouchEnd={onTouchEnd}
                     >
                       {activeTabDetails.images ? (
-                        <div className={`grid gap-4 p-4 sm:p-6 ${activeTabDetails.images.length === 3 ? 'grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
+                        <div className={`flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 p-4 sm:p-6 md:grid ${
+                          activeTabDetails.images.length === 4 ? 'md:grid-cols-4' : 
+                          activeTabDetails.images.length === 3 ? 'md:grid-cols-3' : 
+                          'md:grid-cols-2'
+                        }`}>
                           {activeTabDetails.images.map((img, idx) => (
                             <div 
                               key={idx} 
-                              className="relative group/screen cursor-zoom-in overflow-hidden rounded-md border border-divider/50 shadow-sm"
+                              className="relative group/screen cursor-zoom-in overflow-hidden rounded-md border border-divider/50 shadow-sm flex-shrink-0 w-[85%] sm:w-[65%] md:w-auto snap-center"
                               onClick={() => setLightboxImage(img)}
                             >
                               <img
