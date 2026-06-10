@@ -2516,6 +2516,22 @@ function App() {
                 Discord
               </a>
               <a
+                href="https://www.reddit.com/r/PocketMC/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#FF4500] transition-colors whitespace-nowrap"
+              >
+                Reddit
+              </a>
+              <a
+                href="https://www.youtube.com/@OfficialPocketMC"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#FF0000] transition-colors whitespace-nowrap"
+              >
+                YouTube
+              </a>
+              <a
                 href="https://www.buymeacoffee.com/sahaj33"
                 target="_blank"
                 rel="noreferrer"
@@ -2757,6 +2773,22 @@ function Header({ theme, toggleTheme }: HeaderProps) {
               className="font-semibold text-main-muted hover:text-[#5865F2] transition-colors"
             >
               Discord
+            </a>
+            <a
+              href="https://www.reddit.com/r/PocketMC/"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-main-muted hover:text-[#FF4500] transition-colors"
+            >
+              Reddit
+            </a>
+            <a
+              href="https://www.youtube.com/@OfficialPocketMC"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-main-muted hover:text-[#FF0000] transition-colors"
+            >
+              YouTube
             </a>
             <a
               href="https://www.buymeacoffee.com/sahaj33"
