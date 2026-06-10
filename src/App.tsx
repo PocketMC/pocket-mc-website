@@ -120,31 +120,31 @@ const tourTabs = [
   {
     id: "tunnels",
     label: "Public Access",
-    title: "Playit.gg Tunnels — No Port Forwarding",
-    image: "/screenshots/tunnels.webp",
-    alt: "PocketMC Playit.gg agent tunnel manager",
+    title: "Playit.gg Tunnels & Network Mapping",
+    images: ["/screenshots/tunnels.webp", "/screenshots/ports-map.webp"],
+    alt: "PocketMC Playit.gg tunnels and interactive ports map",
     description:
-      "Invite friends to play instantly. No router configuring, no port forwarding, no IP exposure. Link your Playit.gg account once and PocketMC handles agent provisioning, port matching, and tunnel creation directly from the UI.",
+      "Invite friends to play instantly. No router configuring, no port forwarding. Link your Playit.gg account to auto-discover and map local Java/Bedrock ports to public tunnel addresses, visualized via the interactive Ports Map.",
     bullets: [
       "Guided 4-step Playit account link and agent provisioning wizard",
-      "Auto-discovers and maps local Java/Bedrock ports to public tunnel addresses",
-      "Provides both human-readable and numeric tunnel address formats",
-      "Graceful handling for offline agents, invalid tokens, and account tunnel limits",
+      "Real-time visual map of local bindings and public Playit endpoints",
+      "Graceful handling for offline agents, invalid tokens, and account limits",
+      "One-click copy for public IP and Port connections",
     ],
   },
   {
     id: "plugins",
     label: "Mods & Plugins",
-    title: "Curated Modrinth & CurseForge Marketplaces",
-    image: "/screenshots/screenshot-plugins.webp",
-    alt: "PocketMC Modrinth plugin installer browser",
+    title: "Curated Content Marketplaces",
+    images: ["/screenshots/screenshot-plugins.webp", "/screenshots/mod-marketplace.webp"],
+    alt: "PocketMC Modrinth plugin and mod installer browsers",
     description:
-      "Install server-side mods, plugins, and content from your UI. Dependency resolution is supported where upstream API metadata is available.",
+      "Install server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle dependency resolution safely.",
     bullets: [
-      "Native Modrinth browser — mods, plugins, and modpacks (no API key needed)",
-      "CurseForge browser with your own CurseForge API key in app settings",
-      "Poggit integration for PocketMine-MP plugins",
-      "Bedrock pack (.mcpack, .mcaddon, .zip) ingestion with manifest parsing and world JSON registration",
+      "Native Modrinth browser — mods, plugins, and modpacks",
+      "CurseForge browser via API key and Poggit integration for PocketMine",
+      "Java metadata scanning: Fabric, Quilt, Forge, NeoForge, Paper metadata",
+      "Bedrock pack (.mcpack, .mcaddon, .zip) ingestion and validation",
     ],
   },
   {
@@ -157,9 +157,9 @@ const tourTabs = [
       "Protect your worlds. Live-server backups attempt RCON save sync first, then fall back to console save commands. Unsafe files like session.lock are automatically skipped.",
     bullets: [
       "Manual and scheduled Cron-based backup policies with SHA-256 integrity checks",
-      "Live-server sync: RCON save sync first, falls back to console commands — skips session.lock",
-      "Native cloud backup to Google Drive, Dropbox & OneDrive with one-click restore (OAuth-based)",
-      "Retention pruning, restore write-safety guards, and optional local folder replication",
+      "Live-server sync: RCON save sync first, falls back to console commands",
+      "Native cloud backup to Google Drive, Dropbox & OneDrive with one-click restore",
+      "Retention pruning and optional local folder replication",
     ],
   },
   {
@@ -172,9 +172,41 @@ const tourTabs = [
       "Stop dealing with global Java environment variables. PocketMC downloads Adoptium JRE binaries locally to isolate your server dependencies from the rest of your Windows PC.",
     bullets: [
       "Adoptium Java binaries managed locally: Java 8, 11, 17, 21, and 25",
-      "Saves disk space: background downloads Java 25, prompts other versions on-demand",
+      "Saves disk space: background downloads Java 25, prompts older versions on-demand",
       "Auto-selection based on Minecraft server jar compatibility requirements",
       "Official managed PHP PM5 runtime for Bedrock PocketMine-MP instances",
+    ],
+  },
+  {
+    id: "remote",
+    label: "Remote Web Panel",
+    title: "Manage Servers from Any Device",
+    image: "/screenshots/remote-control.webp",
+    alt: "PocketMC Remote Control Dashboard configuration",
+    description:
+      "Access and manage your local servers from anywhere. The Remote Control server hosts a secure web dashboard accessible over your local network or securely via Playit.gg.",
+    bullets: [
+      "Secure QR code pairing and host port configuration",
+      "Live console streaming and command execution remotely",
+      "Securely exposed via Playit.gg HTTPS tunnels or Cloudflare",
+    ],
+  },
+  {
+    id: "mobile",
+    label: "Mobile UI",
+    title: "Responsive Mobile Web Dashboard",
+    images: [
+      "/screenshots/mobile-home.webp",
+      "/screenshots/mobile-console.webp",
+      "/screenshots/mobile-players.webp"
+    ],
+    alt: "PocketMC Mobile Web Dashboard interfaces",
+    description:
+      "View live CPU/RAM metrics, stream colorized console logs, and manage connected players directly from your phone's browser.",
+    bullets: [
+      "Mobile-first responsive design for on-the-go administration",
+      "One-touch server state controls (Start, Stop, Kill)",
+      "Remote moderation: kick, ban, or op users from the mobile web interface",
     ],
   },
 ];
@@ -608,7 +640,7 @@ function App() {
   const [openFaqs, setOpenFaqs] = useState<Record<number, boolean>>({
     0: true,
   });
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleFaq = (index: number) => {
@@ -663,14 +695,14 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setIsLightboxOpen(false);
+        setLightboxImage(null);
       }
     };
-    if (isLightboxOpen) {
+    if (lightboxImage !== null) {
       window.addEventListener("keydown", handleKeyDown);
     }
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isLightboxOpen]);
+  }, [lightboxImage]);
 
   useEffect(() => {
     // Simulate loading for 1.2 seconds to showcase skeletons
@@ -795,6 +827,35 @@ function App() {
           <line x1="6" y1="1" x2="6" y2="4" />
           <line x1="10" y1="1" x2="10" y2="4" />
           <line x1="14" y1="1" x2="14" y2="4" />
+        </svg>
+      ),
+      remote: (
+        <svg
+          className={`w-5 h-5 transition-colors ${isActive ? "text-accent" : "text-main-muted group-hover:text-accent"}`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
+        </svg>
+      ),
+      mobile: (
+        <svg
+          className={`w-5 h-5 transition-colors ${isActive ? "text-accent" : "text-main-muted group-hover:text-accent"}`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+          <line x1="12" y1="18" x2="12.01" y2="18" />
         </svg>
       ),
     }[tab.id] || <span>🔍</span>;
@@ -1181,40 +1242,66 @@ function App() {
                     </div>
 
                     <div
-                      className="relative bg-base-muted/10 overflow-hidden cursor-zoom-in group/screen"
-                      onClick={() => setIsLightboxOpen(true)}
+                      className="relative bg-base-muted/10 overflow-hidden"
                       onTouchStart={onTouchStart}
                       onTouchMove={onTouchMove}
                       onTouchEnd={onTouchEnd}
                     >
-                      <img
-                        src={getAssetUrl(activeTabDetails.image)}
-                        alt={activeTabDetails.alt}
-                        className="w-full h-auto block transition-all duration-700 group-hover/screen:brightness-[0.98] select-none"
-                        key={activeTourTab} // forces element reload for animation
-                        width="1280"
-                        height="800"
-                      />
-
-                      {/* Zoom Indicator Badge in Bottom-Right */}
-                      <div className="absolute bottom-3 right-3 z-20 opacity-0 group-hover/screen:opacity-100 transition-opacity duration-300 bg-base-card/95 backdrop-blur-sm border border-divider px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-2 pointer-events-none select-none">
-                        <svg
-                          className="w-3.5 h-3.5 text-accent animate-pulse"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2.5}
+                      {activeTabDetails.images ? (
+                        <div className={`grid gap-4 p-4 sm:p-6 ${activeTabDetails.images.length === 3 ? 'grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
+                          {activeTabDetails.images.map((img, idx) => (
+                            <div 
+                              key={idx} 
+                              className="relative group/screen cursor-zoom-in overflow-hidden rounded-md border border-divider/50 shadow-sm"
+                              onClick={() => setLightboxImage(img)}
+                            >
+                              <img
+                                src={getAssetUrl(img)}
+                                alt={`${activeTabDetails.alt} ${idx + 1}`}
+                                className="w-full h-auto max-h-[60vh] object-contain transition-all duration-700 group-hover/screen:brightness-[0.95] select-none"
+                                loading="lazy"
+                              />
+                              {/* Zoom Indicator */}
+                              <div className="absolute bottom-2 right-2 z-20 opacity-0 group-hover/screen:opacity-100 transition-opacity duration-300 bg-base-card/95 backdrop-blur-sm border border-divider p-1.5 rounded-md shadow-lg pointer-events-none">
+                                <svg className="w-3 h-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/></svg>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div 
+                          className="relative cursor-zoom-in group/screen"
+                          onClick={() => setLightboxImage(activeTabDetails.image || "")}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"
+                          <img
+                            src={getAssetUrl(activeTabDetails.image || "")}
+                            alt={activeTabDetails.alt}
+                            className="w-full h-auto max-h-[65vh] object-contain mx-auto block transition-all duration-700 group-hover/screen:brightness-[0.98] select-none"
+                            key={activeTourTab} // forces element reload for animation
+                            width="1280"
+                            height="800"
                           />
-                        </svg>
-                        <span className="text-[10px] font-mono font-bold text-main">
-                          Click to view full size
-                        </span>
-                      </div>
+                          {/* Zoom Indicator Badge in Bottom-Right */}
+                          <div className="absolute bottom-3 right-3 z-20 opacity-0 group-hover/screen:opacity-100 transition-opacity duration-300 bg-base-card/95 backdrop-blur-sm border border-divider px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-2 pointer-events-none select-none">
+                            <svg
+                              className="w-3.5 h-3.5 text-accent animate-pulse"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"
+                              />
+                            </svg>
+                            <span className="text-[10px] font-mono font-bold text-main">
+                              Click to view full size
+                            </span>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Prev/Next buttons overlay for mobile devices */}
                       <button
@@ -1369,6 +1456,35 @@ function App() {
                               <line x1="6" y1="1" x2="6" y2="4" />
                               <line x1="10" y1="1" x2="10" y2="4" />
                               <line x1="14" y1="1" x2="14" y2="4" />
+                            </svg>
+                          ),
+                          remote: (
+                            <svg
+                              className={`w-3.5 h-3.5 flex-shrink-0 ${isActive ? "text-accent" : "text-main-muted"}`}
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                              <line x1="8" y1="21" x2="16" y2="21" />
+                              <line x1="12" y1="17" x2="12" y2="21" />
+                            </svg>
+                          ),
+                          mobile: (
+                            <svg
+                              className={`w-3.5 h-3.5 flex-shrink-0 ${isActive ? "text-accent" : "text-main-muted"}`}
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                              <line x1="12" y1="18" x2="12.01" y2="18" />
                             </svg>
                           ),
                         }[tab.id] || <span>🔍</span>;
@@ -2424,12 +2540,12 @@ function App() {
 
         {/* Lightbox Modal */}
         <AnimatePresence>
-          {isLightboxOpen && (
+          {lightboxImage !== null && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsLightboxOpen(false)}
+              onClick={() => setLightboxImage(null)}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
@@ -2483,7 +2599,7 @@ function App() {
 
               {/* Close Button */}
               <button
-                onClick={() => setIsLightboxOpen(false)}
+                onClick={() => setLightboxImage(null)}
                 className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-2.5 rounded-full cursor-pointer z-60"
                 aria-label="Close image viewer"
               >
@@ -2512,11 +2628,10 @@ function App() {
                 className="relative max-w-[90vw] max-h-[80vh] overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-neutral-900 cursor-default"
               >
                 <img
-                  src={getAssetUrl(activeTabDetails.image)}
+                  src={getAssetUrl(lightboxImage || "")}
                   alt={activeTabDetails.alt}
                   className="w-full h-auto max-h-[80vh] object-contain select-none"
-                  width="1280"
-                  height="800"
+                  loading="lazy"
                 />
               </motion.div>
 
