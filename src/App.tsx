@@ -1244,9 +1244,9 @@ function App() {
 
                     <div
                       className="relative bg-base-muted/10 overflow-hidden"
-                      onTouchStart={onTouchStart}
-                      onTouchMove={onTouchMove}
-                      onTouchEnd={onTouchEnd}
+                      onTouchStart={activeTabDetails.images ? undefined : onTouchStart}
+                      onTouchMove={activeTabDetails.images ? undefined : onTouchMove}
+                      onTouchEnd={activeTabDetails.images ? undefined : onTouchEnd}
                     >
                       {activeTabDetails.images ? (
                         <div className={`flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 p-4 sm:p-6 md:grid ${
@@ -1368,7 +1368,7 @@ function App() {
                   {/* Normal Screenshot Changing Navigation for Mobile Devices */}
                   <div className="flex md:hidden flex-col gap-3 mt-4">
                     {/* Horizontal Scrollable Tabs */}
-                    <div className="flex overflow-x-auto pb-2 gap-2 scrollbar-none snap-x mask-fade-edges px-1">
+                    <div className="flex overflow-x-auto pb-2 gap-2 scrollbar-none mask-fade-edges px-1">
                       {tourTabs.map((tab) => {
                         const isActive = activeTourTab === tab.id;
                         const tabIcon = {
@@ -1498,7 +1498,7 @@ function App() {
                           <button
                             key={tab.id}
                             onClick={() => setActiveTourTab(tab.id)}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono font-bold whitespace-nowrap snap-center transition-all cursor-pointer ${
+                            className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
                               isActive
                                 ? "bg-accent/15 border-accent text-accent shadow-sm"
                                 : "bg-base-card border-divider text-main-muted active:bg-base-muted/40"
