@@ -196,6 +196,7 @@ const tourTabs = [
     label: "Mobile UI",
     title: "Responsive Mobile Web Dashboard",
     images: [
+      "/screenshots/mobile-instances.webp",
       "/screenshots/mobile-home.webp",
       "/screenshots/mobile-console.webp",
       "/screenshots/mobile-players.webp"
