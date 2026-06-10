@@ -179,7 +179,7 @@ const tourTabs = [
   },
   {
     id: "remote",
-    label: "Remote Web Panel",
+    label: "Remote Control Page",
     title: "Manage Servers from Any Device",
     image: "/screenshots/remote-control.webp",
     alt: "PocketMC Remote Control Dashboard configuration",
@@ -193,7 +193,7 @@ const tourTabs = [
   },
   {
     id: "mobile",
-    label: "Mobile UI",
+    label: "Remote UI",
     title: "Responsive Mobile Web Dashboard",
     images: [
       "/screenshots/mobile-instances.webp",
@@ -1019,7 +1019,7 @@ function App() {
                     <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/20 dark:bg-yellow-500/40 flex-shrink-0"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-green-500/20 dark:bg-green-500/40 flex-shrink-0"></span>
                     <span className="text-[9px] sm:text-[10px] font-mono text-main-muted ml-2 truncate">
-                      PocketMC Interactive Demo
+                      Server Ceation in 50s via PocketMC
                     </span>
                   </div>
                   <video
@@ -2731,10 +2731,10 @@ function Header({ theme, toggleTheme }: HeaderProps) {
         <div className="flex items-center gap-4 sm:gap-6">
           <div className="hidden items-center gap-6 sm:gap-8 md:flex mr-2 font-mono text-xs sm:text-sm">
             <a
-              href="#servers"
+              href="#screenshots"
               className="font-semibold text-main-muted hover:text-accent transition-colors"
             >
-              Servers
+              Screenshots
             </a>
             <a
               href="#roadmap"
