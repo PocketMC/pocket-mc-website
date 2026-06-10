@@ -9,7 +9,6 @@ import { Skeleton } from "./components/ui/skeleton";
 
 // Heavy WebGL/canvas components — lazy-loaded to avoid blocking first paint
 const PixelSnow = lazy(() => import("./components/PixelSnow"));
-const LiquidEther = lazy(() => import("./components/LiquidEther"));
 const ElectricBorder = lazy(() => import("./components/ElectricBorder"));
 import {
   Table,
@@ -399,6 +398,12 @@ function ScrollAnimationBackground() {
   // Preload images
   useEffect(() => {
     const loadImages = async () => {
+      // Skip loading the heavy 82-frame background animation on mobile devices to prevent RAM/CPU lag
+      if (typeof window !== "undefined" && window.innerWidth < 768) {
+        setIsLoaded(true);
+        return;
+      }
+
       const loadedImages: HTMLImageElement[] = [];
       const promises = [];
       const baseUrl = import.meta.env.BASE_URL || "/";
@@ -1876,8 +1881,10 @@ function App() {
                               className="w-4 h-4"
                               style={{
                                 color: isOpen
-                                  ? "white"
-                                  : "var(--color-main-muted, #888)",
+                                  ? theme === "dark"
+                                    ? "#000000"
+                                    : "#ffffff"
+                                  : "var(--main-muted, #888)",
                               }}
                               viewBox="0 0 24 24"
                               fill="none"
@@ -2088,22 +2095,6 @@ function App() {
               <>
                 {/* Quick Start Card */}
                 <div className="border border-divider p-6 sm:p-8 rounded-lg sm:rounded-xl bg-base-card/40 backdrop-blur shadow-sm relative overflow-hidden">
-                  {/* LiquidEther Background */}
-                  <div className="absolute inset-0 -z-10 pointer-events-none">
-                    <Suspense fallback={null}>
-                      <LiquidEther
-                        colors={
-                          theme === "dark"
-                            ? ["#6366f1", "#8b5cf6", "#a78bfa"]
-                            : ["#4f46e5", "#60a5fa", "#c084fc"]
-                        }
-                        mouseForce={5}
-                        cursorSize={40}
-                        resolution={0.4}
-                        autoDemo={false}
-                      />
-                    </Suspense>
-                  </div>
                   <h3 className="text-lg sm:text-xl font-black text-main font-mono mb-4 sm:mb-6 relative z-10">
                     🏁 Quick Start
                   </h3>
@@ -2153,22 +2144,6 @@ function App() {
 
                 {/* System Requirements Card */}
                 <div className="flex flex-col justify-between border border-divider p-8 rounded-xl bg-base-card/40 backdrop-blur shadow-sm relative overflow-hidden">
-                  {/* LiquidEther Background */}
-                  <div className="absolute inset-0 -z-10 pointer-events-none">
-                    <Suspense fallback={null}>
-                      <LiquidEther
-                        colors={
-                          theme === "dark"
-                            ? ["#6366f1", "#8b5cf6", "#a78bfa"]
-                            : ["#4f46e5", "#60a5fa", "#c084fc"]
-                        }
-                        mouseForce={5}
-                        cursorSize={40}
-                        resolution={0.4}
-                        autoDemo={false}
-                      />
-                    </Suspense>
-                  </div>
                   <div className="relative z-10">
                     <h3 className="text-xl font-black text-main font-mono mb-6">
                       💻 System Requirements
@@ -2319,8 +2294,10 @@ function App() {
                         className="w-4 h-4"
                         style={{
                           color: isOpen
-                            ? "white"
-                            : "var(--color-main-muted, #888)",
+                            ? theme === "dark"
+                              ? "#000000"
+                              : "#ffffff"
+                            : "var(--main-muted, #888)",
                         }}
                         viewBox="0 0 24 24"
                         fill="none"
@@ -2372,24 +2349,6 @@ function App() {
 
         {/* Pre-footer Call to Action */}
         <section className="relative z-10 border-t border-divider bg-base-muted/50 py-24 overflow-hidden isolate">
-          {/* Retro Pixelated Snow Backdrop */}
-          <div
-            className={`absolute inset-0 -z-10 pointer-events-none ${theme === "dark" ? "opacity-15" : "opacity-[0.03]"}`}
-          >
-            <Suspense fallback={null}>
-              <PixelSnow
-                color={theme === "dark" ? "#ffffff" : "#4f46e5"}
-                flakeSize={0.012}
-                minFlakeSize={1.4}
-                pixelResolution={200}
-                speed={0.9}
-                density={0.18}
-                direction={110}
-                variant="square"
-                brightness={1.0}
-              />
-            </Suspense>
-          </div>
           <div className="absolute top-[10%] right-[-100px] w-[400px] h-[400px] rounded-full glow-orb opacity-50 pointer-events-none"></div>
 
           <div className="mx-auto max-w-5xl px-6 text-center relative z-10">
