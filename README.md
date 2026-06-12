@@ -75,12 +75,24 @@ npm install
 npm run dev
 ```
 
-### Production Build
+### Linting
+```bash
+# Run ESLint to check for code quality and style guidelines
+npm run lint
+```
+
+### Production Build & Preview
 ```bash
 # Validate TypeScript compiles and build production distribution bundle
 npm run build
+
+# Locally preview the built production bundle
+npm run preview
 ```
 The compiled output is emitted to the `dist/` directory, configured for sub-folder routing under the base path `/pocket-mc-website/`.
+
+### Deployment
+This website is hosted on **GitHub Pages**. Deployments are automated: pushing changes to the main repository triggers a GitHub Actions workflow that compiles, builds, and deploys the assets to the live page at [pocketmc.github.io/pocket-mc-website](https://pocketmc.github.io/pocket-mc-website/).
 
 ---
 
