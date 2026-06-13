@@ -264,7 +264,7 @@ const comparisonData = [
     tool: "PocketMC",
     category: "Local-first Windows desktop app",
     strength: "Complete local Minecraft server management in one Windows app",
-    win: "Best overall fit for Windows self-hosting: Java, native BDS, PocketMine-MP, Geyser/Floodgate, managed Java/PHP runtimes, backups, metrics, Playit.gg tunnels, marketplace content, and open-source trust.",
+    win: "Best overall fit for Windows self-hosting: Java (with NeoForge), native BDS, PocketMine-MP, Geyser/Floodgate crossplay, managed Adoptium/PHP runtimes, RCON-secured backups with automatic Google Drive/OneDrive/Dropbox cloud replication, auto-configured playit.gg tunnels, and active open-source trust.",
     isFeatured: true,
   },
   {
@@ -277,32 +277,147 @@ const comparisonData = [
   },
   {
     tool: "auto-mcs",
-    category: "Desktop + Docker",
+    category: "Desktop GUI (Python Tkinter)",
     strength:
-      "Broad Java support, Geyser crossplay, backups, metrics, Playit.gg",
-    win: "PocketMC supports native Bedrock Dedicated Server and PocketMine-MP, while auto-mcs is Geyser-based for Bedrock crossplay, not native BDS.",
+      "Python Tkinter GUI with playit.gg, Modrinth search, and custom scripting (amscript)",
+    win: "PocketMC offers a native Windows UI (Mica/Acrylic/Wallpaper Blur) instead of a legacy Tkinter interface, provides native Bedrock Dedicated Server (BDS) and PocketMine-MP (PHP) instances out-of-the-box (auto-mcs only supports Bedrock via Geyser crossplay on top of Java), and features scheduled RCON-held backups with built-in Google Drive, OneDrive, and Dropbox replication.",
     isFeatured: false,
+    proof: {
+      tool: "auto-mcs",
+      title: "Technical Audit: auto-mcs",
+      points: [
+        {
+          title: "Legacy UI Toolkit (Tkinter)",
+          desc: "Implemented using Python's built-in Tkinter library rather than native Windows visual assets, leading to a legacy, custom rendering style.",
+          file: "source/ui/amseditor.py",
+          code: "from tkinter import Tk, Entry, Label, Canvas..."
+        },
+        {
+          title: "No Native Bedrock Runtimes",
+          desc: "Bedrock/crossplay support relies on downloading Geyser and Floodgate plugins to run on top of a Java instance. There is no engine implementation to download, run, or configure the native C++ Bedrock Dedicated Server (BDS) or PHP-based PocketMine-MP runtimes.",
+          file: "source/core/server/addons.py",
+          code: "addon = AddonWebObject('Geyser', 'bukkit', 'GeyserMC', ...)"
+        },
+        {
+          title: "Lacks Cloud Backups",
+          desc: "Backup management is restricted to local directory compression and does not support automatic uploads to Google Drive, OneDrive, or Dropbox.",
+          file: "source/core/constants.py",
+          code: "Paths only define local backup paths; no cloud replication modules found."
+        }
+      ]
+    }
   },
   {
     tool: "MCSManager",
-    category: "Web panel",
-    strength: "Broad game-server management panel",
-    win: "PocketMC is more focused, simpler for Windows users, and does not require web-panel/server-admin setup.",
+    category: "Web panel (Node.js)",
+    strength: "Distributed, multi-user web panel for Minecraft and Steam servers",
+    win: "PocketMC is local-first, running entirely in user-space without requiring Node.js runtimes, database setup, daemon installation, or reverse-proxy configuration. It manages all Java/PHP runtimes automatically and provides a guided tunnel wizard, avoiding the high setup complexity of a distributed panel/daemon architecture.",
     isFeatured: false,
+    proof: {
+      tool: "MCSManager",
+      title: "Technical Audit: MCSManager",
+      points: [
+        {
+          title: "Distributed Architecture Complexity",
+          desc: "Requires setting up both a web panel manager ('panel') and node daemon processes ('daemon') connecting over websockets. High setup overhead for typical single-PC host environments.",
+          file: "README.md",
+          code: "Panel and daemon split, requiring Node.js 16.20.2+ runtimes."
+        },
+        {
+          title: "Lacks Automatic Runtimes",
+          desc: "Does not automatically download, install, and map appropriate Adoptium Java or PHP versions dynamically per server type/version.",
+          file: "daemon/src/app.ts",
+          code: "Startup relies on pre-installed Java binary or manual paths."
+        },
+        {
+          title: "No Built-in Public Tunnels",
+          desc: "Requires manual networking configuration or setting up third-party tunnels manually (e.g. no built-in playit.gg pairing wizard).",
+          file: "panel/src/",
+          code: "Zero references to automated playit.gg agent provisioning."
+        }
+      ]
+    }
   },
   {
-    tool: "Pterodactyl",
-    category: "Web panel",
-    strength: "Powerful Docker-based hosting infrastructure",
-    win: "PocketMC gives you the same Remote Control Web Panel capabilities for your instances, but entirely local-first without requiring Linux, Docker, or complicated reverse proxy configurations.",
+    tool: "Crafty Controller",
+    category: "Web panel (Python Tornado)",
+    strength: "Python web panel supporting multi-server scheduling and backups",
+    win: "PocketMC is native to Windows, running local-first in user-space with zero pre-requisites. Crafty Controller is panel-first (requiring browser setup) and its documentation warns of a 90% risk of world chunk corruption/shredding when running under Docker Desktop/WSL on Windows. PocketMC also includes built-in playit.gg tunnel auto-provisioning and direct cloud backups (Google Drive, OneDrive, Dropbox).",
+    isFeatured: false,
+    proof: {
+      tool: "Crafty Controller",
+      title: "Technical Audit: Crafty Controller",
+      points: [
+        {
+          title: "Windows/Docker Chunk Corruption Risk",
+          desc: "Official documentation warns of high risk of world chunk destruction when running under Docker Desktop/WSL on Windows upon stopping or restarting the Minecraft server.",
+          file: "README.md",
+          code: "On 'Stop' or 'Restart' of the MC Server, there is a 90% chance the World's Chunks will be shredded irreparably!"
+        },
+        {
+          title: "Panel-First Web Architecture",
+          desc: "A web panel built with Tornado and Peewee (SQLite) requiring background launcher setup, admin account creation via browser, and manual networking.",
+          file: "requirements.txt",
+          code: "tornado==6.5.4, peewee==3.13"
+        },
+        {
+          title: "No Tunnel Service Tunnels",
+          desc: "Lacks any built-in configuration, agent provisioning, or guided pairing for playit.gg or other public tunnels.",
+          file: "app/classes/",
+          code: "No playit.gg client or service logic in the codebase."
+        },
+        {
+          title: "No Cloud Backups",
+          desc: "Backup management (via local Zip compression) does not support automated replication uploaders to OneDrive, Google Drive, or Dropbox.",
+          file: "app/classes/shared/backup_mgr.py",
+          code: "Backups are zipped to local repositories only; no cloud APIs present."
+        }
+      ]
+    }
+  },
+  {
+    tool: "Pterodactyl / PufferPanel",
+    category: "Web panels",
+    strength: "Powerful Docker/container-based hosting infrastructure",
+    win: "PocketMC is purpose-built to eliminate container/Docker bloat, database/web-server overhead, and Linux/reverse-proxy setup complexity for individuals, families, or small groups. It runs servers locally with maximum resources and zero terminal configuration, while still offering the same Remote Control Web Panel capabilities.",
     isFeatured: false,
   },
   {
     tool: "fork.gg",
-    category: "Windows GUI",
-    strength: "Simple Minecraft server wrapper",
-    win: "PocketMC is much more complete: modern server families, BDS, PocketMine-MP, Geyser/Floodgate, backups, metrics, marketplace support, Playit.gg, and active open-source positioning.",
+    category: "Windows GUI (C# WPF)",
+    strength: "Legacy C# WPF wrapper for basic Java servers",
+    win: "PocketMC is actively maintained, supporting modern server families (including NeoForge, native Bedrock BDS, and PocketMine-MP), Geyser/Floodgate crossplay, integrated Playit.gg tunnels out-of-the-box, and robust RCON-secured backups. Fork is abandoned and lacks Bedrock support, NeoForge support, runtimes management, or tunnel integrations.",
     isFeatured: false,
+    proof: {
+      tool: "fork.gg",
+      title: "Technical Audit: fork.gg (Fork-Legacy)",
+      points: [
+        {
+          title: "Legacy/Abandoned Codebase",
+          desc: "The repository (Fork-legacy) is inactive and targets legacy frameworks with no active support or updates.",
+          file: "Fork.csproj",
+          code: "Targets outdated libraries, marked as legacy."
+        },
+        {
+          title: "No Bedrock or BDS Support",
+          desc: "Lacks Bedrock Dedicated Server or PocketMine-MP integrations. The codebase is restricted to Java server versions only.",
+          file: "logic/model/ServerVersion.cs",
+          code: "VersionType limited to: Vanilla, Paper, Spigot, Waterfall, BungeeCord, Snapshot, Purpur, Fabric"
+        },
+        {
+          title: "No NeoForge Support",
+          desc: "Does not support modern server runtimes like NeoForge.",
+          file: "logic/model/ServerVersion.cs",
+          code: "NeoForge is missing from VersionType enum and download links."
+        },
+        {
+          title: "No Automated Tunnels",
+          desc: "Does not offer built-in network sharing or automated tunnel client processes (like playit.gg).",
+          file: "logic/manager/",
+          code: "Zero references to tunnel clients or port mappings."
+        }
+      ]
+    }
   },
   {
     tool: "Apex Hosting",
@@ -647,6 +762,7 @@ function App() {
     0: true,
   });
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [proofModalData, setProofModalData] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleFaq = (index: number) => {
@@ -2005,7 +2121,30 @@ function App() {
                               {row.tool}
                             </div>
                           ) : (
-                            row.tool
+                            <div className="flex items-center gap-1.5">
+                              <span>{row.tool}</span>
+                              {row.proof && (
+                                <button
+                                  onClick={() => setProofModalData(row.proof)}
+                                  className="inline-flex items-center justify-center p-0.5 rounded-full hover:bg-base-muted text-main-muted hover:text-accent transition-all cursor-pointer group"
+                                  title="View Technical Audit Proof"
+                                >
+                                  <svg
+                                    className="w-3.5 h-3.5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2.5}
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                  </svg>
+                                </button>
+                              )}
+                            </div>
                           )}
                         </TableCell>
                         <TableCell className="py-4">
@@ -2628,6 +2767,86 @@ function App() {
                 <p className="text-sm text-neutral-300 mt-1">
                   {activeTabDetails.title}
                 </p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Technical Proof Modal */}
+        <AnimatePresence>
+          {proofModalData !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setProofModalData(null)}
+              className="fixed inset-0 z-55 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 cursor-zoom-out"
+            >
+              <motion.div
+                initial={{ scale: 0.95, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking modal content
+                className="w-full max-w-xl bg-base-card/85 backdrop-blur-xl border border-divider rounded-2xl shadow-2xl p-6 md:p-8 cursor-default max-h-[85vh] overflow-y-auto"
+              >
+                {/* Modal Header */}
+                <div className="flex items-center justify-between border-b border-divider pb-4 mb-6">
+                  <div>
+                    <h3 className="text-lg md:text-xl font-extrabold text-main font-mono tracking-tight flex items-center gap-2">
+                      <span className="inline-flex items-center justify-center bg-accent/10 text-accent text-sm w-6 h-6 rounded-full font-sans font-bold">i</span>
+                      {proofModalData.title}
+                    </h3>
+                    <p className="text-[11px] font-mono text-main-muted mt-1">
+                      Verified Technical Audit of Competitor Codebase
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setProofModalData(null)}
+                    className="text-main-muted hover:text-main transition-colors bg-base-muted/30 hover:bg-base-muted/60 p-1.5 rounded-full cursor-pointer"
+                    aria-label="Close modal"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Audit Points */}
+                <div className="space-y-6">
+                  {proofModalData.points.map((pt: any, i: number) => (
+                    <div key={i} className="flex flex-col gap-1.5 border-l-2 border-accent/30 pl-4 py-0.5">
+                      <h4 className="text-sm font-bold text-main">
+                        {pt.title}
+                      </h4>
+                      <p className="text-xs text-main-muted leading-relaxed">
+                        {pt.desc}
+                      </p>
+                      <div className="flex flex-wrap items-center gap-2 mt-1 font-mono text-[10px]">
+                        {pt.file && (
+                          <span className="bg-base-muted/40 border border-divider px-1.5 py-0.5 rounded text-main-muted">
+                            📁 {pt.file}
+                          </span>
+                        )}
+                        {pt.code && (
+                          <span className="bg-accent/5 border border-accent/15 px-1.5 py-0.5 rounded text-accent max-w-full truncate">
+                            💻 {pt.code}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Modal Footer */}
+                <div className="mt-8 pt-4 border-t border-divider flex justify-end">
+                  <button
+                    onClick={() => setProofModalData(null)}
+                    className="font-mono text-xs font-bold border border-divider bg-base-muted/40 hover:bg-base hover:text-accent hover:border-accent/40 shadow-sm transition-all focus:outline-none cursor-pointer px-4 py-2 rounded-lg text-main"
+                  >
+                    Acknowledged
+                  </button>
+                </div>
               </motion.div>
             </motion.div>
           )}
