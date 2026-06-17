@@ -1064,7 +1064,7 @@ function App() {
               <h1 className="max-w-5xl text-[clamp(1.75rem,5vw,6.4rem)] font-black leading-[0.9] tracking-[-0.06em] text-main">
                 Manage Minecraft Servers.
                 <br />
-                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-accent dark:from-violet-400 dark:via-fuchsia-400 dark:to-cyan-400 bg-clip-text text-transparent font-playfair italic font-medium tracking-normal pr-2">
+                <span className="text-main italic pr-2">
                   Without any Mess.
                 </span>
               </h1>
