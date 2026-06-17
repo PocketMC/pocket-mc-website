@@ -1,15 +1,22 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { TouchEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import ClickSpark from "./components/ClickSpark";
-import StarBorder from "./components/StarBorder";
 import Dock from "./components/Dock";
-import BorderGlow from "./components/BorderGlow";
 import { Skeleton } from "./components/ui/skeleton";
 
-// Heavy WebGL/canvas components — lazy-loaded to avoid blocking first paint
-const PixelSnow = lazy(() => import("./components/PixelSnow"));
-const ElectricBorder = lazy(() => import("./components/ElectricBorder"));
+interface ProofPoint {
+  title: string;
+  desc: string;
+  file?: string;
+  code?: string;
+}
+
+interface ProofModalData {
+  tool: string;
+  title: string;
+  points: ProofPoint[];
+}
+
 import {
   Table,
   TableHeader,
@@ -498,184 +505,7 @@ const faqData = [
   },
 ];
 
-// ----------------------------------------------------
-// Scroll-Driven Frame Animation Background
-// ----------------------------------------------------
-function ScrollAnimationBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [scrollOpacity, setScrollOpacity] = useState(1);
-  const [mountOpacity, setMountOpacity] = useState(0);
-  const frameCount = 82;
-  const currentFrameRef = useRef(0);
-
-  // Preload images
-  useEffect(() => {
-    const loadImages = async () => {
-      // Skip loading the heavy 82-frame background animation on mobile devices to prevent RAM/CPU lag
-      if (typeof window !== "undefined" && window.innerWidth < 768) {
-        setIsLoaded(true);
-        return;
-      }
-
-      const loadedImages: HTMLImageElement[] = [];
-      const promises = [];
-      const baseUrl = import.meta.env.BASE_URL || "/";
-
-      for (let i = 0; i < frameCount; i++) {
-        const img = new Image();
-        const frameIndex = i.toString().padStart(3, "0");
-        const separator = baseUrl.endsWith("/") ? "" : "/";
-        img.src = `${baseUrl}${separator}bg_animation/${frameIndex}.webp`;
-
-        const promise = new Promise((resolve) => {
-          img.onload = () => resolve(img);
-          img.onerror = () => resolve(null);
-        });
-        promises.push(promise);
-        loadedImages[i] = img;
-      }
-
-      await Promise.all(promises);
-      const successfulLoads = loadedImages.filter(
-        (img) => img && img.complete && img.naturalWidth > 0,
-      ).length;
-
-      if (successfulLoads > 0) {
-        setImages(loadedImages);
-        setIsLoaded(true);
-      }
-    };
-
-    loadImages();
-  }, []);
-
-  const drawFrame = (index: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas || images.length === 0) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const img = images[index];
-    if (!img || !img.complete) return;
-
-    // Canvas cover logic
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-    const imgWidth = img.width;
-    const imgHeight = img.height;
-
-    const canvasRatio = canvasWidth / canvasHeight;
-    const imgRatio = imgWidth / imgHeight;
-
-    let drawWidth, drawHeight, drawX, drawY;
-
-    if (canvasRatio > imgRatio) {
-      drawWidth = canvasWidth;
-      drawHeight = canvasWidth / imgRatio;
-      drawX = 0;
-      drawY = (canvasHeight - drawHeight) / 2;
-    } else {
-      drawWidth = canvasHeight * imgRatio;
-      drawHeight = canvasHeight;
-      drawX = (canvasWidth - drawWidth) / 2;
-      drawY = 0;
-    }
-
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-  };
-
-  // Handle Resize
-  useEffect(() => {
-    const handleResize = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      drawFrame(currentFrameRef.current);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Initial call
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isLoaded, images]);
-
-  // Handle Scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      if (maxScroll <= 0) return;
-
-      const progress = Math.max(0, Math.min(1, scrollY / maxScroll));
-      const frameIndex = Math.min(
-        frameCount - 1,
-        Math.floor(progress * frameCount),
-      );
-
-      // Hero Isolation: stay at 0% opacity during the hero section
-      const viewportHeight = window.innerHeight;
-      const heroFadeStart = viewportHeight * 0.3; // Start fading in after 30% scroll
-      const heroFadeEnd = viewportHeight * 0.9; // Fully visible by the end of hero
-      let heroMultiplier = 1;
-
-      if (scrollY < heroFadeStart) {
-        heroMultiplier = 0;
-      } else if (scrollY < heroFadeEnd) {
-        heroMultiplier =
-          (scrollY - heroFadeStart) / (heroFadeEnd - heroFadeStart);
-      }
-
-      // Bottom Fade: fade out at the very end of the page
-      const fadeStart = 0.85;
-      let bottomMultiplier = 1;
-      if (progress > fadeStart) {
-        bottomMultiplier = 1 - (progress - fadeStart) / (1 - fadeStart);
-      }
-
-      setScrollOpacity(heroMultiplier * bottomMultiplier);
-
-      if (frameIndex !== currentFrameRef.current) {
-        currentFrameRef.current = frameIndex;
-        requestAnimationFrame(() => drawFrame(frameIndex));
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial call
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoaded, images]);
-
-  // Initial Draw and Mount Fade
-  useEffect(() => {
-    if (isLoaded) {
-      drawFrame(0);
-      setTimeout(() => setMountOpacity(1), 100);
-    }
-  }, [isLoaded]);
-
-  return (
-    <div
-      className="fixed inset-0 -z-30 overflow-hidden pointer-events-none"
-      style={{
-        opacity: isLoaded ? scrollOpacity * mountOpacity * 0.15 : 0,
-        transition: "opacity 1500ms ease-in-out",
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        className="block w-full h-full object-cover pointer-events-none"
-      />
-      {/* Dynamic theme-aware overlays */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-base/80 via-base/30 to-base/95 theme-transition" />
-    </div>
-  );
-}
+// Scroll-driven animation background removed for minimalist layout
 
 // ----------------------------------------------------
 // Spotlight Card Component (from ReactBits)
@@ -762,7 +592,7 @@ function App() {
     0: true,
   });
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const [proofModalData, setProofModalData] = useState<any | null>(null);
+  const [proofModalData, setProofModalData] = useState<ProofModalData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleFaq = (index: number) => {
@@ -994,16 +824,7 @@ function App() {
 
   return (
     <main className="min-h-screen text-main theme-transition relative overflow-x-clip bg-grid z-0">
-      <ScrollAnimationBackground />
-      <ClickSpark
-        sparkColor={theme === "dark" ? "#a78bfa" : "#4f46e5"}
-        sparkSize={18}
-        sparkRadius={95}
-        sparkCount={8}
-        duration={1300}
-        easing="ease-out"
-        extraScale={1.6}
-      >
+
         {/* Decorative Glowing Ambient Orbs */}
         <div className="absolute top-[-100px] left-[-150px] w-[500px] h-[500px] rounded-full glow-orb opacity-70 pointer-events-none"></div>
         <div className="absolute top-[35%] right-[-200px] w-[600px] h-[600px] rounded-full glow-orb opacity-40 pointer-events-none"></div>
@@ -1029,24 +850,7 @@ function App() {
             <div className="absolute inset-0 bg-gradient-to-b from-base via-transparent to-base opacity-90 theme-transition" />
             <div className="absolute inset-0 bg-gradient-to-tr from-base/50 via-transparent to-base/80 opacity-70 theme-transition" />
 
-            {/* Retro Pixelated Snow Backdrop overlay */}
-            <div
-              className={`absolute inset-0 z-0 pointer-events-none ${theme === "dark" ? "opacity-20" : "opacity-[0.05]"}`}
-            >
-              <Suspense fallback={null}>
-                <PixelSnow
-                  color={theme === "dark" ? "#a78bfa" : "#4f46e5"}
-                  flakeSize={0.008}
-                  minFlakeSize={1.1}
-                  pixelResolution={160}
-                  speed={0.6}
-                  density={0.2}
-                  direction={135}
-                  variant="snowflake"
-                  brightness={1.0}
-                />
-              </Suspense>
-            </div>
+
           </div>
 
           {/* Hero Section */}
@@ -1077,16 +881,12 @@ function App() {
               </p>
 
               <div className="mt-8 sm:mt-10 flex flex-wrap gap-2 sm:gap-4 items-center">
-                <StarBorder
-                  as="a"
+                <a
                   href="https://github.com/PocketMC/pocket-mc-windows/releases/latest"
-                  color={theme === "dark" ? "#a78bfa" : "#4f46e5"}
-                  speed="5s"
-                  thickness={1.5}
-                  className="inline-block transition-transform hover:scale-[1.02] active:scale-[0.98] rounded-[20px] text-sm sm:text-base"
+                  className="inline-flex h-10 sm:h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-4 sm:px-8 text-xs sm:text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md transition-transform"
                 >
-                  Download Setup.exe
-                </StarBorder>
+                  Download for Windows
+                </a>
 
                 <a
                   href="https://github.com/PocketMC/pocket-mc-windows"
@@ -1650,49 +1450,41 @@ function App() {
                   </div>
 
                   {/* Screenshot Details Info Card */}
-                  <Suspense fallback={null}>
-                    <ElectricBorder
-                      color={theme === "dark" ? "#a78bfa" : "#4f46e5"}
-                      speed={0.7}
-                      chaos={0.05}
-                      borderRadius={12}
-                      className="w-full"
-                    >
-                      <div className="border border-divider bg-base-card/65 backdrop-blur-md p-8 rounded-xl shadow-sm">
-                        <h3 className="text-xl font-black text-main flex items-center gap-2">
-                          <span className="h-2 w-2 rounded-full bg-accent"></span>
-                          {activeTabDetails.title}
-                        </h3>
-                        <p className="mt-3 text-sm leading-6 text-main-muted">
-                          {activeTabDetails.description}
-                        </p>
+                  <div className="w-full">
+                    <div className="border border-divider bg-base-card/65 backdrop-blur-md p-8 rounded-xl shadow-sm">
+                      <h3 className="text-xl font-black text-main flex items-center gap-2">
+                        <span className="h-2 w-2 rounded-full bg-accent"></span>
+                        {activeTabDetails.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-6 text-main-muted">
+                        {activeTabDetails.description}
+                      </p>
 
-                        <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                          {activeTabDetails.bullets.map((bullet, i) => (
-                            <div
-                              key={i}
-                              className="flex items-start gap-2.5 text-xs font-mono text-main-muted"
+                      <div className="mt-6 grid sm:grid-cols-2 gap-4">
+                        {activeTabDetails.bullets.map((bullet, i) => (
+                          <div
+                            key={i}
+                            className="flex items-start gap-2.5 text-xs font-mono text-main-muted"
+                          >
+                            <svg
+                              className="w-4 h-4 text-accent mt-0.5 flex-shrink-0"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
                             >
-                              <svg
-                                className="w-4 h-4 text-accent mt-0.5 flex-shrink-0"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={3}
-                                  d="M5 13l4 4L19 7"
-                                />
-                              </svg>
-                              <span>{bullet}</span>
-                            </div>
-                          ))}
-                        </div>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={3}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                            <span>{bullet}</span>
+                          </div>
+                        ))}
                       </div>
-                    </ElectricBorder>
-                  </Suspense>
+                    </div>
+                  </div>
                 </>
               )}
             </div>
@@ -1717,21 +1509,7 @@ function App() {
                 and manifests dynamically, facilitating installation for:
               </p>
 
-              <BorderGlow
-                className="mt-6 shadow-sm cursor-default"
-                edgeSensitivity={30}
-                glowColor={theme === "dark" ? "263 90 70" : "243 75 59"}
-                backgroundColor="var(--base-card)"
-                borderRadius={12}
-                glowRadius={30}
-                glowIntensity={0.8}
-                fillOpacity={0.06}
-                colors={
-                  theme === "dark"
-                    ? ["#a78bfa", "#6366f1", "#ec4899"]
-                    : ["#4f46e5", "#3b82f6", "#db2777"]
-                }
-              >
+              <div className="mt-6 border border-divider bg-base-card rounded-xl shadow-sm cursor-default">
                 <div className="p-5 flex gap-4 items-center">
                   <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
                     🌐
@@ -1747,7 +1525,7 @@ function App() {
                     </p>
                   </div>
                 </div>
-              </BorderGlow>
+              </div>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
@@ -1770,48 +1548,36 @@ function App() {
                     </div>
                   ))
                 : serverSoftwares.map((software) => (
-                    <BorderGlow
-                      key={software.name}
-                      edgeSensitivity={30}
-                      glowColor={theme === "dark" ? "263 90 70" : "243 75 59"}
-                      backgroundColor="var(--base-card)"
-                      borderRadius={12}
-                      glowRadius={30}
-                      glowIntensity={0.8}
-                      fillOpacity={0.06}
-                      colors={
-                        theme === "dark"
-                          ? ["#a78bfa", "#6366f1", "#ec4899"]
-                          : ["#4f46e5", "#3b82f6", "#db2777"]
-                      }
-                      className="shadow-sm select-none group cursor-pointer"
-                    >
-                      <div className="p-5 flex gap-4 items-start">
-                        <div className="w-12 h-12 flex-shrink-0 bg-base-muted p-2 rounded-lg border border-divider flex items-center justify-center overflow-hidden">
-                          <img
-                            src={getAssetUrl(software.icon)}
-                            alt={software.name}
-                            className="w-full h-full object-contain filter group-hover:scale-105 transition-transform"
-                            width="48"
-                            height="48"
-                            loading="lazy"
-                          />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-sm text-main">
-                              {software.name}
-                            </h3>
-                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-divider bg-base-muted text-main-muted font-semibold leading-none">
-                              {software.tag}
-                            </span>
+                      <div
+                        key={software.name}
+                        className="border border-divider bg-base-card rounded-xl shadow-sm select-none group cursor-pointer"
+                      >
+                        <div className="p-5 flex gap-4 items-start">
+                          <div className="w-12 h-12 flex-shrink-0 bg-base-muted p-2 rounded-lg border border-divider flex items-center justify-center overflow-hidden">
+                            <img
+                              src={getAssetUrl(software.icon)}
+                              alt={software.name}
+                              className="w-full h-full object-contain filter group-hover:scale-105 transition-transform"
+                              width="48"
+                              height="48"
+                              loading="lazy"
+                            />
                           </div>
-                          <p className="mt-1.5 text-xs text-main-muted leading-5">
-                            {software.description}
-                          </p>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="font-bold text-sm text-main">
+                                {software.name}
+                              </h3>
+                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-divider bg-base-muted text-main-muted font-semibold leading-none">
+                                {software.tag}
+                              </span>
+                            </div>
+                            <p className="mt-1.5 text-xs text-main-muted leading-5">
+                              {software.description}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </BorderGlow>
                   ))}
             </div>
           </div>
@@ -2506,7 +2272,7 @@ function App() {
             <div className="mt-10 flex flex-wrap gap-4 justify-center items-center">
               <a
                 href="https://github.com/PocketMC/pocket-mc-windows/releases/latest"
-                className="inline-flex h-12 items-center justify-center bg-gradient-to-r from-indigo-600 to-accent dark:from-violet-500 dark:to-indigo-500 px-8 text-sm font-bold text-white transition-all hover:scale-[1.02] shadow-lg shadow-indigo-600/20 dark:shadow-violet-500/25 active:scale-[0.98] rounded-md font-mono"
+                className="inline-flex h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-8 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md transition-transform"
               >
                 Download for Windows
               </a>
@@ -2814,7 +2580,7 @@ function App() {
 
                 {/* Audit Points */}
                 <div className="space-y-6">
-                  {proofModalData.points.map((pt: any, i: number) => (
+                  {proofModalData.points.map((pt: ProofPoint, i: number) => (
                     <div key={i} className="flex flex-col gap-1.5 border-l-2 border-accent/30 pl-4 py-0.5">
                       <h4 className="text-sm font-bold text-main">
                         {pt.title}
@@ -2884,7 +2650,6 @@ function App() {
             <span className="hidden sm:inline">Buy me a coffee</span>
           </a>
         </div>
-      </ClickSpark>
     </main>
   );
 }
