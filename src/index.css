@@ -3,17 +3,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --base: #f7f5ef;
+  --base: #f4f4f5;
   --base-card: #ffffff;
-  --base-muted: #efede5;
-  --main: #11140f;
-  --main-muted: #50574e;
-  --divider: rgba(17, 20, 15, 0.12);
-  --accent: #4f46e5;
-  --accent-hover: #4338ca;
+  --base-muted: #e4e4e7;
+  --main: #09090b;
+  --main-muted: #52525b;
+  --divider: rgba(9, 9, 11, 0.08);
+  --accent: #27272a;
+  --accent-hover: #18181b;
   --accent-text: #ffffff;
-  --glow: rgba(99, 102, 241, 0.06);
-  --success: #6366f1;
+  --glow: rgba(9, 9, 11, 0.02);
+  --success: #27272a;
 
   /* Explicitly define Tailwind v4 theme variables to avoid cascade layer inheritance issues */
   --color-base: var(--base);
@@ -37,16 +37,16 @@
 
 .dark {
   --base: #09090b;
-  --base-card: #121217;
-  --base-muted: #181820;
+  --base-card: #18181b;
+  --base-muted: #27272a;
   --main: #f4f4f5;
-  --main-muted: #a1a1aa;
-  --divider: rgba(244, 244, 245, 0.1);
-  --accent: #a78bfa;
-  --accent-hover: #c4b5fd;
-  --accent-text: #1e1b4b;
-  --glow: rgba(139, 92, 246, 0.12);
-  --success: #c4b5fd;
+  --main-muted: #d4d4d8;
+  --divider: rgba(244, 244, 245, 0.08);
+  --accent: #e4e4e7;
+  --accent-hover: #ffffff;
+  --accent-text: #09090b;
+  --glow: rgba(244, 244, 245, 0.02);
+  --success: #e4e4e7;
 
   /* Explicitly redefine Tailwind v4 theme variables for dark mode to force browser re-evaluation */
   --color-base: var(--base);
@@ -74,7 +74,6 @@
   --color-accent-text: var(--accent-text);
   --color-glow: var(--glow);
   --color-success: var(--success);
-  --font-playfair: "Playfair Display", Georgia, serif;
 }
 
 * {
