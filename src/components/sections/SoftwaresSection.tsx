@@ -169,7 +169,7 @@ export default function SoftwaresSection({ isLoading, theme }: SoftwaresSectionP
                       }}
                       className={`relative rounded-xl overflow-hidden border transition-all duration-300 ${
                         isOpen
-                          ? "border-accent/40 shadow-[0_0_24px_-4px_var(--color-accent,#7c3aed)]/30"
+                          ? "border-main shadow-md"
                           : "border-divider shadow-sm"
                       } bg-base-card/60 backdrop-blur`}
                     >
@@ -350,7 +350,7 @@ export default function SoftwaresSection({ isLoading, theme }: SoftwaresSectionP
                                         type: "spring",
                                         stiffness: 300,
                                       }}
-                                      className="h-1.5 w-1.5 rounded-full bg-accent mt-2 flex-shrink-0 shadow-[0_0_6px_1px_rgba(124,58,237,0.5)]"
+                                      className="h-1.5 w-1.5 rounded-full bg-main mt-2 flex-shrink-0"
                                     />
                                     <span className="text-main-muted group-hover/item:text-main transition-colors duration-150">
                                       {item}
