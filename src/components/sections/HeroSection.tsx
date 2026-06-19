@@ -102,9 +102,9 @@ export default function HeroSection() {
             {/* App Screen Dashboard Mockup */}
             <div className="relative border border-divider rounded-lg sm:rounded-xl overflow-hidden shadow-lg sm:shadow-2xl bg-base-card glow-shadow-accent transition-transform duration-500 group-hover:translate-y-[-4px]">
               <div className="h-6 sm:h-7 border-b border-divider bg-base-muted/40 px-3 flex items-center gap-1.5 select-none">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500/20 dark:bg-red-500/40 flex-shrink-0"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/20 dark:bg-yellow-500/40 flex-shrink-0"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500/20 dark:bg-green-500/40 flex-shrink-0"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-divider dark:bg-divider flex-shrink-0"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-divider dark:bg-divider flex-shrink-0"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-divider dark:bg-divider flex-shrink-0"></span>
                 <span className="text-[9px] sm:text-[10px] font-mono text-main-muted ml-2 truncate">
                   Server Creation in 50s via PocketMC
                 </span>
@@ -172,7 +172,7 @@ export default function HeroSection() {
 
       {/* Iconic Minecraft Feature Pillars */}
       <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="max-w-3xl mb-12 sm:mb-16">
           <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest bg-base-muted px-3 py-1 rounded inline-block">
             THE CORE MECHANICS
           </span>
@@ -196,34 +196,31 @@ export default function HeroSection() {
               image: "/block_grass.webp",
               desc: "Deploy Vanilla, Paper, Fabric, Forge, BDS, or PocketMine server instances directly from an elegant client. EULA prompts, server versions, and runtime downloads are fully managed under one local path.",
               badge: "LIFECYCLE",
-              color: "border-green-500/20 hover:border-green-500/40",
             },
             {
               title: "Scheduled World Backups",
               image: "/block_cobble.webp",
               desc: "Protect your worlds. Enjoy automated cron schedules or manual backup triggers that use active RCON locks. Includes zip security validations, zip cleanups, and external directory replication.",
               badge: "RECOVERY",
-              color: "border-zinc-500/20 hover:border-zinc-500/40",
             },
             {
               title: "Zero-Config Runtimes & Tunnels",
               image: "/block_diamond.webp",
               desc: "PocketMC provisions local Adoptium Java 8-25 versions and PM5 PHP binaries on demand. Zero global environment clashes. Share with friends instantly using built-in Playit.gg agent setups.",
               badge: "CONNECTIVITY",
-              color: "border-cyan-500/20 hover:border-cyan-500/40",
             },
           ].map((block, idx) => {
             const blockSpotlights = [
-              "rgba(34, 197, 94, 0.15)",
-              "rgba(163, 163, 163, 0.15)",
-              "rgba(6, 182, 212, 0.15)",
+              "rgba(255, 255, 255, 0.05)",
+              "rgba(255, 255, 255, 0.05)",
+              "rgba(255, 255, 255, 0.05)",
             ];
 
             return (
               <SpotlightCard
                 key={block.title}
                 spotlightColor={blockSpotlights[idx]}
-                className={`border border-divider bg-base-card/40 backdrop-blur-sm p-6 sm:p-8 rounded-lg sm:rounded-xl shadow-sm transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg flex flex-col group ${block.color}`}
+                className={`border border-divider hover:border-main/50 bg-base-card/40 backdrop-blur-sm p-6 sm:p-8 rounded-lg sm:rounded-xl shadow-sm transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg flex flex-col group`}
               >
                 <div className="flex justify-between items-start mb-4 sm:mb-6">
                   <span className="font-mono text-[9px] sm:text-[10px] font-bold text-accent tracking-widest border border-divider px-2 py-1 rounded bg-base-muted/30 whitespace-nowrap">
