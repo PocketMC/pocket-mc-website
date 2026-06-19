@@ -203,20 +203,7 @@ a {
   animation: float-slower 8s ease-in-out infinite;
 }
 
-/* Glow Shadows */
-.glow-shadow-accent {
-  box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.15);
-}
-.dark .glow-shadow-accent {
-  box-shadow: 0 15px 40px -12px rgba(167, 139, 250, 0.25);
-}
 
-.glow-shadow-success {
-  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
-}
-.dark .glow-shadow-success {
-  box-shadow: 0 15px 40px -12px rgba(196, 181, 253, 0.25);
-}
 
 /* Premium Scrollbar */
 ::-webkit-scrollbar {
