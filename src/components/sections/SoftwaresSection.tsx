@@ -7,10 +7,9 @@ import { getAssetUrl } from "../../utils/getAssetUrl";
 
 interface SoftwaresSectionProps {
   isLoading: boolean;
-  theme: "light" | "dark";
 }
 
-export default function SoftwaresSection({ isLoading, theme }: SoftwaresSectionProps) {
+export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
   const [openAccordions, setOpenAccordions] = useState<Record<number, boolean>>({
     0: true, // Open the first accordion by default
   });
@@ -190,21 +189,18 @@ export default function SoftwaresSection({ isLoading, theme }: SoftwaresSectionP
                         className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
                       >
                         <div className="flex gap-4 items-center">
-                          {/* Animated icon container */}
                           <motion.div
                             animate={{
                               backgroundColor: isOpen
-                                ? "rgba(124,58,237,0.18)"
-                                : "rgba(124,58,237,0.08)",
+                                ? "var(--color-divider)"
+                                : "transparent",
                               borderColor: isOpen
-                                ? "rgba(124,58,237,0.45)"
-                                : "rgba(124,58,237,0.18)",
-                              boxShadow: isOpen
-                                ? "0 0 14px -2px rgba(124,58,237,0.45)"
-                                : "none",
+                                ? "var(--color-main-muted)"
+                                : "var(--color-divider)",
+                              boxShadow: "none",
                             }}
                             transition={{ duration: 0.3 }}
-                            className="w-10 h-10 flex-shrink-0 border rounded-lg flex items-center justify-center text-accent"
+                            className="w-10 h-10 flex-shrink-0 border rounded-lg flex items-center justify-center text-main"
                           >
                             <motion.div
                               animate={{
@@ -283,11 +279,9 @@ export default function SoftwaresSection({ isLoading, theme }: SoftwaresSectionP
                           animate={{
                             rotate: isOpen ? 180 : 0,
                             backgroundColor: isOpen
-                              ? "var(--color-accent, #7c3aed)"
+                              ? "var(--color-accent)"
                               : "transparent",
-                            boxShadow: isOpen
-                              ? "0 0 12px -2px rgba(124,58,237,0.6)"
-                              : "none",
+                            boxShadow: "none",
                           }}
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="w-8 h-8 rounded-full border border-divider flex items-center justify-center text-sm font-bold flex-shrink-0"
@@ -296,10 +290,8 @@ export default function SoftwaresSection({ isLoading, theme }: SoftwaresSectionP
                             className="w-4 h-4"
                             style={{
                               color: isOpen
-                                ? theme === "dark"
-                                  ? "#000000"
-                                  : "#ffffff"
-                                : "var(--main-muted, #888)",
+                                ? "var(--color-accent-text)"
+                                : "var(--color-main-muted)",
                             }}
                             viewBox="0 0 24 24"
                             fill="none"

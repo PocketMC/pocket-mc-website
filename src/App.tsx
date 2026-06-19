@@ -65,7 +65,7 @@ function App() {
           onOpenLightbox={(data) => setLightboxData(data)}
         />
 
-        <SoftwaresSection isLoading={isLoading} theme={theme} />
+        <SoftwaresSection isLoading={isLoading} />
 
         <ComparisonSection
           isLoading={isLoading}

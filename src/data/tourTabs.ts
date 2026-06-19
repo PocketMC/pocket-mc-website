@@ -1,0 +1,125 @@
+export const tourTabs = [
+  {
+    id: "dashboard",
+    label: "Live Dashboard",
+    title: "Instant Server Lifecycle & Live Monitoring",
+    image: "/screenshots/dashboard.webp",
+    alt: "PocketMC Dashboard showing running instances and metrics",
+    description:
+      "The control center. Track CPU/RAM resource graphs, accepted EULAs, active player counts, and control server state gracefully. Features dynamic badges that scan mod folders to verify Geyser cross-play and voice chat integrations. Now includes full Remote Control Web Dashboard capabilities via Playit HTTPS tunnels.",
+    bullets: [
+      "Secure Remote Control Dashboard with mobile QR code pairing",
+      "Dynamic status badges: Simple Voice Chat, Geyser + Floodgate indicators",
+      "One-click start, stop, restart, or process termination",
+      "Per-instance preflight port checks to eliminate local port conflicts",
+    ],
+  },
+  {
+    id: "console",
+    label: "Smart Console",
+    title: "Sanitized Console & Player Tracking",
+    image: "/screenshots/console.webp",
+    alt: "PocketMC Console panel with log formatting",
+    description:
+      "Ditch raw terminal chaos. Read formatted, colorized, and classified logs in real-time. Execute server commands with ease and trace player activity directly.",
+    bullets: [
+      "Automatically logs session console output to local session files",
+      "Sanitizes personal details (IP addresses, emails) automatically",
+      "Parses Java, Bedrock, and PocketMine formats for unified player lists",
+      "Fast filtering, search-oriented log handling, and buffer history",
+    ],
+  },
+  {
+    id: "tunnels",
+    label: "Public Access",
+    title: "Playit.gg Tunnels & Network Mapping",
+    images: ["/screenshots/tunnels.webp", "/screenshots/ports-map.webp"],
+    alt: "PocketMC Playit.gg tunnels and interactive ports map",
+    description:
+      "Invite friends to play instantly. No router configuring, no port forwarding. Link your Playit.gg account to auto-discover and map local Java/Bedrock ports to public tunnel addresses, visualized via the interactive Ports Map.",
+    bullets: [
+      "Guided 4-step Playit account link and agent provisioning wizard",
+      "Real-time visual map of local bindings and public Playit endpoints",
+      "Graceful handling for offline agents, invalid tokens, and account limits",
+      "One-click copy for public IP and Port connections",
+    ],
+  },
+  {
+    id: "plugins",
+    label: "Mods & Plugins",
+    title: "Curated Content Marketplaces",
+    images: ["/screenshots/screenshot-plugins.webp", "/screenshots/mod-marketplace.webp"],
+    alt: "PocketMC Modrinth plugin and mod installer browsers",
+    description:
+      "Install server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle dependency resolution safely.",
+    bullets: [
+      "Native Modrinth browser — mods, plugins, and modpacks",
+      "CurseForge browser via API key and Poggit integration for PocketMine",
+      "Java metadata scanning: Fabric, Quilt, Forge, NeoForge, Paper metadata",
+      "Bedrock pack (.mcpack, .mcaddon, .zip) ingestion and validation",
+    ],
+  },
+  {
+    id: "backups",
+    label: "Automated Backups",
+    title: "Safe World Archives, Cloud Backup & Restore",
+    image: "/screenshots/backups.webp",
+    alt: "PocketMC Backups scheduler view",
+    description:
+      "Protect your worlds. Live-server backups attempt RCON save sync first, then fall back to console save commands. Unsafe files like session.lock are automatically skipped.",
+    bullets: [
+      "Manual and scheduled Cron-based backup policies with SHA-256 integrity checks",
+      "Live-server sync: RCON save sync first, falls back to console commands",
+      "Native cloud backup to Google Drive, Dropbox & OneDrive with one-click restore",
+      "Retention pruning and optional local folder replication",
+    ],
+  },
+  {
+    id: "runtimes",
+    label: "Java Provisioning",
+    title: "App-Local Runtimes Manager",
+    image: "/screenshots/runtimes.webp",
+    alt: "PocketMC Java Adoptium manager",
+    description:
+      "Stop dealing with global Java environment variables. PocketMC downloads Adoptium JRE binaries locally to isolate your server dependencies from the rest of your Windows PC.",
+    bullets: [
+      "Adoptium Java binaries managed locally: Java 8, 11, 17, 21, and 25",
+      "Saves disk space: background downloads Java 25, prompts older versions on-demand",
+      "Auto-selection based on Minecraft server jar compatibility requirements",
+      "Official managed PHP PM5 runtime for Bedrock PocketMine-MP instances",
+    ],
+  },
+  {
+    id: "remote",
+    label: "Remote Control Page",
+    title: "Manage Servers from Any Device",
+    image: "/screenshots/remote-control.webp",
+    alt: "PocketMC Remote Control Dashboard configuration",
+    description:
+      "Access and manage your local servers from anywhere. The Remote Control server hosts a secure web dashboard accessible over your local network or securely via Playit.gg.",
+    bullets: [
+      "Secure QR code pairing and host port configuration",
+      "Live console streaming and command execution remotely",
+      "Securely exposed via Playit.gg HTTPS tunnels or Cloudflare",
+    ],
+  },
+  {
+    id: "mobile",
+    label: "Remote UI",
+    title: "Responsive Mobile Web Dashboard",
+    images: [
+      "/screenshots/mobile-instances.webp",
+      "/screenshots/mobile-home.webp",
+      "/screenshots/mobile-console.webp",
+      "/screenshots/mobile-players.webp"
+    ],
+    alt: "PocketMC Mobile Web Dashboard interfaces",
+    description:
+      "View live CPU/RAM metrics, stream colorized console logs, and manage connected players directly from your phone's browser.",
+    bullets: [
+      "Mobile-first responsive design for on-the-go administration",
+      "One-touch server state controls (Start, Stop, Kill)",
+      "Remote moderation: kick, ban, or op users from the mobile web interface",
+    ],
+  },
+];
