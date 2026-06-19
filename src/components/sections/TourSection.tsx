@@ -232,8 +232,8 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
       label: tab.label,
       onClick: () => setActiveTourTab(tab.id),
       className: isActive
-        ? "!border-accent !bg-accent/15 scale-110 shadow-lg"
-        : "",
+        ? "!border-main border-b-2 font-bold !text-main"
+        : "border-b-2 border-transparent",
     };
   });
 
@@ -296,9 +296,9 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
               <div className="border border-divider bg-base-card rounded-lg sm:rounded-xl overflow-hidden shadow-lg sm:shadow-2xl glow-shadow-accent group relative theme-transition">
                 <div className="h-7 border-b border-divider bg-base-muted/40 px-4 flex items-center justify-between select-none">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-3.5 h-3.5 rounded-full bg-red-500/20 dark:bg-red-500/30"></span>
-                    <span className="w-3.5 h-3.5 rounded-full bg-yellow-500/20 dark:bg-yellow-500/30"></span>
-                    <span className="w-3.5 h-3.5 rounded-full bg-green-500/20 dark:bg-green-500/30"></span>
+                    <span className="w-3.5 h-3.5 rounded-full bg-divider dark:bg-divider"></span>
+                    <span className="w-3.5 h-3.5 rounded-full bg-divider dark:bg-divider"></span>
+                    <span className="w-3.5 h-3.5 rounded-full bg-divider dark:bg-divider"></span>
                     <span className="text-[10px] font-mono text-main-muted ml-2">
                       {activeTabDetails.title}
                     </span>
@@ -563,10 +563,10 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                       <button
                         key={tab.id}
                         onClick={() => setActiveTourTab(tab.id)}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono whitespace-nowrap transition-all cursor-pointer ${
                           isActive
-                            ? "bg-accent/15 border-accent text-accent shadow-sm"
-                            : "bg-base-card border-divider text-main-muted active:bg-base-muted/40"
+                            ? "border-b-2 border-main text-main font-bold"
+                            : "border-b-2 border-transparent text-main-muted active:bg-base-muted/40"
                         }`}
                       >
                         {tabIcon}
