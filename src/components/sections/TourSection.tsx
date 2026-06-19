@@ -272,7 +272,7 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                   <Skeleton className="w-3.5 h-3.5 rounded-full" />
                   <Skeleton className="h-3 w-40 rounded ml-2" />
                 </div>
-                <Skeleton className="w-full aspect-video rounded-none" />
+                <Skeleton className="w-full aspect-[16/10] rounded-none" />
               </div>
 
               {/* Details Card Skeleton */}
@@ -307,15 +307,14 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                     WPF View
                   </span>
                 </div>
-
                 <div
-                  className="relative bg-base-muted/10 overflow-hidden"
+                  className="relative bg-base-muted/10 overflow-hidden w-full"
                   onTouchStart={activeTabDetails.images ? undefined : onTouchStart}
                   onTouchMove={activeTabDetails.images ? undefined : onTouchMove}
                   onTouchEnd={activeTabDetails.images ? undefined : onTouchEnd}
                 >
                   {activeTabDetails.images ? (
-                    <div className={`flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 p-4 sm:p-6 md:grid ${
+                    <div className={`w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 p-4 sm:p-6 md:grid ${
                       activeTabDetails.images.length === 4 ? 'md:grid-cols-4' : 
                       activeTabDetails.images.length === 3 ? 'md:grid-cols-3' : 
                       'md:grid-cols-2'
@@ -323,13 +322,13 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                       {activeTabDetails.images.map((img, idx) => (
                         <div 
                           key={idx} 
-                          className="relative group/screen cursor-zoom-in overflow-hidden rounded-md border border-divider/50 shadow-sm flex-shrink-0 w-[85%] sm:w-[65%] md:w-auto snap-center"
+                          className="relative group/screen cursor-zoom-in overflow-hidden rounded-md border border-divider/50 shadow-sm flex-shrink-0 w-[85%] sm:w-[65%] md:w-full snap-center bg-base-muted/5 flex items-center justify-center"
                           onClick={() => openLightboxForTab(activeTourTab, idx)}
                         >
                           <img
                             src={getAssetUrl(img)}
                             alt={`${activeTabDetails.alt} ${idx + 1}`}
-                            className="w-full h-auto max-h-[60vh] object-contain transition-all duration-700 group-hover/screen:brightness-[0.95] select-none"
+                            className="w-full h-auto block transition-all duration-700 group-hover/screen:brightness-[0.95] select-none"
                             loading="lazy"
                           />
                           {/* Zoom Indicator */}
@@ -341,16 +340,14 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                     </div>
                   ) : (
                     <div 
-                      className="relative cursor-zoom-in group/screen"
+                      className="relative cursor-zoom-in group/screen w-full"
                       onClick={() => openLightboxForTab(activeTourTab, 0)}
                     >
                       <img
                         src={getAssetUrl(activeTabDetails.image || "")}
                         alt={activeTabDetails.alt}
-                        className="w-full h-auto max-h-[65vh] object-contain mx-auto block transition-all duration-700 group-hover/screen:brightness-[0.98] select-none"
+                        className="w-full h-auto block transition-all duration-700 group-hover/screen:brightness-[0.98] select-none"
                         key={activeTourTab} // forces element reload for animation
-                        width="1280"
-                        height="800"
                       />
                       {/* Zoom Indicator Badge in Bottom-Right */}
                       <div className="absolute bottom-3 right-3 z-20 opacity-0 group-hover/screen:opacity-100 transition-opacity duration-300 bg-base-card/95 backdrop-blur-sm border border-divider px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-2 pointer-events-none select-none">
