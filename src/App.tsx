@@ -882,7 +882,7 @@ function App() {
 
               <div className="mt-8 sm:mt-10 flex flex-wrap gap-2 sm:gap-4 items-center">
                 <a
-                  href="https://github.com/PocketMC/pocket-mc-windows/releases/latest"
+                  href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe"
                   className="inline-flex h-10 sm:h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-4 sm:px-8 text-xs sm:text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md transition-transform"
                 >
                   Download for Windows
@@ -2271,7 +2271,7 @@ function App() {
 
             <div className="mt-10 flex flex-wrap gap-4 justify-center items-center">
               <a
-                href="https://github.com/PocketMC/pocket-mc-windows/releases/latest"
+                href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe"
                 className="inline-flex h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-8 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md transition-transform"
               >
                 Download for Windows
