@@ -1079,7 +1079,7 @@ function App() {
               <div className="mt-8 sm:mt-10 flex flex-wrap gap-2 sm:gap-4 items-center">
                 <StarBorder
                   as="a"
-                  href="https://github.com/PocketMC/pocket-mc-windows/releases/latest"
+                  href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe"
                   color={theme === "dark" ? "#a78bfa" : "#4f46e5"}
                   speed="5s"
                   thickness={1.5}
@@ -2505,7 +2505,7 @@ function App() {
 
             <div className="mt-10 flex flex-wrap gap-4 justify-center items-center">
               <a
-                href="https://github.com/PocketMC/pocket-mc-windows/releases/latest"
+                href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe"
                 className="inline-flex h-12 items-center justify-center bg-gradient-to-r from-indigo-600 to-accent dark:from-violet-500 dark:to-indigo-500 px-8 text-sm font-bold text-white transition-all hover:scale-[1.02] shadow-lg shadow-indigo-600/20 dark:shadow-violet-500/25 active:scale-[0.98] rounded-md font-mono"
               >
                 Download for Windows
