@@ -2,11 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { faqData } from "../../data/faqData";
 
-interface FaqSectionProps {
-  theme: "light" | "dark";
-}
-
-export default function FaqSection({ theme }: FaqSectionProps) {
+export default function FaqSection() {
   const [openFaqs, setOpenFaqs] = useState<Record<number, boolean>>({
     0: true, // Open the first FAQ by default
   });
@@ -60,27 +56,12 @@ export default function FaqSection({ theme }: FaqSectionProps) {
                 ease: "easeOut",
               }}
               className={`relative rounded-xl overflow-hidden border transition-all duration-300 ${
-                isOpen ? "border-accent/40" : "border-divider"
+                isOpen ? "shadow-md border-main" : "shadow-sm border-divider"
               }`}
               style={{
                 background: "var(--base-card)",
-                boxShadow: isOpen
-                  ? "0 0 24px -4px color-mix(in srgb, var(--accent) 30%, transparent)"
-                  : "0 1px 3px rgba(0,0,0,0.08)",
               }}
             >
-              {/* Animated left accent bar */}
-              <motion.div
-                className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-gradient-to-b from-accent via-purple-400 to-cyan-400"
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={{
-                  scaleY: isOpen ? 1 : 0,
-                  opacity: isOpen ? 1 : 0,
-                }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                style={{ transformOrigin: "top" }}
-              />
-
               <button
                 onClick={() => toggleFaq(idx)}
                 className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
@@ -96,25 +77,14 @@ export default function FaqSection({ theme }: FaqSectionProps) {
                 <motion.div
                   animate={{
                     rotate: isOpen ? 180 : 0,
-                    backgroundColor: isOpen
-                      ? "var(--color-accent, #7c3aed)"
-                      : "transparent",
-                    boxShadow: isOpen
-                      ? "0 0 12px -2px rgba(124,58,237,0.6)"
-                      : "none",
                   }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="w-8 h-8 rounded-full border border-divider flex items-center justify-center text-sm font-bold flex-shrink-0"
+                  className={`w-8 h-8 rounded-full border flex items-center justify-center text-sm font-bold flex-shrink-0 ${
+                    isOpen ? "text-main border-main" : "text-main-muted border-divider"
+                  }`}
                 >
                   <motion.svg
                     className="w-4 h-4"
-                    style={{
-                      color: isOpen
-                        ? theme === "dark"
-                          ? "#000000"
-                          : "#ffffff"
-                        : "var(--main-muted, #888)",
-                    }}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
