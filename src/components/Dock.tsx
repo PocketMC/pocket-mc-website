@@ -52,8 +52,30 @@ function DockItem({
 }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
+  const [cachedX, setCachedX] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleMeasure = () => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        setCachedX(rect.left + rect.width / 2);
+      }
+    };
+
+    // Small delay to let layouts stabilize before measurement
+    const timer = setTimeout(handleMeasure, 100);
+
+    window.addEventListener('resize', handleMeasure);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleMeasure);
+    };
+  }, []);
 
   const mouseDistance = useTransform(mouseX, val => {
+    if (cachedX !== null) {
+      return val - cachedX;
+    }
     const rect = ref.current?.getBoundingClientRect() ?? {
       x: 0,
       width: baseItemSize

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 interface TextModalProps {
   isOpen: boolean;
@@ -14,15 +14,65 @@ export default function TextModal({
   onClose,
   children,
 }: TextModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (e.key === "Tab" && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex="0"]'
+        );
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    if (modalRef.current) {
+      const focusable = modalRef.current.querySelectorAll('button');
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      }
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={modalRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
           className="fixed inset-0 z-55 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 cursor-zoom-out"
+          tabIndex={-1}
         >
           <motion.div
             initial={{ scale: 0.95, y: 15 }}

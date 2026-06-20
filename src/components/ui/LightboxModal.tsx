@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import type { TouchEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import type { LightboxData } from "../../types";
@@ -15,6 +15,63 @@ export default function LightboxModal({
 }: LightboxModalProps) {
   const touchStartRef = useRef<number | null>(null);
   const touchEndRef = useRef<number | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (lightboxData === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "ArrowLeft" && lightboxData.onPrev) {
+        lightboxData.onPrev();
+        return;
+      }
+      if (e.key === "ArrowRight" && lightboxData.onNext) {
+        lightboxData.onNext();
+        return;
+      }
+
+      if (e.key === "Tab" && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex="0"]'
+        );
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    
+    // Focus close button (always index 0/1 depending on prev/next presence)
+    if (modalRef.current) {
+      const focusable = modalRef.current.querySelectorAll('button');
+      if (focusable.length > 0) {
+        // Focus the last button (which is always the Close button)
+        (focusable[focusable.length - 1] as HTMLElement).focus();
+      }
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lightboxData, onClose]);
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     touchEndRef.current = null;
@@ -46,6 +103,7 @@ export default function LightboxModal({
     <AnimatePresence>
       {lightboxData !== null && (
         <motion.div
+          ref={modalRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -54,6 +112,7 @@ export default function LightboxModal({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           className="fixed inset-0 z-55 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
+          tabIndex={-1}
         >
           {/* Prev/Next Navigation Buttons */}
           {lightboxData.onPrev && (

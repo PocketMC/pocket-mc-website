@@ -113,16 +113,9 @@ function App() {
 
   const [lightboxData, setLightboxData] = useState<LightboxData | null>(null);
   const [proofModalData, setProofModalData] = useState<ProofModalData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -138,7 +131,7 @@ function App() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   return (
-    <main className="min-h-screen text-main theme-transition relative overflow-x-clip bg-grid z-0">
+    <div className="min-h-screen text-main theme-transition relative overflow-x-clip bg-grid z-0 bg-base">
 
         {/* Decorative Glowing Ambient Orbs */}
         <div className="absolute top-[-100px] left-[-150px] w-[500px] h-[500px] rounded-full glow-orb opacity-70 pointer-events-none"></div>
@@ -147,23 +140,25 @@ function App() {
 
         <Header theme={theme} toggleTheme={toggleTheme} />
 
-        <HeroSection />
+        <main>
+          <HeroSection />
 
-        <TourSection
-          isLoading={isLoading}
-          onOpenLightbox={(data) => setLightboxData(data)}
-        />
+          <TourSection
+            isLoading={isLoading}
+            onOpenLightbox={(data) => setLightboxData(data)}
+          />
 
-        <SoftwaresSection isLoading={isLoading} />
+          <SoftwaresSection isLoading={isLoading} />
 
-        <ComparisonSection
-          isLoading={isLoading}
-          onOpenProofModal={(data) => setProofModalData(data)}
-        />
+          <ComparisonSection
+            isLoading={isLoading}
+            onOpenProofModal={(data) => setProofModalData(data)}
+          />
 
-        <FaqSection />
+          <FaqSection />
 
-        <CtaSection />
+          <CtaSection />
+        </main>
 
         <Footer
           onOpenTerms={() => setIsTermsOpen(true)}
@@ -202,7 +197,7 @@ function App() {
           <a
             href="https://discord.gg/h27uNCaxPH"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="w-10 h-10 rounded-full flex items-center justify-center bg-[#5865F2] text-white shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 border border-white/10 group cursor-pointer flex-shrink-0"
             title="Join the Discord Community"
           >
@@ -214,7 +209,7 @@ function App() {
           <a
             href="https://www.buymeacoffee.com/sahaj33"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-full bg-[#FFDD00] text-black font-extrabold text-[9px] sm:text-[10px] tracking-wider uppercase shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 border border-black/5 group cursor-pointer whitespace-nowrap flex-shrink-0"
             title="Support the Project on Buy Me a Coffee"
           >
@@ -227,7 +222,7 @@ function App() {
             <span className="hidden sm:inline">Buy me a coffee</span>
           </a>
         </div>
-    </main>
+    </div>
   );
 }
 

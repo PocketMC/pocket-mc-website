@@ -5,7 +5,7 @@ function Skeleton(
 ) {
   return (
     <div
-      className={`animate-pulse rounded-md bg-primary/10 ${className}`}
+      className={`animate-pulse rounded-md bg-base-muted ${className}`}
       {...props}
     />
   )
