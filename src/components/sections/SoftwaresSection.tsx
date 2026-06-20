@@ -174,7 +174,7 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                     >
                       {/* Animated left accent bar */}
                       <motion.div
-                        className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-gradient-to-b from-accent via-purple-400 to-cyan-400"
+                        className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-gradient-to-b from-accent via-[#5ae144] to-[#15580f]"
                         initial={{ scaleY: 0, opacity: 0 }}
                         animate={{
                           scaleY: isOpen ? 1 : 0,
@@ -286,13 +286,10 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="w-8 h-8 rounded-full border border-divider flex items-center justify-center text-sm font-bold flex-shrink-0"
                         >
-                          <motion.svg
-                            className="w-4 h-4"
-                            style={{
-                              color: isOpen
-                                ? "var(--color-accent-text)"
-                                : "var(--color-main-muted)",
-                            }}
+                          <svg
+                            className={`w-4 h-4 transition-colors duration-300 ${
+                              isOpen ? "text-accent-text" : "text-main-muted"
+                            }`}
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -301,7 +298,7 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                             strokeLinejoin="round"
                           >
                             <polyline points="6 9 12 15 18 9" />
-                          </motion.svg>
+                          </svg>
                         </motion.div>
                       </button>
 

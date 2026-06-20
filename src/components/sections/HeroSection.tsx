@@ -20,36 +20,24 @@ export default function HeroSection() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative mx-auto grid max-w-7xl gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 pb-12 sm:pb-20 pt-12 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28 lg:pt-24 items-center">
-        <div className="relative z-10">
-          <div className="mb-4 sm:mb-6 flex flex-wrap gap-2">
-            <span className="inline-flex border border-divider px-2 sm:px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent font-mono bg-base-muted/30 rounded-full whitespace-nowrap">
-              ⚡ WINDOWS DESKTOP APP
-            </span>
-            <span className="inline-flex border border-success/30 px-2 sm:px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success font-mono bg-success/5 rounded-full whitespace-nowrap">
-              .NET 8.0 POWERED
-            </span>
-          </div>
-
-          <h1 className="max-w-5xl text-[clamp(1.75rem,5vw,6.4rem)] font-black leading-[0.9] tracking-[-0.06em] text-main">
-            Manage Minecraft Servers.
-            <br />
-            <span className="text-main italic pr-2">
-              Without any Mess.
-            </span>
+      <section className="relative mx-auto grid max-w-7xl gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 pb-12 sm:pb-20 pt-16 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28 lg:pt-24 items-center">
+        <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <h1 className="max-w-5xl text-[clamp(2.15rem,5.5vw,6.4rem)] font-black leading-[0.95] tracking-[-0.05em] text-main text-balance">
+            Manage Minecraft Servers.{" "}
+            <br className="hidden lg:inline" />
+            <span className="text-accent italic pr-2">Without Any Mess.</span>
           </h1>
 
-          <p className="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg leading-7 sm:leading-8 text-main-muted">
-            PocketMC is a local-first Windows client that downloads Java,
-            spins up isolated Bedrock/Java servers, schedules backups,
-            accepts EULAs, and sets up Playit.gg tunnels — all from one
-            beautiful UI.
+          <p className="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg leading-7 sm:leading-8 text-main-muted mx-auto lg:mx-0 text-balance">
+            PocketMC is a local-first Windows client that downloads Java, spins
+            up isolated Bedrock/Java servers, schedules backups, accepts EULAs,
+            and sets up Playit.gg tunnels — all from one beautiful UI.
           </p>
 
-          <div className="mt-8 sm:mt-10 flex flex-wrap gap-2 sm:gap-4 items-center">
+          <div className="mt-8 sm:mt-10 flex flex-wrap gap-3 sm:gap-4 items-center justify-center lg:justify-start">
             <a
               href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe"
-              className="inline-flex h-10 sm:h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-4 sm:px-8 text-xs sm:text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md transition-transform"
+              className="inline-flex h-11 sm:h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-6 sm:px-8 text-xs sm:text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md transition-transform"
             >
               Download for Windows
             </a>
@@ -58,7 +46,7 @@ export default function HeroSection() {
               href="https://github.com/PocketMC/pocket-mc-windows"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 sm:h-12 items-center justify-center border border-divider px-3 sm:px-6 text-xs sm:text-sm font-bold text-main transition-colors hover:bg-base-muted rounded-md gap-2"
+              className="inline-flex h-11 sm:h-12 items-center justify-center border border-divider px-4 sm:px-6 text-xs sm:text-sm font-bold text-main transition-colors hover:bg-base-muted rounded-md gap-2"
             >
               <svg
                 className="w-4 h-4 flex-shrink-0 fill-current"
@@ -73,7 +61,7 @@ export default function HeroSection() {
               href="https://discord.gg/h27uNCaxPH"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 sm:h-12 items-center justify-center border border-divider px-3 sm:px-6 text-xs sm:text-sm font-bold text-main transition-colors hover:bg-[#5865F2] hover:text-white hover:border-[#5865F2] rounded-md gap-2"
+              className="inline-flex h-11 sm:h-12 items-center justify-center border border-divider px-4 sm:px-6 text-xs sm:text-sm font-bold text-main transition-colors hover:bg-[#5865F2] hover:text-white hover:border-[#5865F2] rounded-md gap-2"
             >
               <svg
                 className="w-4 h-4 flex-shrink-0 fill-current"
@@ -85,7 +73,16 @@ export default function HeroSection() {
             </a>
           </div>
 
-          <div className="mt-6 sm:mt-8 text-xs text-main-muted font-mono flex items-center gap-2">
+          <div className="mt-6 flex flex-wrap gap-2 justify-center lg:justify-start">
+            <span className="inline-flex border border-divider px-2 sm:px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent font-mono bg-base-muted/30 rounded-full whitespace-nowrap">
+              ⚡ WINDOWS DESKTOP APP
+            </span>
+            <span className="inline-flex border border-success/30 px-2 sm:px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success font-mono bg-success/5 rounded-full whitespace-nowrap">
+              .NET 8.0 POWERED
+            </span>
+          </div>
+
+          <div className="mt-4 text-xs text-main-muted font-mono flex items-center gap-2 justify-center lg:justify-start text-center">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
             <span className="line-clamp-2">
               No administrator rights or global Java installs required.
@@ -94,10 +91,10 @@ export default function HeroSection() {
         </div>
 
         {/* Hero Overlapping App Mockup */}
-        <div className="relative z-10 lg:pl-4 mt-8 lg:mt-0">
+        <div className="relative z-10 lg:pl-4 mt-10 lg:mt-0">
           <div className="relative mx-auto max-w-[520px] lg:max-w-none group">
             {/* Ambient Back Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-accent/15 blur-2xl rounded-2xl group-hover:scale-105 transition-transform duration-500 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/15 to-accent/5 blur-2xl rounded-2xl group-hover:scale-105 transition-transform duration-500 pointer-events-none"></div>
 
             {/* App Screen Dashboard Mockup */}
             <div className="relative border border-divider rounded-lg sm:rounded-xl overflow-hidden shadow-lg sm:shadow-2xl bg-base-card glow-shadow-accent transition-transform duration-500 group-hover:translate-y-[-4px]">
@@ -122,7 +119,7 @@ export default function HeroSection() {
             </div>
 
             {/* Overlapping Floating Minecraft Skin Head */}
-            <div className="absolute -bottom-6 sm:-bottom-8 -left-4 sm:-left-6 w-24 sm:w-28 h-24 sm:h-28 border border-divider rounded-lg sm:rounded-2xl shadow-lg sm:shadow-xl bg-base-card/90 backdrop-blur p-2 animate-float-slow transition-transform hover:scale-105 flex flex-col justify-center items-center group/head cursor-pointer">
+            <div className="hidden sm:flex absolute -bottom-6 sm:-bottom-8 -left-4 sm:-left-6 w-24 sm:w-28 h-24 sm:h-28 border border-divider rounded-lg sm:rounded-2xl shadow-lg sm:shadow-xl bg-base-card/90 backdrop-blur p-2 animate-float-slow transition-transform hover:scale-105 flex flex-col justify-center items-center group/head cursor-pointer">
               <img
                 src={getAssetUrl("/hero_head.webp")}
                 alt="Minecraft Skin Hero"
@@ -137,7 +134,7 @@ export default function HeroSection() {
             </div>
 
             {/* Platform Requirement Badge */}
-            <div className="absolute -top-4 sm:-top-6 -right-2 sm:-right-4 bg-base-card/90 backdrop-blur border border-divider px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg shadow-lg animate-float-slower pointer-events-none text-[9px] sm:text-[10px]">
+            <div className="hidden sm:block absolute -top-4 sm:-top-6 -right-2 sm:-right-4 bg-base-card/90 backdrop-blur border border-divider px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg shadow-lg animate-float-slower pointer-events-none text-[9px] sm:text-[10px]">
               <p className="uppercase font-mono tracking-wider text-main-muted font-bold">
                 Target Platform
               </p>
@@ -149,7 +146,7 @@ export default function HeroSection() {
         </div>
       </section>
 
-      {/* Info Stats Section */}
+          {/* Info Stats Section */}
       <section className="relative z-10 border-t border-divider bg-base-muted/40 backdrop-blur-sm">
         <div className="mx-auto grid max-w-7xl gap-8 sm:gap-10 px-4 sm:px-6 py-8 sm:py-12 grid-cols-2 sm:grid-cols-2 md:grid-cols-4">
           {[
@@ -158,7 +155,7 @@ export default function HeroSection() {
             ["Local state", "Local-first / Isolated"],
             ["Connectivity", "Playit.gg Provisioning"],
           ].map(([label, value]) => (
-            <div key={label} className="group">
+            <div key={label} className="group text-center sm:text-left">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-main-muted font-mono leading-tight">
                 {label}
               </p>
@@ -183,9 +180,8 @@ export default function HeroSection() {
             className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed"
             style={{ color: "var(--main-muted)" }}
           >
-            No convoluted scripts, Docker overheads, or web dashboards.
-            PocketMC packages standard tasks as smooth, local desktop
-            features.
+            No convoluted scripts, Docker overheads, or web dashboards. PocketMC
+            packages standard tasks as smooth, local desktop features.
           </p>
         </div>
 

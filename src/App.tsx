@@ -90,7 +90,7 @@ function App() {
         />
 
         {/* Floating Social/Support Buttons Overlay */}
-        <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-40 flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+        <div className="hidden sm:flex fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-40 flex-col sm:flex-row items-center gap-2 sm:gap-3">
           <a
             href="https://discord.gg/h27uNCaxPH"
             target="_blank"

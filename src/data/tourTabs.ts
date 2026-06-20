@@ -54,7 +54,7 @@ export const tourTabs = [
       "Install server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle dependency resolution safely.",
     bullets: [
       "Native Modrinth browser — mods, plugins, and modpacks",
-      "CurseForge browser via API key and Poggit integration for PocketMine",
+      "CurseForge browser via API key and Modrinth integration for PocketMine plugins",
       "Java metadata scanning: Fabric, Quilt, Forge, NeoForge, Paper metadata",
       "Bedrock pack (.mcpack, .mcaddon, .zip) ingestion and validation",
     ],

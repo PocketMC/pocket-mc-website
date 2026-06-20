@@ -45,7 +45,7 @@ PocketMC is a free, local-first Windows desktop client designed to manage and ru
 - Browses and installs Minecraft mods, plugins, and custom packages directly inside the app interface.
 - Integrates the **Modrinth** browser (no API key needed).
 - Integrates the **CurseForge** browser (requires personal API key).
-- Integrates the **Poggit** marketplace for PocketMine-MP PHP plugins.
+- Integrates the **Modrinth** browser with PocketMine-MP plugin support.
 - Ingests Bedrock `.mcpack`, `.mcaddon`, and world `.zip` files, auto-parsing manifests and registering world JSON structures.
 
 ### 6. Interactive Management Tools
@@ -67,7 +67,7 @@ The landing page at https://pocketmc.github.io/pocket-mc-website/ includes the f
 4. **Feature Details** — Deep-dive cards per feature with animated ElectricBorder effects (Geyser/Floodgate, Sanitized Console, Mod Marketplace, Backups).
 5. **Supported Server Software** — Visual grid of all 7 supported server engine types with platform badges.
 6. **Requirements & Quickstart** — System requirements table and a step-by-step quick-start guide.
-7. **PocketMC vs Alternatives Comparison Table** — A side-by-side comparison of PocketMC against Crafty Controller, MCSManager, AMP (CubeCoders), Pterodactyl Panel, and manual CLI setups. PocketMC wins on: local-first design, zero port forwarding, native Windows integration, Adoptium JRE auto-management, and being 100% free.
+7. **PocketMC vs Alternatives Comparison Table** — A side-by-side comparison of PocketMC against SquidServers, auto-mcs, MCSManager, Crafty Controller, Essential Mod, Minehut, and playit.gg. PocketMC wins on: local-first design, zero port forwarding, native Windows integration, Adoptium JRE auto-management, and being 100% free.
 8. **FAQ** — Accordion-style FAQ with 6 questions covering: Java requirements, tunnel setup, Bedrock cross-play, data privacy/local storage, supported software, and pricing.
 9. **Call to Action** — Download button linking to the latest GitHub release.
 

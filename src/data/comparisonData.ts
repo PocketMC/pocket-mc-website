@@ -11,7 +11,7 @@ export const comparisonData = [
     category: "Desktop app",
     strength:
       "Very easy local hosting with BDS, Geyser, Playit.gg, backups, and metrics",
-    win: "PocketMC has stronger open-source trust, deeper PocketMine/Poggit/Bedrock add-on support, safer backup/restore implementation, and broader runtime ownership.",
+    win: "PocketMC has stronger open-source trust, deeper PocketMine/Modrinth/Bedrock add-on support, safer backup/restore implementation, and broader runtime ownership.",
     isFeatured: false,
   },
   {

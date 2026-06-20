@@ -9,11 +9,11 @@
   --main: #09090b;
   --main-muted: #52525b;
   --divider: rgba(9, 9, 11, 0.08);
-  --accent: #27272a;
-  --accent-hover: #18181b;
+  --accent: #1e7e16;
+  --accent-hover: #15580f;
   --accent-text: #ffffff;
-  --glow: rgba(9, 9, 11, 0.02);
-  --success: #27272a;
+  --glow: rgba(30, 126, 22, 0.05);
+  --success: #1e7e16;
 
   /* Explicitly define Tailwind v4 theme variables to avoid cascade layer inheritance issues */
   --color-base: var(--base);
@@ -42,11 +42,11 @@
   --main: #f4f4f5;
   --main-muted: #d4d4d8;
   --divider: rgba(244, 244, 245, 0.08);
-  --accent: #e4e4e7;
-  --accent-hover: #ffffff;
+  --accent: #3cc524;
+  --accent-hover: #5ae144;
   --accent-text: #09090b;
-  --glow: rgba(244, 244, 245, 0.02);
-  --success: #e4e4e7;
+  --glow: rgba(60, 197, 36, 0.08);
+  --success: #3cc524;
 
   /* Explicitly redefine Tailwind v4 theme variables for dark mode to force browser re-evaluation */
   --color-base: var(--base);
