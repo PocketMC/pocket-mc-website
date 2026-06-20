@@ -96,6 +96,10 @@ a {
   text-decoration: none;
 }
 
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Mobile-first responsive utilities */
 @media (max-width: 640px) {
   html {

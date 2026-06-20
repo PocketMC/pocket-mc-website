@@ -20,7 +20,7 @@ export default function HeroSection() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative mx-auto grid max-w-7xl gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 pb-12 sm:pb-16 pt-1 sm:pt-2 lg:grid-cols-[1.1fr_0.9fr] lg:pb-20 lg:pt-3 items-center">
+      <section className="relative mx-auto grid max-w-7xl gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 pb-12 sm:pb-16 pt-12 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:pb-20 lg:pt-3 items-center">
         <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="max-w-5xl text-[clamp(2.15rem,5.5vw,6.4rem)] font-black leading-[0.95] tracking-[-0.05em] text-main text-balance">
             Manage Minecraft Servers.{" "}
@@ -76,14 +76,7 @@ export default function HeroSection() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-2 justify-center lg:justify-start">
-            <span className="inline-flex border border-divider px-2 sm:px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent font-mono bg-base-muted/30 rounded-full whitespace-nowrap">
-              ⚡ WINDOWS DESKTOP APP
-            </span>
-            <span className="inline-flex border border-success/30 px-2 sm:px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success font-mono bg-success/5 rounded-full whitespace-nowrap">
-              .NET 8.0 POWERED
-            </span>
-          </div>
+
 
           <div className="mt-4 text-xs text-main-muted font-mono flex items-center gap-2 justify-center lg:justify-start text-center">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>

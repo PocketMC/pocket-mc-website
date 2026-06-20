@@ -1,6 +1,11 @@
 import { getAssetUrl } from "../../utils/getAssetUrl";
 
-export default function Footer() {
+interface FooterProps {
+  onOpenTerms: () => void;
+  onOpenPrivacy: () => void;
+}
+
+export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
   return (
     <footer className="relative z-10 border-t border-divider px-4 sm:px-6 py-8 sm:py-12 bg-base/50 backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row items-center md:items-start">
@@ -45,6 +50,21 @@ export default function Footer() {
             </a>
             , and the Minecraft community.
           </p>
+          <div className="flex flex-wrap gap-3 mt-1.5 font-mono text-[10px] text-main-muted justify-center md:justify-start">
+            <button
+              onClick={onOpenTerms}
+              className="hover:text-accent transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[10px] text-main-muted"
+            >
+              Terms of Service
+            </button>
+            <span className="opacity-30 select-none">•</span>
+            <button
+              onClick={onOpenPrivacy}
+              className="hover:text-accent transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[10px] text-main-muted"
+            >
+              Privacy & Security
+            </button>
+          </div>
         </div>
 
         <div className="flex gap-12 sm:gap-16 font-mono text-xs justify-center w-full md:w-auto text-left">
