@@ -20,7 +20,7 @@ export default function HeroSection() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative mx-auto grid max-w-7xl gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 pb-12 sm:pb-20 pt-16 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28 lg:pt-24 items-center">
+      <section className="relative mx-auto grid max-w-7xl gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 pb-12 sm:pb-16 pt-1 sm:pt-2 lg:grid-cols-[1.1fr_0.9fr] lg:pb-20 lg:pt-3 items-center">
         <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="max-w-5xl text-[clamp(2.15rem,5.5vw,6.4rem)] font-black leading-[0.95] tracking-[-0.05em] text-main text-balance">
             Manage Minecraft Servers.{" "}

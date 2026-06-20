@@ -239,7 +239,7 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
 
   return (
     <section
-      id="servers"
+      id="screenshots"
       className="relative z-10 border-y border-divider bg-base-muted/20 py-16 sm:py-24"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
