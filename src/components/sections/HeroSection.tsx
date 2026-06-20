@@ -29,9 +29,12 @@ export default function HeroSection() {
           </h1>
 
           <p className="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg leading-7 sm:leading-8 text-main-muted mx-auto lg:mx-0 text-balance">
-            PocketMC is a local-first Windows client that downloads Java, spins
-            up isolated Bedrock/Java servers, schedules backups, accepts EULAs,
-            and sets up Playit.gg tunnels — all from one beautiful UI.
+            <span className="text-main font-semibold">
+              PocketMC automates every single step of Minecraft server hosting.
+            </span>{" "}
+            This local-first Windows client downloads Java, spins up isolated
+            Bedrock/Java servers, schedules backups, accepts EULAs, and sets up
+            Playit.gg tunnels — all from one beautiful UI.
           </p>
 
           <div className="mt-8 sm:mt-10 flex flex-wrap gap-3 sm:gap-4 items-center justify-center lg:justify-start">

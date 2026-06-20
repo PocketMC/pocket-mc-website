@@ -89,7 +89,9 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                           <img
                             src={getAssetUrl(software.icon)}
                             alt={software.name}
-                            className="w-full h-full object-contain filter group-hover:scale-105 transition-transform"
+                            className={`w-full h-full object-contain filter group-hover:scale-105 transition-transform ${
+                              software.name === "Forge" ? "invert dark:invert-0" : ""
+                            }`}
                             width="48"
                             height="48"
                             loading="lazy"
@@ -174,7 +176,7 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                     >
                       {/* Animated left accent bar */}
                       <motion.div
-                        className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-gradient-to-b from-accent via-[#5ae144] to-[#15580f]"
+                        className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl bg-accent"
                         initial={{ scaleY: 0, opacity: 0 }}
                         animate={{
                           scaleY: isOpen ? 1 : 0,
