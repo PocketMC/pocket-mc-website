@@ -131,7 +131,7 @@ function App() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   return (
-    <div className="min-h-screen text-main theme-transition relative overflow-x-clip bg-grid z-0 bg-base">
+    <div className="min-h-screen text-main theme-transition relative overflow-x-clip z-0 bg-base">
 
         {/* Decorative Glowing Ambient Orbs */}
         <div className="absolute top-[-100px] left-[-150px] w-[500px] h-[500px] rounded-full glow-orb opacity-70 pointer-events-none"></div>
