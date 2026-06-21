@@ -111,7 +111,7 @@ export default function HeroSection() {
                 className="w-full h-auto object-cover select-none"
                 width="1280"
                 height="800"
-                poster={getAssetUrl("/screenshots/dashboard.webp")}
+                poster={getAssetUrl("/screenshots/screenshot-dashboard.webp")}
               />
             </div>
 

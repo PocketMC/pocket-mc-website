@@ -3,7 +3,7 @@ export const tourTabs = [
     id: "dashboard",
     label: "Live Dashboard",
     title: "Instant Server Lifecycle & Live Monitoring",
-    image: "/screenshots/dashboard.webp",
+    image: "/screenshots/screenshot-dashboard.webp",
     alt: "PocketMC Dashboard showing running instances and metrics",
     description:
       "The control center. Track CPU/RAM resource graphs, accepted EULAs, active player counts, and control server state gracefully. Features dynamic badges that scan mod folders to verify Geyser cross-play and voice chat integrations. Now includes full Remote Control Web Dashboard capabilities via Playit HTTPS tunnels.",
@@ -18,7 +18,7 @@ export const tourTabs = [
     id: "console",
     label: "Smart Console",
     title: "Sanitized Console & Player Tracking",
-    image: "/screenshots/console.webp",
+    image: "/screenshots/screenshot-console.webp",
     alt: "PocketMC Console panel with log formatting",
     description:
       "Ditch raw terminal chaos. Read formatted, colorized, and classified logs in real-time. Execute server commands with ease and trace player activity directly.",
@@ -48,7 +48,11 @@ export const tourTabs = [
     id: "plugins",
     label: "Mods & Plugins",
     title: "Curated Content Marketplaces",
-    images: ["/screenshots/screenshot-plugins.webp", "/screenshots/mod-marketplace.webp"],
+    images: [
+      "/screenshots/screenshot-plugins.webp",
+      "/screenshots/mod-marketplace.webp",
+      "/screenshots/screenshot-mod-management.webp"
+    ],
     alt: "PocketMC Modrinth plugin and mod installer browsers",
     description:
       "Install server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle dependency resolution safely.",
@@ -63,7 +67,7 @@ export const tourTabs = [
     id: "backups",
     label: "Automated Backups",
     title: "Safe World Archives, Cloud Backup & Restore",
-    image: "/screenshots/backups.webp",
+    image: "/screenshots/screenshot-backups.webp",
     alt: "PocketMC Backups scheduler view",
     description:
       "Protect your worlds. Live-server backups attempt RCON save sync first, then fall back to console save commands. Unsafe files like session.lock are automatically skipped.",
@@ -78,7 +82,7 @@ export const tourTabs = [
     id: "runtimes",
     label: "Java Provisioning",
     title: "App-Local Runtimes Manager",
-    image: "/screenshots/runtimes.webp",
+    image: "/screenshots/java-runtimes.webp",
     alt: "PocketMC Java Adoptium manager",
     description:
       "Stop dealing with global Java environment variables. PocketMC downloads Adoptium JRE binaries locally to isolate your server dependencies from the rest of your Windows PC.",
@@ -108,8 +112,10 @@ export const tourTabs = [
     label: "Remote UI",
     title: "Responsive Mobile Web Dashboard",
     images: [
-      "/screenshots/mobile-instances.webp",
+      "/screenshots/mobile-welcome.webp",
+      "/screenshots/mobile-login.webp",
       "/screenshots/mobile-home.webp",
+      "/screenshots/mobile-instances.webp",
       "/screenshots/mobile-console.webp",
       "/screenshots/mobile-players.webp"
     ],
@@ -120,6 +126,25 @@ export const tourTabs = [
       "Mobile-first responsive design for on-the-go administration",
       "One-touch server state controls (Start, Stop, Kill)",
       "Remote moderation: kick, ban, or op users from the mobile web interface",
+    ],
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    title: "App & Server Instance Settings",
+    images: [
+      "/screenshots/app-settings.webp",
+      "/screenshots/server-settings.webp",
+      "/screenshots/about.webp"
+    ],
+    alt: "PocketMC Application Settings, Server Settings, and About dialogs",
+    description:
+      "Fine-tune application preferences, manage your server.properties configurations with real-time field tooltips, configure custom Adoptium runtimes, or view local diagnostics inside the integrated settings and diagnostics views.",
+    bullets: [
+      "Auto-start, update checks, and window minimize to system tray options",
+      "Full interactive Minecraft server.properties editor with parameter descriptions",
+      "Adoptium JRE paths manager and custom script hooks",
+      "Consolidated About, diagnostics, licenses, and contributors panel"
     ],
   },
 ];
