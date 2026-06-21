@@ -55,7 +55,7 @@ export const tourTabs = [
     ],
     alt: "PocketMC Modrinth plugin and mod installer browsers",
     description:
-      "Install server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle dependency resolution safely.",
+      "Install and manage server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle downloads safely, while the integrated Mod and Plugin Management views allow you to enable, disable, or update add-ons without renaming files.",
     bullets: [
       "Native Modrinth browser — mods, plugins, and modpacks",
       "CurseForge browser via API key and Modrinth integration for PocketMine plugins",
@@ -121,8 +121,9 @@ export const tourTabs = [
     ],
     alt: "PocketMC Mobile Web Dashboard interfaces",
     description:
-      "View live CPU/RAM metrics, stream colorized console logs, and manage connected players directly from your phone's browser.",
+      "View live CPU/RAM metrics, stream colorized console logs, and moderate players directly from your phone. Features a secure browser pairing welcome portal and credentials-based login screen for protected remote access.",
     bullets: [
+      "Secure browser pairing welcome portal and credentials authorization login",
       "Mobile-first responsive design for on-the-go administration",
       "One-touch server state controls (Start, Stop, Kill)",
       "Remote moderation: kick, ban, or op users from the mobile web interface",

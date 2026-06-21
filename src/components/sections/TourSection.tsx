@@ -317,9 +317,6 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                       {activeTabDetails.title}
                     </span>
                   </div>
-                  <span className="text-[9px] font-mono border border-divider px-1.5 py-0.5 rounded bg-base-muted/20 text-main-muted/80">
-                    WPF View
-                  </span>
                 </div>
                 <div
                   className="relative bg-base-muted/10 overflow-hidden w-full"
