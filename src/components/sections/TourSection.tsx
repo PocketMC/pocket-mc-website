@@ -623,7 +623,7 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                     <span className="h-2 w-2 rounded-full bg-accent"></span>
                     {activeTabDetails.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-6 text-main-muted">
+                  <p className="mt-3 text-sm leading-6 text-main-muted whitespace-pre-line">
                     {activeTabDetails.description}
                   </p>
 

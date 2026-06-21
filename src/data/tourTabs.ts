@@ -65,17 +65,23 @@ export const tourTabs = [
   },
   {
     id: "backups",
-    label: "Automated Backups",
-    title: "Safe World Archives, Cloud Backup & Restore",
-    image: "/screenshots/screenshot-backups.webp",
-    alt: "PocketMC Backups scheduler view",
+    label: "Config & Backups",
+    title: "Server Configuration & Automated Backups",
+    images: [
+      "/screenshots/server-settings.webp",
+      "/screenshots/screenshot-backups.webp"
+    ],
+    alt: "PocketMC Server Settings editor and Backups configuration view",
     description:
-      "Protect your worlds. Live-server backups attempt RCON save sync first, then fall back to console save commands. Unsafe files like session.lock are automatically skipped.",
+      "Server Config & Safety Safeguards:\nFine-tune server.properties via an interactive grid with live field tooltips and validation. Background guards prevent startup port collisions, verify Java/Adoptium version compatibility, and alert you if RAM allocations exceed 80% of host memory. Includes a native server icon cropper for Minecraft's native 64x64 PNG format.\n\nAutomated Backups & Safeguards:\nProtect your worlds. Backups trigger a safe RCON save-flush to prevent write corruption, calculate SHA-256 hashes to guarantee integrity, and sync to Google Drive, Dropbox, or OneDrive. Real-time disk space checks alert you at 2GB and halt backups under 1GB to protect the host filesystem.",
     bullets: [
-      "Manual and scheduled Cron-based backup policies with SHA-256 integrity checks",
-      "Live-server sync: RCON save sync first, falls back to console commands",
-      "Native cloud backup to Google Drive, Dropbox & OneDrive with one-click restore",
-      "Retention pruning and optional local folder replication",
+      "Interactive server.properties editor with real-time description tooltips",
+      "Port-conflict preflight checks and 80% system RAM warning guards",
+      "Custom server icon image cropper (re-scaled to Minecraft native 64x64 format)",
+      "Scheduled backups via custom Cron intervals and live-server RCON save sync",
+      "SHA-256 archive integrity validation to prevent corrupted world restores",
+      "Disk storage monitoring (warnings at 2GB; safety halts at 1GB free space)",
+      "Automated cloud uploads to Google Drive, Dropbox, and OneDrive",
     ],
   },
   {
@@ -131,21 +137,20 @@ export const tourTabs = [
   },
   {
     id: "settings",
-    label: "Settings",
-    title: "App & Server Instance Settings",
+    label: "App Settings",
+    title: "Application Preferences & System Diagnostics",
     images: [
       "/screenshots/app-settings.webp",
-      "/screenshots/server-settings.webp",
       "/screenshots/about.webp"
     ],
-    alt: "PocketMC Application Settings, Server Settings, and About dialogs",
+    alt: "PocketMC App Settings and About Diagnostics views",
     description:
-      "Fine-tune application preferences, manage your server.properties configurations with real-time field tooltips, configure custom Adoptium runtimes, or view local diagnostics inside the integrated settings and diagnostics views.",
+      "Application Preferences:\nConfigure global application behavior including Windows auto-start options, background update checks, and tray minimization preferences.\n\nDiagnostics & Contributor Panel:\nInspect local diagnostic reports, system architecture specs, runtime environments, open-source licensing, and project contributor credits.",
     bullets: [
-      "Auto-start, update checks, and window minimize to system tray options",
-      "Full interactive Minecraft server.properties editor with parameter descriptions",
-      "Adoptium JRE paths manager and custom script hooks",
-      "Consolidated About, diagnostics, licenses, and contributors panel"
+      "Windows tray minimization and auto-run on boot settings",
+      "Local diagnostics logging, reports, and debug file generation",
+      "Adoptium JRE directory manager and global Java paths override",
+      "Consolidated credits, licenses, and direct feedback panel",
     ],
   },
 ];
