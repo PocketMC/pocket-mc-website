@@ -1,35 +1,19 @@
-import { useState, useEffect } from "react";
 import { getAssetUrl } from "../../utils/getAssetUrl";
 import SpotlightCard from "../ui/SpotlightCard";
 
 export default function HeroSection() {
-  const [isDesktop, setIsDesktop] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(min-width: 768px)").matches;
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
   return (
     <div className="relative w-full overflow-hidden border-b border-divider isolate">
       {/* Video Background */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        {isDesktop && (
-          <video
-            src={getAssetUrl("/Hero_bg_animation/cherry-leaves.1920x1080.mp4")}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover opacity-25 dark:opacity-15 theme-transition"
-          />
-        )}
+        <video
+          src={getAssetUrl("/Hero_bg_animation/cherry-leaves.1920x1080.mp4")}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-25 dark:opacity-15 theme-transition"
+        />
         {/* Gradients blending with background theme */}
         <div className="absolute inset-0 bg-gradient-to-b from-base via-transparent to-base opacity-90 theme-transition" />
         <div className="absolute inset-0 bg-gradient-to-tr from-base/50 via-transparent to-base/80 opacity-70 theme-transition" />
@@ -118,28 +102,17 @@ export default function HeroSection() {
                   Server Creation in 50s via PocketMC
                 </span>
               </div>
-              {isDesktop ? (
-                <video
-                  src={getAssetUrl("/Video/PocketMC.mp4")}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-auto object-cover select-none"
-                  width="1280"
-                  height="800"
-                  poster={getAssetUrl("/screenshots/dashboard.webp")}
-                />
-              ) : (
-                <img
-                  src={getAssetUrl("/screenshots/dashboard.webp")}
-                  alt="PocketMC Dashboard Mockup"
-                  className="w-full h-auto object-cover select-none"
-                  width="1280"
-                  height="800"
-                  loading="lazy"
-                />
-              )}
+              <video
+                src={getAssetUrl("/Video/PocketMC.mp4")}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-auto object-cover select-none"
+                width="1280"
+                height="800"
+                poster={getAssetUrl("/screenshots/dashboard.webp")}
+              />
             </div>
 
             {/* Overlapping Floating Minecraft Skin Head */}
