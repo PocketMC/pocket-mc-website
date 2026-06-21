@@ -109,20 +109,64 @@ export default function FaqSection() {
                     style={{ overflow: "hidden" }}
                   >
                     <div
-                      className="p-6"
+                      className="p-6 space-y-4"
                       style={{
                         borderTop: "1px solid var(--divider)",
                       }}
                     >
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{
-                          color: "var(--main-muted)",
-                          lineHeight: "1.75",
-                        }}
-                      >
-                        {faq.a}
-                      </p>
+                      {faq.a.split("\n").filter(Boolean).map((paragraph, pIdx) => {
+                        const isNumbered = /^\d+\.\s+/.test(paragraph);
+                        if (isNumbered) {
+                          const match = paragraph.match(/^(\d+)\.\s+(.*?):\s+(.*)/);
+                          if (match) {
+                            const [, num, title, desc] = match;
+                            return (
+                              <div 
+                                key={pIdx} 
+                                className="mt-3 p-4 rounded-xl border space-y-2"
+                                style={{
+                                  backgroundColor: "var(--base-muted)",
+                                  borderColor: "var(--divider)"
+                                }}
+                              >
+                                <div className="flex items-center gap-2.5">
+                                  <span 
+                                    className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-mono font-bold select-none border"
+                                    style={{
+                                      color: "var(--accent)",
+                                      backgroundColor: "var(--base-card)",
+                                      borderColor: "var(--divider)"
+                                    }}
+                                  >
+                                    {num}
+                                  </span>
+                                  <h4 
+                                    className="text-sm sm:text-base font-bold"
+                                    style={{ color: "var(--main)" }}
+                                  >
+                                    {title}
+                                  </h4>
+                                </div>
+                                <p 
+                                  className="text-xs sm:text-sm pl-8 leading-relaxed"
+                                  style={{ color: "var(--main-muted)" }}
+                                >
+                                  {desc}
+                                </p>
+                              </div>
+                            );
+                          }
+                        }
+                        return (
+                          <p
+                            key={pIdx}
+                            className="text-sm leading-relaxed text-main-muted"
+                            style={{ lineHeight: "1.75" }}
+                          >
+                            {paragraph}
+                          </p>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}

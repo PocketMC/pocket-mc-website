@@ -157,18 +157,34 @@
                 "mainEntity": [
                     {
                         "@type": "Question",
-                        "name": "Does PocketMC require Java to be installed on my computer?",
+                        "name": "How do my friends join the server, and how can I manage it remotely?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "No. PocketMC manages its own isolated Java runtimes using Adoptium. It will automatically download the correct Java version (8, 11, 17, 21, or 25) based on your server type and Minecraft version — without touching your system environment variables."
+                            "text": "PocketMC supports remote access for both gaming and administration: (1) For Players (Joining Minecraft): Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g., example.playit.gg) without any router configuration. Friends can copy this address directly into Minecraft to join. (2) For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or internet (via Playit.gg HTTPS or Cloudflare Quick Tunnels). You can pair your phone instantly by scanning the dashboard's QR code or link the PocketMC Discord Bot to DM you access tokens."
                         }
                     },
                     {
                         "@type": "Question",
-                        "name": "Can I let my friends join without port forwarding my router?",
+                        "name": "Does PocketMC require Windows administrator privileges?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Yes. PocketMC includes a built-in Playit.gg tunnel wizard. Just follow the 4-step setup, link your Playit.gg account, and PocketMC will provision a public tunnel address for your server — no router configuration or IT knowledge required."
+                            "text": "No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Do I need to install Java or PHP on my computer beforehand?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How does Playit.gg tunneling work? Do I need to configure port forwarding?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players."
                         }
                     },
                     {
@@ -176,31 +192,39 @@
                         "name": "Can Bedrock (console/mobile) players join a Java server managed by PocketMC?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Yes! PocketMC dynamically detects if your server has GeyserMC and Floodgate installed and shows a cross-play badge when they are active. Bedrock players on consoles, mobile, or Windows 10/11 can then join your Java server seamlessly."
+                            "text": "Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard."
                         }
                     },
                     {
                         "@type": "Question",
-                        "name": "Where are my server files stored? Does PocketMC upload anything to the cloud?",
+                        "name": "Where are my server files stored and how secure are the backups?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "All your server files live 100% on your local Windows machine. PocketMC only uploads data to cloud storage (Google Drive, Dropbox, OneDrive) when you explicitly configure and trigger a cloud backup. No data is ever sent anywhere without your consent."
+                            "text": "All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive."
                         }
                     },
                     {
                         "@type": "Question",
-                        "name": "Which server software types does PocketMC support?",
+                        "name": "Can I import existing worlds or custom Bedrock add-ons?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "PocketMC supports: Vanilla Java (1.8.8+), PaperMC (1.8.8+), Fabric (1.14+), Forge (1.8.8+), NeoForge, Bedrock Dedicated Server (BDS, stable and preview), and PocketMine-MP (PHP-based, PM5)."
+                            "text": "Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs."
                         }
                     },
                     {
                         "@type": "Question",
-                        "name": "Is PocketMC free? Where can I download it?",
+                        "name": "Are my server logs shared with third-party AI systems?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Yes, PocketMC is completely free and open source under the MIT License. You can download the latest release from GitHub: https://github.com/PocketMC/pocket-mc-windows/releases/latest"
+                            "text": "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally—automatically scrubbing IP addresses, emails, and personal info—before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama)."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Will my server stay online if my Windows PC goes to sleep?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume."
                         }
                     }
                 ]
