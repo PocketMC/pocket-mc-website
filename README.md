@@ -9,7 +9,7 @@ The official landing page for **PocketMC**, the free local-first Windows client 
 
 ## 🎨 Tech Stack & Features
 
-This website is designed with a premium, game-inspired aesthetic featuring rich interactive micro-animations, a fully responsive light/dark theme system, and complete modern SEO structures.
+This website is designed with a premium, game-inspired aesthetic featuring rich interactive micro-animations, a fully responsive light/dark theme system, and complete modern SEO structures. 
 
 ### Core Stack
 * **Framework**: React 19 + TypeScript
