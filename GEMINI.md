@@ -12,7 +12,7 @@ PocketMC Website is a premium static landing page and product showcase for Pocke
 - **Tech Stack**: Must remain a Vite + React + TypeScript static website.
 - **Color Palette**: Strictly limited to black, white, grey, and their shades.
 - **Base Path compatibility**: Must preserve the base path `/pocket-mc-website/` configuration for GitHub Pages deployment.
-<!-- GSD:project-end -->
+<!-- GSD:project-end --> 
 
 <!-- GSD:stack-start source:codebase/STACK.md -->
 ## Technology Stack
