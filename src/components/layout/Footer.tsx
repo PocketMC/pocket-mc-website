@@ -32,12 +32,12 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
           >
             PocketMC is an open-source project maintained by{" "}
             <a
-              href="https://github.com/sahaj33-op"
+              href="https://github.com/sizwinz"
               target="_blank"
               rel="noreferrer"
               className="text-accent hover:underline font-bold"
             >
-              sahaj33-op
+              sizwinz
             </a>
             ,{" "}
             <a
