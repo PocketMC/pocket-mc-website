@@ -1,20 +1,239 @@
 <!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pocket MC — Minecraft Server Manager</title>
-    <meta name="description" content="The ultimate desktop app to create, manage, and monitor Minecraft servers. Open source, free forever." />
-    <meta name="author" content="Pocket MC" />
-    <meta property="og:title" content="Pocket MC — Minecraft Server Manager" />
-    <meta property="og:description" content="The ultimate desktop app to create, manage, and monitor Minecraft servers." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/svg+xml" href="/pocket-mc-website/favicon.ico" />
-    <script type="module" crossorigin src="/pocket-mc-website/assets/index-BhEUebNx.js"></script>
-    <link rel="stylesheet" crossorigin href="/pocket-mc-website/assets/index-DcZ67OIq.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Non-blocking Google Fonts (preconnect to avoid render-blocking) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+            media="print"
+            onload="this.media = 'all'"
+        />
+        <noscript
+            ><link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+        /></noscript>
+
+        <!-- Primary SEO Metadata -->
+        <!-- Google Site Verification -->
+        <meta
+            name="google-site-verification"
+            content="N3Nvo8fo2_VexoKoe00C6ss5b-hPNlpDbh2-Uu5XLy4"
+        />
+        <title>
+            PocketMC – Free Local Minecraft Server Manager for Windows
+        </title>
+        <meta
+            name="description"
+            content="Free Windows app to run Minecraft Java &amp; Bedrock servers locally — no port forwarding, no scripts. Auto-manages Java runtimes, Playit.gg tunnels, mods, plugins, cloud backups, remote control dashboard, and GeyserMC cross-play."
+        />
+        <meta
+            name="keywords"
+            content="Minecraft Server Manager, Minecraft Server, Local Minecraft Server, Windows Minecraft Server, Free Minecraft Server, PocketMC, PaperMC, Fabric, Forge, NeoForge, Bedrock Server, BDS, PocketMine-MP, GeyserMC, Floodgate, Modrinth, CurseForge, Poggit, Playit.gg, Java Server, Minecraft Server Host, Adoptium JRE, Minecraft Backup, Server Manager Windows, Minecraft Server Setup, cross-play Minecraft, FAQ Minecraft server, remote control server, discord bot integration"
+        />
+        <meta name="author" content="sizwinz, divyviradiya2" />
+        <meta name="robots" content="index, follow" />
+        <link
+            rel="canonical"
+            href="https://pocketmc.github.io/pocket-mc-website/"
+        />
+
+        <!-- Theme & Mobile Integration -->
+        <meta name="theme-color" content="#4f46e5" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:title"
+            content="PocketMC – Free Local Minecraft Server Manager for Windows"
+        />
+        <meta
+            property="og:description"
+            content="Set up a Minecraft Java or Bedrock server on Windows in seconds — no port forwarding, no scripts. PocketMC manages runtimes, tunnels, mods, plugins, backups, remote control dashboard, and cross-play (GeyserMC) automatically. Free and open source."
+        />
+        <meta
+            property="og:image"
+            content="https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp"
+        />
+        <meta property="og:image:width" content="1280" />
+        <meta property="og:image:height" content="800" />
+        <meta
+            property="og:image:alt"
+            content="PocketMC dashboard showing a running Minecraft server with real-time logs and controls"
+        />
+        <meta
+            property="og:url"
+            content="https://pocketmc.github.io/pocket-mc-website/"
+        />
+        <meta property="og:site_name" content="PocketMC" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="PocketMC – Free Local Minecraft Server Manager for Windows"
+        />
+        <meta
+            name="twitter:description"
+            content="Set up a Minecraft Java or Bedrock server on Windows in seconds — no port forwarding, no scripts. PocketMC manages runtimes, tunnels, mods, plugins, backups, remote control dashboard, and cross-play automatically. Free &amp; open source."
+        />
+        <meta
+            name="twitter:image"
+            content="https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp"
+        />
+        <meta
+            name="twitter:image:alt"
+            content="PocketMC dashboard screenshot"
+        />
+
+        <!-- JSON-LD: SoftwareApplication Rich Snippet -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "PocketMC",
+                "operatingSystem": "Windows 10, Windows 11",
+                "applicationCategory": "UtilityApplication",
+                "applicationSubCategory": "Minecraft Server Manager",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0.00",
+                    "priceCurrency": "USD"
+                },
+                "description": "PocketMC is a free, local-first Windows desktop app that manages Minecraft Java and Bedrock servers without any setup mess. It installs Java runtimes locally via Adoptium, sets up Playit.gg tunnels with no port forwarding, integrates Modrinth and CurseForge mod browsers, schedules automated cloud backups to Google Drive, Dropbox, and OneDrive, features a secure remote control web dashboard, and supports GeyserMC cross-play between Java and Bedrock editions.",
+                "featureList": [
+                    "Automatic Adoptium JRE runtime management (Java 8, 11, 17, 21, 25)",
+                    "Supports Vanilla Java, PaperMC, Fabric, Forge, NeoForge, BDS, PocketMine-MP",
+                    "Remote Control Web Dashboard with secure Playit.gg HTTPS tunneling",
+                    "Playit.gg tunnel provisioning — no port forwarding required",
+                    "Discord Welcome Bot integration with automatic role assignments",
+                    "Modrinth and CurseForge integrated mod browsers",
+                    "Automated local and cloud backups (Google Drive, Dropbox, OneDrive)",
+                    "GeyserMC and Floodgate cross-play support detection",
+                    "Colorized real-time console with player tracking",
+                    "Real-time CPU and RAM resource charts"
+                ],
+                "downloadUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe",
+                "softwareVersion": "1.9.3",
+                "license": "https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE",
+                "author": [
+                    {
+                        "@type": "Person",
+                        "name": "sizwinz",
+                        "url": "https://github.com/sizwinz"
+                    },
+                    {
+                        "@type": "Person",
+                        "name": "divyviradiya2",
+                        "url": "https://github.com/divyviradiya2"
+                    }
+                ],
+                "url": "https://pocketmc.github.io/pocket-mc-website/",
+                "screenshot": "https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp"
+            }
+        </script>
+
+        <!-- JSON-LD: FAQPage Rich Snippet -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "How do my friends join the server, and how can I manage it remotely?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "PocketMC supports remote access for both gaming and administration: (1) For Players (Joining Minecraft): Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g., example.playit.gg) without any router configuration. Friends can copy this address directly into Minecraft to join. (2) For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or internet (via Playit.gg HTTPS or Cloudflare Quick Tunnels). You can pair your phone instantly by scanning the dashboard's QR code or link the PocketMC Discord Bot to DM you access tokens."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Does PocketMC require Windows administrator privileges?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Do I need to install Java or PHP on my computer beforehand?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How does Playit.gg tunneling work? Do I need to configure port forwarding?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Can Bedrock (console/mobile) players join a Java server managed by PocketMC?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Where are my server files stored and how secure are the backups?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Can I import existing worlds or custom Bedrock add-ons?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Are my server logs shared with third-party AI systems?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally—automatically scrubbing IP addresses, emails, and personal info—before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama)."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Will my server stay online if my Windows PC goes to sleep?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume."
+                        }
+                    }
+                ]
+            }
+        </script>
+      <script type="module" crossorigin src="/pocket-mc-website/assets/index-BsX6Wc67.js"></script>
+      <link rel="stylesheet" crossorigin href="/pocket-mc-website/assets/index-BbRL9p0j.css">
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
 </html>
