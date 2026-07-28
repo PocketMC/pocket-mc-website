@@ -1,4 +1,5 @@
 import { getAssetUrl } from "../../utils/getAssetUrl";
+import { SOCIAL_LINKS } from "../../data/socialLinks";
 
 interface FooterProps {
   onOpenTerms: () => void;
@@ -102,41 +103,25 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
             <p className="font-bold text-main uppercase tracking-wider text-[10px] opacity-60">
               Community
             </p>
-            <a
-              href="https://discord.gg/h27uNCaxPH"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-[#5865F2] transition-colors whitespace-nowrap text-main-muted"
-            >
-              Discord
-            </a>
-            <a
-              href="https://www.reddit.com/r/PocketMC/"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-[#FF4500] transition-colors whitespace-nowrap text-main-muted"
-            >
-              Reddit
-            </a>
-            <a
-              href="https://www.youtube.com/@OfficialPocketMC"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-[#FF0000] transition-colors whitespace-nowrap text-main-muted"
-            >
-              YouTube
-            </a>
-            <a
-              href="https://www.buymeacoffee.com/sahaj33"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-[#FF813F] transition-colors whitespace-nowrap text-main-muted"
-            >
-              Buy Me a Coffee
-            </a>
+            {SOCIAL_LINKS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`flex items-center gap-2 text-main-muted ${item.textHoverColor} transition-colors whitespace-nowrap`}
+                >
+                  <Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>{item.name}</span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
     </footer>
   );
 }
+

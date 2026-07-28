@@ -22,7 +22,7 @@ export default function ComparisonSection({
   return (
     <>
       {/* Tool Comparison Table Section */}
-      <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24 border-t border-divider">
+      <section id="comparison" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24 border-t border-divider">
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest bg-base-muted px-3 py-1 rounded inline-block">
             TOOL COMPARISON
@@ -66,7 +66,9 @@ export default function ComparisonSection({
                       <TableCell className="font-bold text-main py-4">
                         {isFeatured ? (
                           <div className="flex items-center gap-1.5 text-accent font-black">
-                            <span className="text-xs">⚡</span>
+                            <svg className="w-3.5 h-3.5 text-accent fill-current flex-shrink-0" viewBox="0 0 24 24">
+                              <path d="M13 2L3 14h7v8l10-12h-7z" />
+                            </svg>
                             {row.tool}
                           </div>
                         ) : (
@@ -158,7 +160,11 @@ export default function ComparisonSection({
                   </span>
                 )}
                 <div className="flex items-center gap-2">
-                  {isFeatured && <span className="text-xs">⚡</span>}
+                  {isFeatured && (
+                    <svg className="w-3.5 h-3.5 text-accent fill-current flex-shrink-0" viewBox="0 0 24 24">
+                      <path d="M13 2L3 14h7v8l10-12h-7z" />
+                    </svg>
+                  )}
                   <h3 className={`font-black text-sm ${isFeatured ? "text-accent" : "text-main"}`}>
                     {row.tool}
                   </h3>

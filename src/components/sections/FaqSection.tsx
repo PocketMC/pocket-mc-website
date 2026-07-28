@@ -15,7 +15,7 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 border-t border-divider">
+    <section id="faq" className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 border-t border-divider">
       <div className="text-center mb-12 sm:mb-16">
         <span
           className="text-xs font-mono font-bold uppercase tracking-widest px-3 py-1 rounded inline-block"

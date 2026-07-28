@@ -136,6 +136,21 @@ export const tourTabs = [
     ],
   },
   {
+    id: "themes",
+    label: "Themes & Visuals",
+    title: "Custom Backgrounds & Accent Color Personalization",
+    image: "/screenshots/themes-showcase.webp",
+    alt: "PocketMC Themes and Customization Options Showcase",
+    description:
+      "Custom background images and accent colors with different theme options—customize PocketMC to match your imagination. Select from preset wallpapers or upload your own, adjust accent highlights, and switch between mica/acrylic glassmorphism aesthetics.",
+    bullets: [
+      "Custom background images and wallpaper restore presets",
+      "Dynamic accent color palette selection (green, blue, purple, custom HEX)",
+      "Mica & acrylic glassmorphism window material themes",
+      "Per-instance theme preferences and dark/light web dashboard sync",
+    ],
+  },
+  {
     id: "settings",
     label: "App Settings",
     title: "Application Preferences & System Diagnostics",

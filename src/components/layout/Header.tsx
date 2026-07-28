@@ -1,16 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getAssetUrl } from "../../utils/getAssetUrl";
+import { SOCIAL_LINKS } from "../../data/socialLinks";
 
 interface HeaderProps {
   theme: "light" | "dark";
   toggleTheme: () => void;
 }
 
+const NAV_ITEMS = [
+  { id: "screenshots", label: "Screenshots", href: "#screenshots" },
+  { id: "under-the-hood", label: "Under the Hood", href: "#under-the-hood" },
+  { id: "comparison", label: "Comparison", href: "#comparison" },
+  { id: "faq", label: "FAQ", href: "#faq" },
+];
+
 export default function Header({ theme, toggleTheme }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionIds = ["hero", "screenshots", "under-the-hood", "roadmap", "comparison", "faq"];
+      const scrollPosition = window.scrollY + 120; // Offset for header height
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const element = document.getElementById(id);
+        if (element) {
+          const top = element.offsetTop;
+          if (scrollPosition >= top) {
+            const normalizedId = id === "roadmap" ? "under-the-hood" : id;
+            setActiveSection(normalizedId);
+
+            const targetHash = normalizedId === "hero" ? "" : `#${normalizedId}`;
+            if (window.location.hash !== targetHash && window.history.replaceState) {
+              window.history.replaceState(null, "", targetHash || window.location.pathname);
+            }
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-divider bg-base/85 backdrop-blur-md theme-transition">
@@ -37,60 +76,48 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
           </div>
         </a>
 
-        <div className="flex items-center gap-2 sm:gap-4">
-          <div className="hidden items-center gap-6 sm:gap-8 md:flex mr-2 font-mono text-xs sm:text-sm">
-            <a
-              href="#screenshots"
-              className="font-semibold text-main-muted hover:text-accent transition-colors"
-            >
-              Screenshots
-            </a>
-            <a
-              href="#roadmap"
-              className="font-semibold text-main-muted hover:text-accent transition-colors"
-            >
-              Under the Hood
-            </a>
-            <a
-              href="https://github.com/PocketMC/pocket-mc-windows"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-main-muted hover:text-accent transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://discord.gg/h27uNCaxPH"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-main-muted hover:text-[#5865F2] transition-colors"
-            >
-              Discord
-            </a>
-            <a
-              href="https://www.reddit.com/r/PocketMC/"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-main-muted hover:text-[#FF4500] transition-colors"
-            >
-              Reddit
-            </a>
-            <a
-              href="https://www.youtube.com/@OfficialPocketMC"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-main-muted hover:text-[#FF0000] transition-colors"
-            >
-              YouTube
-            </a>
-            <a
-              href="https://www.buymeacoffee.com/sahaj33"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-main-muted hover:text-[#FF813F] transition-colors"
-            >
-              Buy Me a Coffee
-            </a>
+        <div className="flex items-center gap-3 sm:gap-5">
+          {/* Desktop ScrollSpy Nav Items */}
+          <div className="hidden items-center gap-6 md:flex mr-1 font-mono text-xs sm:text-sm">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  className={`relative py-1 font-semibold transition-all duration-200 ${
+                    isActive
+                      ? "text-accent font-bold"
+                      : "text-main-muted hover:text-main"
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent rounded-full animate-fadeIn" />
+                  )}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Social Brand Logos */}
+          <div className="hidden md:flex items-center gap-2 border-l border-divider/60 pl-4">
+            {SOCIAL_LINKS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={item.name}
+                  aria-label={item.name}
+                  className={`p-2 text-main-muted ${item.textHoverColor} transition-all duration-200 hover:scale-110 rounded-md focus:outline-none`}
+                >
+                  <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                </a>
+              );
+            })}
           </div>
 
           {/* Sun/Moon Animated Toggle Button */}
@@ -174,67 +201,49 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
       {/* Mobile Menu Dropdown Panel */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-divider bg-base/95 backdrop-blur-lg px-4 py-5 flex flex-col gap-3.5 font-mono text-xs shadow-inner">
-          <a
-            href="#screenshots"
-            onClick={closeMobileMenu}
-            className="font-bold text-main-muted hover:text-accent py-2 border-b border-divider/50 transition-colors"
-          >
-            Screenshots
-          </a>
-          <a
-            href="#roadmap"
-            onClick={closeMobileMenu}
-            className="font-bold text-main-muted hover:text-accent py-2 border-b border-divider/50 transition-colors"
-          >
-            Under the Hood
-          </a>
-          <a
-            href="https://github.com/PocketMC/pocket-mc-windows"
-            target="_blank"
-            rel="noreferrer"
-            onClick={closeMobileMenu}
-            className="font-semibold text-main-muted hover:text-accent py-2 border-b border-divider/50 transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://discord.gg/h27uNCaxPH"
-            target="_blank"
-            rel="noreferrer"
-            onClick={closeMobileMenu}
-            className="font-semibold text-main-muted hover:text-[#5865F2] py-2 border-b border-divider/50 transition-colors"
-          >
-            Discord
-          </a>
-          <a
-            href="https://www.reddit.com/r/PocketMC/"
-            target="_blank"
-            rel="noreferrer"
-            onClick={closeMobileMenu}
-            className="font-semibold text-main-muted hover:text-[#FF4500] py-2 border-b border-divider/50 transition-colors"
-          >
-            Reddit
-          </a>
-          <a
-            href="https://www.youtube.com/@OfficialPocketMC"
-            target="_blank"
-            rel="noreferrer"
-            onClick={closeMobileMenu}
-            className="font-semibold text-main-muted hover:text-[#FF0000] py-2 border-b border-divider/50 transition-colors"
-          >
-            YouTube
-          </a>
-          <a
-            href="https://www.buymeacoffee.com/sahaj33"
-            target="_blank"
-            rel="noreferrer"
-            onClick={closeMobileMenu}
-            className="font-semibold text-main-muted hover:text-[#FF813F] py-2 transition-colors"
-          >
-            Buy Me a Coffee
-          </a>
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                onClick={closeMobileMenu}
+                className={`py-2 border-b border-divider/50 transition-colors flex items-center justify-between ${
+                  isActive ? "font-extrabold text-accent" : "font-bold text-main-muted hover:text-accent"
+                }`}
+              >
+                <span>{item.label}</span>
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
+              </a>
+            );
+          })}
+
+          <div className="pt-2">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-main-muted/60 mb-2">
+              Community & Links
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {SOCIAL_LINKS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={closeMobileMenu}
+                    className={`flex items-center gap-2.5 p-2 rounded-md border border-divider/60 bg-base-muted/20 text-main-muted ${item.textHoverColor} transition-colors`}
+                  >
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <span className="font-semibold text-xs">{item.name}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
     </header>
   );
 }
+

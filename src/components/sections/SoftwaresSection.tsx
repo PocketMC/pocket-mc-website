@@ -14,6 +14,15 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
     0: true, // Open the first accordion by default
   });
 
+  const [openInfo, setOpenInfo] = useState<Record<string, boolean>>({});
+
+  const toggleInfo = (softwareName: string) => {
+    setOpenInfo((prev) => ({
+      ...prev,
+      [softwareName]: !prev[softwareName],
+    }));
+  };
+
   const toggleAccordion = (index: number) => {
     setOpenAccordions((prev) => ({
       ...prev,
@@ -24,7 +33,7 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
   return (
     <>
       {/* Supported Server Software Grid */}
-      <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24">
+      <section id="under-the-hood" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24">
         <div className="grid gap-8 sm:gap-12 lg:grid-cols-[0.8fr_1.2fr] items-center">
           <div>
             <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest bg-base-muted px-3 py-1 rounded inline-block">
@@ -44,7 +53,11 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
             <div className="mt-6 border border-divider bg-base-card rounded-xl shadow-sm cursor-default">
               <div className="p-5 flex gap-4 items-center">
                 <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
-                  🌐
+                  <svg className="w-5 h-5 text-accent fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-main">
@@ -60,59 +73,86 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
             {isLoading
               ? // Skeleton loaders
                 Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
-                    className="p-5 flex gap-4 items-start border border-divider rounded-xl bg-base-card/20 backdrop-blur"
+                    className="p-3 sm:p-4 flex gap-3 items-center border border-divider rounded-xl bg-base-card/20 backdrop-blur"
                   >
-                    <Skeleton className="w-12 h-12 flex-shrink-0 rounded-lg" />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Skeleton className="h-4 w-24 rounded" />
-                        <Skeleton className="h-4 w-12 rounded" />
-                      </div>
-                      <Skeleton className="h-3 w-full rounded mb-2" />
-                      <Skeleton className="h-3 w-5/6 rounded" />
+                    <Skeleton className="w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 rounded-lg" />
+                    <div className="flex-1 min-w-0">
+                      <Skeleton className="h-4 w-20 rounded mb-1" />
+                      <Skeleton className="h-3 w-10 rounded" />
                     </div>
                   </div>
                 ))
-              : serverSoftwares.map((software) => (
+              : serverSoftwares.map((software) => {
+                  const isInfoOpen = !!openInfo[software.name];
+                  return (
                     <div
                       key={software.name}
-                      className="border border-divider bg-base-card rounded-xl shadow-sm select-none group cursor-pointer"
+                      className="border border-divider bg-base-card rounded-xl shadow-sm select-none p-3 sm:p-4 transition-all hover:border-accent/40 flex flex-col justify-center"
                     >
-                      <div className="p-5 flex gap-4 items-start">
-                        <div className="w-12 h-12 flex-shrink-0 bg-base-muted p-2 rounded-lg border border-divider flex items-center justify-center overflow-hidden">
-                          <img
-                            src={getAssetUrl(software.icon)}
-                            alt={software.name}
-                            className={`w-full h-full object-contain filter group-hover:scale-105 transition-transform ${
-                              software.name === "Forge" ? "invert dark:invert-0" : ""
-                            }`}
-                            width="48"
-                            height="48"
-                            loading="lazy"
-                          />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-sm text-main">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 sm:gap-3.5 min-w-0">
+                          <div className="w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 bg-base-muted p-1.5 sm:p-2 rounded-lg border border-divider flex items-center justify-center overflow-hidden">
+                            <img
+                              src={getAssetUrl(software.icon)}
+                              alt={software.name}
+                              className={`w-full h-full object-contain filter ${
+                                software.name === "Forge" ? "invert dark:invert-0" : ""
+                              }`}
+                              width="44"
+                              height="44"
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-bold text-xs sm:text-sm text-main truncate leading-tight">
                               {software.name}
                             </h3>
-                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-divider bg-base-muted text-main-muted font-semibold leading-none">
+                            <span className="inline-block mt-0.5 text-[8px] sm:text-[9px] font-mono px-1 py-0.5 rounded border border-divider bg-base-muted text-main-muted font-semibold leading-none">
                               {software.tag}
                             </span>
                           </div>
-                          <p className="mt-1.5 text-xs text-main-muted leading-5">
-                            {software.description}
-                          </p>
                         </div>
+
+                        {/* Info (i) Icon Button */}
+                        <button
+                          onClick={() => toggleInfo(software.name)}
+                          className={`w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0 rounded-full border transition-all flex items-center justify-center cursor-pointer ${
+                            isInfoOpen
+                              ? "bg-accent text-accent-text border-accent"
+                              : "bg-base-muted/60 border-divider/80 text-main-muted hover:bg-accent/15 hover:border-accent/40 hover:text-accent"
+                          }`}
+                          aria-label={`Info about ${software.name}`}
+                          title={isInfoOpen ? "Hide details" : `Show ${software.name} description`}
+                        >
+                          <svg
+                            className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-none stroke-current"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="16" x2="12" y2="12" />
+                            <line x1="12" y1="8" x2="12.01" y2="8" />
+                          </svg>
+                        </button>
                       </div>
+
+                      {/* Expandable Info Description */}
+                      {isInfoOpen && (
+                        <div className="mt-2.5 pt-2.5 border-t border-divider/60 text-[11px] sm:text-xs text-main-muted leading-relaxed font-mono animate-fadeIn">
+                          {software.description}
+                        </div>
+                      )}
                     </div>
-                ))}
+                  );
+                })}
           </div>
         </div>
       </section>
