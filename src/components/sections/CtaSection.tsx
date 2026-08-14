@@ -1,30 +1,37 @@
+import { useState } from "react";
+import PlatformDownloadModal from "../ui/PlatformDownloadModal";
+
 export default function CtaSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="relative z-10 border-t border-divider bg-base-muted/50 py-24 overflow-hidden isolate">
       <div className="absolute top-[10%] right-[-100px] w-[400px] h-[400px] rounded-full glow-orb opacity-50 pointer-events-none"></div>
 
       <div className="mx-auto max-w-5xl px-6 text-center relative z-10">
         <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest bg-base-muted px-3 py-1 rounded">
-          GET STARTED TODAY
+          CROSS-PLATFORM DESKTOP ECOSYSTEM
         </span>
         <h2 className="mt-6 text-3xl font-black md:text-6xl tracking-[-0.05em] leading-[0.95] text-main">
           Start a server without turning setup into a chore.
         </h2>
         <p className="mt-6 max-w-xl mx-auto text-base text-main-muted">
           Enjoy full automation, Adoptium managed runtimes, safe scheduled
-          cron backups, Modrinth marketplace installers, and zero port
-          forwarded tunnels.
+          backups, Modrinth marketplace installers, and zero port forwarded tunnels across Windows, Linux, and macOS.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4 justify-center items-center">
-          <a
-            href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe"
-            className="inline-flex h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-8 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md"
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="inline-flex h-12 items-center justify-center bg-accent text-accent-text hover:bg-accent-hover px-8 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-md shadow-md cursor-pointer gap-2"
           >
-            Download for Windows
-          </a>
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+            </svg>
+            <span>Download PocketMC</span>
+          </button>
           <a
-            href="https://github.com/PocketMC/pocket-mc-windows"
+            href="https://github.com/PocketMC"
             target="_blank"
             rel="noreferrer"
             className="inline-flex h-12 items-center justify-center border border-divider bg-base px-8 text-sm font-bold text-main transition-colors hover:bg-base-muted rounded-md gap-2"
@@ -35,7 +42,7 @@ export default function CtaSection() {
             <span>Star on GitHub</span>
           </a>
           <a
-            href="https://discord.gg/h27uNCaxPH"
+            href="https://discord.gg/mWdMr8Mc2m"
             target="_blank"
             rel="noreferrer"
             className="inline-flex h-12 items-center justify-center border border-divider bg-base px-8 text-sm font-bold text-main transition-colors hover:bg-[#5865F2] hover:text-white hover:border-[#5865F2] rounded-md gap-2"
@@ -61,6 +68,8 @@ export default function CtaSection() {
           </a>
         </div>
       </div>
+
+      <PlatformDownloadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

@@ -14,14 +14,7 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
     0: true, // Open the first accordion by default
   });
 
-  const [openInfo, setOpenInfo] = useState<Record<string, boolean>>({});
-
-  const toggleInfo = (softwareName: string) => {
-    setOpenInfo((prev) => ({
-      ...prev,
-      [softwareName]: !prev[softwareName],
-    }));
-  };
+  const [activeInfo, setActiveInfo] = useState<string | null>(null);
 
   const toggleAccordion = (index: number) => {
     setOpenAccordions((prev) => ({
@@ -43,8 +36,7 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
               Support for every major server software.
             </h2>
             <p
-              className="mt-3 sm:mt-4 text-sm sm:text-base leading-6"
-              style={{ color: "var(--main-muted)" }}
+              className="mt-3 sm:mt-4 text-sm sm:text-base leading-6 text-main-muted"
             >
               PocketMC resolves available server versions from upstream APIs
               and manifests dynamically, facilitating installation for:
@@ -89,46 +81,43 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                   </div>
                 ))
               : serverSoftwares.map((software) => {
-                  const isInfoOpen = !!openInfo[software.name];
+                  const isActive = activeInfo === software.name;
                   return (
                     <div
                       key={software.name}
-                      className="border border-divider bg-base-card rounded-xl shadow-sm select-none p-3 sm:p-4 transition-all hover:border-accent/40 flex flex-col justify-center"
+                      className="border border-divider bg-base-card rounded-xl shadow-sm select-none p-3 sm:p-4 transition-all hover:border-accent/40 flex items-center justify-between gap-2 relative"
                     >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 sm:gap-3.5 min-w-0">
-                          <div className="w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 bg-base-muted p-1.5 sm:p-2 rounded-lg border border-divider flex items-center justify-center overflow-hidden">
-                            <img
-                              src={getAssetUrl(software.icon)}
-                              alt={software.name}
-                              className={`w-full h-full object-contain filter ${
-                                software.name === "Forge" ? "invert dark:invert-0" : ""
-                              }`}
-                              width="44"
-                              height="44"
-                              loading="lazy"
-                            />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <h3 className="font-bold text-xs sm:text-sm text-main truncate leading-tight">
-                              {software.name}
-                            </h3>
-                            <span className="inline-block mt-0.5 text-[8px] sm:text-[9px] font-mono px-1 py-0.5 rounded border border-divider bg-base-muted text-main-muted font-semibold leading-none">
-                              {software.tag}
-                            </span>
-                          </div>
+                      <div className="flex items-center gap-2 sm:gap-3.5 min-w-0">
+                        <div className="w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 bg-base-muted p-1.5 sm:p-2 rounded-lg border border-divider flex items-center justify-center overflow-hidden">
+                          <img
+                            src={getAssetUrl(software.icon)}
+                            alt={software.name}
+                            className={`w-full h-full object-contain filter ${
+                              software.name === "Forge" ? "invert dark:invert-0" : ""
+                            }`}
+                            width="44"
+                            height="44"
+                            loading="lazy"
+                          />
                         </div>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-bold text-xs sm:text-sm text-main truncate leading-tight">
+                            {software.name}
+                          </h3>
+                          <span className="inline-block mt-0.5 text-[8px] sm:text-[9px] font-mono px-1 py-0.5 rounded border border-divider bg-base-muted text-main-muted font-semibold leading-none">
+                            {software.tag}
+                          </span>
+                        </div>
+                      </div>
 
-                        {/* Info (i) Icon Button */}
+                      {/* Tooltip Wrapper */}
+                      <div className="relative group/tooltip flex-shrink-0">
                         <button
-                          onClick={() => toggleInfo(software.name)}
-                          className={`w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0 rounded-full border transition-all flex items-center justify-center cursor-pointer ${
-                            isInfoOpen
-                              ? "bg-accent text-accent-text border-accent"
-                              : "bg-base-muted/60 border-divider/80 text-main-muted hover:bg-accent/15 hover:border-accent/40 hover:text-accent"
-                          }`}
+                          onClick={() => setActiveInfo(isActive ? null : software.name)}
+                          onMouseEnter={() => setActiveInfo(software.name)}
+                          onMouseLeave={() => setActiveInfo(null)}
+                          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border bg-base-muted/60 border-divider/80 text-main-muted group-hover/tooltip:bg-accent/15 group-hover/tooltip:border-accent/40 group-hover/tooltip:text-accent transition-all flex items-center justify-center cursor-pointer"
                           aria-label={`Info about ${software.name}`}
-                          title={isInfoOpen ? "Hide details" : `Show ${software.name} description`}
                         >
                           <svg
                             className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-none stroke-current"
@@ -142,14 +131,26 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
                             <line x1="12" y1="8" x2="12.01" y2="8" />
                           </svg>
                         </button>
-                      </div>
 
-                      {/* Expandable Info Description */}
-                      {isInfoOpen && (
-                        <div className="mt-2.5 pt-2.5 border-t border-divider/60 text-[11px] sm:text-xs text-main-muted leading-relaxed font-mono animate-fadeIn">
-                          {software.description}
+                        {/* Hover Tooltip Card */}
+                        <div
+                          className={`absolute right-0 bottom-full mb-2.5 w-56 sm:w-64 p-3 rounded-xl border border-divider bg-base-card/95 backdrop-blur-md shadow-xl text-[11px] font-mono text-main leading-relaxed z-40 transition-all duration-200 pointer-events-none ${
+                            isActive
+                              ? "opacity-100 translate-y-0 scale-100"
+                              : "opacity-0 translate-y-1.5 scale-95 group-hover/tooltip:opacity-100 group-hover/tooltip:translate-y-0 group-hover/tooltip:scale-100"
+                          }`}
+                        >
+                          <div className="font-bold text-accent mb-1 border-b border-divider/50 pb-1 flex items-center justify-between">
+                            <span>{software.name}</span>
+                            <span className="text-[9px] font-normal text-main-muted">{software.tag}</span>
+                          </div>
+                          <p className="text-main-muted text-[11px] font-normal">
+                            {software.description}
+                          </p>
+                          {/* Tooltip Arrow */}
+                          <div className="absolute -bottom-1.5 right-2.5 w-3 h-3 bg-base-card border-b border-r border-divider rotate-45"></div>
                         </div>
-                      )}
+                      </div>
                     </div>
                   );
                 })}

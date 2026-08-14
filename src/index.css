@@ -7,15 +7,15 @@
   --base-card: #ffffff;
   --base-muted: #e4e4e7;
   --main: #09090b;
-  --main-muted: #52525b;
-  --divider: rgba(9, 9, 11, 0.08);
+  --main-muted: #3f3f46;
+  --divider: rgba(9, 9, 11, 0.12);
   --accent: #1e7e16;
   --accent-hover: #15580f;
   --accent-text: #ffffff;
   --glow: rgba(30, 126, 22, 0.05);
   --success: #1e7e16;
 
-  /* Explicitly define Tailwind v4 theme variables to avoid cascade layer inheritance issues */
+  /* Explicitly define Tailwind v4 theme variables */
   --color-base: var(--base);
   --color-base-card: var(--base-card);
   --color-base-muted: var(--base-muted);
@@ -40,15 +40,15 @@
   --base-card: #18181b;
   --base-muted: #27272a;
   --main: #f4f4f5;
-  --main-muted: #d4d4d8;
-  --divider: rgba(244, 244, 245, 0.08);
+  --main-muted: #a1a1aa;
+  --divider: rgba(244, 244, 245, 0.12);
   --accent: #3cc524;
   --accent-hover: #5ae144;
   --accent-text: #09090b;
   --glow: rgba(60, 197, 36, 0.08);
   --success: #3cc524;
 
-  /* Explicitly redefine Tailwind v4 theme variables for dark mode to force browser re-evaluation */
+  /* Explicitly redefine Tailwind v4 theme variables for dark mode */
   --color-base: var(--base);
   --color-base-card: var(--base-card);
   --color-base-muted: var(--base-muted);
@@ -76,6 +76,31 @@
   --color-success: var(--success);
 }
 
+/* Guarantee theme utility class evaluation across all browsers */
+.text-main {
+  color: var(--main) !important;
+}
+
+.text-main-muted {
+  color: var(--main-muted) !important;
+}
+
+.bg-base {
+  background-color: var(--base);
+}
+
+.bg-base-card {
+  background-color: var(--base-card);
+}
+
+.bg-base-muted {
+  background-color: var(--base-muted);
+}
+
+.border-divider {
+  border-color: var(--divider);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -83,12 +108,14 @@
 html {
   scroll-behavior: smooth;
   background: var(--base);
+  color: var(--main);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   background: var(--base);
+  color: var(--main);
   overflow-x: hidden;
 }
 
@@ -121,11 +148,10 @@ button, a {
 /* Premium micro-interactions & utility effects */
 
 /* Smooth global background/text/border animations */
-.theme-transition,
-.theme-transition * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, transform;
+.theme-transition {
+  transition-property: color, background-color, border-color, fill, stroke, box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 350ms;
+  transition-duration: 300ms;
 }
 
 /* Glassmorphic card styling */
@@ -206,8 +232,6 @@ button, a {
 .animate-float-slower {
   animation: float-slower 8s ease-in-out infinite;
 }
-
-
 
 /* Premium Scrollbar */
 ::-webkit-scrollbar {

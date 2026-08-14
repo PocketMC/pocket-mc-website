@@ -7,6 +7,7 @@ import HeroSection from "./components/sections/HeroSection";
 import TourSection from "./components/sections/TourSection";
 import SoftwaresSection from "./components/sections/SoftwaresSection";
 import ComparisonSection from "./components/sections/ComparisonSection";
+import PlatformsSection from "./components/sections/PlatformsSection";
 import FaqSection from "./components/sections/FaqSection";
 import CtaSection from "./components/sections/CtaSection";
 import LightboxModal from "./components/ui/LightboxModal";
@@ -16,12 +17,12 @@ import TextModal from "./components/ui/TextModal";
 const TermsContent = (
   <>
     <p>
-      Welcome to PocketMC. By using this website, downloading the PocketMC desktop application, or utilizing any of its features, you agree to be bound by these Terms of Service.
+      Welcome to PocketMC. By using this website, downloading any PocketMC desktop application (Windows, Linux, or macOS), or utilizing any of its features, you agree to be bound by these Terms of Service.
     </p>
     <div className="space-y-2">
       <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">1. MIT License & Open Source</h4>
       <p>
-        The PocketMC desktop client and website are open-source software distributed under the MIT License. You are free to view, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the conditions of the MIT License, which requires retaining the copyright notice and permission notice in all copies or substantial portions of the software.
+        The PocketMC desktop applications and website are open-source software distributed under the MIT License. You are free to view, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the conditions of the MIT License, which requires retaining the copyright notice and permission notice in all copies or substantial portions of the software.
       </p>
     </div>
     <div className="space-y-2">
@@ -57,9 +58,9 @@ const PrivacyContent = (
       PocketMC is designed with a <strong>local-first</strong> architecture. Your privacy and local environment security are our core principles. This policy explains how your data is managed and under what conditions outbound network requests are made.
     </p>
     <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">1. Local Storage & DPAPI Encryption</h4>
+      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">1. Local Storage & Platform Security Encryption</h4>
       <p>
-        PocketMC keeps your server configuration files, world data, console logs, and metadata strictly on your local machine under your configured application directory. To protect your sensitive credentials (such as CurseForge API keys, Playit agent secrets, Cloud backup OAuth tokens, and AI API keys), PocketMC encrypts this information using the Windows Data Protection API (DPAPI) bound to your local Windows user account (DataProtectionScope.CurrentUser). These values are decrypted in memory only when active network requests are initiated, and plain-text buffers are immediately zeroed out of memory to prevent scraping.
+        PocketMC keeps your server configuration files, world data, console logs, and metadata strictly on your local machine under your configured application directory. To protect your sensitive credentials (such as CurseForge API keys, Playit agent secrets, Cloud backup OAuth tokens, and AI API keys), PocketMC encrypts this information using native platform security frameworks: Windows DPAPI on Windows, Linux Secret Service (dbus) on Linux, and macOS Keychain Security framework on Apple macOS.
       </p>
     </div>
     <div className="space-y-2">
@@ -80,7 +81,7 @@ const PrivacyContent = (
         The desktop client communicates directly with external servers only to support the features you interact with:
       </p>
       <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-        <li><strong>adoptium.net & github.com:</strong> Direct HTTP calls are made to download matching JRE runtimes or PHP binaries to your local directory. Velopack checks for client updates directly via GitHub Releases.</li>
+        <li><strong>adoptium.net & github.com:</strong> Direct HTTP calls are made to download matching JRE runtimes or PHP binaries to your local directory. Velopack / GitHub Releases checks for client updates directly.</li>
         <li><strong>api.modrinth.com & api.curseforge.com:</strong> Queries are sent directly to Modrinth or CurseForge to search and download game mods or plugins. CurseForge integrations utilize your private API key directly.</li>
         <li><strong>api.playit.gg:</strong> The Playit agent is downloaded from GitHub and verified for authentic digital signatures. Tunnels are configured directly using the Playit API. Account provisioning and partner keys are set up via a local loopback server and the Render proxy.</li>
         <li><strong>Cloud Backups:</strong> OneDrive and Dropbox integrations execute standard authentication flows locally. Google Drive uses a Render proxy to exchange and refresh OAuth tokens. Zip uploads are sent directly to the cloud providers' API endpoints.</li>
@@ -90,7 +91,7 @@ const PrivacyContent = (
     <div className="space-y-2">
       <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">4. User Context & Diagnostic Logs</h4>
       <p>
-        PocketMC runs under your standard Windows user account (<code>asInvoker</code>). It does not request administrative privileges unless you explicitly trigger UWP loopback exemptions for Bedrock Dedicated Servers, which prompts a standard Windows UAC dialog to execute <code>CheckNetIsolation.exe</code>.
+        PocketMC runs under standard user accounts. It does not request administrative privileges unless you explicitly trigger UWP loopback exemptions for Bedrock Dedicated Servers on Windows, which prompts a standard Windows UAC dialog to execute <code>CheckNetIsolation.exe</code>.
       </p>
       <p>
         If you generate a support diagnostics bundle, it is compiled as a local ZIP file on your machine and is never uploaded automatically. PocketMC automatically redacts passwords (such as RCON credentials) from server configuration files before compiling the bundle.
@@ -155,6 +156,8 @@ function App() {
             onOpenProofModal={(data) => setProofModalData(data)}
           />
 
+          <PlatformsSection />
+
           <FaqSection />
 
           <CtaSection />
@@ -195,7 +198,7 @@ function App() {
         {/* Floating Social/Support Buttons Overlay */}
         <div className="hidden sm:flex fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-40 flex-col sm:flex-row items-center gap-2 sm:gap-3">
           <a
-            href="https://discord.gg/h27uNCaxPH"
+            href="https://discord.gg/mWdMr8Mc2m"
             target="_blank"
             rel="noopener noreferrer"
             className="w-10 h-10 rounded-full flex items-center justify-center bg-[#5865F2] text-white shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 border border-white/10 group cursor-pointer flex-shrink-0"

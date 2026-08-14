@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { id: "screenshots", label: "Screenshots", href: "#screenshots" },
   { id: "under-the-hood", label: "Under the Hood", href: "#under-the-hood" },
   { id: "comparison", label: "Comparison", href: "#comparison" },
+  { id: "platforms", label: "Platforms", href: "#platforms" },
   { id: "faq", label: "FAQ", href: "#faq" },
 ];
 
@@ -23,7 +24,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sectionIds = ["hero", "screenshots", "under-the-hood", "roadmap", "comparison", "faq"];
+      const sectionIds = ["hero", "screenshots", "under-the-hood", "roadmap", "comparison", "platforms", "faq"];
       const scrollPosition = window.scrollY + 120; // Offset for header height
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -246,4 +247,3 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
     </header>
   );
 }
-

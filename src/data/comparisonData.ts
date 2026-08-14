@@ -1,9 +1,9 @@
 export const comparisonData = [
   {
     tool: "PocketMC",
-    category: "Local-first Windows desktop app",
-    strength: "Complete local Minecraft server management in one Windows app",
-    win: "Best overall fit for Windows self-hosting: Java (with NeoForge), native BDS, PocketMine-MP, Geyser/Floodgate crossplay, managed Adoptium/PHP runtimes, RCON-secured backups with automatic Google Drive/OneDrive/Dropbox cloud replication, auto-configured playit.gg tunnels, and active open-source trust.",
+    category: "Native Multi-Platform Desktop App",
+    strength: "Complete local Minecraft server management on Windows, Linux, and macOS",
+    win: "Best overall fit for self-hosting across Windows, Linux, and macOS: Java (with NeoForge), native BDS, PocketMine-MP, Geyser/Floodgate crossplay, managed Adoptium/PHP runtimes, RCON-secured backups with automatic Google Drive/OneDrive/Dropbox cloud replication, auto-configured playit.gg & Cloudflare tunnels, AI log summaries, and active open-source trust.",
     isFeatured: true,
   },
   {
@@ -11,7 +11,7 @@ export const comparisonData = [
     category: "Desktop app",
     strength:
       "Very easy local hosting with BDS, Geyser, Playit.gg, backups, and metrics",
-    win: "PocketMC has stronger open-source trust, deeper PocketMine/Modrinth/Bedrock add-on support, safer backup/restore implementation, and broader runtime ownership.",
+    win: "PocketMC has stronger open-source trust, cross-platform Linux and macOS clients, deeper PocketMine/Modrinth/Bedrock add-on support, safer backup/restore implementation, and broader runtime ownership.",
     isFeatured: false,
   },
   {
@@ -19,7 +19,7 @@ export const comparisonData = [
     category: "Desktop GUI (Python Tkinter)",
     strength:
       "Python Tkinter GUI with playit.gg, Modrinth search, and custom scripting (amscript)",
-    win: "PocketMC offers a native Windows UI (Mica/Acrylic/Wallpaper Blur) instead of a legacy Tkinter interface, provides native Bedrock Dedicated Server (BDS) and PocketMine-MP (PHP) instances out-of-the-box (auto-mcs only supports Bedrock via Geyser crossplay on top of Java), and features scheduled RCON-held backups with built-in Google Drive, OneDrive, and Dropbox replication.",
+    win: "PocketMC offers native Windows (WPF) and Linux/macOS (Avalonia UI) interfaces instead of a legacy Tkinter interface, provides native Bedrock Dedicated Server (BDS) and PocketMine-MP (PHP) instances out-of-the-box, and features scheduled RCON-held backups with built-in Google Drive, OneDrive, and Dropbox replication.",
     isFeatured: false,
     proof: {
       tool: "auto-mcs",
@@ -27,7 +27,7 @@ export const comparisonData = [
       points: [
         {
           title: "Legacy UI Toolkit (Tkinter)",
-          desc: "Implemented using Python's built-in Tkinter library rather than native Windows visual assets, leading to a legacy, custom rendering style.",
+          desc: "Implemented using Python's built-in Tkinter library rather than native desktop visual assets, leading to a legacy, custom rendering style.",
           file: "source/ui/amseditor.py",
           code: "from tkinter import Tk, Entry, Label, Canvas..."
         },
@@ -50,7 +50,7 @@ export const comparisonData = [
     tool: "MCSManager",
     category: "Web panel (Node.js)",
     strength: "Distributed, multi-user web panel for Minecraft and Steam servers",
-    win: "PocketMC is local-first, running entirely in user-space without requiring Node.js runtimes, database setup, daemon installation, or reverse-proxy configuration. It manages all Java/PHP runtimes automatically and provides a guided tunnel wizard, avoiding the high setup complexity of a distributed panel/daemon architecture.",
+    win: "PocketMC is local-first, running natively without requiring Node.js runtimes, database setup, daemon installation, or reverse-proxy configuration. It manages all Java/PHP runtimes automatically and provides a guided tunnel wizard, avoiding the high setup complexity of a distributed panel/daemon architecture.",
     isFeatured: false,
     proof: {
       tool: "MCSManager",
@@ -81,7 +81,7 @@ export const comparisonData = [
     tool: "Crafty Controller",
     category: "Web panel (Python Tornado)",
     strength: "Python web panel supporting multi-server scheduling and backups",
-    win: "PocketMC is native to Windows, running local-first in user-space with zero pre-requisites. Crafty Controller is panel-first (requiring browser setup) and its documentation warns of a 90% risk of world chunk corruption/shredding when running under Docker Desktop/WSL on Windows. PocketMC also includes built-in playit.gg tunnel auto-provisioning and direct cloud backups (Google Drive, OneDrive, Dropbox).",
+    win: "PocketMC is native to Windows, Linux, and macOS, running local-first in user-space with zero pre-requisites. Crafty Controller is panel-first (requiring browser setup) and its documentation warns of a 90% risk of world chunk corruption/shredding when running under Docker Desktop/WSL on Windows. PocketMC also includes built-in playit.gg/Cloudflare tunnel auto-provisioning and direct cloud backups (Google Drive, OneDrive, Dropbox).",
     isFeatured: false,
     proof: {
       tool: "Crafty Controller",
