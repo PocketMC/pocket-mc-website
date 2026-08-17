@@ -49,7 +49,7 @@ All dynamic effects dynamically adjust colour palettes, opacities, and canvas bl
 * **Structured Metadata**: Canonical URL, Open Graph headers, Twitter Card, and `robots.txt` controls.
 * **JSON-LD Rich Snippets**: Both `SoftwareApplication` (for Google Search download cards) and `FAQPage` (for Google FAQ accordions in SERPs) schemas.
 * **Sitemap**: `public/sitemap.xml` for search engine crawling.
-* **LLM Context (`llm.txt`)**: Machine-readable developer log at `public/llm.txt` — a codebase summary for AI agents and LLM-based search tools.
+* **LLM Context (`llm.txt`)**: Machine-readable developer log at `public/llm.txt` (a codebase summary for AI agents and LLM-based search tools).
 
 ---
 

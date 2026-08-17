@@ -109,6 +109,43 @@ export const comparisonData = [
     }
   },
   {
+    tool: "Pterodactyl Panel",
+    category: "Web panel & Wings daemon (Linux VPS)",
+    strength: "Enterprise client-server web app (PHP/Laravel + Redis + Nginx) and Go daemon (Wings) over Docker for 24/7 Linux VPS and commercial hosting",
+    win: "PocketMC is built for zero-sysadmin local desktop self-hosting on Windows, Linux, and macOS without requiring a Linux VPS, Docker engine, MariaDB database, Nginx reverse proxy, or router port forwarding. PocketMC provisions exact Adoptium Java/PHP runtimes automatically, avoids Docker cgroup OOM hard-kills with graceful RCON shutdown hooks, and includes built-in Playit.gg/Cloudflare tunnels and direct cloud sync (Google Drive, OneDrive, Dropbox).",
+    isFeatured: false,
+    proof: {
+      tool: "Pterodactyl Panel",
+      title: "Technical Audit: Pterodactyl Panel",
+      points: [
+        {
+          title: "Multi-Service Web Stack & Daemon Overhead",
+          desc: "Requires a dedicated Linux host, PHP 8.2+ Laravel framework with queue workers, MariaDB/MySQL database, Redis caching, and Nginx web server before pairing nodes with the Go-based Wings daemon over HTTP APIs. High infrastructure complexity for local gaming.",
+          file: "docker-compose.example.yml",
+          code: "services: { database: 'mariadb:11', cache: 'redis:alpine', panel: 'ghcr.io/pterodactyl/panel' }"
+        },
+        {
+          title: "Process & Memory Handling (Docker OOM Hard-Kills)",
+          desc: "Spikes above the container RAM ceiling trigger immediate OS-level 'kill -9' via Docker cgroup OOM killers, risking unwritten chunk corruption. PocketMC uses graceful RCON shutdown hooks and direct OS scheduling without container hard-kills.",
+          file: "app/Repositories/Wings/DaemonServerRepository.php",
+          code: "$this->getHttpClient()->post('/api/servers', ['uuid' => $this->server->uuid, 'start_on_completion' => $start])"
+        },
+        {
+          title: "Runtime Management & Egg Maintenance",
+          desc: "Java and PHP runtimes are tied to Docker container images and community 'Egg' templates requiring manual environment variable configuration, whereas PocketMC dynamically auto-provisions exact Adoptium Java (8-25) and PHP 8.2 runtimes.",
+          file: "composer.json",
+          code: "Dependencies tied to 'laravel/framework': '^12.60', 'predis/predis', and 'aws/aws-sdk-php'."
+        },
+        {
+          title: "No Built-in Zero-Port-Forwarding Tunnels",
+          desc: "Designed strictly for static-IP cloud servers. Lacks built-in automated tunnel provisioning (Playit.gg / Cloudflare) to allow friends to join local instances without router configuration.",
+          file: "app/Services/Backups/InitiateBackupService.php",
+          code: "Requires dedicated node allocations and public IP mapping; manual tunnel/reverse proxy only."
+        }
+      ]
+    }
+  },
+  {
     tool: "Essential Mod",
     category: "Client mod / P2P hosting",
     strength: "Easy friend world hosting",

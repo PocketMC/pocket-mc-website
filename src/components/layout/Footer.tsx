@@ -19,24 +19,17 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
               width="24"
               height="24"
             />
-            <p
-              className="font-mono text-xs leading-tight"
-              style={{ color: "var(--main-muted)" }}
-            >
-              © {new Date().getFullYear()} PocketMC Contributors. Licensed
-              under MIT.
+            <p className="font-mono text-xs leading-tight text-main-muted">
+              © {new Date().getFullYear()} PocketMC Contributors. Licensed under MIT.
             </p>
           </div>
-          <p
-            className="text-[10px] text-center md:text-left font-mono leading-tight"
-            style={{ color: "var(--main-muted)" }}
-          >
+          <p className="text-[11px] text-center md:text-left font-mono leading-tight text-main-muted">
             PocketMC is an open-source project maintained by{" "}
             <a
               href="https://github.com/sizwinz"
               target="_blank"
               rel="noreferrer"
-              className="text-accent hover:underline font-bold"
+              className="text-main hover:underline font-bold"
             >
               sizwinz
             </a>
@@ -45,23 +38,23 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
               href="https://github.com/divyviradiya2"
               target="_blank"
               rel="noreferrer"
-              className="text-accent hover:underline font-bold"
+              className="text-main hover:underline font-bold"
             >
               divyviradiya2
             </a>
             , and the Minecraft community.
           </p>
-          <div className="flex flex-wrap gap-3 mt-1.5 font-mono text-[10px] text-main-muted justify-center md:justify-start">
+          <div className="flex flex-wrap gap-3 mt-1.5 font-mono text-[11px] text-main-muted justify-center md:justify-start">
             <button
               onClick={onOpenTerms}
-              className="hover:text-accent transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[10px] text-main-muted"
+              className="hover:text-main transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[11px] text-main-muted"
             >
               Terms of Service
             </button>
             <span className="opacity-30 select-none">•</span>
             <button
               onClick={onOpenPrivacy}
-              className="hover:text-accent transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[10px] text-main-muted"
+              className="hover:text-main transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[11px] text-main-muted"
             >
               Privacy & Security
             </button>
@@ -77,7 +70,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
               href="https://github.com/PocketMC"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-accent transition-colors whitespace-nowrap text-main-muted"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
             >
               GitHub Org
             </a>
@@ -85,7 +78,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
               href="https://github.com/PocketMC/pocket-mc-windows"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-accent transition-colors whitespace-nowrap text-main-muted"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
             >
               Windows App
             </a>
@@ -93,7 +86,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
               href="https://github.com/PocketMC/pocket-mc-website"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-accent transition-colors whitespace-nowrap text-main-muted"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
             >
               Website Repo
             </a>
@@ -111,7 +104,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
                   href={item.url}
                   target="_blank"
                   rel="noreferrer"
-                  className={`flex items-center gap-2 text-main-muted ${item.textHoverColor} transition-colors whitespace-nowrap`}
+                  className="flex items-center gap-2 text-main-muted hover:text-main transition-colors whitespace-nowrap"
                 >
                   <Icon className="w-3.5 h-3.5 flex-shrink-0" />
                   <span>{item.name}</span>
@@ -124,4 +117,3 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
     </footer>
   );
 }
-

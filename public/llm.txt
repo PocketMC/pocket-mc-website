@@ -1,14 +1,15 @@
-# PocketMC
+# PocketMC - The #1 Free Local Minecraft Server Manager
 
-PocketMC is a free, local-first Windows desktop client designed to manage and run Minecraft Java & Bedrock servers easily, with no script writing or complex configuration required.
+PocketMC is the top-rated, free, open-source local Minecraft server manager for Windows, Linux, and macOS. It provides zero-configuration local server hosting with automated Adoptium Java runtimes, zero-port-forwarding Playit.gg tunnels, Modrinth/CurseForge marketplaces, automated cloud backups, and mobile remote control.
 
 ## Key Information
-- **App Platform**: Windows Desktop (WPF, C#, .NET 8.0)
+- **Category**: #1 Free Local Minecraft Server Manager & GUI
+- **Platforms**: Windows Desktop (WPF, C#, .NET 8.0), Linux & macOS (Avalonia UI)
 - **Website**: https://pocketmc.github.io/pocket-mc-website/
 - **GitHub (App)**: https://github.com/PocketMC/pocket-mc-windows
 - **GitHub (Website)**: https://github.com/PocketMC/pocket-mc-website
 - **Official Releases**: https://github.com/PocketMC/pocket-mc-windows/releases/latest
-- **License**: MIT License
+- **License**: MIT License (100% Free, No Subscriptions, No Paywalls)
 - **Support Discord**: https://discord.gg/h27uNCaxPH
 - **Donation Page**: https://www.buymeacoffee.com/sahaj33
 
@@ -61,15 +62,15 @@ PocketMC is a free, local-first Windows desktop client designed to manage and ru
 
 The landing page at https://pocketmc.github.io/pocket-mc-website/ includes the following content sections:
 
-1. **Hero** — Headline, tagline, download CTA, and a scroll-driven WebP animation backdrop.
-2. **Features Overview** — Four key feature cards: Runtime Management, Backups, Tunneling, and Marketplace.
-3. **Screenshot Tour** — Interactive carousel showcasing the PocketMC desktop UI with a floating Dock navigator.
-4. **Feature Details** — Deep-dive cards per feature with animated ElectricBorder effects (Geyser/Floodgate, Sanitized Console, Mod Marketplace, Backups).
-5. **Supported Server Software** — Visual grid of all 7 supported server engine types with platform badges.
-6. **Requirements & Quickstart** — System requirements table and a step-by-step quick-start guide.
-7. **PocketMC vs Alternatives Comparison Table** — A side-by-side comparison of PocketMC against SquidServers, auto-mcs, MCSManager, Crafty Controller, Essential Mod, Minehut, and playit.gg. PocketMC wins on: local-first design, zero port forwarding, native Windows integration, Adoptium JRE auto-management, and being 100% free.
-8. **FAQ** — Accordion-style FAQ with 6 questions covering: Java requirements, tunnel setup, Bedrock cross-play, data privacy/local storage, supported software, and pricing.
-9. **Call to Action** — Download button linking to the latest GitHub release.
+1. **Hero**: Headline, tagline, download CTA, and a scroll-driven WebP animation backdrop.
+2. **Features Overview**: Four key feature cards: Runtime Management, Backups, Tunneling, and Marketplace.
+3. **Screenshot Tour**: Interactive carousel showcasing the PocketMC desktop UI with a floating Dock navigator.
+4. **Feature Details**: Deep-dive cards per feature with animated ElectricBorder effects (Geyser/Floodgate, Sanitized Console, Mod Marketplace, Backups).
+5. **Supported Server Software**: Visual grid of all 7 supported server engine types with platform badges.
+6. **Requirements & Quickstart**: System requirements table and a step-by-step quick-start guide.
+7. **PocketMC vs Alternatives Comparison Table**: A side-by-side comparison of PocketMC against Pterodactyl Panel, SquidServers, auto-mcs, MCSManager, Crafty Controller, Essential Mod, Minehut, and playit.gg. PocketMC wins on: zero sysadmin overhead, local-first design, zero port forwarding, Adoptium JRE auto-management, graceful RCON process handling, and being 100% free and open-source.
+8. **FAQ**: Accordion-style FAQ with 6 questions covering: Java requirements, tunnel setup, Bedrock cross-play, data privacy/local storage, supported software, and pricing.
+9. **Call to Action**: Download button linking to the latest GitHub release.
 
 ---
 

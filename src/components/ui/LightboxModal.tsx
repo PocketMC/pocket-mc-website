@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import type { TouchEvent } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import type { LightboxData } from "../../types";
 import { getAssetUrl } from "../../utils/getAssetUrl";
@@ -59,11 +60,9 @@ export default function LightboxModal({
 
     window.addEventListener("keydown", handleKeyDown);
     
-    // Focus close button (always index 0/1 depending on prev/next presence)
     if (modalRef.current) {
       const focusable = modalRef.current.querySelectorAll('button');
       if (focusable.length > 0) {
-        // Focus the last button (which is always the Close button)
         (focusable[focusable.length - 1] as HTMLElement).focus();
       }
     }
@@ -99,7 +98,7 @@ export default function LightboxModal({
     }
   };
 
-  return (
+  const content = (
     <AnimatePresence>
       {lightboxData !== null && (
         <motion.div
@@ -111,7 +110,7 @@ export default function LightboxModal({
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="fixed inset-0 z-55 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
           tabIndex={-1}
         >
           {/* Prev/Next Navigation Buttons */}
@@ -121,10 +120,10 @@ export default function LightboxModal({
                 e.stopPropagation();
                 lightboxData.onPrev?.();
               }}
-              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-60 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur text-white hover:bg-white/15 transition-all shadow-lg active:scale-95 cursor-pointer"
+              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-[100000] flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 backdrop-blur text-white hover:bg-white/20 transition-all shadow-lg active:scale-95 cursor-pointer"
               aria-label="Previous image"
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -135,10 +134,10 @@ export default function LightboxModal({
                 e.stopPropagation();
                 lightboxData.onNext?.();
               }}
-              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-60 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur text-white hover:bg-white/15 transition-all shadow-lg active:scale-95 cursor-pointer"
+              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-[100000] flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 backdrop-blur text-white hover:bg-white/20 transition-all shadow-lg active:scale-95 cursor-pointer"
               aria-label="Next image"
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -147,22 +146,22 @@ export default function LightboxModal({
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-2.5 rounded-full cursor-pointer z-60"
+            className="absolute top-5 right-5 text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-2.5 rounded-full cursor-pointer z-[100000]"
             aria-label="Close image viewer"
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
           {/* Image Container */}
           <motion.div
-            initial={{ scale: 0.95, y: 10 }}
+            initial={{ scale: 0.96, y: 10 }}
             animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.95, y: 10 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            exit={{ scale: 0.96, y: 10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-[90vw] max-h-[80vh] overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-neutral-900 cursor-default"
+            className="relative max-w-[90vw] max-h-[80vh] overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-black cursor-default"
           >
             <img
               src={getAssetUrl(lightboxData.src)}
@@ -174,15 +173,15 @@ export default function LightboxModal({
 
           {/* Caption */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="mt-4 text-center text-white max-w-2xl px-4"
+            exit={{ opacity: 0, y: 8 }}
+            className="mt-3 text-center text-white max-w-2xl px-4"
           >
-            <h4 className="font-mono font-bold text-sm tracking-wide text-accent">
+            <h4 className="font-mono font-bold text-xs tracking-wide text-white">
               {lightboxData.label}
             </h4>
-            <p className="text-sm text-neutral-300 mt-1">
+            <p className="text-xs text-neutral-400 mt-0.5 font-mono">
               {lightboxData.title}
             </p>
           </motion.div>
@@ -190,4 +189,6 @@ export default function LightboxModal({
       )}
     </AnimatePresence>
   );
+
+  return typeof document !== "undefined" ? createPortal(content, document.body) : content;
 }

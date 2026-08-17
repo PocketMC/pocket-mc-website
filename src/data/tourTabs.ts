@@ -57,7 +57,7 @@ export const tourTabs = [
     description:
       "Install and manage server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle downloads safely, while the integrated Mod and Plugin Management views allow you to enable, disable, or update add-ons without renaming files.",
     bullets: [
-      "Native Modrinth browser — mods, plugins, and modpacks",
+      "Native Modrinth browser: mods, plugins, and modpacks",
       "CurseForge browser via API key and Poggit integration for PocketMine plugins",
       "Java metadata scanning: Fabric, Quilt, Forge, NeoForge, Paper metadata",
       "Bedrock pack (.mcpack, .mcaddon, .zip) ingestion and validation",
@@ -142,7 +142,7 @@ export const tourTabs = [
     image: "/screenshots/themes-showcase.webp",
     alt: "PocketMC Themes and Customization Options Showcase",
     description:
-      "Custom background images and accent colors with different theme options—customize PocketMC to match your imagination. Select from preset wallpapers or upload your own, adjust accent highlights, and switch between mica, acrylic, and native platform materials.",
+      "Custom background images and accent colors with different theme options, customize PocketMC to match your imagination. Select from preset wallpapers or upload your own, adjust accent highlights, and switch between mica, acrylic, and native platform materials.",
     bullets: [
       "Custom background images and wallpaper restore presets",
       "Dynamic accent color palette selection (green, blue, purple, custom HEX)",

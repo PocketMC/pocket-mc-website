@@ -41,7 +41,7 @@ export const detailFeatures = [
       "Built-in CheckNetIsolation.exe UWP helper for Bedrock local loopback access",
       "Windows native Toast notifications and taskbar Tray integration",
       "Discord Welcome Bot Integration with automatic server role assignments",
-      "Discord Rich Presence — shows server state, player count, uptime, and join link",
+      "Discord Rich Presence: shows server state, player count, uptime, and join link",
       "Velopack automated startup updates with incremental file checks",
       "Dependency health scanner validating Adoptium, Playit, and marketplace APIs",
       "Mica, Acrylic, Wallpaper Blur, and Solid theme options for Windows UI polish",

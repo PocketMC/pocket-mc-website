@@ -29,7 +29,7 @@ export const faqData = [
   },
   {
     q: "Are my server logs shared with third-party AI systems?",
-    a: "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally—automatically scrubbing IP addresses, emails, and personal info—before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama).",
+    a: "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally (automatically scrubbing IP addresses, emails, and personal info) before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama).",
   },
   {
     q: "Will my server stay online if my Windows PC goes to sleep?",

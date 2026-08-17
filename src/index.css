@@ -3,17 +3,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --base: #f4f4f5;
+  --base: #fafafa;
   --base-card: #ffffff;
-  --base-muted: #e4e4e7;
+  --base-muted: #f4f4f5;
   --main: #09090b;
-  --main-muted: #3f3f46;
-  --divider: rgba(9, 9, 11, 0.12);
-  --accent: #1e7e16;
-  --accent-hover: #15580f;
+  --main-muted: #71717a;
+  --divider: rgba(9, 9, 11, 0.08);
+  --accent: #09090b;
+  --accent-hover: #27272a;
   --accent-text: #ffffff;
-  --glow: rgba(30, 126, 22, 0.05);
-  --success: #1e7e16;
+  --glow: rgba(0, 0, 0, 0.03);
+  --success: #09090b;
 
   /* Explicitly define Tailwind v4 theme variables */
   --color-base: var(--base);
@@ -36,17 +36,17 @@
 }
 
 .dark {
-  --base: #09090b;
-  --base-card: #18181b;
-  --base-muted: #27272a;
+  --base: #000000;
+  --base-card: #111113;
+  --base-muted: #1c1c1f;
   --main: #f4f4f5;
   --main-muted: #a1a1aa;
-  --divider: rgba(244, 244, 245, 0.12);
-  --accent: #3cc524;
-  --accent-hover: #5ae144;
+  --divider: rgba(255, 255, 255, 0.08);
+  --accent: #ffffff;
+  --accent-hover: #e4e4e7;
   --accent-text: #09090b;
-  --glow: rgba(60, 197, 36, 0.08);
-  --success: #3cc524;
+  --glow: rgba(255, 255, 255, 0.03);
+  --success: #ffffff;
 
   /* Explicitly redefine Tailwind v4 theme variables for dark mode */
   --color-base: var(--base);
@@ -117,6 +117,7 @@ body {
   background: var(--base);
   color: var(--main);
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -151,101 +152,66 @@ button, a {
 .theme-transition {
   transition-property: color, background-color, border-color, fill, stroke, box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  transition-duration: 250ms;
 }
 
 /* Glassmorphic card styling */
 .glass-panel {
-  background-color: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .dark .glass-panel {
-  background-color: rgba(18, 18, 23, 0.7);
+  background-color: rgba(17, 17, 19, 0.75);
 }
 
-/* Minecraft grid background style */
-.bg-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, var(--divider) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--divider) 1px, transparent 1px);
+/* Hardware accelerated fixed header for mobile scrolling stability */
+header {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  contain: layout paint;
 }
 
-/* Glowing background orb */
-.glow-orb {
-  background: radial-gradient(circle, var(--glow) 0%, rgba(0, 0, 0, 0) 70%);
-  filter: blur(60px);
-}
-
-/* Mobile-optimized glow orbs */
-@media (max-width: 768px) {
-  .glow-orb {
-    filter: blur(40px);
-    opacity: 0.4 !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .glow-orb {
-    display: none;
-  }
+/* Subtle atmospheric lighting */
+.ambient-glow {
+  background: radial-gradient(circle at 50% 0%, var(--glow) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 /* Animations */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
   }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes float-slow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0.5deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(-0.5deg);
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes float-slower {
-  0%, 100% {
-    transform: translateY(0px) rotate(-1deg);
-  }
-  50% {
-    transform: translateY(-16px) rotate(1deg);
-  }
+.animate-fadeIn {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-.animate-float-slower {
-  animation: float-slower 8s ease-in-out infinite;
-}
-
-/* Premium Scrollbar */
+/* Premium Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--base);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--divider);
-  border-radius: 5px;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -259,4 +225,27 @@ button, a {
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Custom visible horizontal scrollbar for screenshot gallery */
+.gallery-scroll::-webkit-scrollbar {
+  height: 5px;
+  display: block;
+}
+.gallery-scroll::-webkit-scrollbar-track {
+  background: var(--divider);
+  border-radius: 9999px;
+  margin: 0 20px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: var(--main-muted);
+  border-radius: 9999px;
+  opacity: 0.5;
+}
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--main);
+}
+.gallery-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--main-muted) var(--divider);
 }
