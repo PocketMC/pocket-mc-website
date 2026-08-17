@@ -213,20 +213,6 @@ export default function HeroSection() {
               </a>
             </div>
           </div>
-
-          {/* Minimal Badges */}
-          <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-main-muted font-mono">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-base-muted text-main font-bold select-none text-[11px] sm:text-xs border border-divider shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-main" />
-              100% Free & Open Source (MIT)
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-base-card border border-divider text-main font-medium select-none text-[11px] sm:text-xs">
-              Zero Port Forwarding
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-base-card border border-divider text-main-muted font-medium select-none text-[11px] sm:text-xs">
-              Automatic Java Adoptium
-            </span>
-          </div>
         </div>
 
         {/* Hero Video Mockup */}
