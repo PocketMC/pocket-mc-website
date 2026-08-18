@@ -1,65 +1,137 @@
-# PocketMC Website 🌐
+# PocketMC Website
 
-The official landing page for **PocketMC**, the free local-first Windows client for automated Minecraft server management.
+The official static landing page and showcase for **PocketMC**, the free, open-source local Minecraft server manager for Windows, Linux, and macOS.
 
-🚀 **Live Website**: [pocketmc.github.io/pocket-mc-website](https://pocketmc.github.io/pocket-mc-website/)
-📦 **App Repository**: [PocketMC/pocket-mc-windows](https://github.com/PocketMC/pocket-mc-windows)
-
----
-
-## 🎨 Tech Stack & Features
-
-This website is designed with a premium, game-inspired aesthetic featuring rich interactive micro-animations, a fully responsive light/dark theme system, and complete modern SEO structures. 
-
-### Core Stack
-* **Framework**: React 19 + TypeScript
-* **Build Tool**: Vite
-* **Styling**: Tailwind CSS v4
-* **Animation & Rendering**: Motion (Framer Motion v12) & Three.js (via WebGL)
-
-### Page Sections
-| Section | Description |
-|---|---|
-| **Hero** | Headline, tagline, download CTA, and a scroll-driven WebP animation backdrop |
-| **Features Overview** | Four key feature cards: Runtime Management, Backups, Tunneling, and Marketplace |
-| **Screenshot Tour** | Interactive carousel of the PocketMC desktop UI navigated by a floating Dock |
-| **Feature Details** | Deep-dive cards per feature with animated ElectricBorder canvas effects |
-| **Server Software** | Visual grid of all 7 supported server engines with platform badges |
-| **Requirements & Quickstart** | System requirements table and step-by-step quick-start guide |
-| **Comparison Table** | Side-by-side comparison of PocketMC vs. Crafty Controller, MCSManager, AMP, Pterodactyl, and CLI |
-| **FAQ** | Animated accordion FAQ with 6 common questions about setup, cross-play, pricing, and privacy |
-| **Call to Action** | Download button linking to the latest GitHub release |
-
-### Key UI Components
-* **`<ElectricBorder />`**: Neon electric canvas trace with random noise wave algorithms (feature detail cards).
-* **`<BorderGlow />`**: Mouse-proximity edge lighting with multi-colour gradients (server software stack).
-* **`<LiquidEther />`**: Interactive WebGL liquid shader background (requirements / quickstart section).
-* **`<StarBorder />`**: Rotating animated star orbit border (quickstart steps).
-* **`<ClickSpark />`**: Cursor-click physics particle burst.
-* **`<PixelSnow />`**: Retro pixelated snow fall overlay (pre-footer CTA section).
-* **`<Dock />`**: Custom floating screenshot navigation dock with client-coordinate hover scaling.
-* **Fullscreen Lightbox Viewer**: Touch gestures (swipe), `Escape`/backdrop close, keyboard arrows.
-
-### Theme Adaptivity
-All dynamic effects dynamically adjust colour palettes, opacities, and canvas blend-modes:
-* **Light mode** (`#f7f5ef` beige): `mix-blend-mode: normal`, muted glow intensities, indigo accent palette.
-* **Dark mode** (`#09090b` slate): `mix-blend-mode: plus-lighter`, vibrant violet/purple accent palette.
-
-### SEO & Discoverability
-* **Structured Metadata**: Canonical URL, Open Graph headers, Twitter Card, and `robots.txt` controls.
-* **JSON-LD Rich Snippets**: Both `SoftwareApplication` (for Google Search download cards) and `FAQPage` (for Google FAQ accordions in SERPs) schemas.
-* **Sitemap**: `public/sitemap.xml` for search engine crawling.
-* **LLM Context (`llm.txt`)**: Machine-readable developer log at `public/llm.txt` (a codebase summary for AI agents and LLM-based search tools).
+[![Website](https://img.shields.io/badge/Website-Live%20Page-black?style=flat-square)](https://pocketmc.github.io/pocket-mc-website/)
+[![GitHub Release](https://img.shields.io/github/v/release/PocketMC/pocket-mc-windows?style=flat-square&color=black&label=App%20Release)](https://github.com/PocketMC/pocket-mc-windows/releases/latest)
+[![License](https://img.shields.io/badge/License-MIT-black?style=flat-square)](LICENSE)
+[![React](https://img.shields.io/badge/React-19.2-black?style=flat-square&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-black?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-black?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-8.0-black?style=flat-square&logo=vite)](https://vite.dev/)
 
 ---
 
-## 🛠️ Development & Commands
+## Overview
+
+The PocketMC website is a high-performance, client-only landing page designed to communicate trust, demonstrate local-first Minecraft server management capabilities, and drive desktop application downloads.
+
+* **Live Deployment**: [pocketmc.github.io/pocket-mc-website](https://pocketmc.github.io/pocket-mc-website/)
+* **App Repository**: [PocketMC/pocket-mc-windows](https://github.com/PocketMC/pocket-mc-windows)
+* **Linux/Mac Repository**: [PocketMC/pocket-mc-linux-mac](https://github.com/PocketMC/pocket-mc-linux-mac)
+
+---
+
+## Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **UI Framework** | React 19.2 (Client-Side Rendering) |
+| **Language** | TypeScript 6.0 (Strict mode, explicit interfaces) |
+| **Styling & Theme** | Tailwind CSS v4, dynamic CSS variable system (`index.css`) |
+| **Motion & Animation** | Motion (`motion/react` v12), GSAP, native CSS transforms |
+| **Tooling & Bundler** | Vite 8.0 with sub-path routing support (`/pocket-mc-website/`) |
+| **Icons & Media** | Custom SVG vectors, optimized WebP graphics, lazy-loaded dialog portals |
+
+---
+
+## Design System & Principles
+
+* **Monochrome Palette**: Built on a strict black, white, and neutral grey aesthetic mapped to semantic CSS tokens (`--base`, `--base-card`, `--base-muted`, `--main`, `--main-muted`, `--divider`).
+* **Adaptive Theme Engine**: Smooth dark and light mode transitions with zero layout shift and persistent local storage synchronization.
+* **Component Layering**: High-priority modal dialogs are teleported directly to `document.body` via React Portals (`z-[99999]`) to avoid stacking context collisions.
+* **Mobile-First Responsiveness**: Tailored layout adaptations from ultra-compact viewports (320px) to ultra-wide displays with hardware-accelerated fixed headers and containment (`contain: layout paint`).
+
+---
+
+## Page Structure & Sections
+
+| Section | Component | Purpose |
+| :--- | :--- | :--- |
+| **Header** | `Header.tsx` | Fixed navigation bar with IntersectionObserver scrollspy, theme switch, and mobile drawer. |
+| **Hero** | `HeroSection.tsx` | Value proposition, download CTAs, video player with speed and fullscreen controls, and core statistics. |
+| **Tour** | `TourSection.tsx` | 16:9 screenshot showcase (`Explore every screen.`) with multi-image gallery arrows and interactive dock navigation. |
+| **Engines** | `SoftwaresSection.tsx` | Interactive matrix of supported engines (Vanilla, Paper, Fabric, Forge, NeoForge, BDS, PocketMine-MP) with Geyser crossplay details. |
+| **Comparison** | `ComparisonSection.tsx` | Side-by-side technical matrix comparing PocketMC against alternatives (Pterodactyl Panel, SquidServers, auto-mcs, MCSManager, Crafty Controller, etc.) with technical audit proof modals. |
+| **Stability** | `StabilitySection.tsx` | Collapsible 3-pillar breakdown of lifecycle safety, AI log diagnostics, and background file safeguards. |
+| **FAQ** | `FaqSection.tsx` | Interactive accordion answering questions regarding runtimes, Bedrock crossplay, cloud backups, and zero-port-forwarding. |
+| **Call to Action** | `CtaSection.tsx` | Final download prompts and direct links to GitHub repositories and community Discord. |
+| **Footer** | `Footer.tsx` | Open-source MIT licensing attribution, legal modals (Terms of Service, Privacy Policy), and donation links. |
+
+---
+
+## SEO & Machine-Readable Metadata
+
+* **Search Engine Optimization**: Enriched meta tags, high-intent Minecraft hosting keyword maps, and canonical URLs.
+* **Schema.org Structured Data**:
+  * `SoftwareApplication` schema with Google SERP `AggregateRating` (4.9 rating based on community reviews) and multi-OS attributes.
+  * `FAQPage` schema enabling Google search rich snippet accordions.
+* **Robots & Sitemap**: Automated crawling definitions in `public/robots.txt` and `public/sitemap.xml`.
+* **AI Engine Indexing (`public/llm.txt`)**: Curated, machine-readable developer documentation for AI search engines (Perplexity, ChatGPT, Claude).
+
+---
+
+## Project Structure
+
+```text
+pocket-mc-website/
+├── public/                         # Static assets served as-is
+│   ├── bg_animation/               # Background WebP frame assets
+│   ├── Hero_bg_animation/          # Hero animation assets
+│   ├── icons/                      # Server engine SVGs (Paper, Fabric, etc.)
+│   ├── screenshots/                # Application UI screenshots
+│   ├── llm.txt                     # Machine-readable context for AI crawlers
+│   ├── robots.txt                  # Search engine directives
+│   └── sitemap.xml                 # XML sitemap
+├── src/
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Footer.tsx          # Page footer and legal triggers
+│   │   │   └── Header.tsx          # Fixed header with theme and nav controls
+│   │   ├── sections/
+│   │   │   ├── ComparisonSection.tsx # Technical comparison table & cards
+│   │   │   ├── CtaSection.tsx      # Bottom call to action
+│   │   │   ├── FaqSection.tsx      # Animated FAQ accordion
+│   │   │   ├── HeroSection.tsx     # Hero banner and media player
+│   │   │   ├── PlatformsSection.tsx # Platform download targets
+│   │   │   ├── SoftwaresSection.tsx # Supported server softwares
+│   │   │   ├── StabilitySection.tsx # Collapsible stability pillar cards
+│   │   │   └── TourSection.tsx     # Screenshot tour and gallery
+│   │   └── ui/
+│   │       ├── LightboxModal.tsx   # Fullscreen image viewer portal
+│   │       ├── PlatformDownloadModal.tsx # Multi-OS download portal
+│   │       ├── ProofModal.tsx      # Technical audit evidence portal
+│   │       ├── TextModal.tsx       # Terms and Privacy modal portal
+│   │       └── table.tsx           # Accessible data table primitives
+│   ├── data/
+│   │   ├── comparisonData.ts       # Competitor audit matrices and proofs
+│   │   ├── detailFeatures.ts       # Stability pillar feature definitions
+│   │   ├── faqData.ts              # Frequently asked questions and answers
+│   │   ├── serverSoftwares.ts      # Server engine metadata and icons
+│   │   ├── socialLinks.ts          # External community and repository links
+│   │   └── tourTabs.ts             # Screenshot gallery tab configurations
+│   ├── utils/
+│   │   └── getAssetUrl.ts          # Base path resolver for GitHub Pages
+│   ├── App.tsx                     # Root page coordinator and modal state
+│   ├── index.css                   # Global Tailwind v4 styles and tokens
+│   └── main.tsx                    # React application entry point
+├── index.html                      # Root HTML and JSON-LD structured schemas
+├── package.json                    # Project dependencies and build scripts
+├── tsconfig.json                   # TypeScript project configuration
+└── vite.config.ts                  # Vite bundler configuration
+```
+
+---
+
+## Getting Started
 
 ### Prerequisites
-* [Node.js](https://nodejs.org/) (v18+ recommended)
-* npm
+
+* [Node.js](https://nodejs.org/) (version 20 or higher recommended)
+* [npm](https://www.npmjs.com/) (version 10 or higher)
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/PocketMC/pocket-mc-website.git
@@ -69,66 +141,40 @@ cd pocket-mc-website
 npm install
 ```
 
-### Local Development
+### Development Server
+
 ```bash
-# Run the Vite local development server
 npm run dev
 ```
 
-### Linting
+Starts the local development server at `http://localhost:5173/pocket-mc-website/`.
+
+### Production Build
+
 ```bash
-# Run ESLint to check for code quality and style guidelines
-npm run lint
+npm run build
 ```
 
-### Production Build & Preview
-```bash
-# Validate TypeScript compiles and build production distribution bundle
-npm run build
+Runs TypeScript type checks (`tsc -b`) and bundles optimized static assets into the `dist/` directory.
 
-# Locally preview the built production bundle
+### Preview Production Build
+
+```bash
 npm run preview
 ```
-The compiled output is emitted to the `dist/` directory, configured for sub-folder routing under the base path `/pocket-mc-website/`.
 
-### Deployment
-This website is hosted on **GitHub Pages**. Deployments are automated: pushing changes to the main repository triggers a GitHub Actions workflow that compiles, builds, and deploys the assets to the live page at [pocketmc.github.io/pocket-mc-website](https://pocketmc.github.io/pocket-mc-website/).
+Locally serves the compiled `dist/` output for verification before deployment.
 
 ---
 
-## 📂 Project Structure
+## Deployment
 
-```text
-├── public/                     # Static assets served as-is
-│   ├── screenshots/            # Desktop UI screenshot PNGs used in the tour
-│   ├── icons/                  # Server software logos (Paper, Fabric, Forge, etc.)
-│   ├── bg_animation/           # WebP frames for the scroll-driven background
-│   ├── Hero_bg_animation/      # WebP frames for the hero background
-│   ├── favicon.ico / .svg      # Site icon
-│   ├── logo.png                # PocketMC logo
-│   ├── robots.txt              # Search engine crawl rules
-│   ├── sitemap.xml             # XML sitemap for search indexing
-│   └── llm.txt                 # Machine-readable context for LLM/AI agents
-├── src/
-│   ├── components/             # All interactive and layout components
-│   │   ├── ui/                 # Core skeleton/table components (shadcn-style)
-│   │   ├── BorderGlow.tsx      # Mouse-proximity edge-lighting canvas effect
-│   │   ├── ClickSpark.tsx      # Click-triggered physics spark burst
-│   │   ├── Dock.tsx            # Floating screenshot navigation dock
-│   │   ├── ElectricBorder.tsx  # Neon electric canvas path distortion
-│   │   ├── LiquidEther.tsx     # Fluid interactive WebGL background shader
-│   │   ├── PixelSnow.tsx       # Retro pixelated snowfall overlay
-│   │   └── StarBorder.tsx      # Animated star orbit border wrapper
-│   ├── App.tsx                 # Main page layout, all sections & state coordination
-│   ├── index.css               # Global Tailwind v4 design tokens & CSS variables
-│   └── main.tsx                # React application entry point
-├── index.html                  # Root HTML with all SEO metadata & JSON-LD schemas
-├── package.json
-└── vite.config.ts
-```
+The website is hosted on **GitHub Pages**.
+
+Deployments are automated through GitHub Actions. Pushing code changes to the `main` branch triggers a workflow that validates TypeScript types, builds the production distribution bundle, and deploys the output to the `gh-pages` branch.
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE) in the main app repository for details.
+This project is open-source software licensed under the [MIT License](LICENSE).
