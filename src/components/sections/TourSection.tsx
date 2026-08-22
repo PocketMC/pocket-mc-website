@@ -51,17 +51,61 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
     });
   }, []);
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -360, behavior: "smooth" });
-    }
-  };
+  const scrollLeft = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 360, behavior: "smooth" });
+    const children = Array.from(container.children) as HTMLElement[];
+    if (children.length > 0) {
+      const currentCenter = container.scrollLeft + container.clientWidth / 2;
+      const targetChild = [...children].reverse().find((child) => {
+        const childCenter = child.offsetLeft + child.clientWidth / 2;
+        return childCenter < currentCenter - 20;
+      });
+
+      if (targetChild) {
+        const targetLeft = targetChild.offsetLeft - (container.clientWidth - targetChild.clientWidth) / 2;
+        container.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+        return;
+      }
+
+      // If at the beginning, loop to the last screenshot
+      const lastChild = children[children.length - 1];
+      const targetLeft = lastChild.offsetLeft - (container.clientWidth - lastChild.clientWidth) / 2;
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+      return;
     }
-  };
+
+    container.scrollBy({ left: -container.clientWidth * 0.85, behavior: "smooth" });
+  }, []);
+
+  const scrollRight = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const children = Array.from(container.children) as HTMLElement[];
+    if (children.length > 0) {
+      const currentCenter = container.scrollLeft + container.clientWidth / 2;
+      const targetChild = children.find((child) => {
+        const childCenter = child.offsetLeft + child.clientWidth / 2;
+        return childCenter > currentCenter + 20;
+      });
+
+      if (targetChild) {
+        const targetLeft = targetChild.offsetLeft - (container.clientWidth - targetChild.clientWidth) / 2;
+        container.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+        return;
+      }
+
+      // If at the end, loop back to the first screenshot
+      const firstChild = children[0];
+      const targetLeft = firstChild.offsetLeft - (container.clientWidth - firstChild.clientWidth) / 2;
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+      return;
+    }
+
+    container.scrollBy({ left: container.clientWidth * 0.85, behavior: "smooth" });
+  }, []);
 
   const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
@@ -92,6 +136,8 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
     return tourTabs.find((t) => t.id === activeTourTab) || tourTabs[0];
   }, [activeTourTab]);
 
+  const openLightboxRef = useRef<((tabId: string, imageIndex?: number) => void) | null>(null);
+
   const openLightboxForTab = useCallback((tabId: string, imageIndex: number = 0) => {
     const currentTab = tourTabs.find((t) => t.id === tabId) || tourTabs[0];
     
@@ -104,24 +150,24 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
 
     const onPrev = () => {
       if (currentTab.images && currentTab.images.length > 0 && imageIndex > 0) {
-        openLightboxForTab(tabId, imageIndex - 1);
+        openLightboxRef.current?.(tabId, imageIndex - 1);
       } else {
         const prevTabIdx = (currentTabIdx - 1 + tourTabs.length) % tourTabs.length;
         const prevTab = tourTabs[prevTabIdx];
         const prevImgIdx = prevTab.images ? prevTab.images.length - 1 : 0;
         setActiveTourTab(prevTab.id);
-        openLightboxForTab(prevTab.id, prevImgIdx);
+        openLightboxRef.current?.(prevTab.id, prevImgIdx);
       }
     };
 
     const onNext = () => {
       if (currentTab.images && currentTab.images.length > 0 && imageIndex < currentTab.images.length - 1) {
-        openLightboxForTab(tabId, imageIndex + 1);
+        openLightboxRef.current?.(tabId, imageIndex + 1);
       } else {
         const nextTabIdx = (currentTabIdx + 1) % tourTabs.length;
         const nextTab = tourTabs[nextTabIdx];
         setActiveTourTab(nextTab.id);
-        openLightboxForTab(nextTab.id, 0);
+        openLightboxRef.current?.(nextTab.id, 0);
       }
     };
 
@@ -134,6 +180,10 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
       onNext,
     });
   }, [onOpenLightbox]);
+
+  useEffect(() => {
+    openLightboxRef.current = openLightboxForTab;
+  }, [openLightboxForTab]);
 
   const dockItems = useMemo(() => {
     return tourTabs.map((tab) => {
@@ -420,7 +470,7 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15, ease: "easeOut" }}
-                        className="w-full h-full flex items-center overflow-x-auto overflow-y-hidden gallery-scroll gap-3 sm:gap-4 p-3 sm:p-4 pb-4 snap-x snap-mandatory"
+                        className="relative w-full h-full flex items-center overflow-x-auto overflow-y-hidden gallery-scroll gap-3 sm:gap-4 p-3 sm:p-4 pb-4 snap-x snap-mandatory"
                       >
                         {activeTabDetails.images.map((img, idx) => (
                           <div 

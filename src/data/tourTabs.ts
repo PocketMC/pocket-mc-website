@@ -123,16 +123,18 @@ export const tourTabs = [
       "/screenshots/mobile-home.webp",
       "/screenshots/mobile-instances.webp",
       "/screenshots/mobile-console.webp",
-      "/screenshots/mobile-players.webp"
+      "/screenshots/mobile-players.webp",
+      "/screenshots/mobile-file-management.webp",
+      "/screenshots/mobile-backups.webp"
     ],
     alt: "PocketMC Mobile Web Dashboard interfaces",
     description:
-      "View live CPU/RAM metrics, stream colorized console logs, and moderate players directly from your phone. Features a secure browser pairing welcome portal and credentials-based login screen for protected remote access.",
+      "View live CPU/RAM metrics, stream colorized console logs, browse server files, manage backups, and moderate players directly from your phone. Features a secure browser pairing welcome portal and credentials-based login screen for protected remote access.",
     bullets: [
       "Secure browser pairing welcome portal and credentials authorization login",
       "Mobile-first responsive design for on-the-go administration",
       "One-touch server state controls (Start, Stop, Kill)",
-      "Remote moderation: kick, ban, or op users from the mobile web interface",
+      "Remote moderation, mobile file explorer, and world backups management",
     ],
   },
   {

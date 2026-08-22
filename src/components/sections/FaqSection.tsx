@@ -26,17 +26,9 @@ export default function FaqSection() {
         {faqData.map((faq, idx) => {
           const isOpen = !!openFaqs[idx];
           return (
-            <motion.div
+            <div
               key={idx}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.3,
-                delay: idx * 0.06,
-                ease: "easeOut",
-              }}
-              className={`relative rounded-xl overflow-hidden border transition-all duration-200 ${
+              className={`relative rounded-xl overflow-hidden border transition-[border-color,box-shadow] duration-200 ${
                 isOpen ? "border-main/50 shadow-xs" : "border-divider"
               } bg-base-card`}
             >
@@ -121,7 +113,7 @@ export default function FaqSection() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           );
         })}
       </div>
