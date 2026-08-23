@@ -1,0 +1,16 @@
+{
+  "resource": "https://pocketmc.github.io/docs/openapi.json",
+  "authorization_servers": [
+    "https://pocket-mc-proxy.onrender.com"
+  ],
+  "scopes_supported": [
+    "servers:read",
+    "servers:write",
+    "backups:create",
+    "logs:read",
+    "tunnels:manage"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ]
+}

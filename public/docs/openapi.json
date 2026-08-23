@@ -6,7 +6,7 @@
     "description": "Complete REST API for orchestrating local Minecraft servers, managing Adoptium Java runtimes, controlling Playit.gg tunnels, and managing OAuth cloud backups via the PocketMC desktop daemon or secure remote web panel.",
     "contact": {
       "name": "PocketMC Developer Support",
-      "url": "https://pocketmc.github.io/pocket-mc-website/docs/",
+      "url": "https://pocketmc.github.io/docs/",
       "email": "support@pocketmc.org"
     },
     "license": {
@@ -24,9 +24,21 @@
       "description": "Hosted Remote Control & Telemetry Proxy"
     }
   ],
+  "security": [
+    {
+      "OAuth2": [
+        "servers:read",
+        "servers:write"
+      ]
+    },
+    {
+      "BearerAuth": []
+    }
+  ],
   "paths": {
     "/health": {
       "get": {
+        "operationId": "getHealth",
         "summary": "Health and daemon status",
         "description": "Returns daemon version, uptime, and host operating system info.",
         "responses": {
@@ -35,13 +47,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": { "type": "string", "example": "ok" },
-                    "version": { "type": "string", "example": "1.9.3" },
-                    "platform": { "type": "string", "example": "win-x64" },
-                    "activeInstances": { "type": "integer", "example": 2 }
-                  }
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal daemon error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -51,8 +67,17 @@
     },
     "/instances": {
       "get": {
+        "operationId": "listInstances",
         "summary": "List Minecraft server instances",
         "description": "Retrieve an array of all configured server instances on the host.",
+        "security": [
+          {
+            "OAuth2": ["servers:read"]
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of instances successfully retrieved.",
@@ -66,19 +91,37 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized access.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
           }
         }
       }
     },
     "/instances/{id}/start": {
       "post": {
+        "operationId": "startInstance",
         "summary": "Start server instance",
         "description": "Spawns the Minecraft server process with isolated Adoptium Java runtime.",
+        "security": [
+          {
+            "OAuth2": ["servers:write"]
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Unique instance identifier",
             "schema": { "type": "string" }
           }
         ],
@@ -90,19 +133,37 @@
                 "schema": { "$ref": "#/components/schemas/ActionResponse" }
               }
             }
+          },
+          "404": {
+            "description": "Instance not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
           }
         }
       }
     },
     "/instances/{id}/stop": {
       "post": {
+        "operationId": "stopInstance",
         "summary": "Gracefully stop server instance",
         "description": "Sends RCON save-all and stop command sequence to safely shutdown the server.",
+        "security": [
+          {
+            "OAuth2": ["servers:write"]
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Unique instance identifier",
             "schema": { "type": "string" }
           }
         ],
@@ -114,24 +175,44 @@
                 "schema": { "$ref": "#/components/schemas/ActionResponse" }
               }
             }
+          },
+          "404": {
+            "description": "Instance not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
           }
         }
       }
     },
     "/instances/{id}/logs": {
       "get": {
+        "operationId": "getInstanceLogs",
         "summary": "Retrieve sanitized console logs",
+        "description": "Fetches sanitized real-time logs with auto-redacted IP addresses and credentials.",
+        "security": [
+          {
+            "OAuth2": ["logs:read"]
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Unique instance identifier",
             "schema": { "type": "string" }
           },
           {
             "name": "lines",
             "in": "query",
-            "schema": { "type": "integer", "default": 100 }
+            "description": "Number of log lines to fetch",
+            "schema": { "type": "integer", "default": 100, "maximum": 1000 }
           }
         ],
         "responses": {
@@ -140,14 +221,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "lines": {
-                      "type": "array",
-                      "items": { "type": "string" }
-                    }
-                  }
+                  "$ref": "#/components/schemas/LogsResponse"
                 }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
@@ -156,16 +239,29 @@
     },
     "/instances/{id}/backup": {
       "post": {
+        "operationId": "createBackup",
         "summary": "Trigger automated backup",
+        "description": "Creates an integrity-verified archive with optional cloud replication.",
+        "security": [
+          {
+            "OAuth2": ["backups:create"]
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Unique instance identifier",
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "Backup options",
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -183,14 +279,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "backupId": { "type": "string" },
-                    "sizeBytes": { "type": "integer" },
-                    "sha256": { "type": "string" },
-                    "cloudStatus": { "type": "string" }
-                  }
+                  "$ref": "#/components/schemas/BackupResponse"
                 }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
@@ -199,12 +297,23 @@
     },
     "/instances/{id}/tunnel": {
       "get": {
+        "operationId": "getTunnelStatus",
         "summary": "Get Playit tunnel status",
+        "description": "Queries the active Playit.gg network tunnel configuration.",
+        "security": [
+          {
+            "OAuth2": ["tunnels:manage"]
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "Unique instance identifier",
             "schema": { "type": "string" }
           }
         ],
@@ -214,14 +323,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "enabled": { "type": "boolean" },
-                    "tunnelAddress": { "type": "string", "example": "myserver.playit.gg" },
-                    "numericAddress": { "type": "string", "example": "147.185.221.19:25565" },
-                    "pingMs": { "type": "integer", "example": 28 }
-                  }
+                  "$ref": "#/components/schemas/TunnelResponse"
                 }
+              }
+            }
+          },
+          "404": {
+            "description": "Instance not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
@@ -231,8 +342,19 @@
   },
   "components": {
     "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status", "version", "platform", "activeInstances"],
+        "properties": {
+          "status": { "type": "string", "example": "ok" },
+          "version": { "type": "string", "example": "1.9.3" },
+          "platform": { "type": "string", "example": "win-x64" },
+          "activeInstances": { "type": "integer", "example": 2 }
+        }
+      },
       "Instance": {
         "type": "object",
+        "required": ["id", "name", "software", "version", "port", "status"],
         "properties": {
           "id": { "type": "string", "example": "paper-survival" },
           "name": { "type": "string", "example": "PaperMC Survival 1.21.1" },
@@ -248,17 +370,79 @@
       },
       "ActionResponse": {
         "type": "object",
+        "required": ["success", "message"],
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string", "example": "Operation executed successfully." }
         }
+      },
+      "LogsResponse": {
+        "type": "object",
+        "required": ["lines"],
+        "properties": {
+          "lines": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["[00:00:01 INFO]: Server started on *:25565"]
+          }
+        }
+      },
+      "BackupResponse": {
+        "type": "object",
+        "required": ["backupId", "sizeBytes", "sha256", "cloudStatus"],
+        "properties": {
+          "backupId": { "type": "string", "example": "backup-2026-08-24-001" },
+          "sizeBytes": { "type": "integer", "example": 145829104 },
+          "sha256": { "type": "string", "example": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+          "cloudStatus": { "type": "string", "example": "synced" }
+        }
+      },
+      "TunnelResponse": {
+        "type": "object",
+        "required": ["enabled", "tunnelAddress", "numericAddress", "pingMs"],
+        "properties": {
+          "enabled": { "type": "boolean", "example": true },
+          "tunnelAddress": { "type": "string", "example": "myserver.playit.gg" },
+          "numericAddress": { "type": "string", "example": "147.185.221.19:25565" },
+          "pingMs": { "type": "integer", "example": 28 }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["type", "title", "status", "detail", "code"],
+        "properties": {
+          "type": { "type": "string", "format": "uri", "example": "https://pocketmc.github.io/docs#error" },
+          "title": { "type": "string", "example": "Resource Not Found" },
+          "status": { "type": "integer", "example": 404 },
+          "detail": { "type": "string", "example": "The specified server instance does not exist." },
+          "code": { "type": "string", "example": "instance_not_found" },
+          "resolution": { "type": "string", "example": "Verify the instance ID via GET /instances" }
+        }
       }
     },
     "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "description": "Standard OAuth 2.0 authentication with scoped permissions",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://pocket-mc-proxy.onrender.com/oauth/authorize",
+            "tokenUrl": "https://pocket-mc-proxy.onrender.com/oauth/token",
+            "scopes": {
+              "servers:read": "Read server instances, metrics, and health statuses",
+              "servers:write": "Start, stop, and configure server instances",
+              "backups:create": "Trigger and manage local and cloud backups",
+              "logs:read": "Read sanitized server console log streams",
+              "tunnels:manage": "Configure Playit.gg network tunnels"
+            }
+          }
+        }
+      },
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT/HMAC-SHA256"
+        "bearerFormat": "JWT/HMAC-SHA256",
+        "description": "Self-serve API session token for local desktop daemon"
       }
     }
   }

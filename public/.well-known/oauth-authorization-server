@@ -1,0 +1,30 @@
+{
+  "issuer": "https://pocket-mc-proxy.onrender.com",
+  "authorization_endpoint": "https://pocket-mc-proxy.onrender.com/oauth/authorize",
+  "token_endpoint": "https://pocket-mc-proxy.onrender.com/oauth/token",
+  "jwks_uri": "https://pocket-mc-proxy.onrender.com/.well-known/jwks.json",
+  "scopes_supported": [
+    "servers:read",
+    "servers:write",
+    "backups:create",
+    "logs:read",
+    "tunnels:manage"
+  ],
+  "response_types_supported": [
+    "code",
+    "token"
+  ],
+  "grant_types_supported": [
+    "authorization_code",
+    "refresh_token",
+    "client_credentials"
+  ],
+  "token_endpoint_auth_methods_supported": [
+    "client_secret_basic",
+    "client_secret_post",
+    "none"
+  ],
+  "code_challenge_methods_supported": [
+    "S256"
+  ]
+}

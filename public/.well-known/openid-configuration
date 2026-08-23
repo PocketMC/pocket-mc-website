@@ -1,0 +1,27 @@
+{
+  "issuer": "https://pocket-mc-proxy.onrender.com",
+  "authorization_endpoint": "https://pocket-mc-proxy.onrender.com/oauth/authorize",
+  "token_endpoint": "https://pocket-mc-proxy.onrender.com/oauth/token",
+  "jwks_uri": "https://pocket-mc-proxy.onrender.com/.well-known/jwks.json",
+  "scopes_supported": [
+    "openid",
+    "profile",
+    "email",
+    "servers:read",
+    "servers:write",
+    "backups:create",
+    "logs:read",
+    "tunnels:manage"
+  ],
+  "response_types_supported": [
+    "code",
+    "token"
+  ],
+  "subject_types_supported": [
+    "public"
+  ],
+  "id_token_signing_alg_values_supported": [
+    "RS256",
+    "HS256"
+  ]
+}
