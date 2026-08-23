@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About PocketMC - Open Source Local Minecraft Server Manager</title>
+        <meta name="description" content="Learn about PocketMC's mission, local-first architecture, open source maintainers, and vision for seamless, private Minecraft server management." />
+        <link rel="canonical" href="https://pocketmc.github.io/pocket-mc-website/about/" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+        
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "@id": "https://pocketmc.github.io/pocket-mc-website/about/#page",
+            "url": "https://pocketmc.github.io/pocket-mc-website/about/",
+            "name": "About PocketMC",
+            "description": "About PocketMC - mission, core values, architecture, and maintainers.",
+            "mainEntity": {
+                "@type": "Organization",
+                "name": "PocketMC",
+                "alternateName": "PocketMC Project",
+                "url": "https://pocketmc.github.io/pocket-mc-website/",
+                "logo": "https://pocketmc.github.io/pocket-mc-website/logo.webp",
+                "founder": [
+                    {
+                        "@type": "Person",
+                        "name": "sizwinz",
+                        "url": "https://github.com/sizwinz"
+                    },
+                    {
+                        "@type": "Person",
+                        "name": "divyviradiya2",
+                        "url": "https://github.com/divyviradiya2"
+                    }
+                ],
+                "sameAs": [
+                    "https://github.com/PocketMC",
+                    "https://github.com/PocketMC/pocket-mc-windows",
+                    "https://discord.gg/h27uNCaxPH"
+                ]
+            }
+        }
+        </script>
+
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                padding: 0;
+            }
+            header {
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 16px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .brand {
+                font-weight: 800;
+                font-size: 18px;
+                color: var(--text);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                margin-left: 16px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.15s;
+            }
+            nav a:hover { color: var(--text); }
+            .container {
+                max-width: 960px;
+                margin: 40px auto;
+                padding: 0 24px;
+            }
+            h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+            h2 { font-size: 22px; font-weight: 700; margin-top: 36px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+            h3 { font-size: 17px; font-weight: 600; margin-top: 20px; margin-bottom: 8px; }
+            p { color: var(--text-muted); margin-bottom: 16px; font-size: 15px; }
+            ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-muted); font-size: 15px; }
+            li { margin-bottom: 6px; }
+            .card-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+                margin: 24px 0;
+            }
+            .card {
+                background: var(--card-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 20px;
+            }
+            .card h3 { margin-top: 0; color: var(--text); }
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: 60px;
+                padding: 32px 24px;
+                background: var(--bg);
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+            .footer-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 16px; }
+            .footer-links a:hover { color: var(--text); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <a href="/pocket-mc-website/" class="brand">PocketMC</a>
+                <nav>
+                    <a href="/pocket-mc-website/">Home</a>
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1>About PocketMC</h1>
+            <p>
+                PocketMC is a community-driven, free, and open-source local Minecraft server management platform. Born from the belief that running your own multiplayer Minecraft server should be as effortless as launching singleplayer, PocketMC automates Java runtimes, network tunneling, mod management, and cloud backups while safeguarding user privacy.
+            </p>
+
+            <h2>Our Core Principles</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>1. Local-First &amp; Private</h3>
+                    <p>All server worlds, configurations, and logs remain strictly on your local machine. We do not operate proprietary cloud databases or lock your game saves behind subscriptions.</p>
+                </div>
+                <div class="card">
+                    <h3>2. Zero Technical Friction</h3>
+                    <p>No router logins, CGNAT workarounds, or manual Java PATH configurations. PocketMC provisions Adoptium Java runtimes and Playit.gg tunnels in seconds automatically.</p>
+                </div>
+                <div class="card">
+                    <h3>3. 100% Free &amp; Open Source</h3>
+                    <p>Distributed under the permissive MIT License. Zero paywalls, zero artificial player slot limitations, and zero telemetry monetization.</p>
+                </div>
+            </div>
+
+            <h2>Architecture &amp; Engineering</h2>
+            <p>
+                PocketMC is engineered using modern .NET 8, utilizing Windows Presentation Foundation (WPF) for high-performance desktop integration on Windows and Avalonia UI for cross-platform Linux and macOS deployments.
+            </p>
+            <ul>
+                <li><strong>Runtime Isolation:</strong> Uses per-instance sandboxing to run Eclipse Adoptium Java 8, 11, 17, 21, and 25 runtimes alongside PHP 8.2 for PocketMine-MP.</li>
+                <li><strong>Native Security Encryption:</strong> Sensitive credentials (such as API keys and backup OAuth tokens) are stored using platform-native security APIs: Windows DPAPI on Windows, Linux Secret Service on Linux, and macOS Keychain on Apple macOS.</li>
+                <li><strong>Graceful Process Management:</strong> Uses authenticated RCON commands to signal servers with <code>save-off</code> and <code>save-all flush</code> before backups to guarantee world file integrity.</li>
+            </ul>
+
+            <h2>Project Leadership &amp; Maintainers</h2>
+            <p>
+                PocketMC is actively developed and maintained by lead contributors <strong>sizwinz</strong> and <strong>divyviradiya2</strong> alongside an active community of Minecraft server administrators, modders, and open-source developers.
+            </p>
+            <ul>
+                <li>GitHub Organization: <a href="https://github.com/PocketMC" style="color: var(--text);">https://github.com/PocketMC</a></li>
+                <li>Windows Repository: <a href="https://github.com/PocketMC/pocket-mc-windows" style="color: var(--text);">https://github.com/PocketMC/pocket-mc-windows</a></li>
+                <li>Discord Community: <a href="https://discord.gg/h27uNCaxPH" style="color: var(--text);">https://discord.gg/h27uNCaxPH</a></li>
+            </ul>
+        </div>
+
+        <footer>
+            <div class="footer-inner">
+                <div>&copy; PocketMC Contributors. Licensed under MIT.</div>
+                <div class="footer-links">
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                    <a href="/pocket-mc-website/privacy/">Privacy</a>
+                    <a href="/pocket-mc-website/terms/">Terms</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/llms.txt">llms.txt</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

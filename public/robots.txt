@@ -1,4 +1,66 @@
+# PocketMC Robots Configuration
+# https://pocketmc.github.io/pocket-mc-website/
+
+# Standard Search Engine Crawlers
 User-agent: *
 Allow: /
 
+# AI Agent Crawlers & LLM Scrapers (Explicitly Allowed)
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: ora-agent
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Sitemaps & Machine-Readable Resources
 Sitemap: https://pocketmc.github.io/pocket-mc-website/sitemap.xml
+# LLM Manifests: https://pocketmc.github.io/pocket-mc-website/llms.txt
+# Full LLM Context: https://pocketmc.github.io/pocket-mc-website/llms-full.txt
+# Agent Instructions: https://pocketmc.github.io/pocket-mc-website/agent-instructions.md
+# MCP Manifest: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json
+# OpenAPI Specification: https://pocketmc.github.io/pocket-mc-website/docs/openapi.json

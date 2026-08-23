@@ -1,0 +1,265 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PocketMC Local & Remote Control REST API",
+    "version": "1.9.3",
+    "description": "Complete REST API for orchestrating local Minecraft servers, managing Adoptium Java runtimes, controlling Playit.gg tunnels, and managing OAuth cloud backups via the PocketMC desktop daemon or secure remote web panel.",
+    "contact": {
+      "name": "PocketMC Developer Support",
+      "url": "https://pocketmc.github.io/pocket-mc-website/docs/",
+      "email": "support@pocketmc.org"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:25585/api/v1",
+      "description": "Local Desktop Daemon Endpoint"
+    },
+    {
+      "url": "https://pocket-mc-proxy.onrender.com/api/v1",
+      "description": "Hosted Remote Control & Telemetry Proxy"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health and daemon status",
+        "description": "Returns daemon version, uptime, and host operating system info.",
+        "responses": {
+          "200": {
+            "description": "Daemon is healthy and active.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "version": { "type": "string", "example": "1.9.3" },
+                    "platform": { "type": "string", "example": "win-x64" },
+                    "activeInstances": { "type": "integer", "example": 2 }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instances": {
+      "get": {
+        "summary": "List Minecraft server instances",
+        "description": "Retrieve an array of all configured server instances on the host.",
+        "responses": {
+          "200": {
+            "description": "List of instances successfully retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Instance"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instances/{id}/start": {
+      "post": {
+        "summary": "Start server instance",
+        "description": "Spawns the Minecraft server process with isolated Adoptium Java runtime.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Server instance start initiated.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ActionResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instances/{id}/stop": {
+      "post": {
+        "summary": "Gracefully stop server instance",
+        "description": "Sends RCON save-all and stop command sequence to safely shutdown the server.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Server shutdown initiated.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ActionResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instances/{id}/logs": {
+      "get": {
+        "summary": "Retrieve sanitized console logs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "lines",
+            "in": "query",
+            "schema": { "type": "integer", "default": 100 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sanitized console logs retrieved.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "lines": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instances/{id}/backup": {
+      "post": {
+        "summary": "Trigger automated backup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cloudReplicate": { "type": "boolean", "default": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Backup created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "backupId": { "type": "string" },
+                    "sizeBytes": { "type": "integer" },
+                    "sha256": { "type": "string" },
+                    "cloudStatus": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/instances/{id}/tunnel": {
+      "get": {
+        "summary": "Get Playit tunnel status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Playit tunnel status details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": { "type": "boolean" },
+                    "tunnelAddress": { "type": "string", "example": "myserver.playit.gg" },
+                    "numericAddress": { "type": "string", "example": "147.185.221.19:25565" },
+                    "pingMs": { "type": "integer", "example": 28 }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Instance": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "paper-survival" },
+          "name": { "type": "string", "example": "PaperMC Survival 1.21.1" },
+          "software": { "type": "string", "example": "PaperMC" },
+          "version": { "type": "string", "example": "1.21.1" },
+          "javaVersion": { "type": "string", "example": "21" },
+          "port": { "type": "integer", "example": 25565 },
+          "status": { "type": "string", "enum": ["running", "stopped", "starting"], "example": "running" },
+          "playersOnline": { "type": "integer", "example": 4 },
+          "maxPlayers": { "type": "integer", "example": 20 },
+          "memoryMb": { "type": "integer", "example": 4096 }
+        }
+      },
+      "ActionResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string", "example": "Operation executed successfully." }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT/HMAC-SHA256"
+      }
+    }
+  }
+}

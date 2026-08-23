@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PocketMC Developer Portal - API, Auth, Webhooks &amp; MCP</title>
+        <meta name="description" content="Explore developer resources for PocketMC: REST API, authentication mechanisms, Model Context Protocol (MCP) server manifest, and webhooks." />
+        <link rel="canonical" href="https://pocketmc.github.io/pocket-mc-website/docs/" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="application/json" href="/pocket-mc-website/docs/openapi.json" title="OpenAPI Spec" />
+        <link rel="alternate" type="application/json" href="/pocket-mc-website/.well-known/mcp.json" title="MCP Manifest" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "@id": "https://pocketmc.github.io/pocket-mc-website/docs/#portal",
+            "headline": "PocketMC Developer Portal & Architecture Guide",
+            "description": "Comprehensive developer documentation for building integrations, automations, and agentic workflows with PocketMC.",
+            "url": "https://pocketmc.github.io/pocket-mc-website/docs/",
+            "publisher": {
+                "@type": "Organization",
+                "name": "PocketMC",
+                "url": "https://pocketmc.github.io/pocket-mc-website/"
+            }
+        }
+        </script>
+
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                padding: 0;
+            }
+            header {
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 16px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .brand {
+                font-weight: 800;
+                font-size: 18px;
+                color: var(--text);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                margin-left: 16px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.15s;
+            }
+            nav a:hover { color: var(--text); }
+            .container {
+                max-width: 960px;
+                margin: 40px auto;
+                padding: 0 24px;
+            }
+            h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+            h2 { font-size: 22px; font-weight: 700; margin-top: 36px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+            p { color: var(--text-muted); margin-bottom: 16px; font-size: 15px; }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+                margin: 24px 0;
+            }
+            .doc-card {
+                display: block;
+                background: var(--card-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 24px;
+                text-decoration: none;
+                transition: border-color 0.2s, transform 0.1s;
+            }
+            .doc-card:hover {
+                border-color: var(--text-muted);
+                transform: translateY(-2px);
+            }
+            .doc-card h3 {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 8px;
+            }
+            .doc-card p {
+                font-size: 14px;
+                color: var(--text-muted);
+                margin-bottom: 0;
+            }
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: 60px;
+                padding: 32px 24px;
+                background: var(--bg);
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+            .footer-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 16px; }
+            .footer-links a:hover { color: var(--text); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <a href="/pocket-mc-website/" class="brand">PocketMC</a>
+                <nav>
+                    <a href="/pocket-mc-website/">Home</a>
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1>PocketMC Developer Portal</h1>
+            <p>
+                Welcome to the developer hub for PocketMC. Whether you are creating automated server orchestration workflows, connecting AI assistants via the Model Context Protocol (MCP), building Discord bot bridges, or integrating backup pipelines, explore the complete documentation below.
+            </p>
+
+            <h2>Developer Guides &amp; Specifications</h2>
+            <div class="grid">
+                <a href="/pocket-mc-website/docs/api/" class="doc-card">
+                    <h3>REST API Reference</h3>
+                    <p>Learn how to interact with the local desktop daemon and remote proxy endpoints to control server lifecycle, read live console logs, and query status.</p>
+                </a>
+                <a href="/pocket-mc-website/docs/auth/" class="doc-card">
+                    <h3>Authentication &amp; Security</h3>
+                    <p>Detailed breakdown of platform security architectures: DPAPI token encryption, LAN QR pairing, HMAC session handshakes, and OAuth providers.</p>
+                </a>
+                <a href="/pocket-mc-website/docs/mcp/" class="doc-card">
+                    <h3>Model Context Protocol (MCP)</h3>
+                    <p>Connect Claude, ChatGPT, Cursor, and custom agentic frameworks to PocketMC using streamable HTTP and stdio MCP transports.</p>
+                </a>
+                <a href="/pocket-mc-website/docs/webhooks/" class="doc-card">
+                    <h3>Webhooks &amp; Events</h3>
+                    <p>Subscribe to server state transitions, crash alerts, player join/leave events, and automated cloud backup completion notifications.</p>
+                </a>
+                <a href="/pocket-mc-website/docs/openapi.json" target="_blank" class="doc-card">
+                    <h3>OpenAPI 3.1.0 Specification</h3>
+                    <p>Machine-readable JSON schema of the PocketMC REST API for automated SDK generation and contract testing.</p>
+                </a>
+                <a href="/pocket-mc-website/.well-known/mcp.json" target="_blank" class="doc-card">
+                    <h3>MCP Server Manifest</h3>
+                    <p>Official Model Context Protocol manifest declaring all tool definitions and transport endpoints.</p>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-inner">
+                <div>&copy; PocketMC Contributors. Licensed under MIT.</div>
+                <div class="footer-links">
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                    <a href="/pocket-mc-website/privacy/">Privacy</a>
+                    <a href="/pocket-mc-website/terms/">Terms</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/llms.txt">llms.txt</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

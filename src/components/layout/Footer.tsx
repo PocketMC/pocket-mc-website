@@ -45,23 +45,85 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
             , and the Minecraft community.
           </p>
           <div className="flex flex-wrap gap-3 mt-1.5 font-mono text-[11px] text-main-muted justify-center md:justify-start">
-            <button
-              onClick={onOpenTerms}
-              className="hover:text-main transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[11px] text-main-muted"
+            <a
+              href="/pocket-mc-website/about/"
+              className="hover:text-main transition-colors hover:underline"
             >
-              Terms of Service
-            </button>
+              About
+            </a>
             <span className="opacity-30 select-none">•</span>
-            <button
-              onClick={onOpenPrivacy}
-              className="hover:text-main transition-colors cursor-pointer hover:underline bg-transparent border-0 p-0 font-mono text-[11px] text-main-muted"
+            <a
+              href="/pocket-mc-website/contact/"
+              className="hover:text-main transition-colors hover:underline"
             >
-              Privacy & Security
-            </button>
+              Contact
+            </a>
+            <span className="opacity-30 select-none">•</span>
+            <a
+              href="/pocket-mc-website/terms/"
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onOpenTerms();
+                }
+              }}
+              className="hover:text-main transition-colors cursor-pointer hover:underline"
+            >
+              Terms
+            </a>
+            <span className="opacity-30 select-none">•</span>
+            <a
+              href="/pocket-mc-website/privacy/"
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onOpenPrivacy();
+                }
+              }}
+              className="hover:text-main transition-colors cursor-pointer hover:underline"
+            >
+              Privacy
+            </a>
           </div>
         </div>
 
-        <div className="flex gap-12 sm:gap-16 font-mono text-xs justify-center w-full md:w-auto text-left">
+        <div className="flex flex-wrap gap-8 sm:gap-12 font-mono text-xs justify-center w-full md:w-auto text-left">
+          <div className="flex flex-col gap-2.5">
+            <p className="font-bold text-main uppercase tracking-wider text-[10px] opacity-60">
+              Developers
+            </p>
+            <a
+              href="/pocket-mc-website/docs/"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+            >
+              Developer Portal
+            </a>
+            <a
+              href="/pocket-mc-website/docs/openapi.json"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+            >
+              OpenAPI Spec
+            </a>
+            <a
+              href="/pocket-mc-website/.well-known/mcp.json"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+            >
+              MCP Manifest
+            </a>
+            <a
+              href="/pocket-mc-website/llms.txt"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+            >
+              llms.txt
+            </a>
+          </div>
+
           <div className="flex flex-col gap-2.5">
             <p className="font-bold text-main uppercase tracking-wider text-[10px] opacity-60">
               Project

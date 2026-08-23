@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Model Context Protocol (MCP) Server Guide - PocketMC Developer Docs</title>
+        <meta name="description" content="Guide for connecting AI assistants and LLMs (Claude Desktop, Cursor, ChatGPT) to PocketMC using the Model Context Protocol (MCP) streamable HTTP and stdio transports." />
+        <link rel="canonical" href="https://pocketmc.github.io/pocket-mc-website/docs/mcp/" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="application/json" href="/pocket-mc-website/.well-known/mcp.json" title="MCP Manifest" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                padding: 0;
+            }
+            header {
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 16px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .brand {
+                font-weight: 800;
+                font-size: 18px;
+                color: var(--text);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                margin-left: 16px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.15s;
+            }
+            nav a:hover { color: var(--text); }
+            .container {
+                max-width: 960px;
+                margin: 40px auto;
+                padding: 0 24px;
+            }
+            h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+            h2 { font-size: 20px; font-weight: 700; margin-top: 32px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+            h3 { font-size: 16px; font-weight: 600; margin-top: 18px; margin-bottom: 8px; color: var(--text); }
+            p { color: var(--text-muted); margin-bottom: 16px; font-size: 15px; }
+            pre {
+                background: var(--code-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 16px;
+                font-family: monospace;
+                font-size: 13px;
+                color: var(--text);
+                overflow-x: auto;
+                margin-bottom: 20px;
+            }
+            ul { margin-bottom: 16px; padding-left: 24px; color: var(--text-muted); font-size: 15px; }
+            li { margin-bottom: 6px; }
+            code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; color: var(--text); }
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: 60px;
+                padding: 32px 24px;
+                background: var(--bg);
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+            .footer-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 16px; }
+            .footer-links a:hover { color: var(--text); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <a href="/pocket-mc-website/" class="brand">PocketMC</a>
+                <nav>
+                    <a href="/pocket-mc-website/">Home</a>
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1>Model Context Protocol (MCP) Server Guide</h1>
+            <p>
+                PocketMC provides native support for the Model Context Protocol (MCP), enabling AI assistants like Claude Desktop, Cursor, ChatGPT, and custom LLM agents to orchestrate local Minecraft servers, query live server status, trigger backups, and manage network tunnels directly.
+            </p>
+
+            <h2>1. Configuration for Claude Desktop / Cursor</h2>
+            <p>
+                Add PocketMC to your <code>claude_desktop_config.json</code> or Cursor MCP settings:
+            </p>
+            <pre><code>{
+  "mcpServers": {
+    "pocketmc": {
+      "command": "pocketmc-cli",
+      "args": ["mcp"],
+      "env": {
+        "POCKETMC_API_PORT": "25585"
+      }
+    }
+  }
+}</code></pre>
+
+            <h2>2. Streamable HTTP Transport (Remote Agents)</h2>
+            <p>
+                For cloud or remote agent environments, PocketMC supports streamable HTTP MCP transport:
+            </p>
+            <pre><code>Endpoint: https://pocket-mc-proxy.onrender.com/mcp/v1
+Protocol: MCP/1.0 (Streamable HTTP)
+Manifest: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json</code></pre>
+
+            <h2>3. Available MCP Tools</h2>
+            <ul>
+                <li><code>pocketmc_list_instances</code>: Returns all configured server instances with statuses, player counts, and allocated RAM.</li>
+                <li><code>pocketmc_start_instance</code>: Spawns the server process with isolated Adoptium Java runtimes.</li>
+                <li><code>pocketmc_stop_instance</code>: Initiates safe RCON world-save and shutdown.</li>
+                <li><code>pocketmc_get_instance_status</code>: Retrieves real-time CPU %, RAM, TPS, and player lists.</li>
+                <li><code>pocketmc_create_backup</code>: Triggers immediate local and OAuth cloud backup synchronization.</li>
+                <li><code>pocketmc_get_logs</code>: Returns real-time sanitized console output with automated privacy redactions.</li>
+                <li><code>pocketmc_manage_playit_tunnel</code>: Inspects or reconfigures Playit.gg public domain tunnels.</li>
+            </ul>
+        </div>
+
+        <footer>
+            <div class="footer-inner">
+                <div>&copy; PocketMC Contributors. Licensed under MIT.</div>
+                <div class="footer-links">
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                    <a href="/pocket-mc-website/privacy/">Privacy</a>
+                    <a href="/pocket-mc-website/terms/">Terms</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/llms.txt">llms.txt</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

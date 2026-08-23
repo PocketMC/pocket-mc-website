@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact &amp; Support - PocketMC</title>
+        <meta name="description" content="Get in touch with the PocketMC core maintainers, join the community Discord, report bugs on GitHub, or submit security disclosures." />
+        <link rel="canonical" href="https://pocketmc.github.io/pocket-mc-website/contact/" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "@id": "https://pocketmc.github.io/pocket-mc-website/contact/#page",
+            "url": "https://pocketmc.github.io/pocket-mc-website/contact/",
+            "name": "Contact PocketMC",
+            "description": "Contact channels and developer support for the PocketMC project.",
+            "mainEntity": {
+                "@type": "Organization",
+                "name": "PocketMC",
+                "alternateName": "PocketMC Project",
+                "url": "https://pocketmc.github.io/pocket-mc-website/",
+                "logo": "https://pocketmc.github.io/pocket-mc-website/logo.webp",
+                "contactPoint": [
+                    {
+                        "@type": "ContactPoint",
+                        "contactType": "technical support",
+                        "email": "support@pocketmc.org",
+                        "url": "https://discord.gg/h27uNCaxPH",
+                        "availableLanguage": ["English"]
+                    },
+                    {
+                        "@type": "ContactPoint",
+                        "contactType": "customer service",
+                        "email": "contact@pocketmc.org",
+                        "url": "https://github.com/PocketMC/pocket-mc-windows/issues",
+                        "availableLanguage": ["English"]
+                    }
+                ],
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "US",
+                    "addressRegion": "Delaware",
+                    "addressLocality": "Wilmington"
+                }
+            }
+        }
+        </script>
+
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                padding: 0;
+            }
+            header {
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 16px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .brand {
+                font-weight: 800;
+                font-size: 18px;
+                color: var(--text);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                margin-left: 16px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.15s;
+            }
+            nav a:hover { color: var(--text); }
+            .container {
+                max-width: 960px;
+                margin: 40px auto;
+                padding: 0 24px;
+            }
+            h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+            h2 { font-size: 22px; font-weight: 700; margin-top: 36px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+            h3 { font-size: 17px; font-weight: 600; margin-top: 20px; margin-bottom: 8px; }
+            p { color: var(--text-muted); margin-bottom: 16px; font-size: 15px; }
+            ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-muted); font-size: 15px; }
+            li { margin-bottom: 6px; }
+            .card-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+                margin: 24px 0;
+            }
+            .card {
+                background: var(--card-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 20px;
+            }
+            .card h3 { margin-top: 0; color: var(--text); }
+            .card a { color: var(--text); font-weight: 600; text-decoration: underline; }
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: 60px;
+                padding: 32px 24px;
+                background: var(--bg);
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+            .footer-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 16px; }
+            .footer-links a:hover { color: var(--text); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <a href="/pocket-mc-website/" class="brand">PocketMC</a>
+                <nav>
+                    <a href="/pocket-mc-website/">Home</a>
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1>Contact &amp; Support</h1>
+            <p>
+                Have a question, need technical troubleshooting, want to report a bug, or interested in contributing to PocketMC? Reach out to the team through our official community and developer channels below.
+            </p>
+
+            <h2>Official Channels</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Community Discord Server</h3>
+                    <p>Get fast real-time assistance from community members and maintainers. Ideal for setup questions, server configurations, and general discussions.</p>
+                    <a href="https://discord.gg/h27uNCaxPH" target="_blank" rel="noreferrer">Join Discord Server</a>
+                </div>
+                <div class="card">
+                    <h3>GitHub Issue Tracker</h3>
+                    <p>Report confirmed bugs, request new features, or track ongoing desktop client development milestones across all supported platforms.</p>
+                    <a href="https://github.com/PocketMC/pocket-mc-windows/issues" target="_blank" rel="noreferrer">Open a GitHub Issue</a>
+                </div>
+                <div class="card">
+                    <h3>Developer Inquiries &amp; Security</h3>
+                    <p>For security vulnerability disclosures, maintainer contact, or partnership inquiries, reach out to our team via email or GitHub discussions.</p>
+                    <p><strong>Technical Support:</strong> support@pocketmc.org</p>
+                    <p><strong>General Inquiries:</strong> contact@pocketmc.org</p>
+                </div>
+            </div>
+
+            <h2>How to Submit Useful Bug Reports</h2>
+            <p>
+                To help maintainers resolve bugs rapidly, please include the following diagnostic details when opening an issue:
+            </p>
+            <ol>
+                <li><strong>PocketMC Version:</strong> The exact release tag (e.g. 1.9.3).</li>
+                <li><strong>Operating System:</strong> Windows 10, Windows 11, Linux distribution, or macOS version.</li>
+                <li><strong>Server Engine &amp; Version:</strong> e.g., PaperMC 1.21.1, Fabric 1.20.4, or Bedrock BDS.</li>
+                <li><strong>Sanitized Logs:</strong> Export the diagnostic bundle from App Settings (passwords and IPs are automatically redacted).</li>
+            </ol>
+        </div>
+
+        <footer>
+            <div class="footer-inner">
+                <div>&copy; PocketMC Contributors. Licensed under MIT.</div>
+                <div class="footer-links">
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                    <a href="/pocket-mc-website/privacy/">Privacy</a>
+                    <a href="/pocket-mc-website/terms/">Terms</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/llms.txt">llms.txt</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

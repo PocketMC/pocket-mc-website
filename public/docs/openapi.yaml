@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: PocketMC Local & Remote Control REST API
+  version: 1.9.3
+  description: Complete REST API for orchestrating local Minecraft servers, managing Adoptium Java runtimes, controlling Playit.gg tunnels, and managing OAuth cloud backups via the PocketMC desktop daemon or secure remote web panel.
+  contact:
+    name: PocketMC Developer Support
+    url: https://pocketmc.github.io/pocket-mc-website/docs/
+    email: support@pocketmc.org
+  license:
+    name: MIT
+    url: https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE
+servers:
+  - url: http://localhost:25585/api/v1
+    description: Local Desktop Daemon Endpoint
+  - url: https://pocket-mc-proxy.onrender.com/api/v1
+    description: Hosted Remote Control & Telemetry Proxy
+paths:
+  /health:
+    get:
+      summary: Health and daemon status
+      responses:
+        '200':
+          description: Daemon is healthy and active.
+  /instances:
+    get:
+      summary: List Minecraft server instances
+      responses:
+        '200':
+          description: List of instances successfully retrieved.
+  /instances/{id}/start:
+    post:
+      summary: Start server instance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Server instance start initiated.
+  /instances/{id}/stop:
+    post:
+      summary: Gracefully stop server instance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Server shutdown initiated.
+  /instances/{id}/logs:
+    get:
+      summary: Retrieve sanitized console logs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: lines
+          in: query
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Sanitized console logs retrieved.
+  /instances/{id}/backup:
+    post:
+      summary: Trigger automated backup
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Backup created successfully.
+  /instances/{id}/tunnel:
+    get:
+      summary: Get Playit tunnel status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Playit tunnel status details.

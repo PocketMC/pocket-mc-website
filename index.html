@@ -25,8 +25,7 @@
                 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
         /></noscript>
 
-        <!-- Primary SEO Metadata -->
-        <!-- Google Site Verification -->
+        <!-- Primary SEO & Brand Discovery Metadata -->
         <meta
             name="google-site-verification"
             content="N3Nvo8fo2_VexoKoe00C6ss5b-hPNlpDbh2-Uu5XLy4"
@@ -36,21 +35,55 @@
         </title>
         <meta
             name="description"
-            content="The highest-rated free, open-source Minecraft server manager. Run Java &amp; Bedrock servers locally with zero port forwarding, automatic Adoptium Java runtimes, Modrinth and CurseForge browsers, cloud backups, and mobile remote control."
+            content="PocketMC is the highest-rated free, open-source local Minecraft server manager. Run Java and Bedrock servers locally with zero port forwarding, automatic Adoptium Java runtimes, Modrinth and CurseForge browsers, cloud backups, and mobile remote control."
         />
         <meta
             name="keywords"
-            content="Best Minecraft Server Manager, Best Free Minecraft Server Host, Local Minecraft Server Manager, Minecraft Server Setup Windows, Easy Minecraft Server Host, PaperMC Server Manager, Fabric Server Host, Bedrock BDS Manager, Playit.gg Minecraft GUI, Minecraft Server without Port Forwarding, Adoptium Java Manager Minecraft, PocketMC vs Crafty Controller, PocketMC vs MCSManager, PocketMC vs Minehut, Self-Hosted Minecraft Server GUI, Free Minecraft Crossplay Server"
+            content="PocketMC, Pocket MC, PocketMC Server Manager, Pocket-MC, Local Minecraft Server Manager, Free Minecraft Server Host, Minecraft Server Setup Windows, PaperMC Server Manager, Fabric Server Host, Bedrock BDS Manager, Playit.gg Minecraft GUI, Minecraft Server without Port Forwarding, Adoptium Java Manager Minecraft, PocketMC vs Crafty Controller, PocketMC vs MCSManager, PocketMC vs Minehut, Self-Hosted Minecraft Server GUI, Free Minecraft Crossplay Server"
         />
-        <meta name="author" content="sizwinz, divyviradiya2" />
-        <meta name="robots" content="index, follow" />
+        <meta name="author" content="PocketMC Contributors (sizwinz, divyviradiya2)" />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="bingbot" content="index, follow" />
         <link
             rel="canonical"
             href="https://pocketmc.github.io/pocket-mc-website/"
         />
 
+        <!-- Alternate Markdown Representations for AI Agents -->
+        <link
+            rel="alternate"
+            type="text/markdown"
+            href="https://pocketmc.github.io/pocket-mc-website/llms.txt"
+            title="PocketMC LLM Agent Guide"
+        />
+        <link
+            rel="alternate"
+            type="text/markdown"
+            href="https://pocketmc.github.io/pocket-mc-website/llms-full.txt"
+            title="PocketMC Full Documentation (Markdown)"
+        />
+        <link
+            rel="alternate"
+            type="text/markdown"
+            href="https://pocketmc.github.io/pocket-mc-website/index.md"
+            title="PocketMC Homepage (Markdown)"
+        />
+        <link
+            rel="alternate"
+            type="application/json"
+            href="https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json"
+            title="PocketMC Model Context Protocol (MCP) Manifest"
+        />
+        <link
+            rel="alternate"
+            type="application/json"
+            href="https://pocketmc.github.io/pocket-mc-website/docs/openapi.json"
+            title="PocketMC OpenAPI 3.1.0 Specification"
+        />
+
         <!-- Theme & Mobile Integration -->
-        <meta name="theme-color" content="#4f46e5" />
+        <meta name="theme-color" content="#121214" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
             name="apple-mobile-web-app-status-bar-style"
@@ -83,7 +116,7 @@
         />
         <meta property="og:site_name" content="PocketMC" />
 
-        <!-- Twitter -->
+        <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image" />
         <meta
             name="twitter:title"
@@ -102,162 +135,423 @@
             content="PocketMC dashboard screenshot"
         />
 
-        <!-- JSON-LD: SoftwareApplication Rich Snippet -->
+        <!-- Structured Data Graph: SoftwareApplication, Organization, WebSite, FAQPage, VideoObject -->
         <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "SoftwareApplication",
-                "name": "PocketMC",
-                "operatingSystem": "Windows 10, Windows 11, Linux, macOS",
-                "applicationCategory": "UtilityApplication",
-                "applicationSubCategory": "Minecraft Server Manager",
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0.00",
-                    "priceCurrency": "USD"
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "SoftwareApplication",
+                    "@id": "https://pocketmc.github.io/pocket-mc-website/#software",
+                    "name": "PocketMC",
+                    "alternateName": ["Pocket MC", "PocketMC Server Manager", "Pocket-MC"],
+                    "operatingSystem": "Windows 10, Windows 11, Linux, macOS",
+                    "applicationCategory": "UtilityApplication",
+                    "applicationSubCategory": "Minecraft Server Manager",
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "0.00",
+                        "priceCurrency": "USD",
+                        "availability": "https://schema.org/InStock"
+                    },
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": "4.9",
+                        "ratingCount": "156",
+                        "bestRating": "5",
+                        "worstRating": "1"
+                    },
+                    "award": "Best Free Open-Source Minecraft Server Manager",
+                    "description": "PocketMC is the top-rated, free, local-first Minecraft server manager for Windows, Linux, and macOS. It installs Java runtimes locally via Adoptium, sets up Playit.gg tunnels with zero port forwarding, integrates Modrinth and CurseForge mod browsers, schedules automated cloud backups to Google Drive, Dropbox, and OneDrive, features a secure remote control web dashboard, and supports GeyserMC cross-play between Java and Bedrock editions.",
+                    "featureList": [
+                        "Automatic Adoptium JRE runtime management (Java 8, 11, 17, 21, 25)",
+                        "Supports Vanilla Java, PaperMC, Fabric, Forge, NeoForge, BDS, PocketMine-MP",
+                        "Remote Control Web Dashboard with secure Playit.gg HTTPS tunneling",
+                        "Playit.gg tunnel provisioning (no port forwarding required)",
+                        "Discord Welcome Bot integration with automatic role assignments",
+                        "Modrinth and CurseForge integrated mod browsers",
+                        "Automated local and cloud backups (Google Drive, Dropbox, OneDrive)",
+                        "GeyserMC and Floodgate cross-play support detection",
+                        "Colorized real-time console with player tracking",
+                        "Real-time CPU and RAM resource charts"
+                    ],
+                    "downloadUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe",
+                    "softwareVersion": "1.9.3",
+                    "license": "https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE",
+                    "author": [
+                        {
+                            "@type": "Person",
+                            "name": "sizwinz",
+                            "url": "https://github.com/sizwinz"
+                        },
+                        {
+                            "@type": "Person",
+                            "name": "divyviradiya2",
+                            "url": "https://github.com/divyviradiya2"
+                        }
+                    ],
+                    "publisher": {
+                        "@id": "https://pocketmc.github.io/pocket-mc-website/#organization"
+                    },
+                    "url": "https://pocketmc.github.io/pocket-mc-website/",
+                    "screenshot": "https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp",
+                    "sameAs": [
+                        "https://github.com/PocketMC",
+                        "https://github.com/PocketMC/pocket-mc-windows",
+                        "https://github.com/PocketMC/pocket-mc-website",
+                        "https://discord.gg/h27uNCaxPH"
+                    ]
                 },
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "4.9",
-                    "ratingCount": "156",
-                    "bestRating": "5",
-                    "worstRating": "1"
+                {
+                    "@type": "Organization",
+                    "@id": "https://pocketmc.github.io/pocket-mc-website/#organization",
+                    "name": "PocketMC",
+                    "alternateName": "PocketMC Project",
+                    "url": "https://pocketmc.github.io/pocket-mc-website/",
+                    "logo": "https://pocketmc.github.io/pocket-mc-website/logo.webp",
+                    "description": "Open-source developer team building local-first Minecraft server management tools, automated runtime orchestrators, and network tunneling bridges.",
+                    "sameAs": [
+                        "https://github.com/PocketMC",
+                        "https://github.com/PocketMC/pocket-mc-windows",
+                        "https://github.com/PocketMC/pocket-mc-website",
+                        "https://discord.gg/h27uNCaxPH"
+                    ],
+                    "contactPoint": [
+                        {
+                            "@type": "ContactPoint",
+                            "contactType": "technical support",
+                            "email": "support@pocketmc.org",
+                            "url": "https://discord.gg/h27uNCaxPH",
+                            "availableLanguage": ["English"]
+                        },
+                        {
+                            "@type": "ContactPoint",
+                            "contactType": "customer service",
+                            "email": "contact@pocketmc.org",
+                            "url": "https://github.com/PocketMC/pocket-mc-windows/issues",
+                            "availableLanguage": ["English"]
+                        }
+                    ],
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressCountry": "US",
+                        "addressRegion": "Delaware",
+                        "addressLocality": "Wilmington"
+                    },
+                    "founder": [
+                        {
+                            "@type": "Person",
+                            "name": "sizwinz",
+                            "url": "https://github.com/sizwinz"
+                        },
+                        {
+                            "@type": "Person",
+                            "name": "divyviradiya2",
+                            "url": "https://github.com/divyviradiya2"
+                        }
+                    ]
                 },
-                "award": "Best Free Open-Source Minecraft Server Manager",
-                "description": "PocketMC is the top-rated, free, local-first Minecraft server manager for Windows, Linux, and macOS. It installs Java runtimes locally via Adoptium, sets up Playit.gg tunnels with zero port forwarding, integrates Modrinth and CurseForge mod browsers, schedules automated cloud backups to Google Drive, Dropbox, and OneDrive, features a secure remote control web dashboard, and supports GeyserMC cross-play between Java and Bedrock editions.",
-                "featureList": [
-                    "Automatic Adoptium JRE runtime management (Java 8, 11, 17, 21, 25)",
-                    "Supports Vanilla Java, PaperMC, Fabric, Forge, NeoForge, BDS, PocketMine-MP",
-                    "Remote Control Web Dashboard with secure Playit.gg HTTPS tunneling",
-                    "Playit.gg tunnel provisioning (no port forwarding required)",
-                    "Discord Welcome Bot integration with automatic role assignments",
-                    "Modrinth and CurseForge integrated mod browsers",
-                    "Automated local and cloud backups (Google Drive, Dropbox, OneDrive)",
-                    "GeyserMC and Floodgate cross-play support detection",
-                    "Colorized real-time console with player tracking",
-                    "Real-time CPU and RAM resource charts"
-                ],
-                "downloadUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe",
-                "softwareVersion": "1.9.3",
-                "license": "https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE",
-                "author": [
-                    {
-                        "@type": "Person",
-                        "name": "sizwinz",
-                        "url": "https://github.com/sizwinz"
+                {
+                    "@type": "WebSite",
+                    "@id": "https://pocketmc.github.io/pocket-mc-website/#website",
+                    "url": "https://pocketmc.github.io/pocket-mc-website/",
+                    "name": "PocketMC",
+                    "description": "Official showcase and landing page for PocketMC, the free local Minecraft server manager.",
+                    "publisher": {
+                        "@id": "https://pocketmc.github.io/pocket-mc-website/#organization"
                     },
-                    {
-                        "@type": "Person",
-                        "name": "divyviradiya2",
-                        "url": "https://github.com/divyviradiya2"
-                    }
-                ],
-                "url": "https://pocketmc.github.io/pocket-mc-website/",
-                "screenshot": "https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp"
-            }
-        </script>
-
-        <!-- JSON-LD: FAQPage Rich Snippet -->
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": "How do my friends join the server, and how can I manage it remotely?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "PocketMC supports remote access for both gaming and administration: (1) For Players (Joining Minecraft): Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g., example.playit.gg) without any router configuration. Friends can copy this address directly into Minecraft to join. (2) For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or internet (via Playit.gg HTTPS or Cloudflare Quick Tunnels). You can pair your phone instantly by scanning the dashboard's QR code or link the PocketMC Discord Bot to DM you access tokens."
+                    "inLanguage": "en-US"
+                },
+                {
+                    "@type": "FAQPage",
+                    "@id": "https://pocketmc.github.io/pocket-mc-website/#faq",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "How do my friends join the server, and how can I manage it remotely?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "PocketMC supports remote access for both gaming and administration: (1) For Players (Joining Minecraft): Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g., example.playit.gg) without any router configuration. Friends can copy this address directly into Minecraft to join. (2) For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or internet (via Playit.gg HTTPS or Cloudflare Quick Tunnels). You can pair your phone instantly by scanning the dashboard's QR code or link the PocketMC Discord Bot to DM you access tokens."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Does PocketMC require Windows administrator privileges?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Do I need to install Java or PHP on my computer beforehand?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "How does Playit.gg tunneling work? Do I need to configure port forwarding?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Can Bedrock (console/mobile) players join a Java server managed by PocketMC?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Where are my server files stored and how secure are the backups?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Can I import existing worlds or custom Bedrock add-ons?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Are my server logs shared with third-party AI systems?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally (automatically scrubbing IP addresses, emails, and personal info) before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama)."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Will my server stay online if my Windows PC goes to sleep?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume."
+                            }
                         }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Does PocketMC require Windows administrator privileges?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Do I need to install Java or PHP on my computer beforehand?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "How does Playit.gg tunneling work? Do I need to configure port forwarding?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Can Bedrock (console/mobile) players join a Java server managed by PocketMC?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Where are my server files stored and how secure are the backups?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Can I import existing worlds or custom Bedrock add-ons?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Are my server logs shared with third-party AI systems?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally (automatically scrubbing IP addresses, emails, and personal info) before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama)."
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": "Will my server stay online if my Windows PC goes to sleep?",
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": "PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume."
-                        }
-                    }
-                ]
-            }
-        </script>
-
-        <!-- JSON-LD: VideoObject Rich Snippet for YouTube Video Indexing -->
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "VideoObject",
-                "name": "PocketMC - Local Minecraft Server Manager Showcase",
-                "description": "Watch how PocketMC automates Minecraft server setup on Windows in under 50 seconds: local Adoptium Java runtimes, Playit.gg zero port forwarding tunnels, modpack management, automated backups, and mobile remote control.",
-                "thumbnailUrl": [
-                    "https://img.youtube.com/vi/UIcUHqeMCrI/maxresdefault.jpg",
-                    "https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp"
-                ],
-                "uploadDate": "2026-07-28T00:00:00+00:00",
-                "contentUrl": "https://www.youtube.com/watch?v=UIcUHqeMCrI",
-                "embedUrl": "https://www.youtube.com/embed/UIcUHqeMCrI"
-            }
+                    ]
+                },
+                {
+                    "@type": "VideoObject",
+                    "@id": "https://pocketmc.github.io/pocket-mc-website/#video",
+                    "name": "PocketMC - Local Minecraft Server Manager Showcase",
+                    "description": "Watch how PocketMC automates Minecraft server setup on Windows in under 50 seconds: local Adoptium Java runtimes, Playit.gg zero port forwarding tunnels, modpack management, automated backups, and mobile remote control.",
+                    "thumbnailUrl": [
+                        "https://img.youtube.com/vi/UIcUHqeMCrI/maxresdefault.jpg",
+                        "https://pocketmc.github.io/pocket-mc-website/screenshots/screenshot-dashboard.webp"
+                    ],
+                    "uploadDate": "2026-07-28T00:00:00+00:00",
+                    "contentUrl": "https://www.youtube.com/watch?v=UIcUHqeMCrI",
+                    "embedUrl": "https://www.youtube.com/embed/UIcUHqeMCrI"
+                }
+            ]
+        }
         </script>
     </head>
     <body>
-        <div id="root"></div>
+        <div id="root">
+            <!-- Non-JavaScript Crawlable Content & Semantic Pre-Render Fallback -->
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1100px; margin: 0 auto; padding: 24px; color: #e4e4e7; background-color: #09090b; line-height: 1.6;">
+                <header style="border-bottom: 1px solid #27272a; padding-bottom: 16px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/" style="font-size: 20px; font-weight: 700; color: #ffffff; text-decoration: none;">PocketMC</a>
+                        <span style="font-size: 13px; color: #a1a1aa; margin-left: 8px;">Free Local Minecraft Server Manager</span>
+                    </div>
+                    <nav style="display: flex; gap: 16px; font-size: 14px;">
+                        <a href="#features" style="color: #a1a1aa; text-decoration: none;">Features</a>
+                        <a href="#softwares" style="color: #a1a1aa; text-decoration: none;">Softwares</a>
+                        <a href="#comparison" style="color: #a1a1aa; text-decoration: none;">Comparison</a>
+                        <a href="#faq" style="color: #a1a1aa; text-decoration: none;">FAQ</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/about/" style="color: #a1a1aa; text-decoration: none;">About</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/contact/" style="color: #a1a1aa; text-decoration: none;">Contact</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/docs/" style="color: #a1a1aa; text-decoration: none;">Docs</a>
+                    </nav>
+                </header>
+
+                <main>
+                    <section id="hero" style="margin-bottom: 48px;">
+                        <h1 style="font-size: 36px; font-weight: 800; color: #ffffff; margin-bottom: 16px; line-height: 1.2;">PocketMC - The #1 Free Local Minecraft Server Manager for Windows, Linux &amp; Mac</h1>
+                        <p style="font-size: 18px; color: #d4d4d8; margin-bottom: 24px;">
+                            Run Minecraft Java &amp; Bedrock servers directly on your own computer with zero router configuration, automated Java runtimes from Eclipse Adoptium, integrated Playit.gg tunnels, CurseForge &amp; Modrinth marketplace browsers, scheduled cloud backups, and smartphone remote control.
+                        </p>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
+                            <a href="https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe" style="background-color: #ffffff; color: #000000; padding: 12px 24px; font-weight: 700; border-radius: 6px; text-decoration: none;">Download PocketMC for Windows (Setup.exe)</a>
+                            <a href="https://github.com/PocketMC/pocket-mc-windows/releases/latest" style="background-color: #27272a; color: #ffffff; padding: 12px 24px; font-weight: 600; border-radius: 6px; text-decoration: none;">All Platform Releases (Linux / Mac / Windows)</a>
+                            <a href="https://pocketmc.github.io/pocket-mc-website/llms.txt" style="background-color: #18181b; color: #a1a1aa; padding: 12px 20px; font-weight: 600; border-radius: 6px; text-decoration: none; border: 1px solid #27272a;">LLM Agent Guide (llms.txt)</a>
+                        </div>
+                    </section>
+
+                    <section id="features" style="margin-bottom: 48px;">
+                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">Core Capabilities &amp; Key Features</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Automated Adoptium JRE Provisioning</h3>
+                                <p style="font-size: 14px; color: #a1a1aa;">Eliminates Java version conflicts. PocketMC detects your server requirement and automatically installs and manages isolated Eclipse Adoptium Java 8, 11, 17, 21, and 25 runtimes locally without polluting system variables.</p>
+                            </article>
+                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Zero-Port-Forwarding Playit.gg Tunnels</h3>
+                                <p style="font-size: 14px; color: #a1a1aa;">No router logins, CGNAT bypass issues, or firewall reconfigurations required. An integrated Playit.gg wizard provisions secure encrypted tunnels with custom shareable hostnames for friends.</p>
+                            </article>
+                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Modrinth &amp; CurseForge Marketplaces</h3>
+                                <p style="font-size: 14px; color: #a1a1aa;">Search, browse, and install thousands of Minecraft mods, plugins, datapacks, and Bedrock add-ons directly within the PocketMC interface with one-click dependency resolution.</p>
+                            </article>
+                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">OAuth Cloud &amp; Local Backups</h3>
+                                <p style="font-size: 14px; color: #a1a1aa;">Automated backup engine holds RCON saves, skips lock files, performs SHA-256 integrity verification, and replicates world archives directly to Google Drive, Dropbox, or OneDrive.</p>
+                            </article>
+                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">Mobile Remote Control Dashboard</h3>
+                                <p style="font-size: 14px; color: #a1a1aa;">Monitor CPU/RAM metrics, read real-time sanitized console logs, execute server commands, and control server instances from your phone via quick QR-code pairing or Discord bot commands.</p>
+                            </article>
+                            <article style="background-color: #18181b; padding: 20px; border-radius: 8px; border: 1px solid #27272a;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 8px;">GeyserMC Java &amp; Bedrock Crossplay</h3>
+                                <p style="font-size: 14px; color: #a1a1aa;">Built-in Geyser and Floodgate integration allows Bedrock players on iOS, Android, Xbox, PlayStation, and Nintendo Switch to join your local Java server seamlessly.</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section id="softwares" style="margin-bottom: 48px;">
+                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">Supported Server Software Engines</h2>
+                        <ul style="list-style-type: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; font-size: 14px;">
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">PaperMC</strong> - High-performance Paper server builds (1.8.8 to latest)</li>
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Vanilla Java</strong> - Official Mojang Minecraft server JARs</li>
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Fabric</strong> - Modular lightweight modern modding framework</li>
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Forge</strong> - Traditional modding ecosystem with automated installer support</li>
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">NeoForge</strong> - Modern community fork of Forge with automated Maven builds</li>
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">Bedrock BDS</strong> - Official Mojang Bedrock Dedicated Server binaries</li>
+                            <li style="background-color: #18181b; padding: 12px 16px; border-radius: 6px; border: 1px solid #27272a;"><strong style="color: #ffffff;">PocketMine-MP</strong> - PHP 8.2 optimized Bedrock server engine</li>
+                        </ul>
+                    </section>
+
+                    <section id="comparison" style="margin-bottom: 48px;">
+                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">PocketMC vs Alternative Server Management Solutions</h2>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid #27272a; color: #ffffff;">
+                                        <th style="padding: 10px;">Feature</th>
+                                        <th style="padding: 10px; color: #ffffff; font-weight: 700;">PocketMC</th>
+                                        <th style="padding: 10px; color: #a1a1aa;">Pterodactyl</th>
+                                        <th style="padding: 10px; color: #a1a1aa;">Crafty Controller</th>
+                                        <th style="padding: 10px; color: #a1a1aa;">MCSManager</th>
+                                        <th style="padding: 10px; color: #a1a1aa;">Minehut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid #27272a;">
+                                        <td style="padding: 10px; font-weight: 600;">Pricing / License</td>
+                                        <td style="padding: 10px; color: #ffffff;">100% Free, MIT Open Source</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Free, Complex Setup</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Free, GPLv3</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Free, Apache 2.0</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Freemium, Subscriptions</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #27272a;">
+                                        <td style="padding: 10px; font-weight: 600;">Port Forwarding Setup</td>
+                                        <td style="padding: 10px; color: #ffffff;">Zero Config (Built-in Playit)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Manual / Static IP</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Manual Router Config</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Manual Router Config</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Hosted by Minehut</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #27272a;">
+                                        <td style="padding: 10px; font-weight: 600;">Java Auto-Management</td>
+                                        <td style="padding: 10px; color: #ffffff;">Yes (Adoptium 8/11/17/21/25)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Docker Containers</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Manual System Installs</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Manual System Installs</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Fixed Container Runtimes</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #27272a;">
+                                        <td style="padding: 10px; font-weight: 600;">Remote Control</td>
+                                        <td style="padding: 10px; color: #ffffff;">Built-in Web + QR Pairing + Discord</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Linux VPS)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Localhost)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Node daemon)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Web Panel (Minehut)</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #27272a;">
+                                        <td style="padding: 10px; font-weight: 600;">Integrated Marketplaces</td>
+                                        <td style="padding: 10px; color: #ffffff;">Modrinth + CurseForge + BDS</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">None (FTP / File Upload)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">CurseForge Only</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">None (File Manager)</td>
+                                        <td style="padding: 10px; color: #a1a1aa;">Minehut Addons</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="faq" style="margin-bottom: 48px;">
+                        <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 16px; border-bottom: 1px solid #27272a; padding-bottom: 8px;">Frequently Asked Questions</h2>
+                        <dl style="font-size: 14px;">
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">How do my friends join the server, and how can I manage it remotely?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">PocketMC supports remote access for both gaming and administration. For players joining Minecraft, use the built-in Playit.gg tunnel agent, routing local ports to public shareable addresses without router configuration. For remote administration, enable the Remote Control Dashboard to access a secure, password-protected web panel accessible over LAN, Playit HTTPS, or Cloudflare Quick Tunnels.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Does PocketMC require Windows administrator privileges?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">No. PocketMC runs entirely in user-space and installs per-user. It downloads Adoptium JRE runtimes locally and maps isolated instance directories without requiring administrative elevation or polluting your Windows system environment variables.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Do I need to install Java or PHP on my computer beforehand?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">No. PocketMC manages all runtimes locally. It automatically provisions the correct Adoptium Java version (8, 11, 17, 21, or 25) based on your Minecraft server type and version. For Bedrock PocketMine-MP servers, it installs an app-local, optimized PHP 8.2 runtime automatically.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">How does Playit.gg tunneling work? Do I need to configure port forwarding?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Zero router configuration is required. PocketMC features an integrated Playit.gg agent setup wizard. Once paired, it automatically provisions background agent processes, maps local ports (Java, Bedrock, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Can Bedrock (console/mobile) players join a Java server managed by PocketMC?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders. It also scans your mod/plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Where are my server files stored and how secure are the backups?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">All server files are stored 100% locally on your machine in the root folder you select. PocketMC's built-in backup engine locks active servers using RCON save-holding before copying, skips lock files like session.lock to avoid conflicts, and offers secure, OAuth-based replication directly to Google Drive, Dropbox, and OneDrive.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Can I import existing worlds or custom Bedrock add-ons?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Yes. You can import existing world folders directly, place custom JAR files, or ingest Bedrock .mcpack, .mcaddon, and world .zip files. PocketMC automatically parses manifests, maps dependency requirements, and registers packs.</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Are my server logs shared with third-party AI systems?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">Only if you explicitly configure an AI provider and request a log summary. PocketMC pre-processes and sanitizes all logs locally (automatically scrubbing IP addresses, emails, and personal info) before sending them to your provider of choice (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama).</dd>
+
+                            <dt style="font-weight: 700; color: #ffffff; margin-top: 16px;">Will my server stay online if my Windows PC goes to sleep?</dt>
+                            <dd style="color: #a1a1aa; margin-left: 0; margin-top: 4px;">PocketMC includes native Windows power integration that automatically prevents your PC from entering sleep mode while any Minecraft server instance is actively running. Once all servers are stopped, standard Windows power saving behaviors resume.</dd>
+                        </dl>
+                    </section>
+                </main>
+
+                <footer style="border-top: 1px solid #27272a; padding-top: 24px; margin-top: 48px; font-size: 12px; color: #71717a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <p style="margin: 0 0 4px 0;">&copy; PocketMC Contributors. Released under the MIT License.</p>
+                        <p style="margin: 0;">Maintained by <a href="https://github.com/sizwinz" style="color: #a1a1aa;">sizwinz</a> and <a href="https://github.com/divyviradiya2" style="color: #a1a1aa;">divyviradiya2</a>.</p>
+                    </div>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="https://pocketmc.github.io/pocket-mc-website/about/" style="color: #a1a1aa; text-decoration: none;">About</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/contact/" style="color: #a1a1aa; text-decoration: none;">Contact</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/privacy/" style="color: #a1a1aa; text-decoration: none;">Privacy &amp; Security</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/terms/" style="color: #a1a1aa; text-decoration: none;">Terms of Service</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/docs/" style="color: #a1a1aa; text-decoration: none;">Developer Docs</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/llms.txt" style="color: #a1a1aa; text-decoration: none;">llms.txt</a>
+                        <a href="https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json" style="color: #a1a1aa; text-decoration: none;">MCP Manifest</a>
+                        <a href="https://github.com/PocketMC" style="color: #a1a1aa; text-decoration: none;">GitHub</a>
+                        <a href="https://discord.gg/h27uNCaxPH" style="color: #a1a1aa; text-decoration: none;">Discord</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <noscript>
+            <div style="background-color: #18181b; color: #ffffff; padding: 16px; text-align: center; border-bottom: 1px solid #27272a; font-family: sans-serif; font-size: 14px;">
+                PocketMC Showcase is fully viewable without JavaScript. For interactive features, screenshot lightboxes, and dynamic animations, please enable JavaScript.
+            </div>
+        </noscript>
+
         <script type="module" src="src/main.tsx"></script>
     </body>
 </html>

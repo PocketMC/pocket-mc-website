@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>404 - Page Not Found | PocketMC</title>
+        <meta name="description" content="The requested page could not be found on PocketMC. Explore available resources, developer documentation, and agent guidance." />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 24px;
+                line-height: 1.5;
+            }
+            .container {
+                max-width: 760px;
+                width: 100%;
+                background: var(--card-bg);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 32px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+            .badge {
+                display: inline-block;
+                background: var(--code-bg);
+                border: 1px solid var(--border);
+                color: var(--text-muted);
+                font-family: monospace;
+                font-size: 12px;
+                padding: 4px 10px;
+                border-radius: 9999px;
+                margin-bottom: 16px;
+            }
+            h1 {
+                font-size: 28px;
+                font-weight: 800;
+                margin-bottom: 8px;
+                letter-spacing: -0.02em;
+            }
+            p {
+                color: var(--text-muted);
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+            .nav-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 12px;
+                margin-bottom: 24px;
+            }
+            .nav-card {
+                display: block;
+                padding: 12px 16px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                color: var(--text);
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 600;
+                transition: border-color 0.2s, transform 0.1s;
+            }
+            .nav-card:hover {
+                border-color: var(--text-muted);
+                transform: translateY(-1px);
+            }
+            .nav-card span {
+                display: block;
+                font-size: 12px;
+                color: var(--text-muted);
+                font-weight: normal;
+                margin-top: 2px;
+            }
+            .agent-block {
+                margin-top: 24px;
+                border-top: 1px solid var(--border);
+                padding-top: 20px;
+            }
+            .agent-block h2 {
+                font-size: 13px;
+                font-family: monospace;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--text-muted);
+                margin-bottom: 8px;
+            }
+            pre {
+                background: var(--code-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 16px;
+                font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+                font-size: 12px;
+                color: var(--text-muted);
+                overflow-x: auto;
+                white-space: pre-wrap;
+                word-break: break-word;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <span class="badge">HTTP 404 &bull; Resource Not Found</span>
+            <h1>Page Not Found</h1>
+            <p>The path you requested does not exist or has been moved. You can return to the homepage or explore our index below.</p>
+
+            <div class="nav-grid">
+                <a href="/pocket-mc-website/" class="nav-card">
+                    Homepage
+                    <span>Return to main showcase</span>
+                </a>
+                <a href="/pocket-mc-website/docs/" class="nav-card">
+                    Developer Portal
+                    <span>API, Auth, Webhooks &amp; MCP</span>
+                </a>
+                <a href="/pocket-mc-website/about/" class="nav-card">
+                    About PocketMC
+                    <span>Project mission &amp; architecture</span>
+                </a>
+                <a href="/pocket-mc-website/contact/" class="nav-card">
+                    Contact &amp; Support
+                    <span>Discord, GitHub, maintainers</span>
+                </a>
+                <a href="/pocket-mc-website/privacy/" class="nav-card">
+                    Privacy Policy
+                    <span>Local storage &amp; security</span>
+                </a>
+                <a href="/pocket-mc-website/terms/" class="nav-card">
+                    Terms of Service
+                    <span>MIT license &amp; terms</span>
+                </a>
+            </div>
+
+            <div class="agent-block">
+                <h2>Machine-Readable Recovery Index (For AI Agents &amp; Crawlers)</h2>
+                <pre><code># 404 Recovery Index - PocketMC
+
+The requested resource was not found. Refer to canonical URLs below:
+
+- Main Website: https://pocketmc.github.io/pocket-mc-website/
+- LLM Agent Guide: https://pocketmc.github.io/pocket-mc-website/llms.txt
+- Full LLM Documentation: https://pocketmc.github.io/pocket-mc-website/llms-full.txt
+- Agent Instructions: https://pocketmc.github.io/pocket-mc-website/agent-instructions.md
+- XML Sitemap: https://pocketmc.github.io/pocket-mc-website/sitemap.xml
+- OpenAPI Specification: https://pocketmc.github.io/pocket-mc-website/docs/openapi.json
+- MCP Server Manifest: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json
+- Developer Documentation: https://pocketmc.github.io/pocket-mc-website/docs/
+- About: https://pocketmc.github.io/pocket-mc-website/about/
+- Contact: https://pocketmc.github.io/pocket-mc-website/contact/
+- Privacy: https://pocketmc.github.io/pocket-mc-website/privacy/
+- Terms: https://pocketmc.github.io/pocket-mc-website/terms/
+- GitHub Releases: https://github.com/PocketMC/pocket-mc-windows/releases/latest
+</code></pre>
+            </div>
+        </div>
+    </body>
+</html>

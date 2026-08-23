@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Privacy &amp; Security Policy - PocketMC</title>
+        <meta name="description" content="Read the PocketMC Privacy and Security Policy. Learn about our local-first architecture, platform encryption, telemetry opt-out, and outbound connection disclosures." />
+        <link rel="canonical" href="https://pocketmc.github.io/pocket-mc-website/privacy/" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://pocketmc.github.io/pocket-mc-website/privacy/#page",
+            "url": "https://pocketmc.github.io/pocket-mc-website/privacy/",
+            "name": "PocketMC Privacy & Security Policy",
+            "description": "Privacy and data security commitments for PocketMC users.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "PocketMC",
+                "url": "https://pocketmc.github.io/pocket-mc-website/"
+            }
+        }
+        </script>
+
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                padding: 0;
+            }
+            header {
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 16px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .brand {
+                font-weight: 800;
+                font-size: 18px;
+                color: var(--text);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                margin-left: 16px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.15s;
+            }
+            nav a:hover { color: var(--text); }
+            .container {
+                max-width: 960px;
+                margin: 40px auto;
+                padding: 0 24px;
+            }
+            h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+            h2 { font-size: 20px; font-weight: 700; margin-top: 32px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+            h3 { font-size: 16px; font-weight: 600; margin-top: 18px; margin-bottom: 8px; color: var(--text); }
+            p { color: var(--text-muted); margin-bottom: 16px; font-size: 15px; }
+            ul, ol { margin-bottom: 16px; padding-left: 24px; color: var(--text-muted); font-size: 15px; }
+            li { margin-bottom: 6px; }
+            code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; color: var(--text); }
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: 60px;
+                padding: 32px 24px;
+                background: var(--bg);
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+            .footer-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 16px; }
+            .footer-links a:hover { color: var(--text); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <a href="/pocket-mc-website/" class="brand">PocketMC</a>
+                <nav>
+                    <a href="/pocket-mc-website/">Home</a>
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1>Privacy &amp; Security Policy</h1>
+            <p>
+                Last Updated: August 2026. PocketMC is designed with an uncompromising <strong>local-first</strong> architecture. Your privacy, game saves, and computer security are our fundamental priorities. This document discloses how data is handled, stored, and protected.
+            </p>
+
+            <h2>1. Local Storage &amp; Platform Security Encryption</h2>
+            <p>
+                PocketMC keeps your server configuration files, world archives, console logs, player data, and metadata strictly on your local machine under your chosen application directory. We do not store your game data on proprietary servers.
+            </p>
+            <p>
+                To safeguard sensitive credentials (including CurseForge API tokens, Playit secret keys, Cloud Backup OAuth tokens, and AI Provider keys), PocketMC encrypts secrets using platform-native security frameworks:
+            </p>
+            <ul>
+                <li><strong>Windows:</strong> Protected via Windows Data Protection API (DPAPI), binding decryption exclusively to your user account session.</li>
+                <li><strong>Linux:</strong> Stored via the Linux Secret Service API (dbus / GNOME Keyring / KWallet).</li>
+                <li><strong>macOS:</strong> Protected using the Apple Keychain Security framework.</li>
+            </ul>
+
+            <h2>2. Telemetry and Opt-Out Controls</h2>
+            <p>
+                To measure software reliability, track software engine adoption, and diagnose crashes, PocketMC includes an optional telemetry reporting system:
+            </p>
+            <ul>
+                <li><strong>Approximate Country Lookup:</strong> Once on startup (if telemetry is enabled), the desktop client queries <code>http://ip-api.com</code> to resolve your country code.</li>
+                <li><strong>Aggregated Anonymous Statistics:</strong> Telemetry reports are transmitted over HTTPS to our proxy server (<code>pocket-mc-proxy.onrender.com</code>). The report includes an anonymous client UUID (generated locally), application version, country code, and counts of active server engine types (e.g. Paper, Fabric, BDS).</li>
+                <li><strong>Zero Personal Data:</strong> Personal identifiers, usernames, IP addresses, world files, and directory paths are never included in telemetry payloads.</li>
+                <li><strong>Complete Opt-Out:</strong> Telemetry can be disabled at any time with a single click in <em>App Settings &gt; Telemetry</em>, which terminates all lookup routines.</li>
+            </ul>
+
+            <h2>3. Outbound Network Connections</h2>
+            <p>
+                PocketMC connects to external endpoints only when you explicitly invoke specific application capabilities:
+            </p>
+            <ul>
+                <li><strong>Adoptium &amp; GitHub:</strong> Downloads matching JRE runtimes (Java 8, 11, 17, 21, 25) or PocketMine PHP 8.2 binaries and checks for application updates.</li>
+                <li><strong>Modrinth &amp; CurseForge:</strong> Sends search queries and downloads mods, plugins, and datapacks.</li>
+                <li><strong>Playit.gg:</strong> Provisions tunnel agents and maps network ports via official Playit API endpoints.</li>
+                <li><strong>Cloud Backup Providers:</strong> Synchronizes backup archives directly with Google Drive, Microsoft OneDrive, and Dropbox via user-authenticated OAuth flows.</li>
+                <li><strong>AI Providers:</strong> Sends sanitized server console logs to user-configured endpoints (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama).</li>
+            </ul>
+
+            <h2>4. Diagnostic Logs &amp; Auto-Redaction</h2>
+            <p>
+                When generating a support diagnostic bundle, PocketMC automatically executes regex sanitization to redact passwords, RCON secrets, and sensitive tokens from configuration files before compiling the local ZIP archive. Diagnostic archives are never transmitted automatically without your explicit consent.
+            </p>
+        </div>
+
+        <footer>
+            <div class="footer-inner">
+                <div>&copy; PocketMC Contributors. Licensed under MIT.</div>
+                <div class="footer-links">
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                    <a href="/pocket-mc-website/privacy/">Privacy</a>
+                    <a href="/pocket-mc-website/terms/">Terms</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/llms.txt">llms.txt</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

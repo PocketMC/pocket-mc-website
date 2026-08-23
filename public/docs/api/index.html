@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>REST API Documentation - PocketMC Developer Docs</title>
+        <meta name="description" content="Reference guide for PocketMC REST API endpoints: server instance management, power controls, sanitized console log streaming, backups, and tunnels." />
+        <link rel="canonical" href="https://pocketmc.github.io/pocket-mc-website/docs/api/" />
+        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
+        <link rel="alternate" type="application/json" href="/pocket-mc-website/docs/openapi.json" title="OpenAPI Spec" />
+        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+
+        <style>
+            :root {
+                --bg: #09090b;
+                --card-bg: #18181b;
+                --border: #27272a;
+                --text: #f4f4f5;
+                --text-muted: #a1a1aa;
+                --code-bg: #121214;
+            }
+            @media (prefers-color-scheme: light) {
+                :root {
+                    --bg: #fafafa;
+                    --card-bg: #ffffff;
+                    --border: #e4e4e7;
+                    --text: #09090b;
+                    --text-muted: #71717a;
+                    --code-bg: #f4f4f5;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                padding: 0;
+            }
+            header {
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 16px 24px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .brand {
+                font-weight: 800;
+                font-size: 18px;
+                color: var(--text);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                margin-left: 16px;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.15s;
+            }
+            nav a:hover { color: var(--text); }
+            .container {
+                max-width: 960px;
+                margin: 40px auto;
+                padding: 0 24px;
+            }
+            h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+            h2 { font-size: 20px; font-weight: 700; margin-top: 32px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+            p { color: var(--text-muted); margin-bottom: 16px; font-size: 15px; }
+            pre {
+                background: var(--code-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 16px;
+                font-family: monospace;
+                font-size: 13px;
+                color: var(--text);
+                overflow-x: auto;
+                margin-bottom: 20px;
+            }
+            .endpoint {
+                background: var(--card-bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .badge-get {
+                background: #27272a;
+                color: #ffffff;
+                padding: 3px 8px;
+                border-radius: 4px;
+                font-family: monospace;
+                font-weight: bold;
+                font-size: 12px;
+                display: inline-block;
+                margin-right: 8px;
+            }
+            .badge-post {
+                background: #3f3f46;
+                color: #ffffff;
+                padding: 3px 8px;
+                border-radius: 4px;
+                font-family: monospace;
+                font-weight: bold;
+                font-size: 12px;
+                display: inline-block;
+                margin-right: 8px;
+            }
+            footer {
+                border-top: 1px solid var(--border);
+                margin-top: 60px;
+                padding: 32px 24px;
+                background: var(--bg);
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+            .footer-inner {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-links a { color: var(--text-muted); text-decoration: none; margin-left: 16px; }
+            .footer-links a:hover { color: var(--text); }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <a href="/pocket-mc-website/" class="brand">PocketMC</a>
+                <nav>
+                    <a href="/pocket-mc-website/">Home</a>
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1>PocketMC REST API Reference</h1>
+            <p>
+                The PocketMC desktop client runs an embedded HTTP daemon on port <code>25585</code> by default when Remote Control is enabled. All endpoints accept and return standard JSON.
+            </p>
+
+            <h2>Core Endpoints</h2>
+
+            <div class="endpoint">
+                <h3><span class="badge-get">GET</span> /api/v1/health</h3>
+                <p>Returns health status, active application version, host OS platform, and count of running Minecraft instances.</p>
+                <pre><code>GET /api/v1/health HTTP/1.1
+Host: localhost:25585
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "status": "ok",
+  "version": "1.9.3",
+  "platform": "win-x64",
+  "activeInstances": 2
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="badge-get">GET</span> /api/v1/instances</h3>
+                <p>Lists all configured server instances with their live runtime statuses, CPU and RAM metrics, allocated memory, and player counts.</p>
+                <pre><code>GET /api/v1/instances HTTP/1.1
+Host: localhost:25585
+Authorization: Bearer &lt;session_token&gt;
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "id": "paper-121",
+    "name": "PaperMC Survival",
+    "software": "PaperMC",
+    "version": "1.21.1",
+    "javaVersion": "21",
+    "port": 25565,
+    "status": "running",
+    "playersOnline": 4,
+    "maxPlayers": 20,
+    "memoryMb": 4096
+  }
+]</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="badge-post">POST</span> /api/v1/instances/{id}/start</h3>
+                <p>Starts the target Minecraft server instance. Automatically sets up Adoptium JRE runtimes and maps active Playit tunnels.</p>
+                <pre><code>POST /api/v1/instances/paper-121/start HTTP/1.1
+Host: localhost:25585
+Authorization: Bearer &lt;session_token&gt;
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "success": true,
+  "message": "Instance paper-121 started successfully."
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="badge-post">POST</span> /api/v1/instances/{id}/stop</h3>
+                <p>Initiates a graceful shutdown via RCON <code>save-all</code> and <code>stop</code> to ensure clean world saves without corruption.</p>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="badge-get">GET</span> /api/v1/instances/{id}/logs</h3>
+                <p>Retrieves real-time console log streams. All personal identifiers, IP addresses, and tokens are automatically redacted by the daemon before serialization.</p>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="badge-post">POST</span> /api/v1/instances/{id}/backup</h3>
+                <p>Creates a full ZIP snapshot with SHA-256 integrity hashing, automatically skipping temporary lock files (e.g. <code>session.lock</code>), and replicates to configured cloud providers.</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-inner">
+                <div>&copy; PocketMC Contributors. Licensed under MIT.</div>
+                <div class="footer-links">
+                    <a href="/pocket-mc-website/about/">About</a>
+                    <a href="/pocket-mc-website/contact/">Contact</a>
+                    <a href="/pocket-mc-website/privacy/">Privacy</a>
+                    <a href="/pocket-mc-website/terms/">Terms</a>
+                    <a href="/pocket-mc-website/docs/">Docs</a>
+                    <a href="/pocket-mc-website/llms.txt">llms.txt</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

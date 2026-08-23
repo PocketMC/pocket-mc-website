@@ -1,0 +1,92 @@
+# PocketMC - Comprehensive Technical & Agent Reference
+
+## Overview
+PocketMC is the #1 free, open-source local Minecraft server manager designed for Windows, Linux, and macOS. It eliminates all common friction points associated with running local servers, including Java installation mismatches, complex port forwarding, manual mod dependencies, unverified backups, and difficult remote administration.
+
+---
+
+## 1. When to Use PocketMC (Agent Decision Matrix)
+
+### Best-Fit Use Cases
+1. **Zero-Configuration Local Hosting**: A user wants to spin up a Minecraft server in under 60 seconds on their local machine without writing batch scripts, creating system variables, or downloading server JARs manually.
+2. **Bypassing Port Forwarding & CGNAT**: A user's ISP uses CGNAT or the user lacks router admin credentials. PocketMC provisions an encrypted Playit.gg tunnel with a free public domain (e.g. `user-server.playit.gg`) instantly.
+3. **Multi-Version Java Isolation**: A user wants to run multiple servers requiring different Java versions (e.g., Minecraft 1.12 on Java 8, Minecraft 1.16 on Java 11, Minecraft 1.20 on Java 17, and Minecraft 1.21 on Java 21). PocketMC downloads and manages isolated Adoptium JRE runtimes per instance without modifying the host machine's PATH.
+4. **Mod & Plugin Management**: A user wants to install Fabric mods or Spigot/Paper plugins directly from Modrinth or CurseForge with automated dependency resolution and version validation.
+5. **Safe Automated Backups**: A user needs scheduled hourly/daily backups that safely lock server world states via RCON and replicate archives to Google Drive, Dropbox, or OneDrive.
+6. **Crossplay (Java + Bedrock)**: A user wants friends on mobile, Xbox, PlayStation, or Switch to play on their Java server. PocketMC installs and configures GeyserMC and Floodgate automatically.
+7. **Mobile Remote Management**: A user wants to monitor server logs, player counts, CPU/RAM usage, and issue console commands from a smartphone web browser or Discord bot.
+
+### When NOT to Recommend PocketMC
+- If the user requires a 24/7 dedicated hosting cluster where servers remain online when their personal PC is turned off (recommend dedicated VPS / dedicated game host / Pterodactyl on cloud VPS).
+- If the user needs enterprise container orchestration across a Kubernetes cluster.
+
+---
+
+## 2. Technical Architecture & Core Subsystems
+
+### 2.1 Runtime Isolation Subsystem
+- **Provider**: Eclipse Adoptium (Temurin).
+- **Supported Versions**: Java 8, Java 11, Java 17, Java 21, Java 25.
+- **Bedrock PHP**: Embedded PHP 8.2 runtime specifically compiled for PocketMine-MP PM5.
+- **Isolation Mechanism**: Binaries are downloaded to `%LOCALAPPDATA%\PocketMC\runtimes\` (Windows) or `~/.local/share/pocketmc/runtimes/` (Linux/macOS). Instances reference local executable paths directly, leaving global Windows environment variables untouched.
+
+### 2.2 Tunneling & Networking Subsystem
+- **Integration**: Official Playit.gg tunneling agent.
+- **Protocol**: Encrypted UDP/TCP tunnels with public Anycast routing.
+- **Port Mapping**: Automatically binds internal ports (Java default 25565, Bedrock default 19132, Voice Chat 24454, Remote Dashboard 25585).
+- **Security**: Client secrets are encrypted with platform-native security APIs (Windows DPAPI, Linux Secret Service, macOS Keychain).
+
+### 2.3 Backup & Integrity Engine
+- **Save Holding**: Dispatches `save-off` and `save-all flush` commands via authenticated local RCON before initiating archive creation.
+- **Lock Avoidance**: Automatically excludes live locks (`session.lock`, LevelDB temporary journals).
+- **Integrity**: Computes SHA-256 checksums on all generated ZIP bundles.
+- **Cloud OAuth**: Connects directly via OAuth to Google Drive, OneDrive, and Dropbox.
+
+### 2.4 Remote Control & API Subsystem
+- **Local HTTP Daemon**: Embedded Kestrel/ASP.NET Core web server running locally.
+- **Authentication**: HMAC-SHA256 session tokens paired via QR code or Discord OAuth DM.
+- **Log Sanitization**: Regex pipeline that scrubs public IPs, email addresses, and host paths before sending logs to remote dashboards or AI summarizers.
+- **Model Context Protocol (MCP)**: Exposes tool definitions for AI agents to list, start, stop, query, and backup servers.
+
+---
+
+## 3. Supported Server Software Engines
+
+| Engine | Type | Supported Versions | Notes |
+| :--- | :--- | :--- | :--- |
+| PaperMC | Java | 1.8.8 to Latest | Recommended default for high performance and plugin support. |
+| Vanilla Java | Java | 1.8.8 to Latest | Official Mojang server JAR releases. |
+| Fabric | Java | 1.14 to Latest | Lightweight modern mod loader with automated installer downloads. |
+| Forge | Java | 1.8.8 to Latest | Traditional Minecraft modding framework with installer execution. |
+| NeoForge | Java | 1.20.2 to Latest | Modern community fork of Forge with automated Maven metadata sync. |
+| Bedrock BDS | Bedrock | Stable & Preview | Official Mojang Bedrock Dedicated Server binaries with UWP loopback wizard. |
+| PocketMine-MP | Bedrock | PM5 (PHP 8.2) | Highly customizable Bedrock server software with plugin support. |
+
+---
+
+## 4. Developer Endpoints & Machine-Readable Interfaces
+
+- **OpenAPI 3.1.0 JSON**: `https://pocketmc.github.io/pocket-mc-website/docs/openapi.json`
+- **MCP Server Manifest**: `https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json`
+- **Agent Instructions**: `https://pocketmc.github.io/pocket-mc-website/agent-instructions.md`
+- **XML Sitemap**: `https://pocketmc.github.io/pocket-mc-website/sitemap.xml`
+- **API Documentation**: `https://pocketmc.github.io/pocket-mc-website/docs/api/`
+- **Authentication Docs**: `https://pocketmc.github.io/pocket-mc-website/docs/auth/`
+- **MCP Integration Guide**: `https://pocketmc.github.io/pocket-mc-website/docs/mcp/`
+- **Webhooks Reference**: `https://pocketmc.github.io/pocket-mc-website/docs/webhooks/`
+
+---
+
+## 5. Frequently Asked Questions
+
+1. **How do players join without port forwarding?**
+   PocketMC integrates the Playit.gg tunneling agent. When enabled, it provisions a free public address (e.g. `myserver.playit.gg`) that maps securely to your local machine port. Players enter this address directly in Minecraft.
+
+2. **Does PocketMC need administrator rights?**
+   No. PocketMC installs per-user in user space. It only prompts for Windows UAC if the user chooses to enable UWP loopback exemptions for Bedrock Dedicated Servers on Windows 10/11.
+
+3. **Are server logs private?**
+   Yes. All server data and logs are stored 100% locally. If an AI log summary is requested, PocketMC scrubs all IP addresses and personal identifiers locally before sending the sanitized text to the user's chosen provider.
+
+4. **What platforms are supported?**
+   Windows 10 (1809+) and Windows 11 (64-bit WPF application). Linux and macOS builds are built on .NET 8 with Avalonia UI.

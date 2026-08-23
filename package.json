@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "node scripts/test-agent-readiness.cjs",
     "convert-webp": "node scripts/convert-webp.cjs"
   },
   "dependencies": {

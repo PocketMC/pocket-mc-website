@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "pocketmc",
+  "version": "1.0.0",
+  "title": "PocketMC Model Context Protocol (MCP) Server",
+  "description": "Model Context Protocol tools for orchestrating local Minecraft servers, managing Adoptium Java runtimes, querying Playit.gg tunnels, and triggering automated backups.",
+  "homepage": "https://pocketmc.github.io/pocket-mc-website/",
+  "documentation": "https://pocketmc.github.io/pocket-mc-website/docs/mcp/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PocketMC/pocket-mc-windows"
+  },
+  "transports": [
+    {
+      "type": "http-streamable",
+      "url": "https://pocket-mc-proxy.onrender.com/mcp/v1",
+      "description": "Hosted cloud proxy streamable HTTP transport"
+    },
+    {
+      "type": "http-streamable",
+      "url": "http://localhost:25585/mcp/v1",
+      "description": "Local desktop instance streamable HTTP transport"
+    },
+    {
+      "type": "stdio",
+      "command": "pocketmc-cli",
+      "args": ["mcp"],
+      "description": "Standard input/output transport for local desktop AI assistants"
+    }
+  ],
+  "tools": [
+    {
+      "name": "pocketmc_list_instances",
+      "description": "List all configured local Minecraft server instances along with their status (running, stopped, starting), server software engine (PaperMC, Fabric, BDS, etc.), port number, player count, and resource allocation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "statusFilter": {
+            "type": "string",
+            "enum": ["all", "running", "stopped"],
+            "description": "Optional filter to restrict results to running or stopped server instances."
+          }
+        }
+      }
+    },
+    {
+      "name": "pocketmc_start_instance",
+      "description": "Start a specific local Minecraft server instance by its unique instance ID or name.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "string",
+            "description": "The unique identifier or directory name of the Minecraft server instance to start."
+          }
+        },
+        "required": ["instanceId"]
+      }
+    },
+    {
+      "name": "pocketmc_stop_instance",
+      "description": "Gracefully stop a running Minecraft server instance using authenticated RCON save-all and stop sequence to prevent world corruption.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "string",
+            "description": "The unique identifier of the Minecraft server instance to stop."
+          },
+          "force": {
+            "type": "boolean",
+            "description": "Set to true only if graceful RCON shutdown fails after timeout."
+          }
+        },
+        "required": ["instanceId"]
+      }
+    },
+    {
+      "name": "pocketmc_get_instance_status",
+      "description": "Get detailed real-time telemetry for a server instance including CPU percentage, RAM consumption, uptime, TPS, and list of online players.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "string",
+            "description": "The unique identifier of the Minecraft server instance."
+          }
+        },
+        "required": ["instanceId"]
+      }
+    },
+    {
+      "name": "pocketmc_create_backup",
+      "description": "Trigger an immediate, integrity-checked backup of a server instance with optional OAuth cloud replication to Google Drive, Dropbox, or OneDrive.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "string",
+            "description": "The unique identifier of the Minecraft server instance to back up."
+          },
+          "cloudSync": {
+            "type": "boolean",
+            "description": "Whether to sync the resulting archive to configured cloud storage."
+          }
+        },
+        "required": ["instanceId"]
+      }
+    },
+    {
+      "name": "pocketmc_get_logs",
+      "description": "Fetch sanitized, color-coded console logs for a server instance with IP addresses, emails, and passwords automatically redacted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "string",
+            "description": "The unique identifier of the server instance."
+          },
+          "lines": {
+            "type": "integer",
+            "description": "Number of log lines to retrieve (default: 100, max: 1000)."
+          }
+        },
+        "required": ["instanceId"]
+      }
+    },
+    {
+      "name": "pocketmc_manage_playit_tunnel",
+      "description": "Retrieve or reconfigure the Playit.gg network tunnel status and public domain address for a server instance.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instanceId": {
+            "type": "string",
+            "description": "The unique identifier of the server instance."
+          },
+          "action": {
+            "type": "string",
+            "enum": ["status", "enable", "disable", "refresh_address"],
+            "description": "The tunnel action to execute."
+          }
+        },
+        "required": ["instanceId", "action"]
+      }
+    }
+  ]
+}
