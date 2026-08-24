@@ -1,13 +1,8 @@
 import { useState } from "react";
-import { Skeleton } from "../ui/skeleton";
 import { serverSoftwares } from "../../data/serverSoftwares";
 import { getAssetUrl } from "../../utils/getAssetUrl";
 
-interface SoftwaresSectionProps {
-  isLoading: boolean;
-}
-
-export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
+export default function SoftwaresSection() {
   const [activeInfo, setActiveInfo] = useState<string | null>(null);
 
   return (
@@ -40,24 +35,11 @@ export default function SoftwaresSection({ isLoading }: SoftwaresSectionProps) {
         </div>
 
         <div className="grid grid-cols-1 min-[440px]:grid-cols-2 gap-2.5 sm:gap-3.5">
-          {isLoading
-            ? Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="p-3 sm:p-4 flex gap-3 items-center border border-divider rounded-xl bg-base-card"
-                >
-                  <Skeleton className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 rounded-lg" />
-                  <div className="flex-1 min-w-0">
-                    <Skeleton className="h-4 w-20 rounded mb-1" />
-                    <Skeleton className="h-3 w-10 rounded" />
-                  </div>
-                </div>
-              ))
-            : serverSoftwares.map((software) => {
-                const isActive = activeInfo === software.name;
-                return (
-                  <div
-                    key={software.name}
+          {serverSoftwares.map((software) => {
+            const isActive = activeInfo === software.name;
+            return (
+              <div
+                key={software.name}
                     className="border border-divider bg-base-card rounded-xl shadow-xs select-none p-3 sm:p-4 transition-all hover:border-main/30 flex items-center justify-between gap-2 relative"
                   >
                     <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">

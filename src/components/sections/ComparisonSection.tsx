@@ -1,16 +1,7 @@
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "../ui/table";
 import { comparisonData } from "../../data/comparisonData";
 import type { ProofModalData } from "../../types";
 
 interface ComparisonSectionProps {
-  isLoading?: boolean;
   onOpenProofModal: (data: ProofModalData) => void;
 }
 
@@ -27,28 +18,29 @@ export default function ComparisonSection({
 
       {/* Desktop Table View */}
       <div className="hidden md:block border border-divider rounded-xl overflow-hidden bg-base-card shadow-xs relative z-10">
-        <Table className="min-w-[850px] md:min-w-full">
-          <TableHeader>
-            <TableRow className="border-b border-divider">
-              <TableHead className="w-[170px]">Tool</TableHead>
-              <TableHead className="w-[210px]">Category</TableHead>
-              <TableHead className="w-[260px]">Core Strength</TableHead>
-              <TableHead>Where PocketMC Wins</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {comparisonData.map((row, idx) => {
-              const isFeatured = row.isFeatured;
-              return (
-                <TableRow
-                  key={idx}
-                  className={
-                    isFeatured
-                      ? "bg-base-muted/35 hover:bg-base-muted/50"
-                      : "hover:bg-base-muted/20"
-                  }
-                >
-                    <TableCell className="font-bold text-main">
+        <div className="relative w-full overflow-x-auto scrollbar-none">
+          <table className="w-full caption-bottom text-sm border-collapse text-left min-w-[850px] md:min-w-full">
+            <thead className="border-b border-divider bg-base-muted/50">
+              <tr className="border-b border-divider">
+                <th className="h-11 px-5 text-left align-middle font-mono text-xs font-bold uppercase tracking-wider text-main-muted select-none w-[170px]">Tool</th>
+                <th className="h-11 px-5 text-left align-middle font-mono text-xs font-bold uppercase tracking-wider text-main-muted select-none w-[210px]">Category</th>
+                <th className="h-11 px-5 text-left align-middle font-mono text-xs font-bold uppercase tracking-wider text-main-muted select-none w-[260px]">Core Strength</th>
+                <th className="h-11 px-5 text-left align-middle font-mono text-xs font-bold uppercase tracking-wider text-main-muted select-none">Where PocketMC Wins</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-divider">
+              {comparisonData.map((row, idx) => {
+                const isFeatured = row.isFeatured;
+                return (
+                  <tr
+                    key={idx}
+                    className={`border-b border-divider transition-colors ${
+                      isFeatured
+                        ? "bg-base-muted/35 hover:bg-base-muted/50"
+                        : "hover:bg-base-muted/20"
+                    }`}
+                  >
+                    <td className="px-5 py-4 align-top font-bold text-main">
                       {isFeatured ? (
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 text-main font-black">
                           <div className="flex items-center gap-1.5">
@@ -60,58 +52,59 @@ export default function ComparisonSection({
                           </span>
                         </div>
                       ) : (
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-main">{row.tool}</span>
-                        {row.proof && (
-                          <button
-                            onClick={() => onOpenProofModal(row.proof!)}
-                            className="inline-flex items-center justify-center p-0.5 rounded-md hover:bg-base-muted text-main-muted hover:text-main transition-colors cursor-pointer"
-                            title="View Technical Audit Proof"
-                          >
-                            <svg
-                              className="w-3.5 h-3.5"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-semibold text-main">{row.tool}</span>
+                          {row.proof && (
+                            <button
+                              onClick={() => onOpenProofModal(row.proof!)}
+                              className="inline-flex items-center justify-center p-0.5 rounded-md hover:bg-base-muted text-main-muted hover:text-main transition-colors cursor-pointer"
+                              title="View Technical Audit Proof"
                             >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={`inline-flex px-2.5 py-0.5 text-[11px] font-medium font-mono rounded border ${
-                        isFeatured
-                          ? "bg-base-card border-divider text-main font-semibold shadow-2xs"
-                          : "bg-base-muted/50 border-divider text-main-muted"
+                              <svg
+                                className="w-3.5 h-3.5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-5 py-4 align-top">
+                      <span
+                        className={`inline-flex px-2.5 py-0.5 text-[11px] font-medium font-mono rounded border ${
+                          isFeatured
+                            ? "bg-base-card border-divider text-main font-semibold shadow-2xs"
+                            : "bg-base-muted/50 border-divider text-main-muted"
+                        }`}
+                      >
+                        {row.category}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4 align-top text-main-muted text-xs leading-relaxed">
+                      {row.strength}
+                    </td>
+                    <td
+                      className={`px-5 py-4 align-top text-xs leading-relaxed ${
+                        isFeatured ? "text-main font-medium" : "text-main-muted"
                       }`}
                     >
-                      {row.category}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-main-muted text-xs leading-relaxed">
-                    {row.strength}
-                  </TableCell>
-                  <TableCell
-                    className={`text-xs leading-relaxed ${
-                      isFeatured ? "text-main font-medium" : "text-main-muted"
-                    }`}
-                  >
-                    {row.win}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+                      {row.win}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         <div className="px-5 py-3 border-t border-divider bg-base-muted/20 text-left text-[11px] font-mono text-main-muted">
           * Comparison based on public documentation as of 2026.
         </div>

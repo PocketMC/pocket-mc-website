@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Skeleton } from "../ui/skeleton";
 import { detailFeatures } from "../../data/detailFeatures";
 
-interface StabilitySectionProps {
-  isLoading: boolean;
-}
-
-export default function StabilitySection({ isLoading }: StabilitySectionProps) {
+export default function StabilitySection() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -58,23 +53,7 @@ export default function StabilitySection({ isLoading }: StabilitySectionProps) {
               className="overflow-hidden"
             >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-8 sm:pt-12">
-                {isLoading
-                  ? Array.from({ length: 3 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="p-6 sm:p-8 border border-divider rounded-2xl bg-base-card shadow-xs"
-                      >
-                        <Skeleton className="w-10 h-10 rounded-xl mb-4" />
-                        <Skeleton className="h-6 w-3/4 rounded mb-2" />
-                        <Skeleton className="h-4 w-full rounded mb-6" />
-                        <div className="space-y-3">
-                          <Skeleton className="h-3 w-full rounded" />
-                          <Skeleton className="h-3 w-5/6 rounded" />
-                          <Skeleton className="h-3 w-4/5 rounded" />
-                        </div>
-                      </div>
-                    ))
-                  : detailFeatures.map((group) => (
+                {detailFeatures.map((group) => (
                       <div
                         key={group.id}
                         className="border border-divider bg-base-card rounded-xl sm:rounded-2xl p-5 sm:p-8 flex flex-col justify-between shadow-xs hover:border-main/30 transition-all duration-200"

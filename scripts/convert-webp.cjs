@@ -7,10 +7,6 @@ const websiteScreenshotsDir = path.join(root, 'public/screenshots');
 const windowsScreenshotsDir = path.resolve(root, '../pocket-mc-windows/docs/assets/screenshots');
 
 const blockImages = [
-  path.join(root, 'public/block_cobble.png'),
-  path.join(root, 'public/block_diamond.png'),
-  path.join(root, 'public/block_grass.png'),
-  path.join(root, 'public/hero_head.png'),
   path.join(root, 'public/logo.png'),
 ];
 

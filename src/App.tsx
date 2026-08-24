@@ -114,7 +114,6 @@ function App() {
 
   const [lightboxData, setLightboxData] = useState<LightboxData | null>(null);
   const [proofModalData, setProofModalData] = useState<ProofModalData | null>(null);
-  const [isLoading] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
@@ -140,18 +139,16 @@ function App() {
         <HeroSection />
 
         <TourSection
-          isLoading={isLoading}
           onOpenLightbox={(data) => setLightboxData(data)}
         />
 
-        <SoftwaresSection isLoading={isLoading} />
+        <SoftwaresSection />
 
         <ComparisonSection
-          isLoading={isLoading}
           onOpenProofModal={(data) => setProofModalData(data)}
         />
 
-        <StabilitySection isLoading={isLoading} />
+        <StabilitySection />
 
         <FaqSection />
 

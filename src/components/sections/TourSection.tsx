@@ -1,18 +1,16 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import type { TouchEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Skeleton } from "../ui/skeleton";
 import { tourTabs } from "../../data/tourTabs";
 import { getAssetUrl } from "../../utils/getAssetUrl";
 import Dock from "../Dock";
 import type { LightboxData } from "../../types";
 
 interface TourSectionProps {
-  isLoading: boolean;
   onOpenLightbox: (data: LightboxData) => void;
 }
 
-export default function TourSection({ isLoading, onOpenLightbox }: TourSectionProps) {
+export default function TourSection({ onOpenLightbox }: TourSectionProps) {
   const [activeTourTab, setActiveTourTab] = useState("dashboard");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -380,38 +378,7 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
 
         {/* Display active screenshot mock with details */}
         <div className="flex flex-col gap-6 sm:gap-8">
-          {isLoading ? (
-            <>
-              {/* Screenshot Skeleton */}
-              <div className="border border-divider bg-base-card rounded-xl overflow-hidden shadow-lg">
-                <div className="h-8 border-b border-divider bg-base-muted/40 px-4 flex items-center gap-1.5">
-                  <Skeleton className="w-3 h-3 rounded-full" />
-                  <Skeleton className="w-3 h-3 rounded-full" />
-                  <Skeleton className="w-3 h-3 rounded-full" />
-                  <Skeleton className="h-3 w-40 rounded ml-2" />
-                </div>
-                <Skeleton className="w-full aspect-[16/9] rounded-none" />
-              </div>
-
-              {/* Details Card Skeleton */}
-              <div className="mt-6 border border-divider bg-base-card p-8 rounded-xl shadow-sm">
-                <Skeleton className="h-6 w-48 rounded mb-4" />
-                <Skeleton className="h-4 w-full rounded mb-2" />
-                <Skeleton className="h-4 w-5/6 rounded mb-6" />
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <Skeleton className="w-4 h-4 rounded flex-shrink-0 mt-0.5" />
-                      <Skeleton className="h-3 w-full rounded" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="border border-divider bg-base-card rounded-xl sm:rounded-2xl overflow-hidden shadow-xl group relative">
+          <div className="border border-divider bg-base-card rounded-xl sm:rounded-2xl overflow-hidden shadow-xl group relative">
                 {/* Title Bar with controls for multi-image tabs */}
                 <div className="h-8 border-b border-divider bg-base-muted/50 px-3 sm:px-4 flex items-center justify-between select-none">
                   <div className="flex items-center gap-2">
@@ -720,8 +687,6 @@ export default function TourSection({ isLoading, onOpenLightbox }: TourSectionPr
                   </div>
                 </div>
               </div>
-            </>
-          )}
         </div>
       </div>
     </section>
