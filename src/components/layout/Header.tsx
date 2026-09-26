@@ -149,7 +149,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
                   Home
                 </a>
                 {PAGE_NAV_ITEMS.map((item) => {
-                  const isActive = currentRoute === item.id;
+                  const isActive = currentRoute === item.id || (item.id === "docs" && currentRoute?.startsWith("docs"));
                   return (
                     <a
                       key={item.id}
@@ -283,7 +283,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
           </a>
 
           {PAGE_NAV_ITEMS.map((item) => {
-            const isActive = currentRoute === item.id;
+            const isActive = currentRoute === item.id || (item.id === "docs" && currentRoute?.startsWith("docs"));
             return (
               <a
                 key={item.id}

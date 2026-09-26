@@ -96,28 +96,6 @@
                 padding: 20px;
                 margin-bottom: 20px;
             }
-            .badge-get {
-                background: #27272a;
-                color: #ffffff;
-                padding: 3px 8px;
-                border-radius: 4px;
-                font-family: monospace;
-                font-weight: bold;
-                font-size: 12px;
-                display: inline-block;
-                margin-right: 8px;
-            }
-            .badge-post {
-                background: #3f3f46;
-                color: #ffffff;
-                padding: 3px 8px;
-                border-radius: 4px;
-                font-family: monospace;
-                font-weight: bold;
-                font-size: 12px;
-                display: inline-block;
-                margin-right: 8px;
-            }
             footer {
                 border-top: 1px solid var(--border);
                 margin-top: 60px;
@@ -161,7 +139,7 @@
             <h2>Core Endpoints</h2>
 
             <div class="endpoint">
-                <h3><span class="badge-get">GET</span> /api/v1/health</h3>
+                <h3 style="font-family: monospace; font-size: 15px; margin-bottom: 8px;">GET /api/v1/health</h3>
                 <p>Returns health status, active application version, host OS platform, and count of running Minecraft instances.</p>
                 <pre><code>GET /api/v1/health HTTP/1.1
 Host: localhost:25585
@@ -178,7 +156,7 @@ Content-Type: application/json
             </div>
 
             <div class="endpoint">
-                <h3><span class="badge-get">GET</span> /api/v1/instances</h3>
+                <h3 style="font-family: monospace; font-size: 15px; margin-bottom: 8px;">GET /api/v1/instances</h3>
                 <p>Lists all configured server instances with their live runtime statuses, CPU and RAM metrics, allocated memory, and player counts.</p>
                 <pre><code>GET /api/v1/instances HTTP/1.1
 Host: localhost:25585
@@ -204,7 +182,7 @@ Content-Type: application/json
             </div>
 
             <div class="endpoint">
-                <h3><span class="badge-post">POST</span> /api/v1/instances/{id}/start</h3>
+                <h3 style="font-family: monospace; font-size: 15px; margin-bottom: 8px;">POST /api/v1/instances/{id}/start</h3>
                 <p>Starts the target Minecraft server instance. Automatically sets up Adoptium JRE runtimes and maps active Playit tunnels.</p>
                 <pre><code>POST /api/v1/instances/paper-121/start HTTP/1.1
 Host: localhost:25585
@@ -220,17 +198,17 @@ Content-Type: application/json
             </div>
 
             <div class="endpoint">
-                <h3><span class="badge-post">POST</span> /api/v1/instances/{id}/stop</h3>
+                <h3 style="font-family: monospace; font-size: 15px; margin-bottom: 8px;">POST /api/v1/instances/{id}/stop</h3>
                 <p>Initiates a graceful shutdown via RCON <code>save-all</code> and <code>stop</code> to ensure clean world saves without corruption.</p>
             </div>
 
             <div class="endpoint">
-                <h3><span class="badge-get">GET</span> /api/v1/instances/{id}/logs</h3>
+                <h3 style="font-family: monospace; font-size: 15px; margin-bottom: 8px;">GET /api/v1/instances/{id}/logs</h3>
                 <p>Retrieves real-time console log streams. All personal identifiers, IP addresses, and tokens are automatically redacted by the daemon before serialization.</p>
             </div>
 
             <div class="endpoint">
-                <h3><span class="badge-post">POST</span> /api/v1/instances/{id}/backup</h3>
+                <h3 style="font-family: monospace; font-size: 15px; margin-bottom: 8px;">POST /api/v1/instances/{id}/backup</h3>
                 <p>Creates a full ZIP snapshot with SHA-256 integrity hashing, automatically skipping temporary lock files (e.g. <code>session.lock</code>), and replicates to configured cloud providers.</p>
             </div>
         </div>

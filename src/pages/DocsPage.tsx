@@ -4,7 +4,17 @@ interface DocsPageProps {
   navigate?: (path: string) => void;
 }
 
-export default function DocsPage(_props: DocsPageProps) {
+export default function DocsPage({ navigate }: DocsPageProps) {
+  const handleNav = (e: React.MouseEvent, path: string) => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    if (navigate) {
+      navigate(path);
+    } else {
+      window.location.href = `/pocket-mc-website${path}`;
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
       {/* Hero */}
@@ -33,7 +43,8 @@ export default function DocsPage(_props: DocsPageProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <a
             href="/pocket-mc-website/docs/api/"
-            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
+            onClick={(e) => handleNav(e, "/docs/api/")}
+            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -56,7 +67,8 @@ export default function DocsPage(_props: DocsPageProps) {
 
           <a
             href="/pocket-mc-website/docs/auth/"
-            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
+            onClick={(e) => handleNav(e, "/docs/auth/")}
+            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -79,7 +91,8 @@ export default function DocsPage(_props: DocsPageProps) {
 
           <a
             href="/pocket-mc-website/docs/mcp/"
-            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
+            onClick={(e) => handleNav(e, "/docs/mcp/")}
+            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -102,7 +115,8 @@ export default function DocsPage(_props: DocsPageProps) {
 
           <a
             href="/pocket-mc-website/docs/webhooks/"
-            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
+            onClick={(e) => handleNav(e, "/docs/webhooks/")}
+            className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
             <div>
               <div className="flex items-center justify-between mb-2">

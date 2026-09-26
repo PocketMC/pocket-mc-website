@@ -9,22 +9,58 @@ import ContactPage from "./pages/ContactPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import DocsPage from "./pages/DocsPage";
+import ApiDocsPage from "./pages/docs/ApiDocsPage";
+import AuthDocsPage from "./pages/docs/AuthDocsPage";
+import McpDocsPage from "./pages/docs/McpDocsPage";
+import WebhooksDocsPage from "./pages/docs/WebhooksDocsPage";
 import LightboxModal from "./components/ui/LightboxModal";
 import ProofModal from "./components/ui/ProofModal";
 
-export type RouteName = "home" | "about" | "contact" | "privacy" | "terms" | "docs";
+export type RouteName =
+  | "home"
+  | "about"
+  | "contact"
+  | "privacy"
+  | "terms"
+  | "docs"
+  | "docs-api"
+  | "docs-auth"
+  | "docs-mcp"
+  | "docs-webhooks";
 
 function getRouteFromPath(pathname: string): RouteName {
   const clean = pathname
     .replace(/^\/pocket-mc-website\/?/, "")
+    .replace(/^\//, "")
     .replace(/\/$/, "");
 
   if (clean === "about") return "about";
   if (clean === "contact") return "contact";
   if (clean === "privacy") return "privacy";
   if (clean === "terms") return "terms";
+  if (clean === "docs/api" || clean === "docs-api") return "docs-api";
+  if (clean === "docs/auth" || clean === "docs-auth") return "docs-auth";
+  if (clean === "docs/mcp" || clean === "docs-mcp") return "docs-mcp";
+  if (clean === "docs/webhooks" || clean === "docs-webhooks") return "docs-webhooks";
   if (clean === "docs" || clean.startsWith("docs/")) return "docs";
   return "home";
+}
+
+function getPathFromRoute(route: RouteName): string {
+  switch (route) {
+    case "home":
+      return "/pocket-mc-website/";
+    case "docs-api":
+      return "/pocket-mc-website/docs/api/";
+    case "docs-auth":
+      return "/pocket-mc-website/docs/auth/";
+    case "docs-mcp":
+      return "/pocket-mc-website/docs/mcp/";
+    case "docs-webhooks":
+      return "/pocket-mc-website/docs/webhooks/";
+    default:
+      return `/pocket-mc-website/${route}/`;
+  }
 }
 
 const PAGE_TITLES: Record<RouteName, string> = {
@@ -34,6 +70,10 @@ const PAGE_TITLES: Record<RouteName, string> = {
   privacy: "Privacy & Security Policy - PocketMC",
   terms: "Terms of Service - PocketMC",
   docs: "PocketMC Developer Portal - API, Auth, Webhooks & MCP",
+  "docs-api": "REST API Reference - PocketMC Developer Portal",
+  "docs-auth": "Authentication & Security - PocketMC Developer Portal",
+  "docs-mcp": "Model Context Protocol (MCP) - PocketMC Developer Portal",
+  "docs-webhooks": "Webhooks & Events - PocketMC Developer Portal",
 };
 
 function App() {
@@ -79,8 +119,7 @@ function App() {
     const route = getRouteFromPath(
       routeInput.startsWith("/") ? routeInput : `/pocket-mc-website/${routeInput}`
     );
-    const targetPath =
-      route === "home" ? "/pocket-mc-website/" : `/pocket-mc-website/${route}/`;
+    const targetPath = getPathFromRoute(route);
 
     if (window.location.pathname !== targetPath) {
       window.history.pushState({}, "", targetPath);
@@ -123,6 +162,10 @@ function App() {
       {currentRoute === "privacy" && <PrivacyPage navigate={navigate} />}
       {currentRoute === "terms" && <TermsPage navigate={navigate} />}
       {currentRoute === "docs" && <DocsPage navigate={navigate} />}
+      {currentRoute === "docs-api" && <ApiDocsPage navigate={navigate} />}
+      {currentRoute === "docs-auth" && <AuthDocsPage navigate={navigate} />}
+      {currentRoute === "docs-mcp" && <McpDocsPage navigate={navigate} />}
+      {currentRoute === "docs-webhooks" && <WebhooksDocsPage navigate={navigate} />}
 
       <Footer
         onOpenTerms={() => navigate("terms")}
