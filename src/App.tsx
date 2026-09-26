@@ -47,19 +47,24 @@ function getRouteFromPath(pathname: string): RouteName {
 }
 
 function getPathFromRoute(route: RouteName): string {
+  const isSubpath =
+    typeof window !== "undefined" &&
+    window.location.pathname.startsWith("/pocket-mc-website");
+  const prefix = isSubpath ? "/pocket-mc-website" : "";
+
   switch (route) {
     case "home":
-      return "/pocket-mc-website/";
+      return isSubpath ? "/pocket-mc-website/" : "/";
     case "docs-api":
-      return "/pocket-mc-website/docs/api/";
+      return `${prefix}/docs/api/`;
     case "docs-auth":
-      return "/pocket-mc-website/docs/auth/";
+      return `${prefix}/docs/auth/`;
     case "docs-mcp":
-      return "/pocket-mc-website/docs/mcp/";
+      return `${prefix}/docs/mcp/`;
     case "docs-webhooks":
-      return "/pocket-mc-website/docs/webhooks/";
+      return `${prefix}/docs/webhooks/`;
     default:
-      return `/pocket-mc-website/${route}/`;
+      return `${prefix}/${route}/`;
   }
 }
 
