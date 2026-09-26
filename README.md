@@ -173,8 +173,15 @@ The website is hosted on **GitHub Pages**.
 
 Deployments are automated through GitHub Actions. Pushing code changes to the `main` branch triggers a workflow that validates TypeScript types, builds the production distribution bundle, and deploys the output to the `gh-pages` branch.
 
+## Contact & Community
+
+- **Official Email:** [contactdslabs@gmail.com](mailto:contactdslabs@gmail.com)
+- **Community Discord:** [discord.gg/mWdMr8Mc2m](https://discord.gg/mWdMr8Mc2m)
+- **Issues & Feedback:** [GitHub Issues](https://github.com/PocketMC/pocket-mc-website/issues)
+
 ---
 
 ## License
 
 This project is open-source software licensed under the [MIT License](LICENSE).
+

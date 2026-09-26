@@ -1,12 +1,24 @@
 import { getAssetUrl } from "../../utils/getAssetUrl";
-import { SOCIAL_LINKS } from "../../data/socialLinks";
 
 interface FooterProps {
-  onOpenTerms: () => void;
-  onOpenPrivacy: () => void;
+  onOpenTerms?: () => void;
+  onOpenPrivacy?: () => void;
+  onNavigate?: (route: string) => void;
 }
 
-export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
+export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: FooterProps) {
+  const handleNav = (e: React.MouseEvent, route: string, fallbackFn?: () => void) => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(route);
+    } else if (fallbackFn) {
+      fallbackFn();
+    } else {
+      window.location.href = `/pocket-mc-website/${route}/`;
+    }
+  };
+
   return (
     <footer className="relative z-10 border-t border-divider px-4 sm:px-6 py-8 sm:py-12 bg-base/50 backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 md:flex-row items-center md:items-start">
@@ -20,7 +32,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
               height="24"
             />
             <p className="font-mono text-xs leading-tight text-main-muted">
-              © {new Date().getFullYear()} PocketMC Contributors. Licensed under MIT.
+              &copy; {new Date().getFullYear()} PocketMC Contributors. Licensed under MIT.
             </p>
           </div>
           <p className="text-[11px] text-center md:text-left font-mono leading-tight text-main-muted">
@@ -47,26 +59,23 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
           <div className="flex flex-wrap gap-3 mt-1.5 font-mono text-[11px] text-main-muted justify-center md:justify-start">
             <a
               href="/pocket-mc-website/about/"
-              className="hover:text-main transition-colors hover:underline"
+              onClick={(e) => handleNav(e, "about")}
+              className="hover:text-main transition-colors hover:underline cursor-pointer"
             >
               About
             </a>
             <span className="opacity-30 select-none">•</span>
             <a
               href="/pocket-mc-website/contact/"
-              className="hover:text-main transition-colors hover:underline"
+              onClick={(e) => handleNav(e, "contact")}
+              className="hover:text-main transition-colors hover:underline cursor-pointer"
             >
               Contact
             </a>
             <span className="opacity-30 select-none">•</span>
             <a
               href="/pocket-mc-website/terms/"
-              onClick={(e) => {
-                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                  e.preventDefault();
-                  onOpenTerms();
-                }
-              }}
+              onClick={(e) => handleNav(e, "terms", onOpenTerms)}
               className="hover:text-main transition-colors cursor-pointer hover:underline"
             >
               Terms
@@ -74,12 +83,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
             <span className="opacity-30 select-none">•</span>
             <a
               href="/pocket-mc-website/privacy/"
-              onClick={(e) => {
-                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                  e.preventDefault();
-                  onOpenPrivacy();
-                }
-              }}
+              onClick={(e) => handleNav(e, "privacy", onOpenPrivacy)}
               className="hover:text-main transition-colors cursor-pointer hover:underline"
             >
               Privacy
@@ -94,7 +98,8 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
             </p>
             <a
               href="/pocket-mc-website/docs/"
-              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+              onClick={(e) => handleNav(e, "docs")}
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted cursor-pointer"
             >
               Developer Portal
             </a>
@@ -158,21 +163,20 @@ export default function Footer({ onOpenTerms, onOpenPrivacy }: FooterProps) {
             <p className="font-bold text-main uppercase tracking-wider text-[10px] opacity-60">
               Community
             </p>
-            {SOCIAL_LINKS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 text-main-muted hover:text-main transition-colors whitespace-nowrap"
-                >
-                  <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>{item.name}</span>
-                </a>
-              );
-            })}
+            <a
+              href="https://discord.gg/mWdMr8Mc2m"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+            >
+              Discord Server
+            </a>
+            <a
+              href="mailto:contactdslabs@gmail.com"
+              className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
+            >
+              contactdslabs@gmail.com
+            </a>
           </div>
         </div>
       </div>

@@ -5,30 +5,59 @@ import { SOCIAL_LINKS } from "../../data/socialLinks";
 interface HeaderProps {
   theme: "light" | "dark";
   toggleTheme: () => void;
+  currentRoute?: string;
+  onNavigate?: (route: string) => void;
 }
 
-const NAV_ITEMS = [
+const SECTION_NAV_ITEMS = [
   { id: "screenshots", label: "Screenshots", href: "#screenshots" },
   { id: "under-the-hood", label: "Under the Hood", href: "#under-the-hood" },
   { id: "comparison", label: "Comparison", href: "#comparison" },
   { id: "faq", label: "FAQ", href: "#faq" },
 ];
 
-export default function Header({ theme, toggleTheme }: HeaderProps) {
+const PAGE_NAV_ITEMS = [
+  { id: "about", label: "About", href: "/pocket-mc-website/about/" },
+  { id: "docs", label: "Docs", href: "/pocket-mc-website/docs/" },
+  { id: "contact", label: "Contact", href: "/pocket-mc-website/contact/" },
+];
+
+export default function Header({ theme, toggleTheme, currentRoute = "home", onNavigate }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const handleBrandClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    closeMobileMenu();
+    if (onNavigate) {
+      onNavigate("home");
+    } else {
+      window.location.href = "/pocket-mc-website/";
+    }
+  };
+
+  const handlePageClick = (e: React.MouseEvent, routeId: string) => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    closeMobileMenu();
+    if (onNavigate) {
+      onNavigate(routeId);
+    } else {
+      window.location.href = `/pocket-mc-website/${routeId}/`;
+    }
+  };
+
   useEffect(() => {
+    if (currentRoute !== "home") return;
+
     const sectionIds = ["hero", "screenshots", "under-the-hood", "comparison", "stability", "faq"];
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      // Find the topmost intersecting entry
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
       if (visibleEntries.length > 0) {
-        // Sort by distance to top
         const target = visibleEntries[0].target;
         const id = target.id;
         const normalizedId = id === "stability" ? "comparison" : id;
@@ -47,15 +76,15 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [currentRoute]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-divider bg-base/95 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4">
         <a
-          href="#"
-          onClick={closeMobileMenu}
-          className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0"
+          href="/pocket-mc-website/"
+          onClick={handleBrandClick}
+          className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0 cursor-pointer"
         >
           <img
             src={getAssetUrl("/logo.webp")}
@@ -76,26 +105,71 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
         <div className="flex items-center gap-3 sm:gap-5">
           {/* Desktop Nav Items */}
-          <div className="hidden items-center gap-6 md:flex mr-1 font-mono text-xs">
-            {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.id;
-              return (
+          <div className="hidden items-center gap-5 md:flex mr-1 font-mono text-xs">
+            {currentRoute === "home" ? (
+              <>
+                {SECTION_NAV_ITEMS.map((item) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      className={`relative py-1 transition-colors duration-150 ${
+                        isActive
+                          ? "text-main font-bold"
+                          : "text-main-muted hover:text-main"
+                      }`}
+                    >
+                      {item.label}
+                      {isActive && (
+                        <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-main rounded-full" />
+                      )}
+                    </a>
+                  );
+                })}
+                <span className="text-divider select-none">|</span>
+                {PAGE_NAV_ITEMS.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={(e) => handlePageClick(e, item.id)}
+                    className="text-main-muted hover:text-main transition-colors py-1 cursor-pointer"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </>
+            ) : (
+              <>
                 <a
-                  key={item.id}
-                  href={item.href}
-                  className={`relative py-1 transition-colors duration-150 ${
-                    isActive
-                      ? "text-main font-bold"
-                      : "text-main-muted hover:text-main"
-                  }`}
+                  href="/pocket-mc-website/"
+                  onClick={handleBrandClick}
+                  className="text-main-muted hover:text-main transition-colors py-1 cursor-pointer"
                 >
-                  {item.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-main rounded-full" />
-                  )}
+                  Home
                 </a>
-              );
-            })}
+                {PAGE_NAV_ITEMS.map((item) => {
+                  const isActive = currentRoute === item.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      onClick={(e) => handlePageClick(e, item.id)}
+                      className={`relative py-1 transition-colors duration-150 cursor-pointer ${
+                        isActive
+                          ? "text-main font-bold"
+                          : "text-main-muted hover:text-main"
+                      }`}
+                    >
+                      {item.label}
+                      {isActive && (
+                        <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-main rounded-full" />
+                      )}
+                    </a>
+                  );
+                })}
+              </>
+            )}
           </div>
 
           {/* Social Brand Logos */}
@@ -129,8 +203,8 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             <svg
               className={`absolute h-4 w-4 transition-all duration-300 transform ${
                 theme === "dark"
-                  ? "rotate-90 scale-0 opacity-0"
-                  : "rotate-0 scale-100 opacity-100"
+                  ? "rotate-0 scale-100 opacity-100"
+                  : "-rotate-90 scale-0 opacity-0"
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -140,16 +214,15 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
               />
             </svg>
-
             {/* Moon Icon */}
             <svg
               className={`absolute h-4 w-4 transition-all duration-300 transform ${
-                theme === "dark"
+                theme === "light"
                   ? "rotate-0 scale-100 opacity-100"
-                  : "-rotate-90 scale-0 opacity-0"
+                  : "rotate-90 scale-0 opacity-0"
               }`}
               fill="none"
               viewBox="0 0 24 24"
@@ -164,12 +237,11 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             </svg>
           </button>
 
-          {/* Hamburger Menu Button (mobile only) */}
+          {/* Mobile Hamburger Button */}
           <button
             onClick={toggleMobileMenu}
-            className="md:hidden relative grid h-9 w-9 place-items-center rounded-lg border border-divider bg-base-muted/40 text-main hover:border-main/30 transition-all focus:outline-none cursor-pointer"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMobileMenuOpen}
+            className="md:hidden grid h-9 w-9 place-items-center rounded-lg border border-divider bg-base-muted/40 text-main-muted hover:text-main focus:outline-none cursor-pointer"
+            aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? (
               <svg
@@ -198,14 +270,25 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
       {/* Mobile Menu Dropdown Panel */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-divider bg-base/95 backdrop-blur-xl px-4 py-5 flex flex-col gap-3 font-mono text-xs">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.id;
+        <div className="md:hidden border-t border-divider bg-base/95 backdrop-blur-xl px-4 py-5 flex flex-col gap-2 font-mono text-xs">
+          <a
+            href="/pocket-mc-website/"
+            onClick={handleBrandClick}
+            className={`py-2 border-b border-divider/40 transition-colors flex items-center justify-between ${
+              currentRoute === "home" ? "font-bold text-main" : "text-main-muted hover:text-main"
+            }`}
+          >
+            <span>Home</span>
+            {currentRoute === "home" && <span className="w-1.5 h-1.5 rounded-full bg-main" />}
+          </a>
+
+          {PAGE_NAV_ITEMS.map((item) => {
+            const isActive = currentRoute === item.id;
             return (
               <a
                 key={item.id}
                 href={item.href}
-                onClick={closeMobileMenu}
+                onClick={(e) => handlePageClick(e, item.id)}
                 className={`py-2 border-b border-divider/40 transition-colors flex items-center justify-between ${
                   isActive ? "font-bold text-main" : "text-main-muted hover:text-main"
                 }`}
@@ -218,7 +301,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
           <div className="pt-2">
             <p className="text-[10px] font-bold uppercase tracking-wider text-main-muted/60 mb-2">
-              Community & Links
+              Community &amp; Links
             </p>
             <div className="grid grid-cols-2 gap-2">
               {SOCIAL_LINKS.map((item) => {

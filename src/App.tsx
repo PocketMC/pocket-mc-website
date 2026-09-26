@@ -1,104 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { ProofModalData, LightboxData } from "./types";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import HeroSection from "./components/sections/HeroSection";
-import TourSection from "./components/sections/TourSection";
-import SoftwaresSection from "./components/sections/SoftwaresSection";
-import ComparisonSection from "./components/sections/ComparisonSection";
-import StabilitySection from "./components/sections/StabilitySection";
-import FaqSection from "./components/sections/FaqSection";
-import CtaSection from "./components/sections/CtaSection";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
+import DocsPage from "./pages/DocsPage";
 import LightboxModal from "./components/ui/LightboxModal";
 import ProofModal from "./components/ui/ProofModal";
-import TextModal from "./components/ui/TextModal";
 
-const TermsContent = (
-  <>
-    <p>
-      Welcome to PocketMC. By using this website, downloading any PocketMC desktop application (Windows, Linux, or macOS), or utilizing any of its features, you agree to be bound by these Terms of Service.
-    </p>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">1. MIT License & Open Source</h4>
-      <p>
-        The PocketMC desktop applications and website are open-source software distributed under the MIT License. You are free to view, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the conditions of the MIT License, which requires retaining the copyright notice and permission notice in all copies or substantial portions of the software.
-      </p>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">2. As-Is Provision & Disclaimer</h4>
-      <p>
-        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-      </p>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">3. Local Hosting & Server Management</h4>
-      <p>
-        PocketMC is a local environment manager. It does not provide server hardware, VPS hosting, virtual servers, or cloud infrastructure. You are fully responsible for your own computer hardware, local network security, internet service fees, data consumption, electricity consumption, and security configuration of any server instances you host.
-      </p>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">4. Third-Party Services & Integrations</h4>
-      <p>
-        PocketMC facilitates optional connections to third-party services, including Eclipse Adoptium (for Java runtimes), GitHub (for PocketMine PHP runtimes and update downloads), Modrinth and CurseForge (for mod/plugin search and downloads), Playit.gg (for network tunneling), Google Drive, OneDrive, and Dropbox (for cloud backup storage), Discord (for local RPC and optional account linking), and AI Providers (Google Gemini, OpenAI, Anthropic Claude, Mistral, Groq, and Ollama) for server log summarization. Your use of these integrations is governed entirely by their respective Terms of Service and Privacy Policies. PocketMC is not responsible for their availability, security, or changes in their API structures.
-      </p>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">5. Limitation of Liability</h4>
-      <p>
-        Under no circumstances shall the developers or contributors of PocketMC be liable for any direct, indirect, incidental, or consequential damages, including but not limited to server downtime, game data loss, hardware overheating, unauthorized local network access, third-party hosting charges, or service suspensions resulting from your use of this software or its integrations.
-      </p>
-    </div>
-  </>
-);
+export type RouteName = "home" | "about" | "contact" | "privacy" | "terms" | "docs";
 
-const PrivacyContent = (
-  <>
-    <p>
-      PocketMC is designed with a <strong>local-first</strong> architecture. Your privacy and local environment security are our core principles. This policy explains how your data is managed and under what conditions outbound network requests are made.
-    </p>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">1. Local Storage & Platform Security Encryption</h4>
-      <p>
-        PocketMC keeps your server configuration files, world data, console logs, and metadata strictly on your local machine under your configured application directory. To protect your sensitive credentials (such as CurseForge API keys, Playit agent secrets, Cloud backup OAuth tokens, and AI API keys), PocketMC encrypts this information using native platform security frameworks: Windows DPAPI on Windows, Linux Secret Service (dbus) on Linux, and macOS Keychain Security framework on Apple macOS.
-      </p>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">2. Telemetry and Opt-Out</h4>
-      <p>
-        To help improve application stability, PocketMC includes an optional telemetry reporting system:
-      </p>
-      <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-        <li><strong>Country Lookup:</strong> Once per startup, if telemetry is active, the app queries <code>http://ip-api.com</code> to resolve your approximate country location.</li>
-        <li><strong>Aggregated Stats:</strong> Telemetry reports are sent to the secure Render proxy server (<code>pocket-mc-proxy.onrender.com</code>). They include an anonymous client UUID (generated locally), your app version, country code, and count/types of active running servers (e.g. Paper, Fabric, BDS).</li>
-        <li><strong>Public Stats Endpoint:</strong> The proxy server aggregates this data to expose real-time metrics (like active user counts and server distributions) on a public statistics endpoint. No personal identifiers, IP addresses, client UUIDs, or folder locations are ever exposed.</li>
-        <li><strong>Opt-Out:</strong> You can completely disable telemetry at any time in the app settings, which halts all country lookups and periodic reporting loops.</li>
-      </ul>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">3. Outbound Network & Third-Party Connections</h4>
-      <p>
-        The desktop client communicates directly with external servers only to support the features you interact with:
-      </p>
-      <ul className="list-disc pl-5 mt-2 space-y-1 text-xs">
-        <li><strong>adoptium.net & github.com:</strong> Direct HTTP calls are made to download matching JRE runtimes or PHP binaries to your local directory. Velopack / GitHub Releases checks for client updates directly.</li>
-        <li><strong>api.modrinth.com & api.curseforge.com:</strong> Queries are sent directly to Modrinth or CurseForge to search and download game mods or plugins. CurseForge integrations utilize your private API key directly.</li>
-        <li><strong>api.playit.gg:</strong> The Playit agent is downloaded from GitHub and verified for authentic digital signatures. Tunnels are configured directly using the Playit API. Account provisioning and partner keys are set up via a local loopback server and the Render proxy.</li>
-        <li><strong>Cloud Backups:</strong> OneDrive and Dropbox integrations execute standard authentication flows locally. Google Drive uses a Render proxy to exchange and refresh OAuth tokens. Zip uploads are sent directly to the cloud providers' API endpoints.</li>
-        <li><strong>AI Providers:</strong> Session log summarization queries are sent directly from the client to your chosen AI endpoint (Google Gemini, OpenAI, Claude, Mistral, Groq, or local Ollama).</li>
-      </ul>
-    </div>
-    <div className="space-y-2">
-      <h4 className="font-extrabold text-main font-mono text-xs uppercase tracking-wider mb-2">4. User Context & Diagnostic Logs</h4>
-      <p>
-        PocketMC runs under standard user accounts. It does not request administrative privileges unless you explicitly trigger UWP loopback exemptions for Bedrock Dedicated Servers on Windows, which prompts a standard Windows UAC dialog to execute <code>CheckNetIsolation.exe</code>.
-      </p>
-      <p>
-        If you generate a support diagnostics bundle, it is compiled as a local ZIP file on your machine and is never uploaded automatically. PocketMC automatically redacts passwords (such as RCON credentials) from server configuration files before compiling the bundle.
-      </p>
-    </div>
-  </>
-);
+function getRouteFromPath(pathname: string): RouteName {
+  const clean = pathname
+    .replace(/^\/pocket-mc-website\/?/, "")
+    .replace(/\/$/, "");
+
+  if (clean === "about") return "about";
+  if (clean === "contact") return "contact";
+  if (clean === "privacy") return "privacy";
+  if (clean === "terms") return "terms";
+  if (clean === "docs" || clean.startsWith("docs/")) return "docs";
+  return "home";
+}
+
+const PAGE_TITLES: Record<RouteName, string> = {
+  home: "PocketMC - The #1 Free Local Minecraft Server Manager for Windows, Linux & Mac",
+  about: "About PocketMC - Free & Open Source Local Minecraft Server Manager",
+  contact: "Contact & Support - PocketMC",
+  privacy: "Privacy & Security Policy - PocketMC",
+  terms: "Terms of Service - PocketMC",
+  docs: "PocketMC Developer Portal - API, Auth, Webhooks & MCP",
+};
 
 function App() {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
@@ -112,11 +48,17 @@ function App() {
     return "light";
   });
 
+  const [currentRoute, setCurrentRoute] = useState<RouteName>(() => {
+    if (typeof window !== "undefined") {
+      return getRouteFromPath(window.location.pathname);
+    }
+    return "home";
+  });
+
   const [lightboxData, setLightboxData] = useState<LightboxData | null>(null);
   const [proofModalData, setProofModalData] = useState<ProofModalData | null>(null);
-  const [isTermsOpen, setIsTermsOpen] = useState(false);
-  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
+  // Sync theme class
   useEffect(() => {
     const root = document.documentElement;
     if (theme === "dark") {
@@ -127,37 +69,65 @@ function App() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Sync route and document title
+  useEffect(() => {
+    document.title = PAGE_TITLES[currentRoute] || PAGE_TITLES.home;
+  }, [currentRoute]);
+
+  // Navigation function
+  const navigate = useCallback((routeInput: string) => {
+    const route = getRouteFromPath(
+      routeInput.startsWith("/") ? routeInput : `/pocket-mc-website/${routeInput}`
+    );
+    const targetPath =
+      route === "home" ? "/pocket-mc-website/" : `/pocket-mc-website/${route}/`;
+
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, "", targetPath);
+    }
+    setCurrentRoute(route);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Listen for browser Back/Forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentRoute(getRouteFromPath(window.location.pathname));
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   const toggleTheme = () =>
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   return (
     <div className="min-h-screen text-main relative z-0 bg-base">
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header
+        theme={theme}
+        toggleTheme={toggleTheme}
+        currentRoute={currentRoute}
+        onNavigate={navigate}
+      />
       <div className="h-14 sm:h-16" aria-hidden="true" />
 
-      <main className="overflow-x-clip">
-        <HeroSection />
-
-        <TourSection
+      {currentRoute === "home" && (
+        <HomePage
           onOpenLightbox={(data) => setLightboxData(data)}
-        />
-
-        <SoftwaresSection />
-
-        <ComparisonSection
           onOpenProofModal={(data) => setProofModalData(data)}
         />
+      )}
 
-        <StabilitySection />
-
-        <FaqSection />
-
-        <CtaSection />
-      </main>
+      {currentRoute === "about" && <AboutPage navigate={navigate} />}
+      {currentRoute === "contact" && <ContactPage navigate={navigate} />}
+      {currentRoute === "privacy" && <PrivacyPage navigate={navigate} />}
+      {currentRoute === "terms" && <TermsPage navigate={navigate} />}
+      {currentRoute === "docs" && <DocsPage navigate={navigate} />}
 
       <Footer
-        onOpenTerms={() => setIsTermsOpen(true)}
-        onOpenPrivacy={() => setIsPrivacyOpen(true)}
+        onOpenTerms={() => navigate("terms")}
+        onOpenPrivacy={() => navigate("privacy")}
+        onNavigate={navigate}
       />
 
       {/* Global Modals */}
@@ -170,22 +140,6 @@ function App() {
         proofModalData={proofModalData}
         onClose={() => setProofModalData(null)}
       />
-
-      <TextModal
-        isOpen={isTermsOpen}
-        title="Terms of Service"
-        onClose={() => setIsTermsOpen(false)}
-      >
-        {TermsContent}
-      </TextModal>
-
-      <TextModal
-        isOpen={isPrivacyOpen}
-        title="Privacy & Security"
-        onClose={() => setIsPrivacyOpen(false)}
-      >
-        {PrivacyContent}
-      </TextModal>
     </div>
   );
 }

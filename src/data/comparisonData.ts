@@ -10,9 +10,39 @@ export const comparisonData = [
     tool: "SquidServers",
     category: "Desktop app",
     strength:
-      "Very easy local hosting with BDS, Geyser, Playit.gg, backups, and metrics",
-    win: "PocketMC has stronger open-source trust, cross-platform Linux and macOS clients, deeper PocketMine/Modrinth/Bedrock add-on support, safer backup/restore implementation, and broader runtime ownership.",
+      "User-friendly local hosting with BDS, Geyser, Modrinth mod/plugin installer, Playit.gg tunnels, and metrics",
+    win: "PocketMC is 100% free and open-source (MIT), provides native PocketMine-MP (PHP) runtime orchestration alongside Java and BDS, features RCON-synchronized backups with automated cloud replication (Google Drive, OneDrive, Dropbox), and includes built-in AI log summaries and Discord integrations.",
     isFeatured: false,
+    proof: {
+      tool: "SquidServers",
+      title: "Technical Audit: SquidServers",
+      points: [
+        {
+          title: "Closed-Source Electron Distribution",
+          desc: "Built on Electron and distributed as proprietary closed-source software without public source code transparency or independent auditability.",
+          file: "support.squidservers.com/getting-started/what-is-squidservers/",
+          code: "Closed source. SquidServers is not open-source software and is not planned to be."
+        },
+        {
+          title: "No PocketMine-MP or Bedrock PHP Runtimes",
+          desc: "Supports Java engines and Bedrock Dedicated Server (BDS), but lacks support for PocketMine-MP and does not provide automated PHP runtime orchestration for Bedrock plugin servers.",
+          file: "support.squidservers.com/getting-started/what-is-squidservers/",
+          code: "Supported: Vanilla, BDS, Paper, Forge, NeoForge, Fabric, Quilt. PocketMine-MP is not supported."
+        },
+        {
+          title: "Local-Only Backups (No Cloud Replication)",
+          desc: "Backup management is restricted to local directory storage (backups/) on the host machine. Does not offer automated cloud replication to Google Drive, OneDrive, or Dropbox.",
+          file: "support.squidservers.com/faq/is-squidservers-safe/",
+          code: "All manual and automatic backups stay on your computer. Your world files and data are never shared with or uploaded to any external servers."
+        },
+        {
+          title: "No Native Remote Control Web Dashboard",
+          desc: "Operates exclusively as a local desktop window. Lacks an embedded web administration dashboard with mobile QR pairing or HTTPS tunnel exposure for remote management.",
+          file: "support.squidservers.com/server-setup/web-ui/",
+          code: "It is not possible to expose web UIs using the default free Minecraft TCP/UDP tunnels provided in SquidServers."
+        }
+      ]
+    }
   },
   {
     tool: "auto-mcs",
