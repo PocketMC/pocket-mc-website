@@ -7,7 +7,7 @@ interface AboutPageProps {
 export default function AboutPage(_props: AboutPageProps) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-      {/* Hero Section */}
+      {/* Hero */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -18,100 +18,56 @@ export default function AboutPage(_props: AboutPageProps) {
           About PocketMC
         </h1>
         <p className="text-base sm:text-lg text-main-muted leading-relaxed">
-          PocketMC was engineered to eliminate the friction, fragility, and complexity of hosting Minecraft servers. Built as a native Windows desktop client with a strictly local-first philosophy, complete data sovereignty, and zero terminal prerequisites.
+          A local-first Minecraft server manager engineered to eliminate terminal complexity, safeguard data sovereignty, and automate runtime operations on your own hardware.
         </p>
-
-        {/* Quick Specs Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-8 p-4 sm:p-5 rounded-xl border border-divider bg-base-card font-mono">
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-wider text-main-muted">Architecture</span>
-            <span className="text-xs sm:text-sm font-bold text-main">100% Local-First</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-wider text-main-muted">License</span>
-            <span className="text-xs sm:text-sm font-bold text-main">MIT Permissive</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-wider text-main-muted">Runtimes</span>
-            <span className="text-xs sm:text-sm font-bold text-main">Java, BDS &amp; PHP</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-wider text-main-muted">Backups</span>
-            <span className="text-xs sm:text-sm font-bold text-main">Direct Cloud Sync</span>
-          </div>
-        </div>
       </motion.div>
 
-      {/* Core Principles */}
+      {/* Core Pillars */}
       <div className="mb-14">
         <div className="border-b border-divider pb-3 mb-6">
           <h2 className="text-xl sm:text-2xl font-extrabold tracking-[-0.03em] text-main">
-            Core Engineering Principles
+            Architecture &amp; Principles
           </h2>
-          <p className="text-xs sm:text-sm text-main-muted mt-1">
-            The architectural foundation that guides every feature in the PocketMC ecosystem.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-main tracking-tight mb-2">
-                100% Local-First Control
-              </h3>
-              <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-                Your game saves, player inventories, plugin settings, and world archives live exclusively on your local storage drive. PocketMC never locks your data behind proprietary cloud silos.
-              </p>
-            </div>
-            <ul className="text-xs text-main-muted space-y-1.5 list-disc pl-4">
-              <li>Direct disk filesystem access</li>
-              <li>Zero vendor lock-in or proprietary formats</li>
-              <li>Complete offline functionality</li>
-            </ul>
+          <div className="p-6 rounded-xl border border-divider bg-base-card">
+            <h3 className="text-lg font-bold text-main tracking-tight mb-2">
+              Data Sovereignty
+            </h3>
+            <p className="text-sm text-main-muted leading-relaxed">
+              Your server files, worlds, and settings live exclusively on your local storage drive. PocketMC never locks your data behind cloud silos or proprietary formats.
+            </p>
           </div>
 
-          <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-main tracking-tight mb-2">
-                Hardware-Backed Security
-              </h3>
-              <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-                Sensitive API keys, Playit tunnel secrets, and cloud OAuth refresh tokens are encrypted at rest using Windows Data Protection API (DPAPI) and platform keychains.
-              </p>
-            </div>
-            <ul className="text-xs text-main-muted space-y-1.5 list-disc pl-4">
-              <li>Windows DPAPI SID-bound encryption</li>
-              <li>Zero plaintext credential storage on disk</li>
-              <li>Regex automated redaction on diagnostic exports</li>
-            </ul>
+          <div className="p-6 rounded-xl border border-divider bg-base-card">
+            <h3 className="text-lg font-bold text-main tracking-tight mb-2">
+              Hardware Security
+            </h3>
+            <p className="text-sm text-main-muted leading-relaxed">
+              Credentials, API keys, and tunnel secrets are encrypted at rest using OS-native keychains (Windows DPAPI, Linux Secret Service, macOS Keychain).
+            </p>
           </div>
 
-          <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-main tracking-tight mb-2">
-                Zero Terminal Complexity
-              </h3>
-              <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-                Automated JRE provisioning (Adoptium OpenJDK 8 through 25), PocketMine PHP runtime isolation, one-click modpack installation, and background tunnel management.
-              </p>
-            </div>
-            <ul className="text-xs text-main-muted space-y-1.5 list-disc pl-4">
-              <li>Integrated Modrinth and CurseForge browser</li>
-              <li>RCON-synchronized cloud backups</li>
-              <li>Integrated AI log analysis and crash diagnosis</li>
-            </ul>
+          <div className="p-6 rounded-xl border border-divider bg-base-card">
+            <h3 className="text-lg font-bold text-main tracking-tight mb-2">
+              Automated Operations
+            </h3>
+            <p className="text-sm text-main-muted leading-relaxed">
+              Automated Java runtime provisioning, one-click modpack installation, background network tunneling, and RCON-synchronized cloud backups without console hassle.
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Maintainers Section */}
+      {/* Maintainers */}
       <div className="mb-14">
         <div className="border-b border-divider pb-3 mb-6">
           <h2 className="text-xl sm:text-2xl font-extrabold tracking-[-0.03em] text-main">
-            Project Leadership &amp; Contributors
+            Project Maintainers
           </h2>
           <p className="text-xs sm:text-sm text-main-muted mt-1">
-            PocketMC is an open-source initiative governed by passionate developers and Minecraft community contributors.
+            Governed by passionate developers and Minecraft community contributors.
           </p>
         </div>
 
