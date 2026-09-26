@@ -627,32 +627,32 @@
             <div class="hero-section">
                 <h1>PocketMC Developer Portal</h1>
                 <p class="lead-text">
-                    Architecture specifications, local REST APIs, authentication protocols, Model Context Protocol (MCP) toolkits, and webhook event streaming for the PocketMC server management ecosystem.
+                    Architecture specifications, local REST APIs, authentication protocols, network tunnel integrations, and machine-readable contracts for the PocketMC server management ecosystem.
                 </p>
             </div>
 
             <div class="specs-bar font-mono">
                 <div class="spec-item">
                     <span class="spec-label">REST API</span>
-                    <span class="spec-value">Local Loopback + Proxy</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Agentic AI</span>
-                    <span class="spec-value">Model Context Protocol</span>
+                    <span class="spec-value">Port 25580 Daemon</span>
                 </div>
                 <div class="spec-item">
                     <span class="spec-label">Auth Protocol</span>
-                    <span class="spec-value">DPAPI + HMAC-SHA256</span>
+                    <span class="spec-value">DPAPI + Cookie Sessions</span>
                 </div>
                 <div class="spec-item">
-                    <span class="spec-label">Event Bus</span>
-                    <span class="spec-value">High-Frequency Webhooks</span>
+                    <span class="spec-label">Network Tunnels</span>
+                    <span class="spec-value">Playit + Cloudflared</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Cloud Backups</span>
+                    <span class="spec-value">ZIP + Drive PKCE</span>
                 </div>
             </div>
 
             <div class="section-title-wrap">
                 <h2>1. Core Guides &amp; Protocol Documentation</h2>
-                <div class="section-desc">Interactive developer reference guides for controlling instances, security, and agentic integrations.</div>
+                <div class="section-desc">Interactive developer reference guides for controlling instances, security, network tunnels, and event streams.</div>
             </div>
 
             <div class="card-grid-2">
@@ -666,13 +666,13 @@
                             </svg>
                         </div>
                         <div class="doc-card-desc">
-                            Explore the authenticated local REST endpoints exposed by the PocketMC desktop service. Programmatically trigger server power actions, monitor CPU/RAM metrics, send console commands, and query player counts.
+                            Explore the authenticated local REST endpoints exposed by the PocketMC desktop service on port 25580. Programmatically trigger server power actions, query status, manage files, and execute console commands.
                         </div>
                     </div>
                     <div class="tag-row font-mono">
-                        <span class="tag">GET /api/v1/servers</span>
-                        <span class="tag">POST /api/v1/servers/{id}/power</span>
-                        <span class="tag">GET /api/v1/metrics</span>
+                        <span class="tag">GET /api/instances</span>
+                        <span class="tag">POST /api/instances/{id}/start</span>
+                        <span class="tag">GET /api/status</span>
                     </div>
                 </a>
 
@@ -686,20 +686,20 @@
                             </svg>
                         </div>
                         <div class="doc-card-desc">
-                            Deep dive into the platform security architecture: Windows DPAPI token encryption, LAN QR pairing, HMAC session handshakes, and OAuth 2.0 PKCE token management for zero-trust operation.
+                            Deep dive into the platform security architecture: Windows DPAPI key vault, bcrypt session cookie authentication, and OAuth 2.0 PKCE token management for Google Drive integration.
                         </div>
                     </div>
                     <div class="tag-row font-mono">
                         <span class="tag">Windows DPAPI</span>
-                        <span class="tag">HMAC-SHA256</span>
+                        <span class="tag">Bcrypt Hashes</span>
+                        <span class="tag">Cookie Auth</span>
                         <span class="tag">OAuth 2.0 PKCE</span>
-                        <span class="tag">LAN QR Pairing</span>
                     </div>
                 </a>
 
                 <a href="/pocket-mc-website/docs/mcp/" class="doc-card">
                     <div>
-                        <div class="doc-card-badge font-mono">AGENTIC WORKFLOWS</div>
+                        <div class="doc-card-badge font-mono">AI AGENT INTEROP</div>
                         <div class="doc-card-title">
                             Model Context Protocol (MCP)
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -707,35 +707,33 @@
                             </svg>
                         </div>
                         <div class="doc-card-desc">
-                            Connect Claude, Cursor, ChatGPT, and custom LLM agent frameworks directly to your PocketMC instances using official MCP tool declarations over streamable HTTP and stdio transports.
+                            Interoperability status and setup guide for connecting AI coding agents (Claude, Cursor, ChatGPT) to PocketMC local REST API endpoints on port 25580.
                         </div>
                     </div>
                     <div class="tag-row font-mono">
-                        <span class="tag">stdio Transport</span>
-                        <span class="tag">http-streamable</span>
-                        <span class="tag">7 Core Tools</span>
-                        <span class="tag">AI Log Analysis</span>
+                        <span class="tag">REST API Bridge</span>
+                        <span class="tag">Loopback HTTP</span>
+                        <span class="tag">OpenAPI 3.1</span>
                     </div>
                 </a>
 
                 <a href="/pocket-mc-website/docs/webhooks/" class="doc-card">
                     <div>
-                        <div class="doc-card-badge font-mono">REAL-TIME EVENTS</div>
+                        <div class="doc-card-badge font-mono">REAL-TIME STREAMS</div>
                         <div class="doc-card-title">
-                            Webhooks &amp; Event Bus
+                            Event Streams &amp; WebSockets
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                         </div>
                         <div class="doc-card-desc">
-                            Subscribe Discord bots, monitoring tools, and internal automation scripts to real-time events: server crashes, player joins, whitelist updates, and automated cloud backup completions.
+                            Connect WebSocket streams on /ws/instances/{id}/console to stream live console output line-by-line, and poll system health and instance status endpoints.
                         </div>
                     </div>
                     <div class="tag-row font-mono">
-                        <span class="tag">server.state_changed</span>
-                        <span class="tag">player.joined</span>
-                        <span class="tag">backup.completed</span>
-                        <span class="tag">crash.detected</span>
+                        <span class="tag">WebSocket Stream</span>
+                        <span class="tag">Console Log Line</span>
+                        <span class="tag">Status Polling</span>
                     </div>
                 </a>
             </div>

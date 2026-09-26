@@ -398,23 +398,23 @@
                     Back to Developer Portal
                 </a>
 
-                <h1>Model Context Protocol (MCP)</h1>
+                <h1>Model Context Protocol (MCP) &amp; AI Integration</h1>
                 <p class="lead-text">
-                    Connect AI agents (Claude Desktop, Cursor, ChatGPT, and custom LLM workflows) to manage local Minecraft servers programmatically.
+                    Connect AI coding agents (Claude, Cursor, ChatGPT, and custom LLM tools) directly to your local PocketMC daemon via loopback REST API endpoints.
                 </p>
 
                 <div class="card-section">
-                    <h2 class="card-title">1. Claude Desktop &amp; Cursor Setup</h2>
+                    <h2 class="card-title">1. Direct Local REST Endpoint Bridge</h2>
                     <p class="card-desc">
-                        Add the PocketMC MCP server configuration to your claude_desktop_config.json or Cursor settings:
+                        PocketMC operates a local Kestrel web server on port 25580. AI tools and MCP wrappers issue HTTP requests to local endpoints:
                     </p>
                     <pre class="font-mono"><code>{
   "mcpServers": {
     "pocketmc": {
-      "command": "pocketmc-cli",
-      "args": ["mcp"],
+      "command": "node",
+      "args": ["mcp-bridge.js"],
       "env": {
-        "POCKETMC_API_PORT": "25585"
+        "POCKETMC_API_URL": "http://localhost:25580"
       }
     }
   }
@@ -422,47 +422,38 @@
                 </div>
 
                 <div class="card-section">
-                    <h2 class="card-title">2. Streamable HTTP Transport</h2>
+                    <h2 class="card-title">2. Machine-Readable Contracts</h2>
                     <p class="card-desc">
-                        For headless containerized runners or remote agent environments:
+                        AI agents consume standard OpenAPI and metadata manifests to infer available server tools:
                     </p>
                     <div class="transport-box font-mono">
-                        <div><strong style="color: var(--main);">Endpoint:</strong> https://pocket-mc-proxy.onrender.com/mcp/v1</div>
-                        <div><strong style="color: var(--main);">Protocol:</strong> Model Context Protocol 2024-11-05</div>
-                        <div><strong style="color: var(--main);">Manifest:</strong> https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json</div>
+                        <div><strong style="color: var(--main);">Daemon URL:</strong> http://localhost:25580</div>
+                        <div><strong style="color: var(--main);">OpenAPI Spec:</strong> https://pocketmc.github.io/pocket-mc-website/docs/openapi.json</div>
+                        <div><strong style="color: var(--main);">MCP Manifest:</strong> https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json</div>
                     </div>
                 </div>
 
                 <div class="card-section">
-                    <h2 class="card-title">3. Available MCP Tools</h2>
+                    <h2 class="card-title">3. Supported AI Agent Tool Actions</h2>
                     <div class="tools-list font-mono">
                         <div class="tool-item">
-                            <span class="tool-name">pocketmc_list_instances</span>
-                            <span class="tool-desc">Returns all configured server instances with status, RAM, and player counts.</span>
+                            <span class="tool-name">list_instances (GET /api/instances)</span>
+                            <span class="tool-desc">Returns all configured server instances with engine types and status.</span>
                         </div>
                         <div class="tool-item">
-                            <span class="tool-name">pocketmc_start_instance</span>
+                            <span class="tool-name">start_instance (POST /api/instances/{id}/start)</span>
                             <span class="tool-desc">Launches server process with isolated Adoptium Java runtime.</span>
                         </div>
                         <div class="tool-item">
-                            <span class="tool-name">pocketmc_stop_instance</span>
-                            <span class="tool-desc">Initiates safe world save and graceful shutdown.</span>
+                            <span class="tool-name">stop_instance (POST /api/instances/{id}/stop)</span>
+                            <span class="tool-desc">Initiates world save and graceful process termination.</span>
+                        <div class="tool-item">
+                            <span class="tool-name">send_command (POST /api/instances/{id}/console/command)</span>
+                            <span class="tool-desc">Executes in-game RCON or console commands programmatically.</span>
                         </div>
                         <div class="tool-item">
-                            <span class="tool-name">pocketmc_get_instance_status</span>
-                            <span class="tool-desc">Retrieves real-time CPU %, RAM, TPS, and player list.</span>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">pocketmc_create_backup</span>
-                            <span class="tool-desc">Creates an atomic ZIP snapshot and triggers cloud synchronization.</span>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">pocketmc_get_logs</span>
-                            <span class="tool-desc">Returns sanitized live console log output with automated redaction.</span>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-name">pocketmc_manage_playit_tunnel</span>
-                            <span class="tool-desc">Inspects or provisions Playit.gg public domain tunnels.</span>
+                            <span class="tool-name">create_backup (POST /api/instances/{id}/backups)</span>
+                            <span class="tool-desc">Creates local ZIP world snapshots with SHA-256 integrity verification.</span>
                         </div>
                     </div>
                 </div>

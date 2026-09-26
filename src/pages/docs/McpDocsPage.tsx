@@ -38,31 +38,31 @@ export default function McpDocsPage({ navigate }: McpDocsPageProps) {
         className="mb-10"
       >
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-3">
-          Model Context Protocol (MCP)
+          Model Context Protocol (MCP) &amp; AI Integration
         </h1>
         <p className="text-base sm:text-lg text-main-muted leading-relaxed max-w-3xl">
-          Connect AI agents (Claude Desktop, Cursor, ChatGPT, and custom LLM workflows) to manage local Minecraft servers programmatically.
+          Connect AI coding agents (Claude, Cursor, ChatGPT, and custom LLM tools) directly to your local PocketMC daemon via loopback REST API endpoints.
         </p>
       </motion.div>
 
       {/* Sections */}
       <div className="space-y-8 mb-12">
-        {/* Claude / Cursor Config */}
+        {/* Architecture Note */}
         <div className="p-6 rounded-xl border border-divider bg-base-card">
           <h2 className="text-lg font-bold text-main tracking-tight mb-2">
-            1. Claude Desktop &amp; Cursor Setup
+            1. Direct Local REST Endpoint Bridge
           </h2>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Add the PocketMC MCP server configuration to your <code className="font-mono text-xs">claude_desktop_config.json</code> or Cursor settings:
+            PocketMC operates a local Kestrel web server on port <code className="font-mono text-xs">25580</code>. AI tools and MCP wrappers issue HTTP requests to local endpoints:
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
 {`{
   "mcpServers": {
     "pocketmc": {
-      "command": "pocketmc-cli",
-      "args": ["mcp"],
+      "command": "node",
+      "args": ["mcp-bridge.js"],
       "env": {
-        "POCKETMC_API_PORT": "25585"
+        "POCKETMC_API_URL": "http://localhost:25580"
       }
     }
   }
@@ -70,54 +70,46 @@ export default function McpDocsPage({ navigate }: McpDocsPageProps) {
           </pre>
         </div>
 
-        {/* Remote Agent Transport */}
+        {/* Machine Readable Specs */}
         <div className="p-6 rounded-xl border border-divider bg-base-card">
           <h2 className="text-lg font-bold text-main tracking-tight mb-2">
-            2. Streamable HTTP Transport
+            2. Machine-Readable Contracts
           </h2>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            For headless containerized runners or remote agent environments:
+            AI agents consume standard OpenAPI and metadata manifests to infer available server tools:
           </p>
           <div className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main space-y-1">
-            <div><span className="text-main-muted">Endpoint:</span> https://pocket-mc-proxy.onrender.com/mcp/v1</div>
-            <div><span className="text-main-muted">Protocol:</span> Model Context Protocol 2024-11-05</div>
-            <div><span className="text-main-muted">Manifest:</span> https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json</div>
+            <div><span className="text-main-muted">Daemon URL:</span> http://localhost:25580</div>
+            <div><span className="text-main-muted">OpenAPI Spec:</span> https://pocketmc.github.io/pocket-mc-website/docs/openapi.json</div>
+            <div><span className="text-main-muted">MCP Manifest:</span> https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json</div>
           </div>
         </div>
 
-        {/* Available Tools */}
+        {/* Available Capabilities */}
         <div className="p-6 rounded-xl border border-divider bg-base-card">
           <h2 className="text-lg font-bold text-main tracking-tight mb-4">
-            3. Available MCP Tools
+            3. Supported AI Agent Tool Actions
           </h2>
           <div className="space-y-3 font-mono text-xs">
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_list_instances</span>
-              <span className="text-main-muted">Returns all configured server instances with status, RAM, and player counts.</span>
+              <span className="font-bold text-main block mb-1">list_instances (GET /api/instances)</span>
+              <span className="text-main-muted">Returns all configured server instances with engine types and status.</span>
             </div>
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_start_instance</span>
+              <span className="font-bold text-main block mb-1">start_instance (POST /api/instances/&#123;id&#125;/start)</span>
               <span className="text-main-muted">Launches server process with isolated Adoptium Java runtime.</span>
             </div>
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_stop_instance</span>
-              <span className="text-main-muted">Initiates safe world save and graceful shutdown.</span>
+              <span className="font-bold text-main block mb-1">stop_instance (POST /api/instances/&#123;id&#125;/stop)</span>
+              <span className="text-main-muted">Initiates world save and graceful process termination.</span>
             </div>
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_get_instance_status</span>
-              <span className="text-main-muted">Retrieves real-time CPU %, RAM, TPS, and player list.</span>
+              <span className="font-bold text-main block mb-1">send_command (POST /api/instances/&#123;id&#125;/console/command)</span>
+              <span className="text-main-muted">Executes in-game RCON or console commands programmatically.</span>
             </div>
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_create_backup</span>
-              <span className="text-main-muted">Creates an atomic ZIP snapshot and triggers cloud synchronization.</span>
-            </div>
-            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_get_logs</span>
-              <span className="text-main-muted">Returns sanitized live console log output with automated redaction.</span>
-            </div>
-            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">pocketmc_manage_playit_tunnel</span>
-              <span className="text-main-muted">Inspects or provisions Playit.gg public domain tunnels.</span>
+              <span className="font-bold text-main block mb-1">create_backup (POST /api/instances/&#123;id&#125;/backups)</span>
+              <span className="text-main-muted">Creates local ZIP world snapshots with SHA-256 integrity verification.</span>
             </div>
           </div>
         </div>

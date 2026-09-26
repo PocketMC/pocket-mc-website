@@ -16,23 +16,17 @@
   },
   "servers": [
     {
-      "url": "http://localhost:25585/api/v1",
+      "url": "http://localhost:25580",
       "description": "Local Desktop Daemon Endpoint"
     },
     {
-      "url": "https://pocket-mc-proxy.onrender.com/api/v1",
+      "url": "https://pocket-mc-proxy.onrender.com",
       "description": "Hosted Remote Control & Telemetry Proxy"
     }
   ],
   "security": [
     {
-      "OAuth2": [
-        "servers:read",
-        "servers:write"
-      ]
-    },
-    {
-      "BearerAuth": []
+      "CookieAuth": []
     }
   ],
   "paths": {

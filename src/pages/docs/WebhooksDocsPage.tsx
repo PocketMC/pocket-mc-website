@@ -38,65 +38,58 @@ export default function WebhooksDocsPage({ navigate }: WebhooksDocsPageProps) {
         className="mb-10"
       >
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-3">
-          Webhooks &amp; Events
+          Event Streams &amp; WebSockets
         </h1>
         <p className="text-base sm:text-lg text-main-muted leading-relaxed max-w-3xl">
-          Subscribe Discord bots, monitoring dashboards, and automation scripts to real-time server lifecycle and player activity events.
+          Stream real-time console log output and monitor instance state changes using WebSocket connections and REST endpoints.
         </p>
       </motion.div>
 
       {/* Sections */}
       <div className="space-y-8 mb-12">
-        {/* Event Types */}
-        <div className="p-6 rounded-xl border border-divider bg-base-card">
-          <h2 className="text-lg font-bold text-main tracking-tight mb-4">
-            Supported Event Types
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">server.state_changed</span>
-              <span className="text-main-muted">Fired on instance start, stop, restarting, or crashed.</span>
-            </div>
-            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">player.joined / left</span>
-              <span className="text-main-muted">Fired when players connect or disconnect from a server.</span>
-            </div>
-            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">backup.completed</span>
-              <span className="text-main-muted">Fired when local or cloud snapshot upload succeeds.</span>
-            </div>
-            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">tunnel.bound</span>
-              <span className="text-main-muted">Fired when Playit assigns or updates a public domain.</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Payload Example */}
+        {/* WebSocket Stream */}
         <div className="p-6 rounded-xl border border-divider bg-base-card">
           <h2 className="text-lg font-bold text-main tracking-tight mb-2">
-            Webhook Delivery Payload
+            1. WebSocket Live Console Stream
           </h2>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Dispatches an HTTP POST request with a JSON body and HMAC-SHA256 signature in the <code className="font-mono text-xs">X-PocketMC-Signature</code> header:
+            Connect to <code className="font-mono text-xs">ws://localhost:25580/ws/instances/&#123;id&#125;/console</code> to stream stdout/stderr lines and send stdin commands:
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
-{`POST /your-webhook-endpoint HTTP/1.1
-Host: your-service.com
-Content-Type: application/json
-X-PocketMC-Signature: sha256=d3b07384d113edec49eaa6238ad5ff00
+{`const ws = new WebSocket('ws://localhost:25580/ws/instances/paper-121/console');
 
-{
-  "event": "server.state_changed",
-  "timestamp": "2026-09-26T10:00:00Z",
-  "data": {
-    "instanceId": "paper-121",
-    "previousState": "starting",
-    "currentState": "running",
-    "port": 25565
-  }
-}`}
+ws.onmessage = (event) => {
+  const logLine = JSON.parse(event.data);
+  console.log('[Minecraft Console]', logLine);
+};
+
+// Send command to server stdin
+ws.send(JSON.stringify({ command: 'say Hello from WebSocket client' }));`}
           </pre>
+        </div>
+
+        {/* Status Polling */}
+        <div className="p-6 rounded-xl border border-divider bg-base-card">
+          <h2 className="text-lg font-bold text-main tracking-tight mb-2">
+            2. System &amp; Instance Status Polling
+          </h2>
+          <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
+            Query health and active instance states via standard REST endpoints:
+          </p>
+          <div className="space-y-3 font-mono text-xs">
+            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
+              <span className="font-bold text-main block mb-1">GET /health</span>
+              <span className="text-main-muted">Daemon uptime, memory usage, and host OS metadata.</span>
+            </div>
+            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
+              <span className="font-bold text-main block mb-1">GET /api/status</span>
+              <span className="text-main-muted">Overall service health, active server counts, and remote control settings.</span>
+            </div>
+            <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
+              <span className="font-bold text-main block mb-1">GET /api/instances</span>
+              <span className="text-main-muted">Real-time status, engine versions, and running state for all local servers.</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

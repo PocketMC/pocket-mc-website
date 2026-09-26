@@ -28,7 +28,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           Developer Portal
         </h1>
         <p className="text-base sm:text-lg text-main-muted leading-relaxed">
-          Technical specifications, local REST APIs, authentication protocols, Model Context Protocol (MCP) toolkits, and machine-readable contracts.
+          Technical specifications, local REST APIs, authentication protocols, network tunnels, and machine-readable contracts.
         </p>
       </motion.div>
 
@@ -56,12 +56,12 @@ export default function DocsPage({ navigate }: DocsPageProps) {
                 </svg>
               </div>
               <p className="text-sm text-main-muted leading-relaxed mb-4">
-                Local loopback REST endpoints for controlling instances, sending console commands, and reading live metrics.
+                Local loopback REST endpoints on port 25580 for controlling instances, sending console commands, and file management.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5 font-mono text-[11px] text-main-muted">
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">GET /api/v1/servers</span>
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">POST /api/v1/servers/&#123;id&#125;/power</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">GET /api/instances</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">POST /api/instances/&#123;id&#125;/start</span>
             </div>
           </a>
 
@@ -80,12 +80,12 @@ export default function DocsPage({ navigate }: DocsPageProps) {
                 </svg>
               </div>
               <p className="text-sm text-main-muted leading-relaxed mb-4">
-                Windows DPAPI token encryption, LAN QR pairing, and HMAC-SHA256 session handshakes.
+                Windows DPAPI key protection, bcrypt session cookie authentication, and Google Drive PKCE cloud authorization.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5 font-mono text-[11px] text-main-muted">
               <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">DPAPI Key Vault</span>
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">HMAC Sessions</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">Cookie Auth</span>
             </div>
           </a>
 
@@ -104,12 +104,12 @@ export default function DocsPage({ navigate }: DocsPageProps) {
                 </svg>
               </div>
               <p className="text-sm text-main-muted leading-relaxed mb-4">
-                Integrate Claude, Cursor, and ChatGPT agents directly with your servers using 7 MCP tools.
+                Interoperability status and guide for connecting AI coding agents to PocketMC local REST API endpoints.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5 font-mono text-[11px] text-main-muted">
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">stdio Transport</span>
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">Streamable HTTP</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">REST API Bridge</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">Local Loopback</span>
             </div>
           </a>
 
@@ -121,19 +121,19 @@ export default function DocsPage({ navigate }: DocsPageProps) {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-bold text-main tracking-tight group-hover:text-main">
-                  Webhooks &amp; Events
+                  Event Streams &amp; WebSockets
                 </h3>
                 <svg className="w-4 h-4 text-main-muted group-hover:text-main transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </div>
               <p className="text-sm text-main-muted leading-relaxed mb-4">
-                Real-time event subscriptions for server crashes, player join/leave events, and backup notifications.
+                Real-time WebSocket streaming on /ws/instances/&#123;id&#125;/console and event notification patterns.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5 font-mono text-[11px] text-main-muted">
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">server.crashed</span>
-              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">backup.completed</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">WebSocket Console</span>
+              <span className="px-2 py-0.5 rounded bg-base-muted border border-divider text-main">Status Polling</span>
             </div>
           </a>
         </div>
