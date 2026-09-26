@@ -14,10 +14,6 @@ export default function ContactPage(_props: ContactPageProps) {
         transition={{ duration: 0.3 }}
         className="max-w-3xl mb-12 sm:mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-divider bg-base-muted text-[11px] font-mono font-bold tracking-wider uppercase text-main-muted mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-main" />
-          Direct Channels &amp; Developer Desk
-        </div>
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-4">
           Contact PocketMC
         </h1>
@@ -61,9 +57,6 @@ export default function ContactPage(_props: ContactPageProps) {
           {/* Card 1: Official Email */}
           <div className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                GENERAL &amp; PARTNERSHIPS
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 Direct Official Email
               </h3>
@@ -88,9 +81,6 @@ export default function ContactPage(_props: ContactPageProps) {
           {/* Card 2: Discord Server */}
           <div className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                COMMUNITY &amp; LIVE CHAT
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 PocketMC Discord
               </h3>
@@ -119,9 +109,6 @@ export default function ContactPage(_props: ContactPageProps) {
           {/* Card 3: GitHub Issues */}
           <div className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                BUG TRACKER &amp; CODE
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 GitHub Issue Tracker
               </h3>
@@ -153,9 +140,6 @@ export default function ContactPage(_props: ContactPageProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         {/* Bug Report Guide */}
         <div className="p-6 rounded-xl border border-divider bg-base-card">
-          <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-            TECHNICAL SUPPORT
-          </span>
           <h3 className="text-base sm:text-lg font-bold text-main tracking-tight mb-2">
             Reporting a Bug Effectively
           </h3>
@@ -185,9 +169,6 @@ export default function ContactPage(_props: ContactPageProps) {
         {/* Security Disclosures */}
         <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
           <div>
-            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-              SECURITY AUDITS
-            </span>
             <h3 className="text-base sm:text-lg font-bold text-main tracking-tight mb-2">
               Security Vulnerability Disclosure
             </h3>

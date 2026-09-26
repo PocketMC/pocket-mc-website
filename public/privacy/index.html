@@ -418,18 +418,6 @@
                 border-radius: 50%;
                 background-color: var(--main-muted);
             }
-            .card-badge-pill {
-                display: inline-block;
-                padding: 3px 8px;
-                border-radius: 4px;
-                background: var(--base-muted);
-                border: 1px solid var(--divider);
-                font-size: 11px;
-                font-weight: 600;
-                color: var(--main-muted);
-                margin-bottom: 12px;
-                width: fit-content;
-            }
 
             /* Outbound Connections Table */
             .table-wrap {
@@ -619,10 +607,6 @@
 
         <div class="page-container">
             <div class="hero-section">
-                <div class="badge font-mono">
-                    <span class="badge-dot"></span>
-                    SECURITY &amp; PRIVACY PROTOCOL
-                </div>
                 <h1>Privacy &amp; Security Policy</h1>
                 <p class="lead-text">
                     PocketMC is engineered with an uncompromising local-first architecture. Your server configurations, game worlds, credentials, and telemetry preferences reside strictly on your own hardware. This document outlines how secrets are encrypted, how telemetry operates with zero personal data, and every outbound connection the software makes.
@@ -656,7 +640,6 @@
             <div class="card-grid-3">
                 <div class="card">
                     <div>
-                        <div class="card-badge-pill font-mono">FILESYSTEM SOVEREIGNTY</div>
                         <div class="card-title">Local Directory Containment</div>
                         <div class="card-text">
                             PocketMC maintains all server configuration files, world archives, console logs, player data, and metadata strictly on your local machine under your designated application directory. We do not mirror or store your game data on proprietary servers.
@@ -671,7 +654,6 @@
 
                 <div class="card">
                     <div>
-                        <div class="card-badge-pill font-mono">HARDWARE VAULT</div>
                         <div class="card-title">Platform-Native Key Vaults</div>
                         <div class="card-text">
                             Sensitive credentials (including CurseForge API tokens, Playit secret keys, OAuth refresh tokens, and AI Provider keys) are encrypted at rest using OS hardware-backed cryptographic facilities:
@@ -686,7 +668,6 @@
 
                 <div class="card">
                     <div>
-                        <div class="card-badge-pill font-mono">DIRECT PIPELINE</div>
                         <div class="card-title">Direct Cloud Backup Pipe</div>
                         <div class="card-text">
                             When configuring automated off-site backups to Google Drive, Microsoft OneDrive, or Dropbox, the connection is established directly between your local PC and the respective cloud provider API.
@@ -708,7 +689,6 @@
             <div class="card-grid-3">
                 <div class="card">
                     <div>
-                        <div class="card-badge-pill font-mono">ANONYMOUS METRICS</div>
                         <div class="card-title">What Is Collected (If Enabled)</div>
                         <div class="card-text">
                             To measure software reliability, track server engine adoption, and diagnose crashes, PocketMC includes an optional telemetry reporting system:
@@ -723,7 +703,6 @@
 
                 <div class="card">
                     <div>
-                        <div class="card-badge-pill font-mono">STRICT EXCLUSIONS</div>
                         <div class="card-title">What Is Never Collected</div>
                         <div class="card-text">
                             We follow a strict zero-knowledge approach regarding your personal identity, server content, and player behavior:
@@ -739,7 +718,6 @@
 
                 <div class="card">
                     <div>
-                        <div class="card-badge-pill font-mono">INSTANT TOGGLE</div>
                         <div class="card-title">1-Click Permanent Opt-Out</div>
                         <div class="card-text">
                             Telemetry is completely optional. You can disable all telemetry reporting at any time with a single switch:
@@ -816,7 +794,6 @@
 
             <div class="card-grid-2">
                 <div class="card">
-                    <div class="card-badge-pill font-mono">AUTOMATED REDACTION</div>
                     <div class="card-title">Regex Secret Masking</div>
                     <div class="card-text">
                         When you choose to generate a diagnostic support bundle in PocketMC, an automated sanitization pass scans all server configuration files and console logs before compiling the archive:
@@ -829,7 +806,6 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-badge-pill font-mono">USER REVIEW</div>
                     <div class="card-title">Local Export Control</div>
                     <div class="card-text">
                         Diagnostic archives are saved strictly to your local machine (e.g., your Desktop or Downloads folder) as a standard ZIP file.

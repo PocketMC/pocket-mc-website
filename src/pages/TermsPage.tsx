@@ -14,10 +14,6 @@ export default function TermsPage(_props: TermsPageProps) {
         transition={{ duration: 0.3 }}
         className="max-w-3xl mb-12 sm:mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-divider bg-base-muted text-[11px] font-mono font-bold tracking-wider uppercase text-main-muted mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-main" />
-          Legal Terms &amp; Licensing
-        </div>
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-4">
           Terms of Service
         </h1>
@@ -104,9 +100,6 @@ export default function TermsPage(_props: TermsPageProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                HARDWARE &amp; OS
-              </span>
               <h3 className="text-base sm:text-lg font-bold text-main tracking-tight mb-2">
                 Compute &amp; System Maintenance
               </h3>
@@ -123,9 +116,6 @@ export default function TermsPage(_props: TermsPageProps) {
 
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                NETWORK ACCESS
-              </span>
               <h3 className="text-base sm:text-lg font-bold text-main tracking-tight mb-2">
                 Port Forwarding &amp; Player Access
               </h3>

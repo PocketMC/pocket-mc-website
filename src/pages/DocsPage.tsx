@@ -14,10 +14,6 @@ export default function DocsPage(_props: DocsPageProps) {
         transition={{ duration: 0.3 }}
         className="max-w-3xl mb-12 sm:mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-divider bg-base-muted text-[11px] font-mono font-bold tracking-wider uppercase text-main-muted mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-main" />
-          Developer Ecosystem &amp; Platform Specs
-        </div>
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-4">
           PocketMC Developer Portal
         </h1>
@@ -63,9 +59,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                REST API SPEC
-              </span>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-bold text-main tracking-tight group-hover:text-main">
                   REST API Reference
@@ -89,9 +82,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                CRYPTOGRAPHIC SECURITY
-              </span>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-bold text-main tracking-tight group-hover:text-main">
                   Authentication &amp; Security
@@ -116,9 +106,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                AGENTIC WORKFLOWS
-              </span>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-bold text-main tracking-tight group-hover:text-main">
                   Model Context Protocol (MCP)
@@ -142,9 +129,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                REAL-TIME EVENTS
-              </span>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-bold text-main tracking-tight group-hover:text-main">
                   Webhooks &amp; Event Bus
@@ -183,9 +167,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-2">
-                OPENAPI 3.1
-              </span>
               <h3 className="text-base font-bold text-main tracking-tight mb-1">openapi.json</h3>
               <p className="text-xs text-main-muted leading-relaxed mb-3">
                 Complete OpenAPI JSON schema for client SDK generation.
@@ -200,9 +181,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-2">
-                OPENAPI YAML
-              </span>
               <h3 className="text-base font-bold text-main tracking-tight mb-1">openapi.yaml</h3>
               <p className="text-xs text-main-muted leading-relaxed mb-3">
                 Clean, human-readable YAML representation of all API routes.
@@ -217,9 +195,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-2">
-                AGENT MANIFEST
-              </span>
               <h3 className="text-base font-bold text-main tracking-tight mb-1">mcp.json</h3>
               <p className="text-xs text-main-muted leading-relaxed mb-3">
                 Model Context Protocol manifest declaring 7 server tools.
@@ -234,9 +209,6 @@ export default function DocsPage(_props: DocsPageProps) {
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-2">
-                LLM CONTEXT
-              </span>
               <h3 className="text-base font-bold text-main tracking-tight mb-1">llms.txt</h3>
               <p className="text-xs text-main-muted leading-relaxed mb-3">
                 Curated Markdown documentation designed for AI coding agents.

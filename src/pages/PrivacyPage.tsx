@@ -14,10 +14,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
         transition={{ duration: 0.3 }}
         className="max-w-3xl mb-12 sm:mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-divider bg-base-muted text-[11px] font-mono font-bold tracking-wider uppercase text-main-muted mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-main" />
-          Security &amp; Privacy Protocol
-        </div>
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-4">
           Privacy &amp; Security Policy
         </h1>
@@ -60,9 +56,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                FILESYSTEM SOVEREIGNTY
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 Local Directory Containment
               </h3>
@@ -79,9 +72,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
 
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                HARDWARE VAULT
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 Platform-Native Key Vaults
               </h3>
@@ -98,9 +88,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
 
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                DIRECT PIPELINE
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 Direct Cloud Backup Pipe
               </h3>
@@ -131,9 +118,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                ANONYMOUS METRICS
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 What Is Collected (If Enabled)
               </h3>
@@ -150,9 +134,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
 
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                STRICT EXCLUSIONS
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 What Is Never Collected
               </h3>
@@ -170,9 +151,6 @@ export default function PrivacyPage(_props: PrivacyPageProps) {
 
           <div className="p-6 rounded-xl border border-divider bg-base-card flex flex-col justify-between">
             <div>
-              <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-base-muted text-main-muted mb-3">
-                INSTANT TOGGLE
-              </span>
               <h3 className="text-lg font-bold text-main tracking-tight mb-2">
                 1-Click Permanent Opt-Out
               </h3>
