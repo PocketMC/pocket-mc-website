@@ -6,11 +6,12 @@ export const tourTabs = [
     image: "/screenshots/screenshot-dashboard.webp",
     alt: "PocketMC Dashboard showing running instances and metrics",
     description:
-      "The control center across Windows, Linux, and macOS. Track CPU/RAM resource graphs, accepted EULAs, active player counts, and control server state gracefully. Features dynamic badges that scan mod folders to verify Geyser cross-play and voice chat integrations, plus complete Remote Control Web Dashboard capabilities via Playit & Cloudflare HTTPS tunnels.",
+      "The control center across Windows, Linux, and macOS. Track CPU/RAM resource graphs, accepted EULAs, active player counts, and control server state gracefully. Features dynamic badges that scan mod folders to verify Geyser cross-play and voice chat integrations, skeleton loading states, stdin stream concurrency safeguards, and complete Remote Control Web Dashboard capabilities via Playit & Cloudflare HTTPS tunnels.",
     bullets: [
       "Secure Remote Control Dashboard with mobile QR code pairing",
       "Dynamic status badges: Simple Voice Chat, Geyser + Floodgate indicators",
-      "One-click start, stop, restart, or process termination",
+      "One-click start, stop, restart, or process termination with stdin stream safeguards",
+      "Skeleton loading states and rendering optimizations eliminating frame drops across screens",
       "Per-instance preflight port checks to eliminate local port conflicts",
     ],
   },
@@ -36,9 +37,10 @@ export const tourTabs = [
     images: ["/screenshots/tunnels.webp", "/screenshots/ports-map.webp"],
     alt: "PocketMC Playit.gg tunnels and interactive ports map",
     description:
-      "Invite friends to play instantly. No router configuring, no port forwarding. Link your Playit.gg account or start Cloudflare Quick Tunnels to auto-discover and map local Java/Bedrock ports to public tunnel addresses, visualized via the interactive Ports Map.",
+      "Invite friends to play instantly. No router configuring, no port forwarding. Link your Playit.gg account with agent v1.0.10 or start Cloudflare Quick Tunnels to auto-discover and map local Java/Bedrock ports to public tunnel addresses, visualized via the interactive Ports Map and monitored via a dedicated Playit binary console window.",
     bullets: [
-      "Guided Playit account link and agent provisioning wizard",
+      "Guided Playit account link and Playit agent v1.0.10 provisioning wizard",
+      "Dedicated Playit binary console log window with color-coded log parsing and real-time search",
       "Cloudflare Quick Tunnels for instant web dashboard exposure",
       "Real-time visual map of local bindings and public Playit endpoints",
       "One-click copy for public IP and Port connections",
@@ -144,12 +146,13 @@ export const tourTabs = [
     image: "/screenshots/themes-showcase.webp",
     alt: "PocketMC Themes and Customization Options Showcase",
     description:
-      "Custom background images and accent colors with different theme options, customize PocketMC to match your imagination. Select from preset wallpapers or upload your own, adjust accent highlights, and switch between mica, acrylic, and native platform materials.",
+      "Custom background images and accent colors with rich wallpaper theme options. Upload custom images or use desktop wallpaper presets, adjust Wallpaper Blur Intensity (0-120 px), fine-tune Darkness & Dimming overlay opacity (0-100%), and switch between Mica, Acrylic, and native window materials.",
     bullets: [
-      "Custom background images and wallpaper restore presets",
+      "Custom background image uploads with desktop wallpaper restore presets",
+      "Wallpaper Blur Intensity slider (0 to 120 px) for background depth control",
+      "Darkness & Dimming overlay opacity slider (0 to 100%) for text readability",
       "Dynamic accent color palette selection (green, blue, purple, custom HEX)",
-      "Mica, acrylic, and native window material themes",
-      "Per-instance theme preferences and dark/light web dashboard sync",
+      "Mica, Acrylic, and native window material backdrop themes",
     ],
   },
   {
@@ -162,12 +165,13 @@ export const tourTabs = [
     ],
     alt: "PocketMC App Settings and About Diagnostics views",
     description:
-      "Application Preferences:\nConfigure global application behavior including auto-start options, background update checks, and tray minimization preferences.\n\nDiagnostics & Contributor Panel:\nInspect local diagnostic reports, system architecture specs, runtime environments, open-source licensing, and project contributor credits.",
+      "Application Preferences:\nConfigure global application behavior including auto-start options, background update checks, tray minimization preferences, and fully custom Discord Rich Presence (RPC) controls with a live in-app RPC preview card.\n\nDiagnostics & Contributor Panel:\nInspect local diagnostic reports, system architecture specs, runtime environments, open-source licensing, and project contributor credits.",
     bullets: [
-      "Tray minimization and auto-run on boot settings",
+      "Fully customizable Discord Rich Presence (RPC) with live in-app preview card",
+      "Tray minimization and auto-run on Windows boot settings",
       "Local diagnostics logging, reports, and debug file generation",
       "Adoptium JRE directory manager and global Java paths override",
-      "Consolidated credits, licenses, and direct feedback panel",
+      "Centralized dynamic pocketmc.yml single-source-of-truth configuration",
     ],
   },
 ];

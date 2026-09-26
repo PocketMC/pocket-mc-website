@@ -7,6 +7,8 @@ export const detailFeatures = [
     items: [
       "Create isolated server instances with distinct config files in one app root",
       "Preflight port availability checks before boot to prevent crash-loops",
+      "Resilient server lifecycle management preventing stdin stream concurrency crashes and file lock exceptions",
+      "Skeleton loading states and rendering optimizations eliminating frame drops across screen transitions",
       "Clean RCON save-flush sequence (save-off/save-all) to ensure database consistency before backups",
       "RCON graceful termination hooks with process-kill fallback",
       "Crash monitoring captures recent sanitized output with auto-restart backoff and crash-loop limits (max 3)",
@@ -41,10 +43,12 @@ export const detailFeatures = [
       "Built-in CheckNetIsolation.exe UWP helper for Bedrock local loopback access",
       "Windows native Toast notifications and taskbar Tray integration",
       "Discord Welcome Bot Integration with automatic server role assignments",
-      "Discord Rich Presence: shows server state, player count, uptime, and join link",
+      "Fully customizable Discord Rich Presence: custom state, details, image assets, buttons, and live preview card",
+      "Dedicated Playit v1.0.10 agent binary console with color-coded log levels, search filtering, and copy controls",
+      "Appearance options: custom wallpaper background upload, Wallpaper Blur Intensity (0-120px), Darkness & Dimming controls, and Mica/Acrylic backdrops",
       "Velopack automated startup updates with incremental file checks",
       "Dependency health scanner validating Adoptium, Playit, and marketplace APIs",
-      "Mica, Acrylic, Wallpaper Blur, and Solid theme options for Windows UI polish",
+      "Centralized dynamic pocketmc.yml single-source-of-truth configuration engine",
     ],
   },
 ];
