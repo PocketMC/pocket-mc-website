@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "PocketMC Local & Remote Control REST API",
-    "version": "1.9.3",
+    "version": "1.9.9",
     "description": "Complete REST API for orchestrating local Minecraft servers, managing Adoptium Java runtimes, controlling Playit.gg tunnels, and managing OAuth cloud backups via the PocketMC desktop daemon or secure remote web panel.",
     "contact": {
       "name": "PocketMC Developer Support",
@@ -341,7 +341,7 @@
         "required": ["status", "version", "platform", "activeInstances"],
         "properties": {
           "status": { "type": "string", "example": "ok" },
-          "version": { "type": "string", "example": "1.9.3" },
+          "version": { "type": "string", "example": "1.9.9" },
           "platform": { "type": "string", "example": "win-x64" },
           "activeInstances": { "type": "integer", "example": 2 }
         }

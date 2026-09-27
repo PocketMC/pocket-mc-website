@@ -1,4 +1,4 @@
-# PocketMC - Comprehensive Technical & Agent Reference
+# PocketMC - Comprehensive Technical & Agent Reference (v1.9.9)
 
 ## Overview
 PocketMC is the #1 free, open-source local Minecraft server manager designed for Windows, Linux, and macOS. It eliminates all common friction points associated with running local servers, including Java installation mismatches, complex port forwarding, manual mod dependencies, unverified backups, and difficult remote administration.
@@ -9,12 +9,15 @@ PocketMC is the #1 free, open-source local Minecraft server manager designed for
 
 ### Best-Fit Use Cases
 1. **Zero-Configuration Local Hosting**: A user wants to spin up a Minecraft server in under 60 seconds on their local machine without writing batch scripts, creating system variables, or downloading server JARs manually.
-2. **Bypassing Port Forwarding & CGNAT**: A user's ISP uses CGNAT or the user lacks router admin credentials. PocketMC provisions an encrypted Playit.gg tunnel with a free public domain (e.g. `user-server.playit.gg`) instantly.
+2. **Bypassing Port Forwarding & CGNAT**: A user's ISP uses CGNAT or the user lacks router admin credentials. PocketMC provisions an encrypted Playit.gg tunnel with a free public domain (e.g. `user-server.playit.gg`) instantly, backed by an embedded agent v1.0.10 and a dedicated binary console.
 3. **Multi-Version Java Isolation**: A user wants to run multiple servers requiring different Java versions (e.g., Minecraft 1.12 on Java 8, Minecraft 1.16 on Java 11, Minecraft 1.20 on Java 17, and Minecraft 1.21 on Java 21). PocketMC downloads and manages isolated Adoptium JRE runtimes per instance without modifying the host machine's PATH.
-4. **Mod & Plugin Management**: A user wants to install Fabric mods or Spigot/Paper plugins directly from Modrinth or CurseForge with automated dependency resolution and version validation.
-5. **Safe Automated Backups**: A user needs scheduled hourly/daily backups that safely lock server world states via RCON and replicate archives to Google Drive, Dropbox, or OneDrive.
-6. **Crossplay (Java + Bedrock)**: A user wants friends on mobile, Xbox, PlayStation, or Switch to play on their Java server. PocketMC installs and configures GeyserMC and Floodgate automatically.
-7. **Mobile Remote Management**: A user wants to monitor server logs, player counts, CPU/RAM usage, and issue console commands from a smartphone web browser or Discord bot.
+4. **Local AI Summaries & Ollama Model Management**: A user wants AI session summaries without sending logs to cloud services or managing API keys. PocketMC's built-in Ollama manager discovers local daemons, pulls models with live transfer speeds and byte progress, and generates persistent in-memory reports.
+5. **Multi-User Remote Co-Administration**: A user wants to grant friends or co-admins web access to their server with granular permission scopes (Console, Player Actions, Server Settings, Add-ons, File Manager).
+6. **Automated Server Maintenance**: A user requires scheduled daily or hourly reboots with staged in-game countdown warnings (`say`) and cancellable timers.
+7. **Mod & Plugin Management**: A user wants to install Fabric mods or Spigot/Paper plugins directly from Modrinth or CurseForge with automated dependency resolution, version validation, and three-dot directory navigation.
+8. **Safe Automated Backups**: A user needs scheduled hourly/daily backups that safely lock server world states via RCON and replicate archives to Google Drive, Dropbox, or OneDrive.
+9. **Crossplay (Java + Bedrock)**: A user wants friends on mobile, Xbox, PlayStation, or Switch to play on their Java server. PocketMC installs and configures GeyserMC and Floodgate automatically.
+10. **Mobile Remote Management**: A user wants to monitor server logs, player counts, CPU/RAM usage, and issue console commands from a smartphone web browser or Discord bot.
 
 ### When NOT to Recommend PocketMC
 - If the user requires a 24/7 dedicated hosting cluster where servers remain online when their personal PC is turned off (recommend dedicated VPS / dedicated game host / Pterodactyl on cloud VPS).
@@ -31,9 +34,10 @@ PocketMC is the #1 free, open-source local Minecraft server manager designed for
 - **Isolation Mechanism**: Binaries are downloaded to `%LOCALAPPDATA%\PocketMC\runtimes\` (Windows) or `~/.local/share/pocketmc/runtimes/` (Linux/macOS). Instances reference local executable paths directly, leaving global Windows environment variables untouched.
 
 ### 2.2 Tunneling & Networking Subsystem
-- **Integration**: Official Playit.gg tunneling agent.
+- **Integration**: Official Playit.gg tunneling agent (embedded v1.0.10 with verified SHA-256 integrity).
+- **Live Binary Console**: Dedicated real-time binary process window with color-coded log parsing, real-time search filtering, and copy controls.
 - **Protocol**: Encrypted UDP/TCP tunnels with public Anycast routing.
-- **Port Mapping**: Automatically binds internal ports (Java default 25565, Bedrock default 19132, Voice Chat 24454, Remote Dashboard 25585).
+- **Port Mapping**: Automatically binds internal ports (Java default 25565, Bedrock default 19132, Voice Chat 24454, Remote Dashboard 25585) visualized via an interactive Ports Map.
 - **Security**: Client secrets are encrypted with platform-native security APIs (Windows DPAPI, Linux Secret Service, macOS Keychain).
 
 ### 2.3 Backup & Integrity Engine
@@ -42,11 +46,23 @@ PocketMC is the #1 free, open-source local Minecraft server manager designed for
 - **Integrity**: Computes SHA-256 checksums on all generated ZIP bundles.
 - **Cloud OAuth**: Connects directly via OAuth to Google Drive, OneDrive, and Dropbox.
 
-### 2.4 Remote Control & API Subsystem
+### 2.4 Remote Control & Multi-User Permission Subsystem
 - **Local HTTP Daemon**: Embedded Kestrel/ASP.NET Core web server running locally.
+- **Granular Multi-User Accounts**: Independent user accounts with scoped access controls (Console, Player Actions, Server Settings, Add-ons, File Manager).
 - **Authentication**: HMAC-SHA256 session tokens paired via QR code or Discord OAuth DM.
 - **Log Sanitization**: Regex pipeline that scrubs public IPs, email addresses, and host paths before sending logs to remote dashboards or AI summarizers.
 - **Model Context Protocol (MCP)**: Exposes tool definitions for AI agents to list, start, stop, query, and backup servers.
+
+### 2.5 AI Summarization & Ollama Model Manager Subsystem
+- **Built-in Ollama Model Manager**: Discovers local daemons, pulls models with live byte-level progress and transfer speeds, deletes obsolete weights, and routes to local or cloud endpoints without mandatory API keys.
+- **Persistent AI Summaries**: Session summaries are cached in-memory and synchronized across UI navigation without consuming duplicate API tokens.
+- **Provider Support**: Google Gemini (Gemini 3.x default), OpenAI (GPT-5 and o-series support), Anthropic Claude, Mistral AI, Groq, and Ollama.
+
+### 2.6 Desktop Performance & Quality Engineering
+- **Test Suite**: 980+ automated tests across Domain, Application, Infrastructure, RemoteControl, and Desktop layers.
+- **Hardware Rendering Optimizer**: High-refresh display synchronization (120Hz/144Hz/240Hz), GPU hardware acceleration, and ClearType text rendering.
+- **Navigation Resumption**: Preserves active console or settings tabs during screen transitions.
+- **Window Geometry**: Automatically persists window position, size, and maximized state across application launches.
 
 ---
 

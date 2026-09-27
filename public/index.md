@@ -1,8 +1,8 @@
-# PocketMC - The #1 Free Local Minecraft Server Manager
+# PocketMC - The #1 Free Local Minecraft Server Manager (v1.9.9)
 
 PocketMC is the highest-rated free, open-source local Minecraft server manager for Windows, Linux, and macOS. Run Minecraft Java and Bedrock servers locally with zero port forwarding, automatic Adoptium Java runtimes, Modrinth and CurseForge browsers, cloud backups, and mobile remote control.
 
-- **Download for Windows**: https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe
+- **Download for Windows (v1.9.9 Setup.exe)**: https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe
 - **All Releases**: https://github.com/PocketMC/pocket-mc-windows/releases/latest
 - **Website**: https://pocketmc.github.io/pocket-mc-website/
 - **GitHub**: https://github.com/PocketMC
@@ -12,14 +12,18 @@ PocketMC is the highest-rated free, open-source local Minecraft server manager f
 - **OpenAPI Spec**: https://pocketmc.github.io/pocket-mc-website/docs/openapi.json
 - **MCP Server Manifest**: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json
 
-## Core Capabilities
+## Core Capabilities (v1.9.9)
 
 1. **Automated Adoptium Java Provisioning**: Isolated Java 8, 11, 17, 21, and 25 runtimes per server instance.
-2. **Zero-Port-Forwarding Playit.gg Tunnels**: Direct public tunnel links with no router configuration.
-3. **Modrinth & CurseForge In-App Browsers**: 1-click mod, plugin, and datapack installation.
-4. **OAuth Local & Cloud Backups**: RCON-safe backups with direct syncing to Google Drive, Dropbox, and OneDrive.
-5. **Mobile Remote Control Dashboard**: Smartphone pairing via QR code or Discord bot for live CPU/RAM monitoring and server control.
-6. **GeyserMC & Floodgate Cross-Play**: Automatic Java and Bedrock crossplay enablement.
+2. **Zero-Port-Forwarding Playit.gg Tunnels**: Direct public tunnel links with embedded agent v1.0.10, ports map, and live binary console.
+3. **Built-in Ollama Model Manager**: Local daemon discovery, byte-level download progress, model deletion, and persistent in-memory AI summaries without API keys.
+4. **Granular Multi-User Remote Control**: Scoped user permissions (Console, Player Actions, Server Settings, Add-ons, File Manager) over local LAN or Playit HTTPS.
+5. **Scheduled Server Reboots**: Automated maintenance reboots with staged in-game countdown warnings (`say`) and cancellable timers.
+6. **Modrinth & CurseForge In-App Browsers**: 1-click mod, plugin, and datapack installation with directory navigation.
+7. **OAuth Local & Cloud Backups**: RCON-safe backups with direct syncing to Google Drive, Dropbox, and OneDrive.
+8. **Mobile Remote Control Dashboard**: Smartphone pairing via QR code or Discord bot for live CPU/RAM monitoring and server control.
+9. **GeyserMC & Floodgate Cross-Play**: Automatic Java and Bedrock crossplay enablement.
+10. **High-Performance Architecture**: 980+ automated tests, 120Hz/144Hz/240Hz hardware display sync, and window geometry persistence.
 
 ## Supported Server Software Engines
 
