@@ -6,12 +6,13 @@ export const tourTabs = [
     image: "/screenshots/screenshot-dashboard.webp",
     alt: "PocketMC Dashboard showing running instances and metrics",
     description:
-      "The control center across Windows, Linux, and macOS. Track CPU/RAM resource graphs, accepted EULAs, active player counts, and control server state gracefully. Features dynamic badges that scan mod folders to verify Geyser cross-play and voice chat integrations, skeleton loading states, stdin stream concurrency safeguards, and complete Remote Control Web Dashboard capabilities via Playit & Cloudflare HTTPS tunnels.",
+      "The control center across Windows, Linux, and macOS. Track CPU/RAM resource graphs, accepted EULAs, active player counts, and control server state gracefully. Features dynamic badges that scan mod folders to verify Geyser cross-play and voice chat integrations, skeleton loading states, seamless detail page navigation resumption, hardware rendering optimization, and complete Remote Control Web Dashboard capabilities via Playit & Cloudflare HTTPS tunnels.",
     bullets: [
       "Secure Remote Control Dashboard with mobile QR code pairing",
       "Dynamic status badges: Simple Voice Chat, Geyser + Floodgate indicators",
       "One-click start, stop, restart, or process termination with stdin stream safeguards",
-      "Skeleton loading states and rendering optimizations eliminating frame drops across screens",
+      "Seamless detail page navigation resumption: preserves active console or settings tabs",
+      "Hardware rendering optimizer (120Hz/144Hz/240Hz) and skeleton loading states",
       "Per-instance preflight port checks to eliminate local port conflicts",
     ],
   },
@@ -22,12 +23,13 @@ export const tourTabs = [
     image: "/screenshots/screenshot-console.webp",
     alt: "PocketMC Console panel with log formatting",
     description:
-      "Ditch raw terminal chaos. Read formatted, colorized, and classified logs in real-time. Execute server commands with ease, trace player activity, and generate AI session summaries directly.",
+      "Ditch raw terminal chaos. Read formatted, colorized, and classified logs in real-time. Execute server commands with ease, trace player activity, and generate AI session summaries directly with persistent in-memory caching and request deduplication.",
     bullets: [
+      "Persistent AI session summaries cached in-memory and synchronized across navigation",
+      "AI intelligence using Google Gemini 3.x, OpenAI, Claude, Mistral, Groq, or local Ollama",
       "Automatically logs session console output to local session files",
       "Sanitizes personal details (IP addresses, emails) automatically",
       "Parses Java, Bedrock, and PocketMine formats for unified player lists",
-      "AI session summaries using Gemini, OpenAI, Claude, Mistral, Groq, or Ollama",
     ],
   },
   {
@@ -57,8 +59,10 @@ export const tourTabs = [
     ],
     alt: "PocketMC Modrinth plugin and mod installer browsers",
     description:
-      "Install and manage server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle downloads safely, while the integrated Mod and Plugin Management views allow you to enable, disable, or update add-ons without renaming files.",
+      "Install and manage server-side mods, plugins, and modpacks directly from your UI. Native browsers for Modrinth and CurseForge handle downloads safely, while the integrated Mod and Plugin Management views allow you to enable, disable, or update add-ons without renaming files, featuring three-dot options menus and deep directory navigation.",
     bullets: [
+      "Three-dot (···) options menu and right-click context menu for all installed add-ons",
+      "Deep Windows File Explorer navigation (/select) directly into plugin and mod folders",
       "Native Modrinth browser: mods, plugins, and modpacks",
       "CurseForge browser via API key and Poggit integration for PocketMine plugins",
       "Java metadata scanning: Fabric, Quilt, Forge, NeoForge, Paper metadata",
@@ -75,14 +79,15 @@ export const tourTabs = [
     ],
     alt: "PocketMC Server Settings editor and Backups configuration view",
     description:
-      "Server Config & Safety Safeguards:\nFine-tune server.properties via an interactive grid with live field tooltips and validation. Background guards prevent startup port collisions, verify Java/Adoptium version compatibility, and alert you if RAM allocations exceed 80% of host memory. Includes a native server icon cropper for Minecraft's native 64x64 PNG format.\n\nAutomated Cloud Backups:\nProtect your worlds. Backups trigger a safe RCON save-flush to prevent write corruption, calculate SHA-256 hashes to guarantee integrity, and sync to Google Drive, Dropbox, or OneDrive. Real-time disk space checks alert you at 2GB and halt backups under 1GB to protect the host filesystem.",
+      "Server Config & Maintenance Scheduling:\nFine-tune server.properties via an interactive grid with live field tooltips and quick-save on Enter. Configure automated server reboot scheduling with daily maintenance times or recurring hourly intervals and staged in-game countdown warnings (say). Includes port-collision guards, Java compatibility verification, and an 80% system RAM warning guard.\n\nAutomated Cloud Backups:\nProtect your worlds. Backups trigger a safe RCON save-flush to prevent write corruption, calculate SHA-256 hashes to guarantee integrity, and sync to Google Drive, Dropbox, or OneDrive. Real-time disk space checks alert you at 2GB and halt backups under 1GB to protect the host filesystem.",
     bullets: [
-      "Interactive server.properties editor with real-time description tooltips",
+      "Automated server reboot scheduling: daily times or hourly intervals with in-game say warnings",
+      "Unified Restart & Recovery panel combining crash recovery and maintenance reboots",
+      "Interactive server.properties editor with real-time description tooltips and Enter-key save",
       "Port-conflict preflight checks and 80% system RAM warning guards",
       "Custom server icon image cropper (re-scaled to Minecraft native 64x64 format)",
       "Scheduled backups via custom Cron intervals and live-server RCON save sync",
       "SHA-256 archive integrity validation to prevent corrupted world restores",
-      "Disk storage monitoring (warnings at 2GB; safety halts at 1GB free space)",
       "Automated cloud uploads to Google Drive, Dropbox, and OneDrive",
     ],
   },
@@ -105,11 +110,15 @@ export const tourTabs = [
     id: "remote",
     label: "Remote Control Page",
     title: "Manage Servers from Any Device",
-    image: "/screenshots/remote-control.webp",
-    alt: "PocketMC Remote Control Dashboard configuration",
+    images: [
+      "/screenshots/remote-control.webp",
+      "/screenshots/remote-control-permissions.webp"
+    ],
+    alt: "PocketMC Remote Control Dashboard configuration and permissions",
     description:
-      "Access and manage your local servers from anywhere. The Remote Control server hosts a secure web dashboard accessible over your local network or securely via Playit.gg HTTPS or Cloudflare Quick Tunnels.",
+      "Access and manage your local servers from anywhere. The Remote Control server hosts a secure web dashboard accessible over your local network or securely via Playit.gg HTTPS or Cloudflare Quick Tunnels, with multi-user accounts and granular permissions.",
     bullets: [
+      "Multi-user accounts with granular permission scopes (Console, Player Actions, Settings, Files)",
       "Secure QR code pairing and host port configuration",
       "Live console streaming and command execution remotely",
       "Discord Bot Integration: receive remote control URLs directly in your DMs",
@@ -165,11 +174,11 @@ export const tourTabs = [
     ],
     alt: "PocketMC App Settings and About Diagnostics views",
     description:
-      "Application Preferences:\nConfigure global application behavior including auto-start options, background update checks, tray minimization preferences, and fully custom Discord Rich Presence (RPC) controls with a live in-app RPC preview card.\n\nDiagnostics & Contributor Panel:\nInspect local diagnostic reports, system architecture specs, runtime environments, open-source licensing, and project contributor credits.",
+      "Application Preferences:\nConfigure global application behavior including auto-start options, background update checks, tray minimization preferences, built-in Ollama Model Manager for local & cloud AI models, and fully custom Discord Rich Presence (RPC) controls with a live in-app RPC preview card.\n\nDiagnostics & Contributor Panel:\nInspect local diagnostic reports, system architecture specs, runtime environments, open-source licensing, and project contributor credits.",
     bullets: [
+      "Built-in Ollama Model Manager: local daemon discovery, cloud models, and byte progress tracking",
       "Fully customizable Discord Rich Presence (RPC) with live in-app preview card",
-      "Tray minimization and auto-run on Windows boot settings",
-      "Local diagnostics logging, reports, and debug file generation",
+      "Window geometry remembrance: automatically preserves window size and maximized state",
       "Adoptium JRE directory manager and global Java paths override",
       "Centralized dynamic pocketmc.yml single-source-of-truth configuration",
     ],
