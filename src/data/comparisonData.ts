@@ -8,9 +8,9 @@ export const comparisonData = [
   },
   {
     tool: "SquidServers",
-    category: "Desktop app",
+    category: "Cross-platform desktop app (Windows, macOS, Linux)",
     strength:
-      "User-friendly local hosting with BDS, Geyser, Modrinth mod/plugin installer, Playit.gg tunnels, and metrics",
+      "User-friendly local hosting on Windows, macOS, and Linux with official BDS, Geyser crossplay, Modrinth mod/plugin installer, Playit.gg tunnels, and metrics",
     win: "PocketMC is 100% free and open-source (MIT), provides native PocketMine-MP (PHP) runtime orchestration alongside Java and BDS, features RCON-synchronized backups with automated cloud replication (Google Drive, OneDrive, Dropbox), and includes built-in AI log summaries and Discord integrations.",
     isFeatured: false,
     proof: {
