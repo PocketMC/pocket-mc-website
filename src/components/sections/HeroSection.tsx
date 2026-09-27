@@ -264,7 +264,7 @@ export default function HeroSection() {
               >
                 <video
                   ref={videoRef}
-                  src={getAssetUrl("/Video/PocketMC.mp4")}
+                  src={getAssetUrl("/Video/PocketMC-v1.9.9.mp4")}
                   autoPlay
                   muted
                   loop
