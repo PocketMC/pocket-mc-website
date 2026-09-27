@@ -55,49 +55,58 @@ if (!scriptMatch || !cssMatch) {
   console.log('Synchronized latest asset tags across all static HTML templates.');
 }
 
-// Sync to mirror directory if present
+// Two-way synchronization and pruning to mirror directory
 if (fs.existsSync(mirrorDir)) {
-  const copyRecursive = (src, dest) => {
+  const syncDirectory = (src, dest, ignoreTopLevel = []) => {
     if (!fs.existsSync(dest)) {
       fs.mkdirSync(dest, { recursive: true });
     }
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-    for (const entry of entries) {
+
+    // 1. Copy or update from src to dest
+    const srcEntries = fs.readdirSync(src, { withFileTypes: true });
+    const srcNames = new Set(srcEntries.map(e => e.name));
+
+    for (const entry of srcEntries) {
       const srcPath = path.join(src, entry.name);
       const destPath = path.join(dest, entry.name);
+
       if (entry.isDirectory()) {
-        copyRecursive(srcPath, destPath);
+        syncDirectory(srcPath, destPath);
       } else {
-        fs.copyFileSync(srcPath, destPath);
+        let shouldCopy = true;
+        if (fs.existsSync(destPath)) {
+          const srcStat = fs.statSync(srcPath);
+          const destStat = fs.statSync(destPath);
+          if (srcStat.size === destStat.size && Math.abs(srcStat.mtimeMs - destStat.mtimeMs) < 1000) {
+            shouldCopy = false;
+          }
+        }
+        if (shouldCopy) {
+          fs.copyFileSync(srcPath, destPath);
+        }
+      }
+    }
+
+    // 2. Prune orphaned files/directories in dest that are not in src
+    const destEntries = fs.readdirSync(dest, { withFileTypes: true });
+    for (const entry of destEntries) {
+      if (ignoreTopLevel.includes(entry.name)) {
+        continue;
+      }
+      if (!srcNames.has(entry.name)) {
+        const targetPath = path.join(dest, entry.name);
+        fs.rmSync(targetPath, { recursive: true, force: true });
+        console.log(`Pruned obsolete mirror entry: ${path.relative(mirrorDir, targetPath)}`);
       }
     }
   };
 
-  // Copy dist to root of mirror
-  copyRecursive(distDir, mirrorDir);
+  // Sync dist to root of mirror (preserving repo configuration & subpath directory)
+  syncDirectory(distDir, mirrorDir, ['.git', '.gitignore', 'CNAME', 'pocket-mc-website']);
 
-  // Also copy dist to pocket-mc-website subfolder inside mirror
+  // Also sync dist to pocket-mc-website subfolder inside mirror
   const mirrorSubDir = path.join(mirrorDir, 'pocket-mc-website');
-  copyRecursive(distDir, mirrorSubDir);
+  syncDirectory(distDir, mirrorSubDir, ['.git', '.gitignore']);
 
-  // Clean old assets
-  if (scriptMatch && cssMatch) {
-    const activeJs = path.basename(scriptMatch[1]);
-    const activeCss = path.basename(cssMatch[1]);
-
-    const cleanAssets = (dir) => {
-      if (!fs.existsSync(dir)) return;
-      const files = fs.readdirSync(dir);
-      files.forEach(f => {
-        if ((f.endsWith('.js') && f !== activeJs) || (f.endsWith('.css') && f !== activeCss)) {
-          fs.unlinkSync(path.join(dir, f));
-        }
-      });
-    };
-
-    cleanAssets(path.join(mirrorDir, 'assets'));
-    cleanAssets(path.join(mirrorSubDir, 'assets'));
-  }
-
-  console.log('Successfully synced dist build output to pocketmc.github.io mirror.');
+  console.log('Successfully synchronized and pruned pocketmc.github.io mirror.');
 }
