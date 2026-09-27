@@ -122,7 +122,7 @@ function App() {
   // Navigation function
   const navigate = useCallback((routeInput: string) => {
     const route = getRouteFromPath(
-      routeInput.startsWith("/") ? routeInput : `/pocket-mc-website/${routeInput}`
+      routeInput.startsWith("/") ? routeInput : `/${routeInput}`
     );
     const targetPath = getPathFromRoute(route);
 

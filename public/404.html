@@ -6,8 +6,17 @@
         <title>404 - Page Not Found | PocketMC</title>
         <meta name="description" content="The requested page could not be found on PocketMC. Explore available resources, developer documentation, and agent guidance." />
         <meta name="robots" content="noindex, follow" />
-        <link rel="icon" type="image/x-icon" href="/pocket-mc-website/favicon.ico" />
-        <link rel="alternate" type="text/markdown" href="/pocket-mc-website/llms.txt" title="PocketMC LLM Guide" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="alternate" type="text/markdown" href="/llms.txt" title="PocketMC LLM Guide" />
+        <script>
+            (function() {
+                var path = window.location.pathname;
+                if (path.startsWith("/pocket-mc-website/")) {
+                    var target = "https://pocketmc.github.io/" + path.replace(/^\/pocket-mc-website\/?/, "") + window.location.search + window.location.hash;
+                    window.location.replace(target);
+                }
+            })();
+        </script>
         <style>
             :root {
                 --bg: #09090b;
@@ -138,27 +147,27 @@
             <p>The path you requested does not exist or has been moved. You can return to the homepage or explore our index below.</p>
 
             <div class="nav-grid">
-                <a href="/pocket-mc-website/" class="nav-card">
+                <a href="/" class="nav-card">
                     Homepage
                     <span>Return to main showcase</span>
                 </a>
-                <a href="/pocket-mc-website/docs/" class="nav-card">
+                <a href="/docs/" class="nav-card">
                     Developer Portal
                     <span>API, Auth, Webhooks &amp; MCP</span>
                 </a>
-                <a href="/pocket-mc-website/about/" class="nav-card">
+                <a href="/about/" class="nav-card">
                     About PocketMC
                     <span>Project mission &amp; architecture</span>
                 </a>
-                <a href="/pocket-mc-website/contact/" class="nav-card">
+                <a href="/contact/" class="nav-card">
                     Contact &amp; Support
                     <span>Discord, GitHub, maintainers</span>
                 </a>
-                <a href="/pocket-mc-website/privacy/" class="nav-card">
+                <a href="/privacy/" class="nav-card">
                     Privacy Policy
                     <span>Local storage &amp; security</span>
                 </a>
-                <a href="/pocket-mc-website/terms/" class="nav-card">
+                <a href="/terms/" class="nav-card">
                     Terms of Service
                     <span>MIT license &amp; terms</span>
                 </a>
@@ -170,18 +179,18 @@
 
 The requested resource was not found. Refer to canonical URLs below:
 
-- Main Website: https://pocketmc.github.io/pocket-mc-website/
-- LLM Agent Guide: https://pocketmc.github.io/pocket-mc-website/llms.txt
-- Full LLM Documentation: https://pocketmc.github.io/pocket-mc-website/llms-full.txt
-- Agent Instructions: https://pocketmc.github.io/pocket-mc-website/agent-instructions.md
-- XML Sitemap: https://pocketmc.github.io/pocket-mc-website/sitemap.xml
-- OpenAPI Specification: https://pocketmc.github.io/pocket-mc-website/docs/openapi.json
-- MCP Server Manifest: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json
-- Developer Documentation: https://pocketmc.github.io/pocket-mc-website/docs/
-- About: https://pocketmc.github.io/pocket-mc-website/about/
-- Contact: https://pocketmc.github.io/pocket-mc-website/contact/
-- Privacy: https://pocketmc.github.io/pocket-mc-website/privacy/
-- Terms: https://pocketmc.github.io/pocket-mc-website/terms/
+- Main Website: https://pocketmc.github.io/
+- LLM Agent Guide: https://pocketmc.github.io/llms.txt
+- Full LLM Documentation: https://pocketmc.github.io/llms-full.txt
+- Agent Instructions: https://pocketmc.github.io/.well-known/agent-instructions.md
+- XML Sitemap: https://pocketmc.github.io/sitemap.xml
+- OpenAPI Specification: https://pocketmc.github.io/docs/openapi.json
+- MCP Server Manifest: https://pocketmc.github.io/.well-known/mcp.json
+- Developer Documentation: https://pocketmc.github.io/docs/
+- About: https://pocketmc.github.io/about/
+- Contact: https://pocketmc.github.io/contact/
+- Privacy: https://pocketmc.github.io/privacy/
+- Terms: https://pocketmc.github.io/terms/
 - GitHub Releases: https://github.com/PocketMC/pocket-mc-windows/releases/latest
 </code></pre>
             </div>

@@ -58,9 +58,9 @@ User-agent: Meta-ExternalAgent
 Allow: /
 
 # Sitemaps & Machine-Readable Resources
-Sitemap: https://pocketmc.github.io/pocket-mc-website/sitemap.xml
-# LLM Manifests: https://pocketmc.github.io/pocket-mc-website/llms.txt
-# Full LLM Context: https://pocketmc.github.io/pocket-mc-website/llms-full.txt
-# Agent Instructions: https://pocketmc.github.io/pocket-mc-website/agent-instructions.md
-# MCP Manifest: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json
-# OpenAPI Specification: https://pocketmc.github.io/pocket-mc-website/docs/openapi.json
+Sitemap: https://pocketmc.github.io/sitemap.xml
+# LLM Manifests: https://pocketmc.github.io/llms.txt
+# Full LLM Context: https://pocketmc.github.io/llms-full.txt
+# Agent Instructions: https://pocketmc.github.io/.well-known/agent-instructions.md
+# MCP Manifest: https://pocketmc.github.io/.well-known/mcp.json
+# OpenAPI Specification: https://pocketmc.github.io/docs/openapi.json

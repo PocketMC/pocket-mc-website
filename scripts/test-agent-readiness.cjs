@@ -26,7 +26,7 @@ const expectedBots = ['ChatGPT-User', 'ClaudeBot', 'Google-Extended', 'ora-agent
 expectedBots.forEach(bot => {
   assert(robotsContent.includes(`User-agent: ${bot}`), `robots.txt explicitly allows User-agent: ${bot}`);
 });
-assert(robotsContent.includes('Sitemap: https://pocketmc.github.io/pocket-mc-website/sitemap.xml'), 'robots.txt links to sitemap.xml');
+assert(robotsContent.includes('Sitemap: https://pocketmc.github.io/sitemap.xml'), 'robots.txt links to sitemap.xml');
 
 // 2: Content without JavaScript
 console.log('\n2. Content without JavaScript in index.html:');
@@ -116,7 +116,7 @@ console.log('\n8. XML Sitemap:');
 const sitemapPath = path.join(rootDir, 'public', 'sitemap.xml');
 assert(fs.existsSync(sitemapPath), 'public/sitemap.xml exists');
 const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
-assert(sitemapContent.includes('<loc>https://pocketmc.github.io/pocket-mc-website/</loc>'), 'sitemap.xml contains canonical root URL');
+assert(sitemapContent.includes('<loc>https://pocketmc.github.io/</loc>'), 'sitemap.xml contains canonical root URL');
 assert(sitemapContent.includes('<lastmod>'), 'sitemap.xml contains <lastmod> timestamps');
 assert(sitemapContent.includes('/about/') && sitemapContent.includes('/contact/') && sitemapContent.includes('/privacy/'), 'sitemap.xml lists trust anchor pages');
 

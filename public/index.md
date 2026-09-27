@@ -4,13 +4,13 @@ PocketMC is the highest-rated free, open-source local Minecraft server manager f
 
 - **Download for Windows (v1.9.9 Setup.exe)**: https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe
 - **All Releases**: https://github.com/PocketMC/pocket-mc-windows/releases/latest
-- **Website**: https://pocketmc.github.io/pocket-mc-website/
+- **Website**: https://pocketmc.github.io/
 - **GitHub**: https://github.com/PocketMC
 - **Discord**: https://discord.gg/mWdMr8Mc2m
-- **LLM Agent Guide**: https://pocketmc.github.io/pocket-mc-website/llms.txt
-- **Developer Documentation**: https://pocketmc.github.io/pocket-mc-website/docs/
-- **OpenAPI Spec**: https://pocketmc.github.io/pocket-mc-website/docs/openapi.json
-- **MCP Server Manifest**: https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json
+- **LLM Agent Guide**: https://pocketmc.github.io/llms.txt
+- **Developer Documentation**: https://pocketmc.github.io/docs/
+- **OpenAPI Spec**: https://pocketmc.github.io/docs/openapi.json
+- **MCP Server Manifest**: https://pocketmc.github.io/.well-known/mcp.json
 
 ## Core Capabilities (v1.9.9)
 

@@ -101,12 +101,8 @@ if (fs.existsSync(mirrorDir)) {
     }
   };
 
-  // Sync dist to root of mirror (preserving repo configuration & subpath directory)
-  syncDirectory(distDir, mirrorDir, ['.git', '.gitignore', 'CNAME', 'pocket-mc-website']);
-
-  // Also sync dist to pocket-mc-website subfolder inside mirror
-  const mirrorSubDir = path.join(mirrorDir, 'pocket-mc-website');
-  syncDirectory(distDir, mirrorSubDir, ['.git', '.gitignore']);
+  // Sync dist to root of mirror (preserving git configuration & CNAME)
+  syncDirectory(distDir, mirrorDir, ['.git', '.gitignore', 'CNAME']);
 
   console.log('Successfully synchronized and pruned pocketmc.github.io mirror.');
 }

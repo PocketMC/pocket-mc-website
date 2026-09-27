@@ -6,7 +6,7 @@
     "description": "Complete REST API for orchestrating local Minecraft servers, managing Adoptium Java runtimes, controlling Playit.gg tunnels, and managing OAuth cloud backups via the PocketMC desktop daemon or secure remote web panel.",
     "contact": {
       "name": "PocketMC Developer Support",
-      "url": "https://pocketmc.github.io/pocket-mc-website/docs/",
+      "url": "https://pocketmc.github.io/docs/",
       "email": "contactdslabs@gmail.com"
     },
     "license": {

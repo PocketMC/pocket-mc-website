@@ -17,9 +17,9 @@ const SECTION_NAV_ITEMS = [
 ];
 
 const PAGE_NAV_ITEMS = [
-  { id: "about", label: "About", href: "/pocket-mc-website/about/" },
-  { id: "docs", label: "Docs", href: "/pocket-mc-website/docs/" },
-  { id: "contact", label: "Contact", href: "/pocket-mc-website/contact/" },
+  { id: "about", label: "About", href: "/about/" },
+  { id: "docs", label: "Docs", href: "/docs/" },
+  { id: "contact", label: "Contact", href: "/contact/" },
 ];
 
 export default function Header({ theme, toggleTheme, currentRoute = "home", onNavigate }: HeaderProps) {
@@ -35,7 +35,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
     if (onNavigate) {
       onNavigate("home");
     } else {
-      window.location.href = "/pocket-mc-website/";
+      window.location.href = "/";
     }
   };
 
@@ -46,7 +46,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
     if (onNavigate) {
       onNavigate(routeId);
     } else {
-      window.location.href = `/pocket-mc-website/${routeId}/`;
+      window.location.href = `/${routeId}/`;
     }
   };
 
@@ -82,7 +82,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-divider bg-base/95 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4">
         <a
-          href="/pocket-mc-website/"
+          href="/"
           onClick={handleBrandClick}
           className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0 cursor-pointer"
         >
@@ -142,7 +142,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
             ) : (
               <>
                 <a
-                  href="/pocket-mc-website/"
+                  href="/"
                   onClick={handleBrandClick}
                   className="text-main-muted hover:text-main transition-colors py-1 cursor-pointer"
                 >
@@ -272,7 +272,7 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-divider bg-base/95 backdrop-blur-xl px-4 py-5 flex flex-col gap-2 font-mono text-xs">
           <a
-            href="/pocket-mc-website/"
+            href="/"
             onClick={handleBrandClick}
             className={`py-2 border-b border-divider/40 transition-colors flex items-center justify-between ${
               currentRoute === "home" ? "font-bold text-main" : "text-main-muted hover:text-main"

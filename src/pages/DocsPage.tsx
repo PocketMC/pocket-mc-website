@@ -11,7 +11,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
     if (navigate) {
       navigate(path);
     } else {
-      window.location.href = `/pocket-mc-website${path}`;
+      window.location.href = path;
     }
   };
 
@@ -42,7 +42,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <a
-            href="/pocket-mc-website/docs/api/"
+            href="/docs/api/"
             onClick={(e) => handleNav(e, "/docs/api/")}
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
@@ -66,7 +66,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           </a>
 
           <a
-            href="/pocket-mc-website/docs/auth/"
+            href="/docs/auth/"
             onClick={(e) => handleNav(e, "/docs/auth/")}
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
@@ -90,7 +90,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           </a>
 
           <a
-            href="/pocket-mc-website/docs/mcp/"
+            href="/docs/mcp/"
             onClick={(e) => handleNav(e, "/docs/mcp/")}
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
@@ -114,7 +114,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           </a>
 
           <a
-            href="/pocket-mc-website/docs/webhooks/"
+            href="/docs/webhooks/"
             onClick={(e) => handleNav(e, "/docs/webhooks/")}
             className="flex flex-col justify-between p-6 rounded-xl border border-divider bg-base-card hover:border-main transition-colors group cursor-pointer"
           >
@@ -149,7 +149,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <a
-            href="/pocket-mc-website/docs/openapi.json"
+            href="/docs/openapi.json"
             target="_blank"
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
@@ -163,7 +163,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           </a>
 
           <a
-            href="/pocket-mc-website/docs/openapi.yaml"
+            href="/docs/openapi.yaml"
             target="_blank"
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
@@ -177,7 +177,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           </a>
 
           <a
-            href="/pocket-mc-website/.well-known/mcp.json"
+            href="/.well-known/mcp.json"
             target="_blank"
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >
@@ -191,7 +191,7 @@ export default function DocsPage({ navigate }: DocsPageProps) {
           </a>
 
           <a
-            href="/pocket-mc-website/llms.txt"
+            href="/llms.txt"
             target="_blank"
             className="p-5 rounded-xl border border-divider bg-base-card hover:border-main transition-colors flex flex-col justify-between"
           >

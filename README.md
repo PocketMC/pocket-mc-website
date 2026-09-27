@@ -2,7 +2,7 @@
 
 The official static landing page and showcase for **PocketMC**, the free, open-source local Minecraft server manager for Windows, Linux, and macOS.
 
-[![Website](https://img.shields.io/badge/Website-Live%20Page-black?style=flat-square)](https://pocketmc.github.io/pocket-mc-website/)
+[![Website](https://img.shields.io/badge/Website-Live%20Page-black?style=flat-square)](https://pocketmc.github.io/)
 [![GitHub Release](https://img.shields.io/github/v/release/PocketMC/pocket-mc-windows?style=flat-square&color=black&label=App%20Release)](https://github.com/PocketMC/pocket-mc-windows/releases/latest)
 [![License](https://img.shields.io/badge/License-MIT-black?style=flat-square)](LICENSE)
 [![React](https://img.shields.io/badge/React-19.2-black?style=flat-square&logo=react)](https://react.dev/)
@@ -16,7 +16,7 @@ The official static landing page and showcase for **PocketMC**, the free, open-s
 
 The PocketMC website is a high-performance, client-only landing page designed to communicate trust, demonstrate local-first Minecraft server management capabilities, and drive desktop application downloads.
 
-* **Live Deployment**: [pocketmc.github.io/pocket-mc-website](https://pocketmc.github.io/pocket-mc-website/)
+* **Live Deployment**: [pocketmc.github.io](https://pocketmc.github.io/)
 * **App Repository**: [PocketMC/pocket-mc-windows](https://github.com/PocketMC/pocket-mc-windows)
 * **Linux/Mac Repository**: [PocketMC/pocket-mc-linux-mac](https://github.com/PocketMC/pocket-mc-linux-mac)
 
@@ -30,7 +30,7 @@ The PocketMC website is a high-performance, client-only landing page designed to
 | **Language** | TypeScript 6.0 (Strict mode, explicit interfaces) |
 | **Styling & Theme** | Tailwind CSS v4, dynamic CSS variable system (`index.css`) |
 | **Motion & Animation** | Motion (`motion/react` v12), GSAP, native CSS transforms |
-| **Tooling & Bundler** | Vite 8.0 with sub-path routing support (`/pocket-mc-website/`) |
+| **Tooling & Bundler** | Vite 8.0 with apex routing support (`/`) |
 | **Icons & Media** | Custom SVG vectors, optimized WebP graphics, lazy-loaded dialog portals |
 
 ---
@@ -147,7 +147,7 @@ npm install
 npm run dev
 ```
 
-Starts the local development server at `http://localhost:5173/pocket-mc-website/`.
+Starts the local development server at `http://localhost:5173/`.
 
 ### Production Build
 

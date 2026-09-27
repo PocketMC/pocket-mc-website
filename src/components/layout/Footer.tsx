@@ -15,7 +15,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
     } else if (fallbackFn) {
       fallbackFn();
     } else {
-      window.location.href = `/pocket-mc-website/${route}/`;
+      window.location.href = `/${route}/`;
     }
   };
 
@@ -58,7 +58,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
           </p>
           <div className="flex flex-wrap gap-3 mt-1.5 font-mono text-[11px] text-main-muted justify-center md:justify-start">
             <a
-              href="/pocket-mc-website/about/"
+              href="/about/"
               onClick={(e) => handleNav(e, "about")}
               className="hover:text-main transition-colors hover:underline cursor-pointer"
             >
@@ -66,7 +66,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
             </a>
             <span className="opacity-30 select-none">•</span>
             <a
-              href="/pocket-mc-website/contact/"
+              href="/contact/"
               onClick={(e) => handleNav(e, "contact")}
               className="hover:text-main transition-colors hover:underline cursor-pointer"
             >
@@ -74,7 +74,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
             </a>
             <span className="opacity-30 select-none">•</span>
             <a
-              href="/pocket-mc-website/terms/"
+              href="/terms/"
               onClick={(e) => handleNav(e, "terms", onOpenTerms)}
               className="hover:text-main transition-colors cursor-pointer hover:underline"
             >
@@ -82,7 +82,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
             </a>
             <span className="opacity-30 select-none">•</span>
             <a
-              href="/pocket-mc-website/privacy/"
+              href="/privacy/"
               onClick={(e) => handleNav(e, "privacy", onOpenPrivacy)}
               className="hover:text-main transition-colors cursor-pointer hover:underline"
             >
@@ -97,14 +97,14 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
               Developers
             </p>
             <a
-              href="/pocket-mc-website/docs/"
+              href="/docs/"
               onClick={(e) => handleNav(e, "docs")}
               className="hover:text-main transition-colors whitespace-nowrap text-main-muted cursor-pointer"
             >
               Developer Portal
             </a>
             <a
-              href="/pocket-mc-website/docs/openapi.json"
+              href="/docs/openapi.json"
               target="_blank"
               rel="noreferrer"
               className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
@@ -112,7 +112,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
               OpenAPI Spec
             </a>
             <a
-              href="/pocket-mc-website/.well-known/mcp.json"
+              href="/.well-known/mcp.json"
               target="_blank"
               rel="noreferrer"
               className="hover:text-main transition-colors whitespace-nowrap text-main-muted"
@@ -120,7 +120,7 @@ export default function Footer({ onOpenTerms, onOpenPrivacy, onNavigate }: Foote
               MCP Manifest
             </a>
             <a
-              href="/pocket-mc-website/llms.txt"
+              href="/llms.txt"
               target="_blank"
               rel="noreferrer"
               className="hover:text-main transition-colors whitespace-nowrap text-main-muted"

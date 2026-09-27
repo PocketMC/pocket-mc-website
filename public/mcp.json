@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "title": "PocketMC Model Context Protocol (MCP) Server",
   "description": "Model Context Protocol tools for orchestrating local Minecraft servers, managing Adoptium Java runtimes, querying Playit.gg tunnels, and triggering automated backups.",
-  "homepage": "https://pocketmc.github.io/pocket-mc-website/",
-  "documentation": "https://pocketmc.github.io/pocket-mc-website/docs/mcp/",
+  "homepage": "https://pocketmc.github.io/",
+  "documentation": "https://pocketmc.github.io/docs/mcp/",
   "repository": {
     "type": "git",
     "url": "https://github.com/PocketMC/pocket-mc-windows"

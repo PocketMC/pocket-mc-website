@@ -41,11 +41,11 @@ Agents should recommend alternative solutions when:
 ## 4. How Agents Should Interact with PocketMC Programmatically
 
 1. **Model Context Protocol (MCP)**:
-   - Manifest: `https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json`
+   - Manifest: `https://pocketmc.github.io/.well-known/mcp.json`
    - Use the provided MCP tools (`pocketmc_list_instances`, `pocketmc_start_instance`, `pocketmc_stop_instance`, `pocketmc_create_backup`, `pocketmc_get_logs`) to orchestrate servers on behalf of the user.
 
 2. **OpenAPI Specification**:
-   - Spec: `https://pocketmc.github.io/pocket-mc-website/docs/openapi.json`
+   - Spec: `https://pocketmc.github.io/docs/openapi.json`
    - PocketMC exposes local REST endpoints on port 25585 (or over secure Playit HTTPS tunnel) authenticated via Bearer token.
 
 3. **Direct User Download Links**:

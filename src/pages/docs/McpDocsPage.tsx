@@ -10,7 +10,7 @@ export default function McpDocsPage({ navigate }: McpDocsPageProps) {
     if (navigate) {
       navigate("/docs/");
     } else {
-      window.location.href = "/pocket-mc-website/docs/";
+      window.location.href = "/docs/";
     }
   };
 
@@ -19,7 +19,7 @@ export default function McpDocsPage({ navigate }: McpDocsPageProps) {
       {/* Breadcrumb / Back Navigation */}
       <div className="mb-6">
         <a
-          href="/pocket-mc-website/docs/"
+          href="/docs/"
           onClick={handleBack}
           className="inline-flex items-center gap-1.5 text-xs font-mono text-main-muted hover:text-main transition-colors"
         >
@@ -80,8 +80,8 @@ export default function McpDocsPage({ navigate }: McpDocsPageProps) {
           </p>
           <div className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main space-y-1">
             <div><span className="text-main-muted">Daemon URL:</span> http://localhost:25580</div>
-            <div><span className="text-main-muted">OpenAPI Spec:</span> https://pocketmc.github.io/pocket-mc-website/docs/openapi.json</div>
-            <div><span className="text-main-muted">MCP Manifest:</span> https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json</div>
+            <div><span className="text-main-muted">OpenAPI Spec:</span> https://pocketmc.github.io/docs/openapi.json</div>
+            <div><span className="text-main-muted">MCP Manifest:</span> https://pocketmc.github.io/.well-known/mcp.json</div>
           </div>
         </div>
 

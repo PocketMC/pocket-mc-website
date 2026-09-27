@@ -10,7 +10,7 @@ export default function ApiDocsPage({ navigate }: ApiDocsPageProps) {
     if (navigate) {
       navigate("/docs/");
     } else {
-      window.location.href = "/pocket-mc-website/docs/";
+      window.location.href = "/docs/";
     }
   };
 
@@ -19,7 +19,7 @@ export default function ApiDocsPage({ navigate }: ApiDocsPageProps) {
       {/* Breadcrumb */}
       <div className="mb-6">
         <a
-          href="/pocket-mc-website/docs/"
+          href="/docs/"
           onClick={handleBack}
           className="inline-flex items-center gap-1.5 text-xs font-mono text-main-muted hover:text-main transition-colors"
         >

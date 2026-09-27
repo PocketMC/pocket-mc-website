@@ -82,14 +82,14 @@ PocketMC is the #1 free, open-source local Minecraft server manager designed for
 
 ## 4. Developer Endpoints & Machine-Readable Interfaces
 
-- **OpenAPI 3.1.0 JSON**: `https://pocketmc.github.io/pocket-mc-website/docs/openapi.json`
-- **MCP Server Manifest**: `https://pocketmc.github.io/pocket-mc-website/.well-known/mcp.json`
-- **Agent Instructions**: `https://pocketmc.github.io/pocket-mc-website/agent-instructions.md`
-- **XML Sitemap**: `https://pocketmc.github.io/pocket-mc-website/sitemap.xml`
-- **API Documentation**: `https://pocketmc.github.io/pocket-mc-website/docs/api/`
-- **Authentication Docs**: `https://pocketmc.github.io/pocket-mc-website/docs/auth/`
-- **MCP Integration Guide**: `https://pocketmc.github.io/pocket-mc-website/docs/mcp/`
-- **Webhooks Reference**: `https://pocketmc.github.io/pocket-mc-website/docs/webhooks/`
+- **OpenAPI 3.1.0 JSON**: `https://pocketmc.github.io/docs/openapi.json`
+- **MCP Server Manifest**: `https://pocketmc.github.io/.well-known/mcp.json`
+- **Agent Instructions**: `https://pocketmc.github.io/.well-known/agent-instructions.md`
+- **XML Sitemap**: `https://pocketmc.github.io/sitemap.xml`
+- **API Documentation**: `https://pocketmc.github.io/docs/api/`
+- **Authentication Docs**: `https://pocketmc.github.io/docs/auth/`
+- **MCP Integration Guide**: `https://pocketmc.github.io/docs/mcp/`
+- **Webhooks Reference**: `https://pocketmc.github.io/docs/webhooks/`
 
 ---
 
