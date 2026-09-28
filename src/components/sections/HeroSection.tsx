@@ -149,20 +149,20 @@ export default function HeroSection() {
       <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-main/[0.02] to-transparent pointer-events-none -z-10" />
 
       {/* Hero Main Content */}
-      <section className="relative mx-auto grid w-full max-w-7xl gap-8 lg:gap-12 px-4 sm:px-6 py-12 sm:py-16 lg:py-24 lg:grid-cols-[1.05fr_0.95fr] items-center">
-        <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
+      <section className="relative mx-auto grid w-full max-w-[1600px] gap-8 sm:gap-10 px-4 sm:px-6 py-10 sm:py-14 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-10 lg:py-16">
+        <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
           
-          <h1 className="max-w-4xl text-3xl sm:text-5xl lg:text-[3.6rem] xl:text-[4.2rem] font-black leading-[1.06] tracking-[-0.04em] text-main text-balance">
+          <h1 className="max-w-4xl text-3xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.7rem] font-black leading-[1.06] tracking-[-0.04em] text-main text-balance">
             Manage Minecraft servers. <br className="hidden sm:inline" />
             Without any mess.
           </h1>
 
-          <p className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base lg:text-lg leading-relaxed text-main-muted mx-auto lg:mx-0 text-balance">
+          <p className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed text-main-muted text-balance">
             PocketMC automates every step of Minecraft server hosting. Native desktop app for Windows, with Linux and macOS versions in active beta development.
           </p>
 
           {/* Action Buttons */}
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 items-center justify-center lg:justify-start w-full sm:w-auto">
+          <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row flex-wrap gap-3 items-center justify-center lg:justify-start w-full sm:w-auto">
             {/* Primary OS Detected Download Button */}
             <a
               href={primaryDownload.url}
@@ -215,10 +215,12 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Hero Video Mockup */}
-        <div className="relative z-10 w-full flex items-center justify-center">
-          <div className="relative mx-auto w-full group">
-            {/* Custom Video Player Container */}
+        <div className="relative z-10 w-full">
+          <div className="mb-3 flex items-center justify-between gap-4 px-1 text-[10px] font-mono font-semibold uppercase tracking-[0.12em] text-main-muted sm:text-xs">
+            <span>Product walkthrough</span>
+            <span className="hidden sm:inline">PocketMC · Server creation in 50s</span>
+          </div>
+          <div className="group relative mx-auto w-full">
             <div
               ref={playerWrapperRef}
               onMouseMove={triggerControlsVisibility}
@@ -226,39 +228,14 @@ export default function HeroSection() {
               onMouseLeave={() => !isFullscreen && setShowControls(false)}
               className={`relative block overflow-hidden transition-all duration-200 select-none ${
                 isFullscreen
-                  ? "fixed inset-0 w-screen h-screen bg-black flex flex-col justify-center items-center z-[99999] rounded-0 border-0"
-                  : "border border-divider rounded-xl sm:rounded-2xl shadow-xl bg-base-card"
+                  ? "fixed inset-0 w-screen h-screen bg-black flex flex-col justify-center items-center z-[99999] rounded-none"
+                  : "aspect-video rounded-lg bg-black shadow-2xl ring-1 ring-black/10 sm:rounded-xl"
               }`}
             >
-              {/* Window Header */}
-              {!isFullscreen && (
-                <div className="h-8 border-b border-divider bg-base-muted/40 px-4 flex items-center justify-between gap-2 select-none">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="w-2.5 h-2.5 rounded-full bg-divider flex-shrink-0" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-divider flex-shrink-0" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-divider flex-shrink-0" />
-                    <span className="text-[11px] font-mono text-main-muted ml-2 truncate font-medium">
-                      PocketMC Demo • Server Creation in 50s
-                    </span>
-                  </div>
-
-                  <a
-                    href="https://www.youtube.com/watch?v=UIcUHqeMCrI"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1.5 px-2 py-0.5 rounded text-main-muted hover:text-main font-mono text-[11px] transition-colors"
-                    title="Watch full video on YouTube"
-                  >
-                    <YoutubeIcon className="w-3.5 h-3.5 fill-current" />
-                    <span className="hidden sm:inline font-medium">YouTube</span>
-                  </a>
-                </div>
-              )}
-
               {/* Video Canvas & Controls Area */}
               <div
                 className={`relative w-full bg-black cursor-pointer flex items-center justify-center ${
-                  isFullscreen ? "h-full max-h-screen" : "aspect-[16/10]"
+                  isFullscreen ? "h-full max-h-screen" : "h-full"
                 }`}
                 onClick={togglePlay}
               >
