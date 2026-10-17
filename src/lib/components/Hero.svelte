@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { repo } from '$lib/data/links';
-	import Logo from './Logo.svelte';
 	import Mark from './Mark.svelte';
 	import Visualizer from './Visualizer.svelte';
 
@@ -9,8 +8,14 @@
 
 <section id="top" class="hero">
 	<div class="page">
-		<div class="mark" data-enter>
-			<Logo size={72} />
+		<div class="hero-brand" data-enter>
+			<img
+				src="/logo.webp"
+				alt="PocketMC"
+				width="88"
+				height="88"
+				class="hero-logo-img"
+			/>
 		</div>
 
 		<h1 data-enter style="--enter: 0.05s">PocketMC</h1>
@@ -86,16 +91,24 @@
 		padding-bottom: 40px;
 	}
 
-	.mark {
+	.hero-brand {
 		display: flex;
-		border-radius: 20px;
-		box-shadow: 0 0 50px -10px rgba(34, 197, 94, 0.45), var(--shadow);
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.mark:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 0 65px -8px rgba(34, 197, 94, 0.6), var(--shadow);
+	.hero-logo-img {
+		width: 88px;
+		height: 88px;
+		display: block;
+		object-fit: contain;
+		filter: drop-shadow(0 0 35px rgba(34, 197, 94, 0.7)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+		transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.3s ease;
+	}
+
+	.hero-logo-img:hover {
+		transform: scale(1.06) translateY(-3px);
+		filter: drop-shadow(0 0 50px rgba(34, 197, 94, 0.9)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
 	}
 
 	h1 {
@@ -158,6 +171,11 @@
 		.hero .page {
 			padding-top: 52px;
 			padding-bottom: 28px;
+		}
+
+		.hero-logo-img {
+			width: 72px;
+			height: 72px;
 		}
 
 		.tagline {

@@ -11,43 +11,12 @@
 
 	<div class="page">
 		<figure class="shot" data-enter style="--enter: 0.32s">
-			<!-- Ambient lighting aura behind the frame -->
+			<!-- Subtle ambient backlight aura -->
 			<div class="frame-aura" aria-hidden="true"></div>
 
-			<!-- Native Desktop App Window Frame -->
+			<!-- Clean wireframe showcase container matching Sonora website -->
 			<div class="frame live">
-				<!-- Window Title Bar -->
-				<div class="window-titlebar">
-					<div class="window-dots" aria-hidden="true">
-						<span class="dot close"></span>
-						<span class="dot min"></span>
-						<span class="dot max"></span>
-					</div>
-
-					<div class="window-center">
-						<span class="app-name">PocketMC</span>
-						<span class="app-sep">/</span>
-						<span class="app-view">{activeTab.label}</span>
-						<span class="status-indicator">
-							<span class="pulse-dot"></span>
-							<span>2 instances online</span>
-						</span>
-					</div>
-
-					<div class="window-badges">
-						<span class="badge runtime">JRE 21</span>
-						<span class="badge tunnel">
-							<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-								<circle cx="12" cy="12" r="10" />
-								<line x1="2" y1="12" x2="22" y2="12" />
-								<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-							</svg>
-							Playit.gg
-						</span>
-					</div>
-				</div>
-
-				<!-- Window Toolbar Tabs -->
+				<!-- Showcase Tab Strip -->
 				<div class="tab-strip" role="tablist" aria-label="Feature Showcase Tabs">
 					{#each tourTabs as tab (tab.id)}
 						<button
@@ -68,7 +37,7 @@
 					{/each}
 				</div>
 
-				<!-- Window Screen / Viewport -->
+				<!-- Screen Stage -->
 				<div class="stage">
 					{#if activeTab.video}
 						<div class="media-container video-container">
@@ -95,13 +64,10 @@
 						</div>
 					{/if}
 
-					<!-- Window Footer / Status Bar & Highlights -->
+					<!-- Feature Details Highlight Drawer -->
 					<div class="stage-footer">
 						<div class="stage-text">
-							<div class="meta-row">
-								<span class="kicker">Highlight</span>
-								<span class="active-badge">Live Feature</span>
-							</div>
+							<span class="kicker">Highlight</span>
 							<h3>{activeTab.title}</h3>
 							<p>{activeTab.description}</p>
 						</div>
@@ -156,14 +122,14 @@
 		margin: 0;
 	}
 
-	/* Ambient layered backlight glow aura */
+	/* Soft ambient backlight aura */
 	.frame-aura {
 		position: absolute;
-		top: -20px;
-		left: 5%;
-		right: 5%;
-		height: 380px;
-		background: radial-gradient(ellipse 70% 50% at 50% 20%, rgba(34, 197, 94, 0.22), rgba(255, 255, 255, 0.05), transparent 70%);
+		top: -15px;
+		left: 8%;
+		right: 8%;
+		height: 360px;
+		background: radial-gradient(ellipse 70% 50% at 50% 20%, rgba(34, 197, 94, 0.18), transparent 70%);
 		filter: blur(55px);
 		pointer-events: none;
 		z-index: 0;
@@ -179,118 +145,8 @@
 		background: var(--bg);
 		box-shadow:
 			var(--shadow),
-			var(--glow),
-			inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+			var(--glow);
 		transition: box-shadow 0.3s ease;
-	}
-
-	/* Native Desktop Titlebar */
-	.window-titlebar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		height: 38px;
-		padding: 0 14px;
-		background: var(--card);
-		border-bottom: 1px solid var(--line);
-		user-select: none;
-	}
-
-	.window-dots {
-		display: flex;
-		align-items: center;
-		gap: 7px;
-		width: 60px;
-	}
-
-	.dot {
-		width: 11px;
-		height: 11px;
-		border-radius: 50%;
-		display: inline-block;
-	}
-
-	.dot.close {
-		background: #ff5f57;
-		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
-	}
-
-	.dot.min {
-		background: #febc2e;
-		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
-	}
-
-	.dot.max {
-		background: #28c840;
-		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
-	}
-
-	.window-center {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		font-size: 12px;
-		font-weight: 500;
-		color: var(--dim);
-	}
-
-	.app-name {
-		font-weight: 600;
-		color: var(--fg);
-	}
-
-	.app-sep {
-		color: var(--faint);
-	}
-
-	.app-view {
-		color: var(--muted-fg);
-	}
-
-	.status-indicator {
-		display: flex;
-		align-items: center;
-		gap: 5px;
-		margin-left: 6px;
-		padding: 2px 7px;
-		background: rgba(34, 197, 94, 0.1);
-		border: 1px solid rgba(34, 197, 94, 0.25);
-		border-radius: 12px;
-		font-size: 11px;
-		color: #22c55e;
-	}
-
-	.pulse-dot {
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-		background: #22c55e;
-		box-shadow: 0 0 6px #22c55e;
-	}
-
-	.window-badges {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
-
-	.badge {
-		padding: 2px 8px;
-		font-size: 11px;
-		font-family: var(--mono);
-		border-radius: 5px;
-		background: var(--secondary);
-		border: 1px solid var(--border);
-		color: var(--muted-fg);
-		display: flex;
-		align-items: center;
-		gap: 4px;
-	}
-
-	.badge.tunnel {
-		color: #93c5fd;
-		border-color: rgba(147, 197, 253, 0.25);
-		background: rgba(147, 197, 253, 0.08);
 	}
 
 	/* Tab Strip */
@@ -310,7 +166,7 @@
 		display: flex;
 		align-items: center;
 		gap: 6px;
-		padding: 10px 16px;
+		padding: 12px 18px;
 		font-size: 13px;
 		font-weight: 500;
 		color: var(--muted-fg);
@@ -326,7 +182,7 @@
 
 	.tab-btn.active {
 		color: var(--fg);
-		border-bottom-color: #22c55e;
+		border-bottom-color: var(--fg);
 		background: var(--bg);
 	}
 
@@ -360,12 +216,12 @@
 		display: block;
 	}
 
-	/* Window Status Bar / Highlight Drawer */
+	/* Feature Highlights Drawer */
 	.stage-footer {
 		display: grid;
-		grid-template-columns: 1.15fr 0.85fr;
+		grid-template-columns: 1fr 1fr;
 		gap: 36px;
-		padding: 26px 30px;
+		padding: 26px 32px;
 		border-top: 1px solid var(--line);
 		background: var(--card);
 		text-align: left;
@@ -377,24 +233,8 @@
 		gap: 8px;
 	}
 
-	.meta-row {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
-
-	.active-badge {
-		font-size: 11px;
-		font-family: var(--mono);
-		padding: 1px 6px;
-		border-radius: 4px;
-		background: rgba(34, 197, 94, 0.12);
-		color: #22c55e;
-		font-weight: 500;
-	}
-
 	.stage-text h3 {
-		font-size: 18px;
+		font-size: 19px;
 		font-weight: 600;
 		color: var(--fg);
 	}
@@ -425,7 +265,7 @@
 	}
 
 	.check-icon {
-		color: #22c55e;
+		color: var(--syntax-string);
 		flex-shrink: 0;
 		margin-top: 2px;
 	}
@@ -433,14 +273,6 @@
 	@media (max-width: 900px) {
 		.preview {
 			padding: 0 0 48px;
-		}
-
-		.window-badges {
-			display: none;
-		}
-
-		.status-indicator span:last-child {
-			display: none;
 		}
 
 		.stage-footer {

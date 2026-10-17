@@ -14,7 +14,6 @@
 <style>
 	.logo-img {
 		flex-shrink: 0;
-		border-radius: 22%;
 		object-fit: contain;
 		display: block;
 	}
