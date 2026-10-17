@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+		/>
+		<script>
+			const root = document.documentElement;
+			root.classList.add('js');
+
+			try {
+				const stored = localStorage.getItem('theme');
+				if (stored === 'light' || stored === 'dark') {
+					root.dataset.theme = stored;
+				}
+			} catch {}
+
+			try {
+				const nav = performance.getEntriesByType('navigation')[0];
+				if (location.hash && (!nav || nav.type === 'reload')) {
+					history.replaceState(history.state, '', location.pathname + location.search);
+				}
+			} catch {}
+
+			addEventListener('beforeunload', () => scrollTo(0, 0));
+
+			const settled = () => root.classList.add('fonts');
+
+			if (document.fonts) {
+				document.fonts.ready.then(settled);
+				setTimeout(settled, 900);
+			} else {
+				settled();
+			}
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

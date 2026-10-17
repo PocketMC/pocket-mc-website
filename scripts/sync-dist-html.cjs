@@ -10,51 +10,6 @@ if (!fs.existsSync(distDir)) {
   process.exit(1);
 }
 
-const indexHtmlPath = path.join(distDir, 'index.html');
-const indexHtmlContent = fs.readFileSync(indexHtmlPath, 'utf8');
-
-const scriptMatch = indexHtmlContent.match(/<script type="module" crossorigin src="([^"]+)"><\/script>/);
-const cssMatch = indexHtmlContent.match(/<link rel="stylesheet" crossorigin href="([^"]+)">/);
-
-if (!scriptMatch || !cssMatch) {
-  console.warn('Could not extract script or css tags from dist/index.html');
-} else {
-  const scriptTag = scriptMatch[0];
-  const cssTag = cssMatch[0];
-
-  const htmlFilesToSync = [
-    path.join(distDir, 'about', 'index.html'),
-    path.join(distDir, 'contact', 'index.html'),
-    path.join(distDir, 'privacy', 'index.html'),
-    path.join(distDir, 'terms', 'index.html'),
-    path.join(distDir, 'docs', 'index.html'),
-    path.join(distDir, 'docs', 'api', 'index.html'),
-    path.join(distDir, 'docs', 'auth', 'index.html'),
-    path.join(distDir, 'docs', 'mcp', 'index.html'),
-    path.join(distDir, 'docs', 'webhooks', 'index.html'),
-  ];
-
-  htmlFilesToSync.forEach(filePath => {
-    if (!fs.existsSync(filePath)) return;
-    let content = fs.readFileSync(filePath, 'utf8');
-
-    // Replace old assets or inject into head
-    content = content.replace(/<script type="module" crossorigin src="[^"]+"><\/script>/g, scriptTag);
-    content = content.replace(/<link rel="stylesheet" crossorigin href="[^"]+">/g, cssTag);
-
-    if (!content.includes(scriptTag)) {
-      content = content.replace('</head>', `        ${scriptTag}\n    </head>`);
-    }
-    if (!content.includes(cssTag)) {
-      content = content.replace('</head>', `        ${cssTag}\n    </head>`);
-    }
-
-    fs.writeFileSync(filePath, content, 'utf8');
-  });
-
-  console.log('Synchronized latest asset tags across all static HTML templates.');
-}
-
 // Two-way synchronization and pruning to mirror directory
 if (fs.existsSync(mirrorDir)) {
   const syncDirectory = (src, dest, ignoreTopLevel = []) => {
@@ -101,8 +56,8 @@ if (fs.existsSync(mirrorDir)) {
     }
   };
 
-  // Sync dist to root of mirror (preserving git configuration & CNAME)
-  syncDirectory(distDir, mirrorDir, ['.git', '.gitignore', 'CNAME']);
+  // Sync dist to root of mirror (preserving git configuration, workflows & CNAME)
+  syncDirectory(distDir, mirrorDir, ['.git', '.github', '.gitignore', 'CNAME']);
 
   console.log('Successfully synchronized and pruned pocketmc.github.io mirror.');
 }

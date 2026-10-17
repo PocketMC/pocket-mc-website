@@ -1,36 +1,22 @@
 {
   "name": "pocket-mc-website",
+  "version": "1.9.9",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/sync-dist-html.cjs",
-    "lint": "eslint .",
+    "dev": "vite dev",
+    "build": "vite build && node scripts/sync-dist-html.cjs",
     "preview": "vite preview",
-    "test": "node scripts/test-agent-readiness.cjs",
-    "convert-webp": "node scripts/convert-webp.cjs"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.0",
-    "motion": "^12.40.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "tailwindcss": "^4.3.0"
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^24.12.3",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.3.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.6.0",
-    "sharp": "^0.34.5",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.12"
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "^2.18.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "puppeteer-core": "^25.14.0",
+    "svelte": "^5.22.0",
+    "svelte-check": "^4.1.4",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0"
   }
 }
