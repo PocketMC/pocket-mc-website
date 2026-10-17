@@ -1,8 +1,14 @@
 <script lang="ts">
-	import { tourTabs, type TourTab } from '$lib/data/tour';
-
-	let activeId = $state('overview');
-	const activeTab = $derived(tourTabs.find((t) => t.id === activeId) ?? tourTabs[0]);
+	const videoSrc = '/Video/PocketMC.mp4';
+	const title = 'Complete Native Server Control';
+	const description =
+		'Watch PocketMC in action: 1-click server provisioning, real-time Adoptium Java runtime installation, colorized live terminal logging, and zero-router Playit.gg network tunneling.';
+	const bullets = [
+		'Single-click instance creation for Paper, Fabric, Forge, NeoForge, Vanilla & Bedrock',
+		'Interactive live terminal with ANSI color support, auto-scroll, and command auto-completion',
+		'Integrated Playit.gg tunnel agent with instant copy-to-clipboard public join address',
+		'Zero-friction user experience running entirely in desktop user-space'
+	];
 </script>
 
 <section id="tour" class="preview section">
@@ -16,65 +22,47 @@
 
 			<!-- Clean, 100% border-framed showcase window with zero clutter -->
 			<div class="frame live">
-				{#if activeTab.video}
-					<div class="media-container video-container">
-						<video
-							src={activeTab.video}
-							autoplay
-							loop
-							muted
-							playsinline
-							controls
-							class="showcase-media"
-						>
-							Your browser does not support the video tag.
-						</video>
-					</div>
-				{:else if activeTab.image}
-					<div class="media-container image-container">
-						<img
-							src={activeTab.image}
-							alt={activeTab.title}
-							loading="lazy"
-							class="showcase-media"
-						/>
-					</div>
-				{/if}
+				<div class="media-container video-container">
+					<video
+						src={videoSrc}
+						autoplay
+						loop
+						muted
+						playsinline
+						controls
+						class="showcase-media"
+					>
+						Your browser does not support the video tag.
+					</video>
+				</div>
 			</div>
 
-			<!-- Segmented pill switcher detached at the bottom, styled like ThemeSwitch -->
-			<div class="switcher-bar">
-				<div class="switch" role="tablist" aria-label="Feature Showcase Tabs">
-					{#each tourTabs as tab (tab.id)}
-						<button
-							type="button"
-							role="tab"
-							class="tab-btn"
-							class:on={tab.id === activeId}
-							aria-selected={tab.id === activeId}
-							onclick={() => (activeId = tab.id)}
-						>
-							{#if tab.video}
-								<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" class="tab-icon" aria-hidden="true">
-									<polygon points="5 3 19 12 5 21 5 3" />
-								</svg>
-							{/if}
-							<span>{tab.label}</span>
-						</button>
-					{/each}
+			<!-- Detached Gallery Link Bar -->
+			<div class="action-bar">
+				<div class="badge-tag">
+					<span class="dot-live" aria-hidden="true"></span>
+					<span>Live Application Demo</span>
 				</div>
+
+				<a href="/gallery" class="gallery-link-btn">
+					<span>Browse Full UI Gallery (20+ Screens)</span>
+					<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<line x1="5" y1="12" x2="19" y2="12" />
+						<polyline points="12 5 19 12 12 19" />
+					</svg>
+				</a>
 			</div>
 
 			<!-- Feature Details Highlight Drawer -->
 			<div class="feature-drawer">
 				<div class="drawer-text">
 					<span class="kicker">Highlight</span>
-					<h3>{activeTab.title}</h3>
-					<p>{activeTab.description}</p>
+					<h3>{title}</h3>
+					<p>{description}</p>
 				</div>
 
 				<ul class="bullets">
-					{#each activeTab.bullets as bullet}
+					{#each bullets as bullet}
 						<li>
 							<svg
 								width="14"
@@ -168,62 +156,81 @@
 		display: block;
 	}
 
-	/* Switcher Bar - Detached below frame */
-	.switcher-bar {
+	/* Action bar below video frame */
+	.action-bar {
 		position: relative;
 		z-index: 2;
 		display: flex;
-		justify-content: center;
+		align-items: center;
+		justify-content: space-between;
 		width: 100%;
-		margin-top: 28px;
+		margin-top: 24px;
+		gap: 16px;
+		flex-wrap: wrap;
 	}
 
-	/* Segmented control pill matching ThemeSwitch */
-	.switch {
-		height: 38px;
+	.badge-tag {
 		display: inline-flex;
 		align-items: center;
-		gap: 2px;
-		padding: 3px;
+		gap: 8px;
+		padding: 6px 14px;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: var(--card);
+		font-size: 12.5px;
+		font-weight: 500;
+		color: var(--muted-fg);
+	}
+
+	.dot-live {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: #22c55e;
+		box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+		animation: pulse-dot 2.2s infinite;
+	}
+
+	@keyframes pulse-dot {
+		0%, 100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.5;
+			transform: scale(0.85);
+		}
+	}
+
+	.gallery-link-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 18px;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		background: var(--card);
-		box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
-		max-width: 100%;
-		overflow-x: auto;
-		scrollbar-width: none;
-	}
-
-	.switch::-webkit-scrollbar {
-		display: none;
-	}
-
-	.tab-btn {
-		height: 100%;
-		padding: 0 14px;
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		border-radius: calc(var(--radius) - 4px);
-		color: var(--dim);
-		font-size: 13px;
+		color: var(--fg);
+		font-size: 13.5px;
 		font-weight: 500;
-		white-space: nowrap;
-		transition: color 0.15s ease, background-color 0.15s ease;
+		text-decoration: none;
+		box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 	}
 
-	.tab-btn:hover {
-		color: var(--fg);
+	.gallery-link-btn:hover {
+		background: var(--secondary-hover);
+		border-color: var(--dim);
+		transform: translateY(-1px);
 	}
 
-	.tab-btn.on {
-		background: var(--secondary-active);
-		color: var(--fg);
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	}
-
-	.tab-icon {
+	.gallery-link-btn svg {
 		color: #22c55e;
+		transition: transform 0.15s ease;
+	}
+
+	.gallery-link-btn:hover svg {
+		transform: translateX(3px);
 	}
 
 	/* Feature Highlights Drawer */
@@ -232,7 +239,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 36px;
-		margin-top: 28px;
+		margin-top: 24px;
 		padding: 26px 32px;
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
@@ -258,13 +265,21 @@
 		color: var(--muted-fg);
 	}
 
+	.kicker {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #22c55e;
+	}
+
 	.bullets {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
 		margin: 0;
 		padding: 0;
 		list-style: none;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
 		justify-content: center;
 	}
 
@@ -273,41 +288,41 @@
 		align-items: flex-start;
 		gap: 10px;
 		font-size: 13px;
-		line-height: 1.45;
-		color: var(--muted-fg);
+		line-height: 1.5;
+		color: var(--fg);
 	}
 
 	.check-icon {
-		color: var(--syntax-string);
 		flex-shrink: 0;
 		margin-top: 2px;
+		color: #22c55e;
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 768px) {
 		.preview {
 			padding: 0 0 48px;
 		}
 
-		.switcher-bar {
-			margin-top: 20px;
-			justify-content: flex-start;
-			padding-inline: 4px;
+		.action-bar {
+			margin-top: 18px;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 12px;
 		}
 
-		.switch {
-			height: 36px;
+		.badge-tag {
+			justify-content: center;
 		}
 
-		.tab-btn {
-			padding: 0 11px;
-			font-size: 12.5px;
+		.gallery-link-btn {
+			justify-content: center;
 		}
 
 		.feature-drawer {
 			grid-template-columns: 1fr;
 			gap: 20px;
 			padding: 18px 20px;
-			margin-top: 20px;
+			margin-top: 18px;
 		}
 	}
 </style>

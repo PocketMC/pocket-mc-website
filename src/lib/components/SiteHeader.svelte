@@ -21,6 +21,7 @@
 		{ href: `${home}#steps`, label: 'Install' },
 		{ href: `${home}#about`, label: 'Features' },
 		{ href: `${home}#tour`, label: 'Showcase' },
+		{ href: '/gallery', label: 'Gallery' },
 		{ href: `${home}#softwares`, label: 'Softwares' },
 		{ href: `${home}#comparison`, label: 'Comparison' },
 		{ href: '/docs', label: 'Docs' },

@@ -29,6 +29,7 @@
 					<a href="{home}#steps">Install</a>
 					<a href="{home}#about">Features</a>
 					<a href="{home}#tour">Showcase</a>
+					<a href="/gallery">Gallery</a>
 					<a href="{home}#softwares">Softwares</a>
 					<a href="{home}#comparison">Comparison</a>
 					<a href="/docs">Docs</a>
