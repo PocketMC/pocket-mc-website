@@ -3,8 +3,10 @@
 	import { galleryItems, type GalleryItem } from '$lib/data/gallery';
 
 	type FilterCategory = 'all' | 'desktop' | 'mobile';
+	type ViewMode = 'scroll' | 'grid';
 
 	let activeFilter = $state<FilterCategory>('all');
+	let viewMode = $state<ViewMode>('scroll');
 	let activeIndex = $state(0);
 	let trackElement = $state<HTMLElement | null>(null);
 	let isScrolling = false;
@@ -20,7 +22,7 @@
 	function setFilter(filter: FilterCategory) {
 		activeFilter = filter;
 		activeIndex = 0;
-		if (trackElement) {
+		if (viewMode === 'scroll' && trackElement) {
 			const y = trackElement.getBoundingClientRect().top + window.scrollY - 80;
 			window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
 		}
@@ -29,7 +31,7 @@
 	function jumpTo(index: number) {
 		if (index < 0 || index >= filteredItems.length) return;
 		activeIndex = index;
-		if (trackElement) {
+		if (viewMode === 'scroll' && trackElement) {
 			const totalScrollable = trackElement.offsetHeight - window.innerHeight;
 			const targetScroll = (index / (filteredItems.length - 1 || 1)) * totalScrollable;
 			const trackTop = trackElement.getBoundingClientRect().top + window.scrollY;
@@ -37,7 +39,7 @@
 			window.scrollTo({ top: trackTop + targetScroll, behavior: 'smooth' });
 			setTimeout(() => {
 				isScrolling = false;
-			}, 600);
+			}, 400);
 		}
 	}
 
@@ -50,7 +52,7 @@
 	}
 
 	function handleScroll() {
-		if (isScrolling || !trackElement) return;
+		if (isScrolling || !trackElement || viewMode !== 'scroll') return;
 		const rect = trackElement.getBoundingClientRect();
 		const totalScrollable = trackElement.offsetHeight - window.innerHeight;
 		if (totalScrollable <= 0) return;
@@ -76,10 +78,10 @@
 </script>
 
 <svelte:head>
-	<title>Interface Gallery · PocketMC</title>
+	<title>Gallery · PocketMC</title>
 	<meta
 		name="description"
-		content="Explore PocketMC's native interface across desktop and mobile. Zero router setup, Adoptium Java provisioning, and automated cloud backups."
+		content="Screenshots of PocketMC on desktop and mobile."
 	/>
 </svelte:head>
 
@@ -96,7 +98,7 @@
 				if (idx !== -1)
 					lightboxItem = filteredItems[(idx - 1 + filteredItems.length) % filteredItems.length];
 			}
-		} else {
+		} else if (viewMode === 'scroll') {
 			if (e.key === 'ArrowRight') next();
 			if (e.key === 'ArrowLeft') prev();
 		}
@@ -104,213 +106,169 @@
 />
 
 <div class="gallery-page">
-	<!-- Page Header -->
+	<!-- Casual, simple header -->
 	<header class="section gallery-hero">
 		<span class="cross start"></span>
 		<span class="cross end"></span>
 
 		<div class="page hero-content">
-			<div class="kicker-pill">
-				<span class="dot-kicker" aria-hidden="true"></span>
-				<span>Visual Showcase</span>
-			</div>
+			<h1>Gallery</h1>
+			<p class="subtitle">Screenshots of PocketMC across desktop and mobile.</p>
 
-			<h1 class="hero-title">Interface Gallery</h1>
-			<p class="hero-subtitle">
-				Scroll through the native desktop application and companion mobile interface. Built with
-				Rust, modern web standards, and zero system dependencies.
-			</p>
-
-			<!-- Filter segmented switcher matching ThemeSwitch -->
-			<div class="filter-bar">
-				<div class="switch" role="tablist" aria-label="Gallery category filters">
+			<!-- Simple clean control bar: category filter + view mode toggle -->
+			<div class="controls-bar">
+				<div class="switch" role="tablist" aria-label="Filter gallery">
 					<button
 						type="button"
 						role="tab"
-						class="filter-btn"
+						class="switch-btn"
 						class:on={activeFilter === 'all'}
 						aria-selected={activeFilter === 'all'}
 						onclick={() => setFilter('all')}
 					>
-						<span>All Screens ({galleryItems.length})</span>
+						<span>All</span>
 					</button>
 
 					<button
 						type="button"
 						role="tab"
-						class="filter-btn"
+						class="switch-btn"
 						class:on={activeFilter === 'desktop'}
 						aria-selected={activeFilter === 'desktop'}
 						onclick={() => setFilter('desktop')}
 					>
-						<span>Desktop UI ({galleryItems.filter((i) => i.category === 'desktop').length})</span>
+						<span>Desktop</span>
 					</button>
 
 					<button
 						type="button"
 						role="tab"
-						class="filter-btn"
+						class="switch-btn"
 						class:on={activeFilter === 'mobile'}
 						aria-selected={activeFilter === 'mobile'}
 						onclick={() => setFilter('mobile')}
 					>
-						<span>Mobile App ({galleryItems.filter((i) => i.category === 'mobile').length})</span>
+						<span>Mobile</span>
+					</button>
+				</div>
+
+				<div class="switch view-switch" role="tablist" aria-label="Layout mode">
+					<button
+						type="button"
+						role="tab"
+						class="switch-btn"
+						class:on={viewMode === 'scroll'}
+						aria-selected={viewMode === 'scroll'}
+						onclick={() => (viewMode = 'scroll')}
+					>
+						<span>Scroll</span>
+					</button>
+
+					<button
+						type="button"
+						role="tab"
+						class="switch-btn"
+						class:on={viewMode === 'grid'}
+						aria-selected={viewMode === 'grid'}
+						onclick={() => (viewMode = 'grid')}
+					>
+						<span>Grid</span>
 					</button>
 				</div>
 			</div>
 		</div>
 	</header>
 
-	<!-- Sticky Scroll Track Container -->
-	<!-- The height expands based on item count so scrolling stays smooth -->
-	<div
-		class="scroll-track"
-		bind:this={trackElement}
-		style="--slides-count: {filteredItems.length};"
-	>
-		<div class="sticky-viewport">
-			<!-- Subtle ambient backlight glow -->
-			<div class="stage-aura" aria-hidden="true"></div>
+	{#if viewMode === 'scroll'}
+		<!-- Sticky Scroll Mode: page stays stick while photos change as you scroll -->
+		<div
+			class="scroll-track"
+			bind:this={trackElement}
+			style="--count: {filteredItems.length};"
+		>
+			<div class="sticky-stage">
+				<!-- Subtle ambient backlight -->
+				<div class="ambient-glow" aria-hidden="true"></div>
 
-			<div class="page stage-container">
-				<!-- Stage Control HUD -->
-				<div class="stage-hud">
-					<div class="hud-left">
-						<span class="count-pill">
-							<span class="count-current">{String(activeIndex + 1).padStart(2, '0')}</span>
-							<span class="count-sep">/</span>
-							<span class="count-total">{String(filteredItems.length).padStart(2, '0')}</span>
-						</span>
-
-						<span class="badge-category" class:mobile={currentItem.category === 'mobile'}>
-							{currentItem.category === 'mobile' ? 'Mobile Companion' : 'Desktop Interface'}
-						</span>
-
-						<span class="kicker-tag">{currentItem.kicker}</span>
-					</div>
-
-					<div class="hud-right">
+				<div class="page stage-inner">
+					<!-- Clean, border-framed photo container -->
+					<div class="frame-wrap" class:portrait-mode={currentItem.orientation === 'portrait'}>
 						<button
 							type="button"
-							class="nav-btn"
-							aria-label="Previous screenshot"
-							onclick={prev}
-						>
-							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<polyline points="15 18 9 12 15 6" />
-							</svg>
-						</button>
-
-						<button
-							type="button"
-							class="nav-btn"
-							aria-label="Next screenshot"
-							onclick={next}
-						>
-							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<polyline points="9 18 15 12 9 6" />
-							</svg>
-						</button>
-
-						<button
-							type="button"
-							class="inspect-btn"
-							title="Inspect full resolution"
+							class="photo-frame"
+							class:portrait={currentItem.orientation === 'portrait'}
 							onclick={() => (lightboxItem = currentItem)}
+							aria-label="View {currentItem.title} full size"
+							title="Click to view full size"
 						>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<polyline points="15 3 21 3 21 9" />
-								<polyline points="9 21 3 21 3 15" />
-								<line x1="21" y1="3" x2="14" y2="10" />
-								<line x1="3" y1="21" x2="10" y2="14" />
-							</svg>
-							<span>Inspect</span>
+							<img
+								src={currentItem.src}
+								alt={currentItem.title}
+								class="photo-img"
+								class:portrait={currentItem.orientation === 'portrait'}
+							/>
 						</button>
 					</div>
-				</div>
 
-				<!-- Main Display Stage: Adapts to Desktop vs Mobile Aspect Ratios -->
-				<div class="media-stage">
-					{#if currentItem.orientation === 'portrait'}
-						<!-- Authentic Mobile Device Mockup Frame -->
-						<div class="device-phone" role="region" aria-label="Mobile phone preview">
-							<div class="notch-island" aria-hidden="true"></div>
-							<!-- svelte-ignore a11y_click_events_have_key_events -->
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<img
-								src={currentItem.src}
-								alt={currentItem.title}
-								class="phone-media"
-								onclick={() => (lightboxItem = currentItem)}
-							/>
+					<!-- Casual, minimal footer bar -->
+					<div class="caption-bar">
+						<div class="caption-text">
+							<span class="photo-title">{currentItem.title}</span>
+							<span class="caption-sep">·</span>
+							<span class="photo-desc">{currentItem.caption}</span>
 						</div>
-					{:else}
-						<!-- Clean Desktop Window Frame -->
-						<div class="desktop-frame" role="region" aria-label="Desktop screenshot preview">
-							<!-- svelte-ignore a11y_click_events_have_key_events -->
-							<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-							<img
-								src={currentItem.src}
-								alt={currentItem.title}
-								class="desktop-media"
-								onclick={() => (lightboxItem = currentItem)}
-							/>
-						</div>
-					{/if}
-				</div>
 
-				<!-- Info Drawer with Bullets -->
-				<div class="stage-footer">
-					<div class="info-meta">
-						<div class="meta-heading">
-							<h2>{currentItem.title}</h2>
-							<span class="aspect-badge">
-								{currentItem.orientation === 'portrait' ? '9:19.5 Mobile' : '16:10 Desktop'} · {currentItem.width}×{currentItem.height}
-							</span>
-						</div>
-						<p>{currentItem.description}</p>
-					</div>
+						<div class="bar-controls">
+							<span class="step-indicator">{activeIndex + 1} of {filteredItems.length}</span>
 
-					<ul class="bullets">
-						{#each currentItem.bullets as bullet}
-							<li>
-								<svg
-									width="14"
-									height="14"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2.5"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="check-icon"
-									aria-hidden="true"
+							<div class="arrows">
+								<button
+									type="button"
+									class="ctrl-btn"
+									aria-label="Previous screenshot"
+									onclick={prev}
 								>
-									<polyline points="20 6 9 17 4 12" />
-								</svg>
-								<span>{bullet}</span>
-							</li>
-						{/each}
-					</ul>
-				</div>
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<polyline points="15 18 9 12 15 6" />
+									</svg>
+								</button>
 
-				<!-- Step Indicator Scrubber -->
-				<div class="scrubber-bar">
-					<div class="progress-track">
-						<div
-							class="progress-fill"
-							style="width: {((activeIndex + 1) / filteredItems.length) * 100}%;"
-						></div>
+								<button
+									type="button"
+									class="ctrl-btn"
+									aria-label="Next screenshot"
+									onclick={next}
+								>
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<polyline points="9 18 15 12 9 6" />
+									</svg>
+								</button>
+							</div>
+
+							<button
+								type="button"
+								class="expand-btn"
+								title="View full size"
+								onclick={() => (lightboxItem = currentItem)}
+							>
+								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polyline points="15 3 21 3 21 9" />
+									<polyline points="9 21 3 21 3 15" />
+									<line x1="21" y1="3" x2="14" y2="10" />
+									<line x1="3" y1="21" x2="10" y2="14" />
+								</svg>
+							</button>
+						</div>
 					</div>
 
-					<div class="scrub-dots">
+					<!-- Simple minimal dots -->
+					<div class="dots-row">
 						{#each filteredItems as item, idx (item.id)}
 							<button
 								type="button"
-								class="dot-btn"
+								class="dot"
 								class:on={idx === activeIndex}
-								title="{item.title} ({idx + 1}/{filteredItems.length})"
-								aria-label="Jump to {item.title}"
+								aria-label="Screenshot {idx + 1}: {item.title}"
 								onclick={() => jumpTo(idx)}
 							></button>
 						{/each}
@@ -318,15 +276,39 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	{:else}
+		<!-- Casual Grid View -->
+		<section class="section grid-section">
+			<div class="page grid-inner">
+				<div class="cards-grid">
+					{#each filteredItems as item (item.id)}
+						<button
+							type="button"
+							class="grid-card"
+							class:portrait-card={item.orientation === 'portrait'}
+							onclick={() => (lightboxItem = item)}
+							aria-label="View {item.title} full size"
+						>
+							<div class="card-thumb" class:portrait-thumb={item.orientation === 'portrait'}>
+								<img src={item.src} alt={item.title} loading="lazy" />
+							</div>
+							<div class="card-meta">
+								<span class="card-title">{item.title}</span>
+								<p class="card-desc">{item.caption}</p>
+							</div>
+						</button>
+					{/each}
+				</div>
+			</div>
+		</section>
+	{/if}
 
-	<!-- Fullscreen Lightbox Modal -->
+	<!-- Simple, clean Lightbox -->
 	{#if lightboxItem}
 		<div
-			class="lightbox-overlay"
+			class="lightbox"
 			role="dialog"
 			aria-modal="true"
-			aria-label="Image Lightbox"
 			tabindex="-1"
 			onkeydown={(e) => {
 				if (e.key === 'Escape') lightboxItem = null;
@@ -335,17 +317,16 @@
 				if (e.target === e.currentTarget) lightboxItem = null;
 			}}
 		>
-			<div class="lightbox-header">
-				<div class="lightbox-info">
-					<span class="lightbox-kicker">{lightboxItem.kicker}</span>
-					<span class="lightbox-title">{lightboxItem.title}</span>
-					<span class="lightbox-dims">{lightboxItem.width}×{lightboxItem.height} px</span>
+			<div class="lb-bar">
+				<div class="lb-title-wrap">
+					<span class="lb-title">{lightboxItem.title}</span>
+					<span class="lb-caption">{lightboxItem.caption}</span>
 				</div>
 
 				<button
 					type="button"
-					class="close-btn"
-					aria-label="Close lightbox"
+					class="lb-close"
+					aria-label="Close"
 					onclick={() => (lightboxItem = null)}
 				>
 					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -355,41 +336,41 @@
 				</button>
 			</div>
 
-			<div class="lightbox-body">
+			<div class="lb-stage">
 				<img
 					src={lightboxItem.src}
 					alt={lightboxItem.title}
-					class="lightbox-img"
+					class="lb-img"
 					class:portrait={lightboxItem.orientation === 'portrait'}
 				/>
 			</div>
 
-			<div class="lightbox-controls">
+			<div class="lb-nav-wrap">
 				<button
 					type="button"
-					class="lb-nav-btn prev"
-					aria-label="Previous image"
+					class="lb-arrow prev"
+					aria-label="Previous"
 					onclick={() => {
 						const idx = filteredItems.findIndex((it) => it.id === lightboxItem?.id);
 						if (idx !== -1)
 							lightboxItem = filteredItems[(idx - 1 + filteredItems.length) % filteredItems.length];
 					}}
 				>
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<polyline points="15 18 9 12 15 6" />
 					</svg>
 				</button>
 
 				<button
 					type="button"
-					class="lb-nav-btn next"
-					aria-label="Next image"
+					class="lb-arrow next"
+					aria-label="Next"
 					onclick={() => {
 						const idx = filteredItems.findIndex((it) => it.id === lightboxItem?.id);
 						if (idx !== -1) lightboxItem = filteredItems[(idx + 1) % filteredItems.length];
 					}}
 				>
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<polyline points="9 18 15 12 9 6" />
 					</svg>
 				</button>
@@ -404,12 +385,11 @@
 		min-height: 100vh;
 	}
 
-	/* Hero Section */
+	/* Hero Section: Simple, confident, human */
 	.gallery-hero {
 		padding-top: 54px;
-		padding-bottom: 36px;
+		padding-bottom: 28px;
 		text-align: center;
-		position: relative;
 	}
 
 	.hero-content {
@@ -418,53 +398,31 @@
 		align-items: center;
 	}
 
-	.kicker-pill {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		padding: 5px 13px;
-		border-radius: var(--radius);
-		border: 1px solid var(--border);
-		background: var(--card);
-		font-size: 12px;
-		font-weight: 500;
-		color: var(--muted-fg);
-		margin-bottom: 18px;
-	}
-
-	.dot-kicker {
-		width: 7px;
-		height: 7px;
-		border-radius: 50%;
-		background: #22c55e;
-		box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
-	}
-
-	.hero-title {
-		font-size: clamp(32px, 5vw, 48px);
+	.hero-content h1 {
+		font-size: clamp(32px, 5vw, 44px);
 		font-weight: 700;
 		letter-spacing: -0.03em;
 		color: var(--fg);
-		margin-bottom: 12px;
+		margin: 0 0 8px;
 	}
 
-	.hero-subtitle {
+	.subtitle {
 		font-size: 15px;
-		line-height: 1.6;
 		color: var(--muted-fg);
-		max-width: 620px;
-		margin-bottom: 28px;
+		margin: 0 0 24px;
 	}
 
-	/* Segmented Filter Switch */
-	.filter-bar {
+	/* Controls row */
+	.controls-bar {
 		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
 		justify-content: center;
-		width: 100%;
 	}
 
 	.switch {
-		height: 38px;
+		height: 36px;
 		display: inline-flex;
 		align-items: center;
 		gap: 2px;
@@ -472,19 +430,12 @@
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		background: var(--card);
-		box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
-		max-width: 100%;
-		overflow-x: auto;
-		scrollbar-width: none;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 	}
 
-	.switch::-webkit-scrollbar {
-		display: none;
-	}
-
-	.filter-btn {
+	.switch-btn {
 		height: 100%;
-		padding: 0 16px;
+		padding: 0 14px;
 		display: inline-flex;
 		align-items: center;
 		border-radius: calc(var(--radius) - 4px);
@@ -495,394 +446,319 @@
 		transition: color 0.15s ease, background-color 0.15s ease;
 	}
 
-	.filter-btn:hover {
+	.switch-btn:hover {
 		color: var(--fg);
 	}
 
-	.filter-btn.on {
+	.switch-btn.on {
 		background: var(--secondary-active);
 		color: var(--fg);
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 	}
 
-	/* Sticky Scroll Track: outer container provides vertical scroll budget */
+	/* Scroll Track: Casual scroll travel */
 	.scroll-track {
 		position: relative;
-		/* Each slide affords roughly 65vh of intuitive scroll travel */
-		height: calc(var(--slides-count, 15) * 65vh + 100vh);
+		height: calc(var(--count, 15) * 50vh + 100vh);
 	}
 
-	/* Inner viewport stays firmly sticky on screen */
-	.sticky-viewport {
+	.sticky-stage {
 		position: sticky;
-		top: 68px;
-		height: calc(100vh - 78px);
+		top: 72px;
+		height: calc(100vh - 84px);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		overflow: hidden;
-		z-index: 10;
+		z-index: 5;
 	}
 
-	/* Ambient backlight glow */
-	.stage-aura {
+	.ambient-glow {
 		position: absolute;
-		top: 5%;
-		left: 10%;
-		right: 10%;
-		height: 380px;
-		background: radial-gradient(ellipse 70% 50% at 50% 20%, rgba(34, 197, 94, 0.14), transparent 70%);
-		filter: blur(65px);
+		top: 10%;
+		left: 15%;
+		right: 15%;
+		height: 360px;
+		background: radial-gradient(ellipse 70% 50% at 50% 25%, rgba(34, 197, 94, 0.12), transparent 70%);
+		filter: blur(60px);
 		pointer-events: none;
 		z-index: 0;
 	}
 
-	.stage-container {
+	.stage-inner {
 		position: relative;
 		z-index: 1;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 1160px;
-		height: 100%;
-		max-height: 820px;
+		max-width: 1120px;
 		margin: 0 auto;
 		padding-inline: var(--gutter);
 	}
 
-	/* HUD Header Bar */
-	.stage-hud {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 8px 14px;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		background: var(--card);
-		margin-bottom: 12px;
-		flex-shrink: 0;
-	}
-
-	.hud-left {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		flex-wrap: wrap;
-	}
-
-	.count-pill {
-		font-size: 13px;
-		font-family: var(--mono);
-		font-weight: 600;
-		color: var(--fg);
-		background: var(--secondary);
-		padding: 3px 8px;
-		border-radius: 6px;
-		border: 1px solid var(--border);
-	}
-
-	.count-sep {
-		color: var(--dim);
-		margin: 0 1px;
-	}
-
-	.count-total {
-		color: var(--muted-fg);
-	}
-
-	.badge-category {
-		font-size: 11.5px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		padding: 3px 9px;
-		border-radius: 6px;
-		background: rgba(34, 197, 94, 0.12);
-		color: #22c55e;
-		border: 1px solid rgba(34, 197, 94, 0.25);
-	}
-
-	.badge-category.mobile {
-		background: rgba(59, 130, 246, 0.12);
-		color: #60a5fa;
-		border-color: rgba(59, 130, 246, 0.25);
-	}
-
-	.kicker-tag {
-		font-size: 11.5px;
-		font-weight: 500;
-		color: var(--muted-fg);
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-	}
-
-	.hud-right {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
-
-	.nav-btn {
-		width: 32px;
-		height: 32px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 1px solid var(--border);
-		border-radius: var(--radius);
-		background: var(--secondary);
-		color: var(--fg);
-		transition: background-color 0.15s ease, border-color 0.15s ease;
-	}
-
-	.nav-btn:hover {
-		background: var(--secondary-hover);
-		border-color: var(--dim);
-	}
-
-	.inspect-btn {
-		height: 32px;
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		padding: 0 10px;
-		border: 1px solid var(--border);
-		border-radius: var(--radius);
-		background: var(--secondary);
-		color: var(--fg);
-		font-size: 12.5px;
-		font-weight: 500;
-		transition: background-color 0.15s ease, border-color 0.15s ease;
-	}
-
-	.inspect-btn:hover {
-		background: var(--secondary-hover);
-		border-color: var(--dim);
-	}
-
-	/* Media Stage Container */
-	.media-stage {
-		flex: 1 1 auto;
-		min-height: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		overflow: hidden;
-		padding-block: 4px;
-	}
-
-	/* Desktop Screenshot Frame */
-	.desktop-frame {
+	/* Photo container: adapts naturally to landscape and portrait */
+	.frame-wrap {
 		width: 100%;
-		height: 100%;
-		max-height: 460px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.photo-frame {
+		width: 100%;
+		max-height: calc(100vh - 250px);
+		aspect-ratio: 16 / 10;
+		padding: 0;
 		background: #000;
 		border: 1px solid var(--border);
 		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow), var(--glow);
 		overflow: hidden;
-		position: relative;
+		box-shadow: var(--shadow);
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		cursor: zoom-in;
+		transition: border-color 0.15s ease;
 	}
 
-	.desktop-media {
+	.photo-frame:hover {
+		border-color: var(--dim);
+	}
+
+	/* Portrait screenshot on desktop: natural phone proportions with zero fake notch */
+	.photo-frame.portrait {
+		width: auto;
+		max-width: 310px;
+		aspect-ratio: 9 / 19.5;
+		margin: 0 auto;
+		border-radius: 24px;
+	}
+
+	.photo-img {
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
 		display: block;
-		transition: opacity 0.25s ease, transform 0.25s ease;
+		transition: opacity 0.2s ease;
 	}
 
-	/* Mobile Phone Mockup Frame */
-	.device-phone {
-		width: 100%;
-		max-width: 250px;
-		height: 100%;
-		max-height: 480px;
-		aspect-ratio: 9 / 19.5;
-		margin: 0 auto;
-		background: #000;
-		border: 4px solid var(--border);
-		border-radius: 36px;
-		box-shadow:
-			0 25px 60px -15px rgba(0, 0, 0, 0.85),
-			0 0 35px rgba(34, 197, 94, 0.15);
-		overflow: hidden;
-		position: relative;
-		cursor: zoom-in;
+	.photo-img.portrait {
+		object-fit: cover;
+	}
+
+	/* Casual caption footer bar */
+	.caption-bar {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-	}
-
-	.notch-island {
-		position: absolute;
-		top: 8px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 68px;
-		height: 16px;
-		border-radius: 8px;
-		background: #000;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		z-index: 10;
-		pointer-events: none;
-	}
-
-	.phone-media {
+		justify-content: space-between;
 		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-		transition: opacity 0.25s ease;
+		margin-top: 14px;
+		padding: 0 4px;
+		gap: 16px;
 	}
 
-	/* Info & Feature Highlights Footer Drawer */
-	.stage-footer {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 24px;
-		padding: 16px 22px;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		background: var(--card);
-		margin-top: 10px;
-		flex-shrink: 0;
-		text-align: left;
-	}
-
-	.info-meta {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-	}
-
-	.meta-heading {
+	.caption-text {
 		display: flex;
 		align-items: baseline;
-		gap: 12px;
+		gap: 8px;
 		flex-wrap: wrap;
 	}
 
-	.meta-heading h2 {
-		font-size: 17px;
+	.photo-title {
+		font-size: 14px;
 		font-weight: 600;
 		color: var(--fg);
-		margin: 0;
 	}
 
-	.aspect-badge {
-		font-size: 11px;
-		font-family: var(--mono);
+	.caption-sep {
 		color: var(--dim);
 	}
 
-	.info-meta p {
-		font-size: 13px;
-		line-height: 1.5;
+	.photo-desc {
+		font-size: 13.5px;
 		color: var(--muted-fg);
-		margin: 0;
 	}
 
-	.bullets {
+	.bar-controls {
 		display: flex;
-		flex-direction: column;
+		align-items: center;
 		gap: 8px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		justify-content: center;
-	}
-
-	.bullets li {
-		display: flex;
-		align-items: flex-start;
-		gap: 8px;
-		font-size: 12.5px;
-		line-height: 1.4;
-		color: var(--fg);
-	}
-
-	.check-icon {
-		flex-shrink: 0;
-		margin-top: 1px;
-		color: #22c55e;
-	}
-
-	/* Scrubber Progress Bar */
-	.scrubber-bar {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-		margin-top: 10px;
 		flex-shrink: 0;
 	}
 
-	.progress-track {
-		width: 100%;
-		height: 3px;
-		background: var(--secondary);
-		border-radius: 2px;
-		overflow: hidden;
+	.step-indicator {
+		font-size: 12px;
+		font-family: var(--mono);
+		color: var(--dim);
+		margin-right: 4px;
 	}
 
-	.progress-fill {
-		height: 100%;
-		background: #22c55e;
-		box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
-		transition: width 0.2s ease;
+	.arrows {
+		display: flex;
+		align-items: center;
+		gap: 4px;
 	}
 
-	.scrub-dots {
+	.ctrl-btn {
+		width: 30px;
+		height: 30px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 4px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		color: var(--dim);
+		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+	}
+
+	.ctrl-btn:hover {
+		color: var(--fg);
+		background: var(--secondary-hover);
+		border-color: var(--dim);
+	}
+
+	.expand-btn {
+		width: 30px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		color: var(--dim);
+		transition: color 0.15s ease, background-color 0.15s ease;
+	}
+
+	.expand-btn:hover {
+		color: var(--fg);
+		background: var(--secondary-hover);
+	}
+
+	/* Simple minimal dots */
+	.dots-row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		margin-top: 12px;
 		overflow-x: auto;
-		padding-block: 2px;
 		scrollbar-width: none;
 	}
 
-	.scrub-dots::-webkit-scrollbar {
+	.dots-row::-webkit-scrollbar {
 		display: none;
 	}
 
-	.dot-btn {
+	.dot {
 		width: 14px;
-		height: 8px;
+		height: 10px;
 		padding: 0;
-		position: relative;
 		border: none;
 		background: transparent;
+		position: relative;
 	}
 
-	.dot-btn::before {
+	.dot::before {
 		content: '';
 		position: absolute;
-		top: 3px;
+		top: 4px;
 		left: 0;
 		width: 100%;
 		height: 2px;
 		border-radius: 1px;
 		background: var(--faint);
-		transition: background-color 0.15s ease, transform 0.15s ease;
+		transition: background-color 0.15s ease;
 	}
 
-	.dot-btn:hover::before {
+	.dot:hover::before {
 		background: var(--muted-fg);
 	}
 
-	.dot-btn.on::before {
-		background: #22c55e;
-		transform: scaleY(1.5);
+	.dot.on::before {
+		background: var(--fg);
 	}
 
-	/* Fullscreen Lightbox */
-	.lightbox-overlay {
+	/* Grid View Mode */
+	.grid-section {
+		padding-bottom: 72px;
+	}
+
+	.grid-inner {
+		width: 100%;
+		max-width: 1180px;
+		margin: 0 auto;
+		padding-inline: var(--gutter);
+	}
+
+	.cards-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+		gap: 24px;
+	}
+
+	.grid-card {
+		padding: 0;
+		font: inherit;
+		text-align: left;
+		display: flex;
+		flex-direction: column;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: var(--card);
+		overflow: hidden;
+		cursor: zoom-in;
+		transition: border-color 0.15s ease, transform 0.15s ease;
+	}
+
+	.grid-card:hover {
+		border-color: var(--border);
+		transform: translateY(-2px);
+	}
+
+	.card-thumb {
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		background: #000;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.card-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.card-thumb.portrait-thumb {
+		aspect-ratio: 9 / 16;
+	}
+
+	.card-meta {
+		padding: 14px 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.card-title {
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--fg);
+	}
+
+	.card-desc {
+		font-size: 12.5px;
+		color: var(--muted-fg);
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	/* Lightbox */
+	.lightbox {
 		position: fixed;
 		inset: 0;
 		z-index: 1000;
@@ -892,58 +768,49 @@
 		flex-direction: column;
 	}
 
-	.lightbox-header {
+	.lb-bar {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 14px 24px;
+		padding: 16px 24px;
 		border-bottom: 1px solid var(--border);
 		background: rgba(10, 10, 10, 0.85);
 	}
 
-	.lightbox-info {
+	.lb-title-wrap {
 		display: flex;
-		align-items: center;
-		gap: 12px;
+		align-items: baseline;
+		gap: 10px;
 	}
 
-	.lightbox-kicker {
-		font-size: 11px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: #22c55e;
-	}
-
-	.lightbox-title {
+	.lb-title {
 		font-size: 15px;
 		font-weight: 600;
 		color: var(--fg);
 	}
 
-	.lightbox-dims {
-		font-size: 12px;
-		font-family: var(--mono);
-		color: var(--dim);
+	.lb-caption {
+		font-size: 13px;
+		color: var(--muted-fg);
 	}
 
-	.close-btn {
-		width: 36px;
-		height: 36px;
+	.lb-close {
+		width: 34px;
+		height: 34px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
-		background: var(--secondary);
+		background: var(--card);
 		color: var(--fg);
 	}
 
-	.close-btn:hover {
+	.lb-close:hover {
 		background: var(--secondary-hover);
 	}
 
-	.lightbox-body {
+	.lb-stage {
 		flex: 1;
 		display: flex;
 		align-items: center;
@@ -952,7 +819,7 @@
 		overflow: hidden;
 	}
 
-	.lightbox-img {
+	.lb-img {
 		max-width: 95vw;
 		max-height: 85vh;
 		object-fit: contain;
@@ -960,13 +827,12 @@
 		box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
 	}
 
-	.lightbox-img.portrait {
+	.lb-img.portrait {
 		max-height: 88vh;
-		border-radius: 24px;
-		border: 3px solid var(--border);
+		border-radius: 20px;
 	}
 
-	.lightbox-controls {
+	.lb-nav-wrap {
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
@@ -976,10 +842,10 @@
 		padding: 24px;
 	}
 
-	.lb-nav-btn {
+	.lb-arrow {
 		pointer-events: auto;
-		width: 44px;
-		height: 44px;
+		width: 40px;
+		height: 40px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -988,108 +854,101 @@
 		background: rgba(20, 20, 20, 0.85);
 		color: var(--fg);
 		backdrop-filter: blur(8px);
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 	}
 
-	.lb-nav-btn:hover {
+	.lb-arrow:hover {
 		background: var(--secondary-hover);
 	}
 
-	/* Responsive Optimization for Smartphones & Small Screens */
+	/* Mobile responsive */
 	@media (max-width: 768px) {
 		.gallery-hero {
 			padding-top: 36px;
-			padding-bottom: 24px;
+			padding-bottom: 20px;
 		}
 
-		.hero-title {
+		.hero-content h1 {
 			font-size: 28px;
 		}
 
-		.hero-subtitle {
+		.subtitle {
 			font-size: 13.5px;
-			margin-bottom: 20px;
+			margin-bottom: 18px;
 		}
 
-		.filter-bar .switch {
-			height: 36px;
+		.controls-bar {
+			gap: 8px;
 		}
 
-		.filter-btn {
-			padding: 0 12px;
+		.switch {
+			height: 34px;
+		}
+
+		.switch-btn {
+			padding: 0 10px;
 			font-size: 12px;
 		}
 
-		/* Mobile sticky height & layout */
 		.scroll-track {
-			height: calc(var(--slides-count, 15) * 55vh + 100vh);
+			height: calc(var(--count, 15) * 45vh + 100vh);
 		}
 
-		.sticky-viewport {
+		.sticky-stage {
 			top: 60px;
 			height: calc(100vh - 68px);
 		}
 
-		.stage-container {
+		.stage-inner {
 			padding-inline: 12px;
 		}
 
-		.stage-hud {
-			padding: 6px 10px;
-			margin-bottom: 8px;
-		}
-
-		.kicker-tag {
-			display: none;
-		}
-
-		.desktop-frame {
-			max-height: 240px;
+		.photo-frame {
+			max-height: 250px;
 			aspect-ratio: 16 / 10;
 		}
 
-		.device-phone {
-			max-width: 190px;
-			max-height: 340px;
-			border-radius: 28px;
+		.photo-frame.portrait {
+			max-width: 220px;
+			max-height: 380px;
+			border-radius: 20px;
 		}
 
-		.notch-island {
-			width: 50px;
-			height: 12px;
-			top: 6px;
+		.caption-bar {
+			margin-top: 10px;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 8px;
 		}
 
-		.stage-footer {
-			grid-template-columns: 1fr;
-			gap: 12px;
-			padding: 12px 14px;
+		.photo-title {
+			font-size: 13px;
+		}
+
+		.photo-desc {
+			font-size: 12px;
+		}
+
+		.bar-controls {
+			width: 100%;
+			justify-content: space-between;
+		}
+
+		.dots-row {
 			margin-top: 8px;
 		}
 
-		.meta-heading h2 {
-			font-size: 15px;
+		.cards-grid {
+			grid-template-columns: 1fr;
+			gap: 16px;
 		}
 
-		.info-meta p {
-			font-size: 12px;
-			line-height: 1.4;
+		.lb-title-wrap {
+			flex-direction: column;
+			gap: 2px;
 		}
 
-		.bullets {
-			gap: 6px;
-		}
-
-		.bullets li {
-			font-size: 11.5px;
-		}
-
-		.scrubber-bar {
-			margin-top: 6px;
-		}
-
-		.dot-btn {
-			width: 10px;
+		.lb-caption {
+			display: none;
 		}
 	}
 </style>

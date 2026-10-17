@@ -1,14 +1,5 @@
 <script lang="ts">
 	const videoSrc = '/Video/PocketMC.mp4';
-	const title = 'Complete Native Server Control';
-	const description =
-		'Watch PocketMC in action: 1-click server provisioning, real-time Adoptium Java runtime installation, colorized live terminal logging, and zero-router Playit.gg network tunneling.';
-	const bullets = [
-		'Single-click instance creation for Paper, Fabric, Forge, NeoForge, Vanilla & Bedrock',
-		'Interactive live terminal with ANSI color support, auto-scroll, and command auto-completion',
-		'Integrated Playit.gg tunnel agent with instant copy-to-clipboard public join address',
-		'Zero-friction user experience running entirely in desktop user-space'
-	];
 </script>
 
 <section id="tour" class="preview section">
@@ -20,7 +11,7 @@
 			<!-- Subtle ambient backlight aura -->
 			<div class="frame-aura" aria-hidden="true"></div>
 
-			<!-- Clean, 100% border-framed showcase window with zero clutter -->
+			<!-- Clean, border-framed video window -->
 			<div class="frame live">
 				<div class="media-container video-container">
 					<video
@@ -37,51 +28,19 @@
 				</div>
 			</div>
 
-			<!-- Detached Gallery Link Bar -->
-			<div class="action-bar">
-				<div class="badge-tag">
-					<span class="dot-live" aria-hidden="true"></span>
-					<span>Live Application Demo</span>
-				</div>
+			<!-- Clean casual footer bar below video -->
+			<div class="preview-footer">
+				<p class="summary-text">
+					Single-click server creation, live ANSI console, and zero-router Playit.gg tunnels.
+				</p>
 
-				<a href="/gallery" class="gallery-link-btn">
-					<span>Browse Full UI Gallery (20+ Screens)</span>
-					<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<a href="/gallery" class="gallery-btn">
+					<span>View screenshots</span>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 						<line x1="5" y1="12" x2="19" y2="12" />
 						<polyline points="12 5 19 12 12 19" />
 					</svg>
 				</a>
-			</div>
-
-			<!-- Feature Details Highlight Drawer -->
-			<div class="feature-drawer">
-				<div class="drawer-text">
-					<span class="kicker">Highlight</span>
-					<h3>{title}</h3>
-					<p>{description}</p>
-				</div>
-
-				<ul class="bullets">
-					{#each bullets as bullet}
-						<li>
-							<svg
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2.5"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="check-icon"
-								aria-hidden="true"
-							>
-								<polyline points="20 6 9 17 4 12" />
-							</svg>
-							<span>{bullet}</span>
-						</li>
-					{/each}
-				</ul>
 			</div>
 		</figure>
 	</div>
@@ -116,7 +75,7 @@
 		left: 8%;
 		right: 8%;
 		height: 420px;
-		background: radial-gradient(ellipse 70% 50% at 50% 25%, rgba(34, 197, 94, 0.18), transparent 70%);
+		background: radial-gradient(ellipse 70% 50% at 50% 25%, rgba(34, 197, 94, 0.16), transparent 70%);
 		filter: blur(55px);
 		pointer-events: none;
 		z-index: 0;
@@ -156,146 +115,55 @@
 		display: block;
 	}
 
-	/* Action bar below video frame */
-	.action-bar {
+	/* Casual footer bar below video */
+	.preview-footer {
 		position: relative;
 		z-index: 2;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		margin-top: 24px;
+		margin-top: 18px;
 		gap: 16px;
-		flex-wrap: wrap;
+		padding: 0 4px;
 	}
 
-	.badge-tag {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		padding: 6px 14px;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		background: var(--card);
-		font-size: 12.5px;
-		font-weight: 500;
+	.summary-text {
+		font-size: 14px;
 		color: var(--muted-fg);
+		margin: 0;
 	}
 
-	.dot-live {
-		width: 7px;
-		height: 7px;
-		border-radius: 50%;
-		background: #22c55e;
-		box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
-		animation: pulse-dot 2.2s infinite;
-	}
-
-	@keyframes pulse-dot {
-		0%, 100% {
-			opacity: 1;
-			transform: scale(1);
-		}
-		50% {
-			opacity: 0.5;
-			transform: scale(0.85);
-		}
-	}
-
-	.gallery-link-btn {
+	.gallery-btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 8px;
-		padding: 8px 18px;
+		gap: 6px;
+		height: 34px;
+		padding: 0 14px;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		background: var(--card);
 		color: var(--fg);
-		font-size: 13.5px;
+		font-size: 13px;
 		font-weight: 500;
+		white-space: nowrap;
 		text-decoration: none;
-		box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3);
-		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
 	}
 
-	.gallery-link-btn:hover {
+	.gallery-btn:hover {
 		background: var(--secondary-hover);
 		border-color: var(--dim);
-		transform: translateY(-1px);
 	}
 
-	.gallery-link-btn svg {
-		color: #22c55e;
-		transition: transform 0.15s ease;
-	}
-
-	.gallery-link-btn:hover svg {
-		transform: translateX(3px);
-	}
-
-	/* Feature Highlights Drawer */
-	.feature-drawer {
-		width: 100%;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 36px;
-		margin-top: 24px;
-		padding: 26px 32px;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		background: var(--card);
-		text-align: left;
-	}
-
-	.drawer-text {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.drawer-text h3 {
-		font-size: 19px;
-		font-weight: 600;
-		color: var(--fg);
-	}
-
-	.drawer-text p {
-		font-size: 13.5px;
-		line-height: 1.6;
+	.gallery-btn svg {
 		color: var(--muted-fg);
+		transition: transform 0.15s ease, color 0.15s ease;
 	}
 
-	.kicker {
-		font-size: 11px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: #22c55e;
-	}
-
-	.bullets {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		justify-content: center;
-	}
-
-	.bullets li {
-		display: flex;
-		align-items: flex-start;
-		gap: 10px;
-		font-size: 13px;
-		line-height: 1.5;
+	.gallery-btn:hover svg {
+		transform: translateX(2px);
 		color: var(--fg);
-	}
-
-	.check-icon {
-		flex-shrink: 0;
-		margin-top: 2px;
-		color: #22c55e;
 	}
 
 	@media (max-width: 768px) {
@@ -303,26 +171,16 @@
 			padding: 0 0 48px;
 		}
 
-		.action-bar {
-			margin-top: 18px;
+		.preview-footer {
+			margin-top: 14px;
 			flex-direction: column;
-			align-items: stretch;
-			gap: 12px;
+			align-items: flex-start;
+			gap: 10px;
 		}
 
-		.badge-tag {
+		.gallery-btn {
+			width: 100%;
 			justify-content: center;
-		}
-
-		.gallery-link-btn {
-			justify-content: center;
-		}
-
-		.feature-drawer {
-			grid-template-columns: 1fr;
-			gap: 20px;
-			padding: 18px 20px;
-			margin-top: 18px;
 		}
 	}
 </style>
