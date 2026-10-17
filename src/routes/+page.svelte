@@ -4,6 +4,7 @@
 	import Cta from '$lib/components/Cta.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import Install from '$lib/components/Install.svelte';
+	import Preview from '$lib/components/Preview.svelte';
 	import Softwares from '$lib/components/Softwares.svelte';
 	import Stability from '$lib/components/Stability.svelte';
 
@@ -19,6 +20,7 @@
 </svelte:head>
 
 <Hero version={data.version} />
+<Preview />
 <Install />
 <About />
 <Softwares />

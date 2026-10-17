@@ -18,7 +18,8 @@
 	--card: #0d0d0d;
 	--chip-fg: #a3a3a3;
 	--shadow: 0 50px 130px -30px rgb(0 0 0 / 0.95);
-	--glow: 0 0 140px -24px rgb(255 255 255 / 0.24);
+	--glow: 0 0 160px -20px rgb(34 197 94 / 0.28), 0 0 80px -10px rgb(255 255 255 / 0.12);
+	--glow-subtle: rgb(34 197 94 / 0.08);
 	--header-bg: rgb(10 10 10 / 0.86);
 	--syntax-key: #93c5fd;
 	--syntax-string: #a7d9a0;
@@ -56,7 +57,8 @@
 	--card: #ffffff;
 	--chip-fg: #525252;
 	--shadow: 0 32px 70px -28px rgb(23 23 23 / 0.28);
-	--glow: 0 0 0 0 transparent;
+	--glow: 0 20px 70px -20px rgb(34 197 94 / 0.2), 0 0 0 1px rgb(0 0 0 / 0.05);
+	--glow-subtle: rgb(34 197 94 / 0.05);
 	--header-bg: rgb(250 250 250 / 0.86);
 	--syntax-key: #1d5fbf;
 	--syntax-string: #2f7d32;
@@ -85,7 +87,8 @@
 		--card: #ffffff;
 		--chip-fg: #525252;
 		--shadow: 0 32px 70px -28px rgb(23 23 23 / 0.28);
-		--glow: 0 0 0 0 transparent;
+		--glow: 0 20px 70px -20px rgb(34 197 94 / 0.2), 0 0 0 1px rgb(0 0 0 / 0.05);
+		--glow-subtle: rgb(34 197 94 / 0.05);
 		--header-bg: rgb(250 250 250 / 0.86);
 		--syntax-key: #1d5fbf;
 		--syntax-string: #2f7d32;

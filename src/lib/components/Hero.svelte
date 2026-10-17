@@ -1,13 +1,10 @@
 <script lang="ts">
 	import { repo } from '$lib/data/links';
-	import { tourTabs, type TourTab } from '$lib/data/tour';
 	import Logo from './Logo.svelte';
 	import Mark from './Mark.svelte';
+	import Visualizer from './Visualizer.svelte';
 
-	let { version = 'v1.9.9' }: { version?: string | null } = $props();
-
-	let activeId = $state('overview');
-	const activeTab = $derived(tourTabs.find((t) => t.id === activeId) ?? tourTabs[0]);
+	let { version = 'v1.9.10' }: { version?: string | null } = $props();
 </script>
 
 <section id="top" class="hero">
@@ -61,85 +58,8 @@
 		</p>
 	</div>
 
-	<!-- High-definition product showcase framed in Sonora wire border -->
-	<div id="tour" class="showcase-wrap" data-enter style="--enter: 0.26s">
-		<div class="page">
-			<div class="showcase-frame">
-				<!-- Tab Bar -->
-				<div class="tab-strip" role="tablist" aria-label="Feature Showcase Tabs">
-					{#each tourTabs as tab (tab.id)}
-						<button
-							type="button"
-							role="tab"
-							class="tab-btn"
-							class:active={tab.id === activeId}
-							aria-selected={tab.id === activeId}
-							onclick={() => (activeId = tab.id)}
-						>
-							{tab.label}
-						</button>
-					{/each}
-				</div>
-
-				<!-- Display Stage -->
-				<div class="stage">
-					{#if activeTab.video}
-						<div class="media-container video-container">
-							<video
-								src={activeTab.video}
-								autoplay
-								loop
-								muted
-								playsinline
-								controls
-								class="showcase-media"
-							>
-								Your browser does not support the video tag.
-							</video>
-						</div>
-					{:else if activeTab.image}
-						<div class="media-container image-container">
-							<img
-								src={activeTab.image}
-								alt={activeTab.title}
-								loading="lazy"
-								class="showcase-media"
-							/>
-						</div>
-					{/if}
-
-					<!-- Feature Details Caption Footer -->
-					<div class="stage-footer">
-						<div class="stage-text">
-							<span class="kicker">Highlight</span>
-							<h3>{activeTab.title}</h3>
-							<p>{activeTab.description}</p>
-						</div>
-
-						<ul class="bullets">
-							{#each activeTab.bullets as bullet}
-								<li>
-									<svg
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="check-icon"
-									>
-										<polyline points="20 6 9 17 4 12" />
-									</svg>
-									<span>{bullet}</span>
-								</li>
-							{/each}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="band" data-enter style="--enter: 0.26s">
+		<Visualizer />
 	</div>
 </section>
 
@@ -150,22 +70,32 @@
 		flex-direction: column;
 		justify-content: flex-end;
 		scroll-margin-top: var(--header);
+		min-height: calc(100vh - var(--header) - var(--fold-peek));
+		min-height: calc(100svh - var(--header) - var(--fold-peek));
+		background: radial-gradient(ellipse 70% 50% at 50% 12%, var(--glow-subtle), transparent 70%);
 	}
 
 	.hero .page {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
-		padding-top: clamp(64px, 8vh, 100px);
-		padding-bottom: 32px;
+		padding-top: clamp(64px, 9vh, 110px);
+		padding-bottom: 40px;
 	}
 
 	.mark {
 		display: flex;
 		border-radius: 20px;
-		box-shadow: var(--shadow);
+		box-shadow: 0 0 50px -10px rgba(34, 197, 94, 0.45), var(--shadow);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.mark:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 0 65px -8px rgba(34, 197, 94, 0.6), var(--shadow);
 	}
 
 	h1 {
@@ -178,9 +108,9 @@
 
 	.tagline {
 		margin-top: 18px;
-		max-width: 600px;
-		font-size: clamp(16px, 2.2vw, 19px);
-		line-height: 1.5;
+		max-width: 580px;
+		font-size: clamp(15.5px, 2vw, 18px);
+		line-height: 1.55;
 		color: var(--muted-fg);
 		text-wrap: pretty;
 	}
@@ -216,134 +146,18 @@
 		color: var(--faint);
 	}
 
-	.showcase-wrap {
-		width: 100%;
-		padding-bottom: 72px;
-	}
-
-	.showcase-frame {
-		width: 100%;
-		border: 1px solid var(--line);
-		border-radius: var(--radius-lg);
-		background: var(--card);
-		box-shadow: var(--shadow);
-		overflow: hidden;
-	}
-
-	.tab-strip {
-		display: flex;
-		overflow-x: auto;
-		background: var(--secondary);
-		border-bottom: 1px solid var(--line);
-		scrollbar-width: none;
-	}
-
-	.tab-strip::-webkit-scrollbar {
-		display: none;
-	}
-
-	.tab-btn {
-		padding: 12px 18px;
-		font-size: 13px;
-		font-weight: 500;
-		color: var(--muted-fg);
-		white-space: nowrap;
-		border-bottom: 2px solid transparent;
-		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
-	}
-
-	.tab-btn:hover {
-		color: var(--fg);
-		background: var(--secondary-hover);
-	}
-
-	.tab-btn.active {
-		color: var(--fg);
-		border-bottom-color: var(--fg);
-		background: var(--bg);
-	}
-
-	.stage {
-		display: flex;
-		flex-direction: column;
-		background: var(--bg);
-	}
-
-	.media-container {
-		width: 100%;
-		position: relative;
-		background: #000;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		max-height: 640px;
-		overflow: hidden;
-	}
-
-	.showcase-media {
-		width: 100%;
-		height: auto;
-		max-height: 640px;
-		object-fit: contain;
-		display: block;
-	}
-
-	.stage-footer {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 36px;
-		padding: 28px 32px;
-		border-top: 1px solid var(--line);
-		background: var(--card);
-		text-align: left;
-	}
-
-	.stage-text {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.stage-text h3 {
-		font-size: 19px;
-		font-weight: 600;
-	}
-
-	.stage-text p {
-		font-size: 14px;
-		line-height: 1.6;
-		color: var(--muted-fg);
-	}
-
-	.bullets {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		justify-content: center;
-	}
-
-	.bullets li {
-		display: flex;
-		align-items: flex-start;
-		gap: 10px;
-		font-size: 13px;
-		line-height: 1.5;
-		color: var(--muted-fg);
-	}
-
-	.check-icon {
-		color: var(--syntax-string);
-		flex-shrink: 0;
-		margin-top: 2px;
+	.band {
+		padding: 0 var(--gutter);
 	}
 
 	@media (max-width: 900px) {
+		.hero {
+			min-height: 0;
+		}
+
 		.hero .page {
-			padding-top: 48px;
-			padding-bottom: 24px;
+			padding-top: 52px;
+			padding-bottom: 28px;
 		}
 
 		.tagline {
@@ -353,13 +167,7 @@
 		.cta {
 			flex-direction: column;
 			align-self: stretch;
-			margin-top: 24px;
-		}
-
-		.stage-footer {
-			grid-template-columns: 1fr;
-			gap: 20px;
-			padding: 20px;
+			margin-top: 28px;
 		}
 	}
 </style>
