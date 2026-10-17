@@ -35,14 +35,10 @@
 				</div>
 			</div>
 
-			<!-- Clean casual footer bar below video -->
-			<div class="preview-footer">
-				<p class="summary-text">
-					Single-click server creation, live ANSI console, and zero-router Playit.gg tunnels.
-				</p>
-
+			<!-- Centered link to screenshot gallery -->
+			<div class="preview-action">
 				<a href="/gallery" class="gallery-btn">
-					<span>View screenshots</span>
+					<span>View screenshot gallery</span>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 						<line x1="5" y1="12" x2="19" y2="12" />
 						<polyline points="12 5 19 12 12 19" />
@@ -88,7 +84,7 @@
 		z-index: 0;
 	}
 
-	/* Clean wireframe box with zero top header */
+	/* Clean wireframe box matching Sonora design tokens */
 	.frame {
 		position: relative;
 		z-index: 1;
@@ -122,54 +118,47 @@
 		display: block;
 	}
 
-	/* Casual footer bar below video */
-	.preview-footer {
+	/* Centered action button below video */
+	.preview-action {
 		position: relative;
 		z-index: 2;
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
 		width: 100%;
-		margin-top: 18px;
-		gap: 16px;
-		padding: 0 4px;
-	}
-
-	.summary-text {
-		font-size: 14px;
-		color: var(--muted-fg);
-		margin: 0;
+		margin-top: 20px;
 	}
 
 	.gallery-btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 6px;
-		height: 34px;
-		padding: 0 14px;
+		gap: 8px;
+		height: 38px;
+		padding: 0 18px;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		background: var(--card);
 		color: var(--fg);
-		font-size: 13px;
+		font-size: 13.5px;
 		font-weight: 500;
 		white-space: nowrap;
 		text-decoration: none;
-		transition: background-color 0.15s ease, border-color 0.15s ease;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 	}
 
 	.gallery-btn:hover {
 		background: var(--secondary-hover);
 		border-color: var(--dim);
+		transform: translateY(-1px);
 	}
 
 	.gallery-btn svg {
-		color: var(--muted-fg);
+		color: var(--dim);
 		transition: transform 0.15s ease, color 0.15s ease;
 	}
 
 	.gallery-btn:hover svg {
-		transform: translateX(2px);
+		transform: translateX(3px);
 		color: var(--fg);
 	}
 
@@ -178,11 +167,8 @@
 			padding: 0 0 48px;
 		}
 
-		.preview-footer {
-			margin-top: 14px;
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 10px;
+		.preview-action {
+			margin-top: 16px;
 		}
 
 		.gallery-btn {
