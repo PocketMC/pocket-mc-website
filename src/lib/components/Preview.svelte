@@ -2,6 +2,11 @@
 	const videoSrc = '/Video/PocketMC.mp4';
 </script>
 
+<svelte:head>
+	<link rel="preload" as="video" href={videoSrc} type="video/mp4" />
+	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" />
+</svelte:head>
+
 <section id="tour" class="preview section">
 	<span class="cross start"></span>
 	<span class="cross end"></span>
@@ -16,6 +21,8 @@
 				<div class="media-container video-container">
 					<video
 						src={videoSrc}
+						poster="/screenshots/screenshot-dashboard.webp"
+						preload="auto"
 						autoplay
 						loop
 						muted

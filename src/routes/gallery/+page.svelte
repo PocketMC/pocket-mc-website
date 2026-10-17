@@ -39,7 +39,7 @@
 			window.scrollTo({ top: trackTop + targetScroll, behavior: 'smooth' });
 			setTimeout(() => {
 				isScrolling = false;
-			}, 400);
+			}, 350);
 		}
 	}
 
@@ -70,6 +70,12 @@
 	}
 
 	onMount(() => {
+		// Eagerly preload all gallery images into memory to completely eliminate UI flicker
+		galleryItems.forEach((item) => {
+			const img = new Image();
+			img.src = item.src;
+		});
+
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
@@ -83,6 +89,10 @@
 		name="description"
 		content="Screenshots of PocketMC on desktop and mobile."
 	/>
+	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" />
+	<link rel="preload" as="image" href="/screenshots/screenshot-console.webp" />
+	<link rel="preload" as="image" href="/screenshots/mobile-home.webp" />
+	<link rel="preload" as="image" href="/screenshots/mobile-console.webp" />
 </svelte:head>
 
 <svelte:window
@@ -180,7 +190,7 @@
 	</header>
 
 	{#if viewMode === 'scroll'}
-		<!-- Sticky Scroll Mode: page stays stick while photos change as you scroll -->
+		<!-- Sticky Scroll Mode: page stays stick while photos change smoothly with zero flicker -->
 		<div
 			class="scroll-track"
 			bind:this={trackElement}
@@ -191,26 +201,38 @@
 				<div class="ambient-glow" aria-hidden="true"></div>
 
 				<div class="page stage-inner">
-					<!-- Clean, border-framed photo container -->
-					<div class="frame-wrap" class:portrait-mode={currentItem.orientation === 'portrait'}>
-						<button
-							type="button"
+					<!-- Constant, rock-solid frame container (rounded edges matching showcase video) -->
+					<div class="frame-wrap">
+						<div
 							class="photo-frame"
-							class:portrait={currentItem.orientation === 'portrait'}
-							onclick={() => (lightboxItem = currentItem)}
-							aria-label="View {currentItem.title} full size"
-							title="Click to view full size"
+							role="region"
+							aria-label="Screenshot showcase"
 						>
-							<img
-								src={currentItem.src}
-								alt={currentItem.title}
-								class="photo-img"
-								class:portrait={currentItem.orientation === 'portrait'}
-							/>
-						</button>
+							{#each filteredItems as item, idx (item.id)}
+								<button
+									type="button"
+									class="photo-slide"
+									class:active={idx === activeIndex}
+									class:portrait={item.orientation === 'portrait'}
+									onclick={() => (lightboxItem = item)}
+									aria-label="View {item.title} full size"
+									title="Click to view full size"
+									tabindex={idx === activeIndex ? 0 : -1}
+								>
+									<img
+										src={item.src}
+										alt={item.title}
+										loading="eager"
+										decoding="async"
+										class="photo-img"
+										class:portrait={item.orientation === 'portrait'}
+									/>
+								</button>
+							{/each}
+						</div>
 					</div>
 
-					<!-- Casual, minimal footer bar -->
+					<!-- Casual, minimal footer bar: anchored position, zero shift -->
 					<div class="caption-bar">
 						<div class="caption-text">
 							<span class="photo-title">{currentItem.title}</span>
@@ -495,9 +517,12 @@
 		padding-inline: var(--gutter);
 	}
 
-	/* Photo container: adapts naturally to landscape and portrait */
+	/* Rock-solid photo stage: rounded edges matching showcase video */
 	.frame-wrap {
 		width: 100%;
+		height: 540px;
+		max-height: calc(100vh - 250px);
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -505,52 +530,62 @@
 
 	.photo-frame {
 		width: 100%;
-		max-height: calc(100vh - 250px);
-		aspect-ratio: 16 / 10;
-		padding: 0;
+		height: 100%;
+		position: relative;
 		background: #000;
 		border: 1px solid var(--border);
 		border-radius: var(--radius-lg);
 		overflow: hidden;
-		box-shadow: var(--shadow);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: zoom-in;
-		transition: border-color 0.15s ease;
+		box-shadow:
+			var(--shadow),
+			var(--glow);
+		transition: border-color 0.15s ease, box-shadow 0.25s ease;
 	}
 
 	.photo-frame:hover {
 		border-color: var(--dim);
 	}
 
-	/* Portrait screenshot on desktop: natural phone proportions with zero fake notch */
-	.photo-frame.portrait {
-		width: auto;
-		max-width: 310px;
-		aspect-ratio: 9 / 19.5;
-		margin: 0 auto;
-		border-radius: 24px;
+	/* Pre-rendered stacked slides: crossfade without flicker or blank frame */
+	.photo-slide {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border: none;
+		background: transparent;
+		cursor: zoom-in;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.22s ease-out;
 	}
 
+	.photo-slide.active {
+		opacity: 1;
+		pointer-events: auto;
+		z-index: 1;
+	}
+
+	/* Both desktop and mobile screenshots fit cleanly within the frame with rounded corners */
 	.photo-img {
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
 		display: block;
-		transition: opacity 0.2s ease;
+		border-radius: calc(var(--radius-lg) - 1px);
 	}
 
-	.photo-img.portrait {
-		object-fit: cover;
-	}
-
-	/* Casual caption footer bar */
+	/* Casual caption footer bar: fixed rock-solid layout */
 	.caption-bar {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
+		min-height: 38px;
 		margin-top: 14px;
 		padding: 0 4px;
 		gap: 16px;
@@ -560,13 +595,17 @@
 		display: flex;
 		align-items: baseline;
 		gap: 8px;
-		flex-wrap: wrap;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.photo-title {
 		font-size: 14px;
 		font-weight: 600;
 		color: var(--fg);
+		white-space: nowrap;
 	}
 
 	.caption-sep {
@@ -576,6 +615,9 @@
 	.photo-desc {
 		font-size: 13.5px;
 		color: var(--muted-fg);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.bar-controls {
@@ -679,7 +721,7 @@
 		background: var(--fg);
 	}
 
-	/* Grid View Mode */
+	/* Grid View Mode: rounded edges matching showcase video */
 	.grid-section {
 		padding-bottom: 72px;
 	}
@@ -703,16 +745,17 @@
 		text-align: left;
 		display: flex;
 		flex-direction: column;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
 		background: var(--card);
 		overflow: hidden;
 		cursor: zoom-in;
+		box-shadow: var(--shadow);
 		transition: border-color 0.15s ease, transform 0.15s ease;
 	}
 
 	.grid-card:hover {
-		border-color: var(--border);
+		border-color: var(--dim);
 		transform: translateY(-2px);
 	}
 
@@ -724,6 +767,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		border-top-left-radius: calc(var(--radius-lg) - 1px);
+		border-top-right-radius: calc(var(--radius-lg) - 1px);
 	}
 
 	.card-thumb img {
@@ -731,6 +776,8 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+		border-top-left-radius: calc(var(--radius-lg) - 1px);
+		border-top-right-radius: calc(var(--radius-lg) - 1px);
 	}
 
 	.card-thumb.portrait-thumb {
@@ -757,7 +804,7 @@
 		line-height: 1.4;
 	}
 
-	/* Lightbox */
+	/* Lightbox: edge-to-edge modal with rounded corners matching showcase */
 	.lightbox {
 		position: fixed;
 		inset: 0;
@@ -823,13 +870,13 @@
 		max-width: 95vw;
 		max-height: 85vh;
 		object-fit: contain;
-		border-radius: var(--radius);
+		border-radius: var(--radius-lg);
 		box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
 	}
 
 	.lb-img.portrait {
 		max-height: 88vh;
-		border-radius: 20px;
+		border-radius: var(--radius-lg);
 	}
 
 	.lb-nav-wrap {
@@ -860,7 +907,7 @@
 		background: var(--secondary-hover);
 	}
 
-	/* Mobile responsive */
+	/* Mobile responsive adjustments */
 	@media (max-width: 768px) {
 		.gallery-hero {
 			padding-top: 36px;
@@ -902,22 +949,25 @@
 			padding-inline: 12px;
 		}
 
-		.photo-frame {
-			max-height: 250px;
-			aspect-ratio: 16 / 10;
+		.frame-wrap {
+			height: 380px;
+			max-height: 52vh;
 		}
 
-		.photo-frame.portrait {
-			max-width: 220px;
-			max-height: 380px;
-			border-radius: 20px;
+		.photo-frame {
+			border-radius: var(--radius-lg);
 		}
 
 		.caption-bar {
 			margin-top: 10px;
+			min-height: 56px;
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 8px;
+		}
+
+		.caption-text {
+			white-space: normal;
 		}
 
 		.photo-title {
