@@ -201,7 +201,7 @@ Permission flags for multi-user accounts:
 
 ---
 
-## 6. Complete FAQ Knowledge Base
+## 6. Frequently Asked Questions (FAQ) & Troubleshooting Knowledge Base
 
 1. **How do my friends join the server, and how can I manage it remotely?**
    - For Players: Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g. `example.playit.gg`). Friends paste this address into their Minecraft multiplayer menu.
@@ -252,37 +252,132 @@ Permission flags for multi-user accounts:
 
 ---
 
-## 8. Machine-Readable API Summary
+## 8. Complete Remote Control REST & WebSocket API Reference
 
-```
-GET    /health                               - Daemon health probe
-POST   /api/login                            - Authenticate with username and password
-GET    /api/instances                        - List all server instances and telemetry
-GET    /api/instances/{id}                   - Retrieve status of specific instance
-POST   /api/instances/{id}/start             - Start server instance
-POST   /api/instances/{id}/stop              - Stop server instance (graceful RCON flush)
-POST   /api/instances/{id}/kill              - Force terminate server instance process
-POST   /api/instances/{id}/command           - Send console command (e.g. {"command": "say Hello"})
-GET    /api/instances/{id}/properties        - Retrieve server.properties configuration
-PUT    /api/instances/{id}/properties        - Update server.properties configuration
-GET    /api/instances/{id}/players           - List connected online players
-POST   /api/instances/{id}/players/kick      - Kick a player
-POST   /api/instances/{id}/players/ban       - Ban a player
-GET    /api/instances/{id}/addons            - List installed plugins and mods
-POST   /api/instances/{id}/addons/toggle     - Toggle mod/plugin enabled or disabled
-GET    /api/instances/{id}/backups           - List generated backup ZIP archives
-POST   /api/instances/{id}/backups           - Trigger immediate RCON-held backup snapshot
-GET    /api/instances/{id}/files             - List files in instance directory
-POST   /api/instances/{id}/files/upload      - Upload file to instance directory
-WS     /ws/instances/{id}/console            - Bi-directional WebSocket stream for live console
-```
+When Remote Control is enabled in PocketMC Settings, the application starts an embedded ASP.NET Core Kestrel web server on port **25580** (`http://127.0.0.1:25580`).
+
+### 8.1 Authentication & Sessions
+- **Endpoint**: `POST /api/login`
+- **Request Headers**: `Content-Type: application/json`
+- **Request Body**:
+  ```json
+  {
+    "username": "admin",
+    "password": "your-secure-password-or-pin"
+  }
+  ```
+- **Response**: `200 OK` with `Set-Cookie: RemoteCookies=...; path=/; samesite=lax; httponly`
+- **Security**: Rate limited to maximum 5 failed attempts per minute per IP address.
+
+### 8.2 Daemon Status & Permissions
+- **Endpoint**: `GET /api/status`
+- **Response**:
+  ```json
+  {
+    "enabled": true,
+    "hostRunning": true,
+    "port": 25580,
+    "accessMode": "LocalAndTunnel",
+    "localUrls": ["http://127.0.0.1:25580", "http://192.168.1.50:25580"],
+    "publicUrl": "https://random-words.trycloudflare.com",
+    "tunnelRunning": true,
+    "allowRemoteConsoleCommands": true,
+    "allowRemotePlayerActions": true,
+    "allowRemoteServerSettings": true,
+    "allowRemoteServerAddons": true,
+    "allowRemoteFileManager": true,
+    "allowRemoteServerBackups": true
+  }
+  ```
+
+### 8.3 Instance Management Endpoints
+- `GET /api/instances`: Lists all instances with runtime status, engine type, Minecraft version, memory usage, CPU load, and online player counts.
+- `GET /api/instances/{instanceId}/status`: Returns live telemetry and operational state for a specific server instance.
+- `POST /api/instances/{instanceId}/start`: Spawns the server process and initializes socket bindings.
+- `POST /api/instances/{instanceId}/stop`: Executes a graceful shutdown via RCON save flush followed by process exit.
+- `POST /api/instances/{instanceId}/restart`: Performs sequential graceful stop and clean reboot.
+
+### 8.4 Live Console & Terminal
+- `GET /api/instances/{instanceId}/console/history`: Retrieves recent buffered console lines with ANSI escape sequences.
+- `POST /api/instances/{instanceId}/console/command`: Sends a command to the server console.
+  ```json
+  {
+    "command": "say Server maintenance in 5 minutes"
+  }
+  ```
+- `WS /ws/instances/{instanceId}/console`: Bi-directional WebSocket stream. Streams real-time stdout/stderr lines with ANSI color codes, and accepts raw command strings from client.
+
+### 8.5 Player Moderation Endpoints
+- `GET /api/instances/{instanceId}/players`: Returns array of online players with username, UUID, ping, and operator status.
+- `POST /api/instances/{instanceId}/players/{name}/kick`: Disconnects player with optional reason.
+- `POST /api/instances/{instanceId}/players/{name}/ban`: Adds player to server blacklist.
+- `POST /api/instances/{instanceId}/players/{name}/op`: Promotes player to server operator.
+- `POST /api/instances/{instanceId}/players/{name}/deop`: Revokes operator privileges.
+
+### 8.6 Configuration & Properties
+- `GET /api/instances/{instanceId}/properties`: Returns key-value dictionary of `server.properties`.
+- `PUT /api/instances/{instanceId}/properties`: Modifies server parameters (e.g. `motd`, `max-players`, `difficulty`, `pvp`, `view-distance`, `online-mode`).
+
+### 8.7 File Management & Backups
+- `GET /api/instances/{instanceId}/files?path={dir}`: Lists files and subdirectories with sizes, permissions, and modification timestamps.
+- `GET /api/instances/{instanceId}/files/content?path={filePath}`: Reads raw text file content (e.g. config files, `.yml`, `.json`, `.properties`).
+- `PUT /api/instances/{instanceId}/files/content?path={filePath}`: Writes updated file content safely.
+- `DELETE /api/instances/{instanceId}/files?path={filePath}`: Deletes file or directory.
+- `POST /api/instances/{instanceId}/files/upload?path={targetDir}`: Multipart file upload directly to instance directory.
+- `GET /api/instances/{instanceId}/backups`: Lists snapshot ZIP archives with SHA-256 hashes, creation dates, and file sizes.
+- `POST /api/instances/{instanceId}/backups`: Triggers immediate snapshot with RCON save-holding and cloud replication.
 
 ---
 
-## 9. Contact & Community Links
+## 9. Server Properties & Advanced Configuration
+
+PocketMC includes an interactive graphical editor and JSON validation layer for `server.properties`. Key parameters include:
+
+| Property | Default Value | Valid Options / Type | Description |
+| :--- | :--- | :--- | :--- |
+| `server-port` | `25565` | `1024-65535` | The network port the server listens on for incoming Minecraft game connections. |
+| `motd` | `A Minecraft Server` | String | Message of the day displayed in the multiplayer server list. Supports Minecraft formatting codes. |
+| `gamemode` | `survival` | `survival`, `creative`, `adventure`, `spectator` | Default game mode assigned to connecting players. |
+| `difficulty` | `easy` | `peaceful`, `easy`, `normal`, `hard` | World game difficulty and mob hostility level. |
+| `max-players` | `20` | Integer (`1-1000`) | Maximum simultaneous players allowed on the server. |
+| `online-mode` | `true` | `true`, `false` | Verifies connecting players against Mojang session servers. Must remain `true` unless offline authentication is explicitly desired. |
+| `pvp` | `true` | `true`, `false` | Enables or disables player-versus-player combat damage. |
+| `view-distance` | `10` | Integer (`3-32`) | Radius of world chunks sent to players around their position. |
+| `simulation-distance` | `10` | Integer (`3-32`) | Radius of world chunks where entities, crops, and redstone are actively processed. |
+| `spawn-protection` | `16` | Integer (`0-100`) | Side length of the square spawn area protected from non-operator player modifications. |
+| `white-list` | `false` | `true`, `false` | Restricts server access exclusively to players listed in `whitelist.json`. |
+| `enforce-whitelist` | `false` | `true`, `false` | When enabled, immediately kicks online players if removed from the whitelist. |
+| `enable-rcon` | `false` | `true`, `false` | Enables the remote console protocol. PocketMC uses internal loopback RCON for atomic save flushes before taking backup archives. |
+| `rcon.port` | `25575` | `1024-65535` | Port dedicated to loopback RCON communications. |
+| `rcon.password` | Random UUID | Secret String | Salted password generated locally for internal RCON authentication. |
+
+---
+
+## 10. Installation & Setup Options for Windows
+
+PocketMC provides three official installation channels on Windows 10 and Windows 11 (64-bit):
+
+1. **Standard Windows Setup Wizard (`PocketMC-win-Setup.exe`)**:
+   - Creates desktop and Start Menu shortcuts.
+   - Installs to standard per-user local application directory (`%LOCALAPPDATA%\Programs\PocketMC`).
+   - Supports background delta updates and in-app upgrade notifications.
+
+2. **Microsoft Windows Package Manager (Winget)**:
+   - Command: `winget install PocketMC`
+   - Automated silent installation and upgrade management via Windows Terminal or PowerShell.
+
+3. **Standalone Portable Edition (`PocketMC-Portable-win-x64.zip`)**:
+   - Zero registry modifications, zero installer baggage.
+   - Extract to any local drive, external SSD, or USB thumb drive and launch standalone.
+   - Ideal for LAN parties or restricted user environments.
+
+---
+
+## 11. Contact & Community Links
 
 - **Official Website**: https://pocketmc.github.io/
 - **Documentation**: https://pocketmc.github.io/docs/
 - **GitHub Issues**: https://github.com/PocketMC/pocket-mc-windows/issues
 - **Discord Community**: https://discord.gg/mWdMr8Mc2m
 - **Latest Windows Installer**: https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe
+
