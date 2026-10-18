@@ -3,58 +3,22 @@
 
 	const videoSrc = '/Video/PocketMC.mp4';
 	let videoEl = $state<HTMLVideoElement | null>(null);
-	let isMuted = $state(false);
+	let isMuted = $state(true);
 
 	onMount(() => {
 		if (!videoEl) return;
-
-		// Default volume to 50%
 		videoEl.volume = 0.5;
-
-		// Attempt unmuted autoplay at 50% volume
-		videoEl.muted = false;
-		const playPromise = videoEl.play();
-		if (playPromise !== undefined) {
-			playPromise
-				.then(() => {
-					isMuted = false;
-				})
-				.catch(() => {
-					// Browser blocked unmuted autoplay due to document interaction policy.
-					// Fall back to muted autoplay to avoid playback freeze, and unmute on first interaction.
-					if (videoEl) {
-						videoEl.muted = true;
-						videoEl.play();
-						isMuted = true;
-					}
-
-					const enableSound = () => {
-						if (videoEl) {
-							videoEl.muted = false;
-							videoEl.volume = 0.5;
-							isMuted = false;
-						}
-						window.removeEventListener('pointerdown', enableSound);
-						window.removeEventListener('keydown', enableSound);
-						window.removeEventListener('scroll', enableSound);
-					};
-
-					window.addEventListener('pointerdown', enableSound, { once: true });
-					window.addEventListener('keydown', enableSound, { once: true });
-					window.addEventListener('scroll', enableSound, { once: true, passive: true });
-				});
-		}
+		videoEl.play().catch(() => {});
 	});
 
-	function toggleSound() {
-		if (!videoEl) return;
-		if (videoEl.muted || videoEl.volume === 0) {
-			videoEl.muted = false;
-			videoEl.volume = 0.5;
-			isMuted = false;
-		} else {
-			videoEl.muted = true;
-			isMuted = true;
+	function setMuted(muted: boolean) {
+		isMuted = muted;
+		if (videoEl) {
+			videoEl.muted = muted;
+			if (!muted) {
+				videoEl.volume = 0.5;
+				videoEl.play().catch(() => {});
+			}
 		}
 	}
 </script>
@@ -83,39 +47,52 @@
 						preload="auto"
 						autoplay
 						loop
+						muted
 						playsinline
 						class="showcase-media"
 					>
 						Your browser does not support the video tag.
 					</video>
-
-					<!-- Minimal sound toggle at 50% default -->
-					<button
-						type="button"
-						class="sound-toggle"
-						onclick={toggleSound}
-						aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-					>
-						{#if isMuted}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-								<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-								<line x1="23" y1="9" x2="17" y2="15" />
-								<line x1="17" y1="9" x2="23" y2="15" />
-							</svg>
-							<span>Sound off</span>
-						{:else}
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-								<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-								<path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-							</svg>
-							<span>50%</span>
-						{/if}
-					</button>
 				</div>
 			</div>
 
-			<!-- Centered link to screenshot gallery -->
-			<div class="preview-action">
+			<!-- External controls row below showcase frame -->
+			<div class="preview-actions">
+				<!-- Tab switcher for audio matching ThemeSwitch aesthetics -->
+				<div class="audio-switch" role="group" aria-label="Video sound controls">
+					<button
+						type="button"
+						class="switch-btn"
+						class:on={isMuted}
+						onclick={() => setMuted(true)}
+						aria-pressed={isMuted}
+						title="Mute video"
+					>
+						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+							<line x1="23" y1="9" x2="17" y2="15" />
+							<line x1="17" y1="9" x2="23" y2="15" />
+						</svg>
+						<span>Mute</span>
+					</button>
+					<button
+						type="button"
+						class="switch-btn"
+						class:on={!isMuted}
+						onclick={() => setMuted(false)}
+						aria-pressed={!isMuted}
+						title="Unmute video"
+					>
+						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+							<path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+							<path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+						</svg>
+						<span>Unmute</span>
+					</button>
+				</div>
+
+				<!-- Link to screenshot gallery -->
 				<a href="/gallery" class="gallery-btn">
 					<span>View screenshot gallery</span>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -197,47 +174,67 @@
 		user-select: none;
 	}
 
-	/* Sleek, minimal sound toggle */
-	.sound-toggle {
-		position: absolute;
-		bottom: 16px;
-		right: 16px;
-		z-index: 5;
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		height: 30px;
-		padding: 0 12px;
-		border: 1px solid var(--border);
-		border-radius: var(--radius-full);
-		background: rgba(10, 10, 10, 0.72);
-		backdrop-filter: blur(8px);
-		color: var(--fg);
-		font-size: 12px;
-		font-weight: 500;
-		cursor: pointer;
-		transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-	}
-
-	.sound-toggle:hover {
-		background: rgba(24, 24, 27, 0.88);
-		border-color: var(--dim);
-		transform: scale(1.02);
-	}
-
-	.sound-toggle svg {
-		color: var(--fg);
-	}
-
-	/* Centered action button below video */
-	.preview-action {
+	/* Centered action controls below video */
+	.preview-actions {
 		position: relative;
 		z-index: 2;
 		display: flex;
+		align-items: center;
 		justify-content: center;
+		gap: 12px;
 		width: 100%;
 		margin-top: 20px;
+		flex-wrap: wrap;
+	}
+
+	/* Tab switcher matching ThemeSwitch aesthetic */
+	.audio-switch {
+		height: 38px;
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		padding: 3px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+	}
+
+	.switch-btn {
+		height: 100%;
+		padding: 0 13px;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		border-radius: calc(var(--radius) - 4px);
+		border: none;
+		background: transparent;
+		color: var(--dim);
+		font-size: 13px;
+		font-weight: 500;
+		white-space: nowrap;
+		cursor: pointer;
+		transition: color 0.15s ease, background-color 0.15s ease;
+	}
+
+	.switch-btn:hover {
+		color: var(--fg);
+	}
+
+	.switch-btn.on {
+		background: var(--secondary-active);
+		color: var(--fg);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	}
+
+	.switch-btn svg {
+		width: 13px;
+		height: 13px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
 	}
 
 	.gallery-btn {
@@ -279,20 +276,19 @@
 			padding: 0 0 48px;
 		}
 
-		.sound-toggle {
-			bottom: 12px;
-			right: 12px;
-			height: 28px;
-			padding: 0 10px;
-			font-size: 11.5px;
-		}
-
-		.preview-action {
+		.preview-actions {
 			margin-top: 16px;
+			gap: 10px;
 		}
 
-		.gallery-btn {
+		.gallery-btn,
+		.audio-switch {
 			width: 100%;
+			justify-content: center;
+		}
+
+		.switch-btn {
+			flex: 1;
 			justify-content: center;
 		}
 	}
