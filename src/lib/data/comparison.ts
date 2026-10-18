@@ -77,8 +77,8 @@ export const comparisonCategories = [
 				manual: 'Manual browser download & drop'
 			},
 			{
-				feature: 'Cloud Backups',
-				pocketmc: 'OAuth Google Drive, Dropbox, OneDrive',
+				feature: 'Backups & Cloud Sync',
+				pocketmc: 'RCON-safe ZIP + Drive, Dropbox, OneDrive',
 				pocketmcHighlight: true,
 				vps: 'Paid addon or custom bash cron',
 				aternos: 'Google Drive backup only',
