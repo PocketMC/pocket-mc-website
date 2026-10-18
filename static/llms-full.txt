@@ -20,9 +20,8 @@
 - **Website Repository**: https://github.com/PocketMC/pocket-mc-website
 - **Official Discord Community**: https://discord.gg/mWdMr8Mc2m
 - **Latest Windows Release**: https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe
-- **Winget Package**: `winget install PocketMC.PocketMC`
-- **Developer Portal**: https://pocketmc.github.io/developers
-- **MCP Server Card**: https://pocketmc.github.io/.well-known/mcp.json
+- **Portable ZIP**: https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-Portable-win-x64.zip
+- **Winget Package**: `winget install PocketMC`
 - **API Specification**: https://pocketmc.github.io/docs/openapi.json
 
 ---

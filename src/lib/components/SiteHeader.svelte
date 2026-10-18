@@ -22,7 +22,6 @@
 		{ href: '/gallery', label: 'Gallery' },
 		{ href: `${home}#comparison`, label: 'Comparison' },
 		{ href: '/docs', label: 'Docs' },
-		{ href: '/developers', label: 'Developers' },
 		{ href: '/faq', label: 'FAQ' },
 		{ href: '/about', label: 'About' },
 		{ href: '/contact', label: 'Contact' }

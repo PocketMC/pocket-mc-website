@@ -21,7 +21,6 @@ if (fs.existsSync(dist404)) {
 \t\t\t<p>If you are an automated AI agent or developer crawler, use the following machine-readable links:</p>
 \t\t\t<ul>
 \t\t\t\t<li><strong>Documentation:</strong> <a href="https://pocketmc.github.io/docs/introduction/" style="color: #4ade80;">https://pocketmc.github.io/docs/introduction/</a></li>
-\t\t\t\t<li><strong>Developer Portal:</strong> <a href="https://pocketmc.github.io/developers" style="color: #4ade80;">https://pocketmc.github.io/developers</a></li>
 \t\t\t\t<li><strong>AI Agent Manifest:</strong> <a href="https://pocketmc.github.io/llms.txt" style="color: #4ade80;">https://pocketmc.github.io/llms.txt</a></li>
 \t\t\t\t<li><strong>Full LLM Corpus:</strong> <a href="https://pocketmc.github.io/llms-full.txt" style="color: #4ade80;">https://pocketmc.github.io/llms-full.txt</a></li>
 \t\t\t\t<li><strong>XML Sitemap:</strong> <a href="https://pocketmc.github.io/sitemap.xml" style="color: #4ade80;">https://pocketmc.github.io/sitemap.xml</a></li>
@@ -31,7 +30,6 @@ if (fs.existsSync(dist404)) {
 The requested path does not exist on PocketMC.
 Please refer to our machine-readable agent guides:
 - Documentation: https://pocketmc.github.io/docs/introduction/
-- Developer Portal: https://pocketmc.github.io/developers
 - LLM Index: https://pocketmc.github.io/llms.txt
 - Sitemap: https://pocketmc.github.io/sitemap.xml</pre>
 \t\t</main>
