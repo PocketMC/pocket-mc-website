@@ -65,6 +65,5 @@ Sitemap: https://pocketmc.github.io/sitemap.xml
 # LLM Manifest: https://pocketmc.github.io/llms.txt
 # Full LLM Context: https://pocketmc.github.io/llms-full.txt
 # Agent Instructions: https://pocketmc.github.io/agent-instructions.md
-# MCP Manifest: https://pocketmc.github.io/.well-known/mcp.json
 # OpenAPI 3.1.0: https://pocketmc.github.io/docs/openapi.json
 

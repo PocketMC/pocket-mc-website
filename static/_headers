@@ -18,14 +18,6 @@
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
 
-/.well-known/mcp.json
-  Content-Type: application/json; charset=utf-8
-  Access-Control-Allow-Origin: *
-
-/.well-known/mcp
-  Content-Type: application/json; charset=utf-8
-  Access-Control-Allow-Origin: *
-
 /docs/openapi.json
   Content-Type: application/json; charset=utf-8
   Access-Control-Allow-Origin: *
