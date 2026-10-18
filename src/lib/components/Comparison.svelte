@@ -33,13 +33,7 @@
 							<tr class:highlight-row={item.isPocketMC}>
 								<td class="cell-tool">
 									<div class="tool-head">
-										{#if item.isPocketMC}
-											<span class="pulse-dot" aria-hidden="true"></span>
-										{/if}
 										<span class="tool-name" class:highlight-name={item.isPocketMC}>{item.tool}</span>
-										{#if item.badge}
-											<span class="badge best-badge">{item.badge}</span>
-										{/if}
 									</div>
 								</td>
 								<td class="cell-category">
@@ -144,28 +138,10 @@
 	}
 
 	.highlight-name {
-		color: var(--fg);
-		font-size: 14.5px;
-	}
-
-	.pulse-dot {
-		width: 7px;
-		height: 7px;
-		border-radius: 50%;
-		background: #22c55e;
-		box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
-		flex-shrink: 0;
-	}
-
-	.best-badge {
-		padding: 2px 7px;
-		font-size: 10.5px;
-		font-weight: 600;
-		border-radius: 999px;
-		background: rgba(34, 197, 94, 0.12);
-		color: #22c55e;
-		border: 1px solid rgba(34, 197, 94, 0.28);
-		white-space: nowrap;
+		color: #ffffff;
+		font-size: 15px;
+		font-weight: 700;
+		letter-spacing: -0.01em;
 	}
 
 	.category-pill {
@@ -191,11 +167,36 @@
 	}
 
 	.highlight-row td {
-		background: rgba(255, 255, 255, 0.02);
+		position: relative;
+		background: linear-gradient(
+			115deg,
+			rgba(255, 255, 255, 0.02) 0%,
+			rgba(34, 197, 94, 0.05) 15%,
+			rgba(255, 255, 255, 0.12) 35%,
+			rgba(34, 197, 94, 0.07) 50%,
+			rgba(255, 255, 255, 0.02) 80%
+		);
+		background-size: 250% 100%;
+		animation: row-shine 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+		border-top: 1px solid rgba(34, 197, 94, 0.28);
+		border-bottom: 1px solid rgba(34, 197, 94, 0.28);
+	}
+
+	.highlight-row td:first-child {
+		border-left: 2px solid #22c55e;
+	}
+
+	@keyframes row-shine {
+		0% {
+			background-position: 180% 0;
+		}
+		100% {
+			background-position: -80% 0;
+		}
 	}
 
 	.highlight-wins {
-		color: var(--fg);
+		color: #f1f5f9;
 		font-weight: 450;
 	}
 

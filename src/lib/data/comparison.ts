@@ -10,7 +10,6 @@ export interface CompetitorComparison {
 export const toolComparisons: CompetitorComparison[] = [
 	{
 		tool: 'PocketMC',
-		badge: 'Best Overall',
 		category: 'Native Windows Desktop App',
 		coreStrength: 'Complete local Minecraft server management with zero setup overhead',
 		pocketmcWins:
