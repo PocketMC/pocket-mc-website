@@ -166,32 +166,46 @@
 		line-height: 1.55;
 	}
 
-	.highlight-row td {
-		position: relative;
-		background: linear-gradient(
+	.highlight-row {
+		background-color: rgba(255, 255, 255, 0.015);
+		background-image: linear-gradient(
 			115deg,
-			rgba(255, 255, 255, 0.02) 0%,
-			rgba(34, 197, 94, 0.05) 15%,
-			rgba(255, 255, 255, 0.12) 35%,
-			rgba(34, 197, 94, 0.07) 50%,
-			rgba(255, 255, 255, 0.02) 80%
+			transparent 0%,
+			transparent 38%,
+			rgba(34, 197, 94, 0.15) 45%,
+			rgba(255, 255, 255, 0.28) 50%,
+			rgba(34, 197, 94, 0.15) 55%,
+			transparent 62%,
+			transparent 100%
 		);
-		background-size: 250% 100%;
-		animation: row-shine 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-		border-top: 1px solid rgba(34, 197, 94, 0.28);
-		border-bottom: 1px solid rgba(34, 197, 94, 0.28);
+		background-size: 300% 100%;
+		animation: seamless-shine 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+		border-top: 1px solid rgba(34, 197, 94, 0.3);
+		border-bottom: 1px solid rgba(34, 197, 94, 0.3);
+	}
+
+	.highlight-row td {
+		background: transparent;
+		border-right: 1px solid rgba(255, 255, 255, 0.04);
 	}
 
 	.highlight-row td:first-child {
 		border-left: 2px solid #22c55e;
 	}
 
-	@keyframes row-shine {
+	.highlight-row td:last-child {
+		border-right: none;
+	}
+
+	@keyframes seamless-shine {
 		0% {
-			background-position: 180% 0;
+			background-position: 100% 0;
+		}
+		50% {
+			background-position: 0% 0;
 		}
 		100% {
-			background-position: -80% 0;
+			background-position: 0% 0;
 		}
 	}
 
