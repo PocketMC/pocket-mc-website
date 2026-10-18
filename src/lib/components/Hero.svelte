@@ -57,7 +57,7 @@
 
 		<p class="fine" data-enter style="--enter: 0.19s">
 			{#if version}
-				<a class="mono" href="/changelog">{version}</a>
+				<a class="mono" href="{repo}/releases" target="_blank" rel="noopener noreferrer">{version}</a>
 				<span class="dot">·</span>
 			{/if}
 			Free and open source

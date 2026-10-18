@@ -119,10 +119,6 @@ async function run() {
     await page.screenshot({ path: path.join(SCREENSHOTS_DIR, '09_faq.png') });
     console.log('Saved 09_faq.png');
 
-    // 10. Changelog
-    await gotoSafe('/changelog/');
-    await page.screenshot({ path: path.join(SCREENSHOTS_DIR, '10_changelog.png') });
-    console.log('Saved 10_changelog.png');
 
     // 11. About & Contact
     await gotoSafe('/about/');

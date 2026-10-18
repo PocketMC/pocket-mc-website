@@ -38,7 +38,6 @@
 					<h3>Project</h3>
 					<a href={repo} target="_blank" rel="noopener noreferrer">GitHub Repository</a>
 					<a href={website} target="_blank" rel="noopener noreferrer">Website Source</a>
-					<a href="/changelog">Changelog</a>
 					<a href="/about">About Us</a>
 					<a href="/contact">Contact</a>
 				</div>
