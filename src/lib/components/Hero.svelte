@@ -17,6 +17,7 @@
 		<div class="hero-brand" data-enter>
 			<img
 				src="/logo.webp"
+				srcset="/logo.webp 1x, /logo.webp 2x"
 				alt="PocketMC"
 				width="104"
 				height="104"
@@ -61,7 +62,7 @@
 				<a class="mono" href="{repo}/releases" target="_blank" rel="noopener noreferrer">{version}</a>
 				<span class="dot">·</span>
 			{/if}
-			Crafted by DS Labs
+			Crafted by <a href="/about" rel="author" class="author-link">DS Labs</a>
 			<span class="dot">·</span>
 			Free and open source
 			<span class="dot">·</span>
@@ -93,8 +94,8 @@
 		align-items: center;
 		justify-content: center;
 		text-align: center;
-		padding-top: clamp(64px, 9vh, 110px);
-		padding-bottom: 40px;
+		padding-top: clamp(36px, 5vh, 64px);
+		padding-bottom: 24px;
 	}
 
 	.hero-brand {
@@ -104,25 +105,25 @@
 	}
 
 	.hero-logo-img {
-		width: 104px;
-		height: 104px;
+		width: 96px;
+		height: 96px;
 		display: block;
 		object-fit: contain;
 	}
 
 	h1 {
-		margin-top: 24px;
-		font-size: clamp(48px, 7vw, 84px);
+		margin-top: 18px;
+		font-size: clamp(44px, 6.5vw, 76px);
 		line-height: 1;
 		letter-spacing: -0.045em;
 		font-weight: 600;
 	}
 
 	.tagline {
-		margin-top: 18px;
+		margin-top: 14px;
 		max-width: 580px;
-		font-size: clamp(15.5px, 2vw, 18px);
-		line-height: 1.55;
+		font-size: clamp(15px, 1.8vw, 17px);
+		line-height: 1.5;
 		color: var(--muted-fg);
 		text-wrap: pretty;
 	}
@@ -131,7 +132,7 @@
 		display: flex;
 		justify-content: center;
 		gap: 12px;
-		margin-top: 36px;
+		margin-top: 28px;
 	}
 
 	.fine {
@@ -140,7 +141,7 @@
 		gap: 8px;
 		flex-wrap: wrap;
 		justify-content: center;
-		margin-top: 24px;
+		margin-top: 18px;
 		font-size: 12px;
 		line-height: 1.5;
 		color: var(--dim);
@@ -152,6 +153,17 @@
 
 	.fine a.mono:hover {
 		color: var(--fg);
+	}
+
+	.fine a.author-link {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: var(--faint);
+	}
+
+	.fine a.author-link:hover {
+		color: var(--fg);
+		text-decoration-color: var(--fg);
 	}
 
 	.dot {

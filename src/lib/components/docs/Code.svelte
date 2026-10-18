@@ -11,6 +11,8 @@
 <figure>
 	{#if label}
 		<figcaption class="mono">{label}</figcaption>
+	{:else}
+		<figcaption class="sr-only">Code snippet</figcaption>
 	{/if}
 	<div class="body">
 		<!-- prettier-ignore -->

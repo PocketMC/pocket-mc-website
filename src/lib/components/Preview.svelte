@@ -118,7 +118,7 @@
 <style>
 	.preview {
 		position: relative;
-		padding: 56px 0 64px;
+		padding: 36px 0 56px;
 	}
 
 	.preview .page {

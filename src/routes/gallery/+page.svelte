@@ -167,10 +167,12 @@
 										<div class="phone-frame" style="aspect-ratio: {item.width} / {item.height};">
 											<img
 												src={item.src}
+												srcset="{item.src} 1x, {item.src} 2x"
 												alt={item.title}
 												width={item.width}
 												height={item.height}
 												loading="lazy"
+												decoding="async"
 												class="phone-img"
 											/>
 										</div>
@@ -199,10 +201,12 @@
 										>
 											<img
 												src={item.src}
+												srcset="{item.src} 1x, {item.src} 2x"
 												alt={item.title}
 												width={item.width}
 												height={item.height}
 												loading="lazy"
+												decoding="async"
 												class="desktop-img"
 											/>
 										</div>
@@ -236,10 +240,12 @@
 									<div class="phone-frame" style="aspect-ratio: {item.width} / {item.height};">
 										<img
 											src={item.src}
+											srcset="{item.src} 1x, {item.src} 2x"
 											alt={item.title}
 											width={item.width}
 											height={item.height}
 											loading="lazy"
+											decoding="async"
 											class="phone-img"
 										/>
 									</div>
@@ -267,10 +273,12 @@
 									>
 										<img
 											src={item.src}
+											srcset="{item.src} 1x, {item.src} 2x"
 											alt={item.title}
 											width={item.width}
 											height={item.height}
 											loading="lazy"
+											decoding="async"
 											class="desktop-img"
 										/>
 									</div>

@@ -4,6 +4,7 @@
 
 <img
 	src="/logo.webp"
+	srcset="/logo.webp 1x, /logo.webp 2x"
 	alt="PocketMC"
 	width={size}
 	height={size}

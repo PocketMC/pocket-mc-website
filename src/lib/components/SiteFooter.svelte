@@ -22,7 +22,7 @@
 					<span>PocketMC</span>
 				</a>
 				<p>
-					High-performance Minecraft server management right on your desktop, crafted by DS Labs. Zero port forwarding,
+					High-performance Minecraft server management right on your desktop, crafted by <a href="/about" rel="author" class="author-link">DS Labs</a>. Zero port forwarding,
 					instant public tunnels, and pure bare-metal power.
 				</p>
 			</div>
@@ -117,12 +117,12 @@
 
 		<div class="legal">
 			<p>
-				PocketMC is crafted by DS Labs. Free and open-source software licensed under the {license ?? 'MIT'} License.
-				NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
+				Crafted by <a href="/about" rel="author" class="author-link">DS Labs</a>. Free and open-source software licensed under the {license ?? 'MIT'} License.
+				<span class="dot">·</span>
+				<time datetime="2026-10-18">Updated: October 2026</time>
 			</p>
-			<p>
-				Minecraft is a trademark of Mojang Synergies AB. All other trademarks, product names, and company
-				logos referenced on this website are the property of their respective owners.
+			<p class="disclaimer-note">
+				<strong>Disclaimer:</strong> PocketMC is an independent open-source project created by DS Labs. It is NOT AN OFFICIAL MINECRAFT PRODUCT and is NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT. Minecraft is a trademark of Mojang Synergies AB. All other trademarks, product names, and company logos referenced on this website belong to their respective owners.
 			</p>
 		</div>
 	</div>

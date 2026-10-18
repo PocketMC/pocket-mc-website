@@ -24,6 +24,7 @@
 						<img
 							src={s.icon}
 							alt={s.name}
+							srcset="{s.icon} 1x, {s.icon} 2x"
 							width="32"
 							height="32"
 							loading="lazy"

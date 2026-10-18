@@ -14,68 +14,68 @@
 		{
 			label: 'Server Engines',
 			items: [
-				{ icon: '/icons/vanilla.webp', text: 'Vanilla (Official Mojang JARs)' },
-				{ icon: '/icons/papermc.webp', text: 'Paper (High-performance Spigot)' },
-				{ icon: '/icons/fabric.webp', text: 'Fabric (Lightweight & modular)' },
-				{ icon: '/icons/forge.webp', text: 'Forge (Classic mod loader)' },
-				{ icon: '/icons/neoforge.webp', text: 'NeoForge (Modern mod loader)' },
-				{ icon: '/icons/bds.webp', text: 'Bedrock Dedicated Server (BDS)' },
-				{ icon: '/icons/pocketmine-mp.webp', text: 'PocketMine-MP (PHP 8.2 PM5)' }
+				{ icon: '/icons/vanilla.webp', text: 'Vanilla (Official Mojang JARs).' },
+				{ icon: '/icons/papermc.webp', text: 'Paper (High-performance Spigot).' },
+				{ icon: '/icons/fabric.webp', text: 'Fabric (Lightweight & modular).' },
+				{ icon: '/icons/forge.webp', text: 'Forge (Classic mod loader).' },
+				{ icon: '/icons/neoforge.webp', text: 'NeoForge (Modern mod loader).' },
+				{ icon: '/icons/bds.webp', text: 'Bedrock Dedicated Server (BDS).' },
+				{ icon: '/icons/pocketmine-mp.webp', text: 'PocketMine-MP (PHP 8.2 PM5).' }
 			]
 		},
 		{
 			label: 'Lifecycle & Safety',
 			items: [
-				{ glyph: 'shield', text: 'RCON graceful save-holding flush' },
-				{ glyph: 'refresh-cw', text: 'Crash recovery with auto-backoff' },
-				{ glyph: 'zap', text: 'Port-collision preflight guard' },
-				{ glyph: 'hard-drive', text: 'Low-disk warning (< 2 GB guard)' },
-				{ mark: 'windows', text: 'Windows sleep mode inhibition' },
-				{ glyph: 'sliders', text: '80% System RAM over-allocation alert' }
+				{ glyph: 'shield', text: 'RCON graceful save-holding flush.' },
+				{ glyph: 'refresh-cw', text: 'Crash recovery with auto-backoff.' },
+				{ glyph: 'zap', text: 'Port collision preflight guard.' },
+				{ glyph: 'hard-drive', text: 'Low-disk warning (< 2 GB guard).' },
+				{ mark: 'windows', text: 'Windows sleep mode inhibition.' },
+				{ glyph: 'sliders', text: 'High RAM alert at 80% capacity.' }
 			]
 		},
 		{
 			label: 'Java & Runtimes',
 			items: [
-				{ glyph: 'cpu', text: 'Adoptium JREs (Java 8, 11, 17, 21, 25)' },
-				{ glyph: 'zap', text: 'Auto-selection based on server JAR' },
-				{ glyph: 'hard-drive', text: 'Managed app-local dependencies' },
-				{ glyph: 'folder-open', text: 'Isolated instance directories' },
-				{ mark: 'windows', text: 'Runs in local user directory' },
-				{ icon: '/icons/pocketmine-mp.webp', text: 'Auto PHP PM5 for Bedrock' }
+				{ glyph: 'cpu', text: 'Adoptium JREs for Java 8, 11, 17, 21, and 25.' },
+				{ glyph: 'zap', text: 'Auto-selection based on server JAR.' },
+				{ glyph: 'hard-drive', text: 'Managed app-local dependencies.' },
+				{ glyph: 'folder-open', text: 'Isolated instance directories.' },
+				{ mark: 'windows', text: 'Runs in local user directory.' },
+				{ icon: '/icons/pocketmine-mp.webp', text: 'Automatic PHP PM5 for Bedrock.' }
 			]
 		},
 		{
 			label: 'Networking & Remote',
 			items: [
-				{ glyph: 'globe', text: 'Integrated Playit.gg tunnel agent' },
-				{ glyph: 'zap', text: 'Cloudflare Quick Tunnels support' },
-				{ glyph: 'smartphone', text: 'Responsive mobile web dashboard' },
-				{ glyph: 'smartphone', text: 'Quick QR access to web dashboard' },
-				{ glyph: 'terminal', text: 'Multi-user roles & permission scopes' },
-				{ mark: 'discord', text: 'Discord Rich Presence with live server status' }
+				{ glyph: 'globe', text: 'Integrated Playit.gg tunnel agent.' },
+				{ glyph: 'zap', text: 'Cloudflare Quick Tunnels support.' },
+				{ glyph: 'smartphone', text: 'Responsive mobile web dashboard.' },
+				{ glyph: 'smartphone', text: 'Quick QR access to web dashboard.' },
+				{ glyph: 'terminal', text: 'Multi-user roles & permission scopes.' },
+				{ mark: 'discord', text: 'Discord Rich Presence with live server status.' }
 			]
 		},
 		{
 			label: 'Content & Add-ons',
 			items: [
-				{ glyph: 'package', text: 'In-app Modrinth marketplace browser' },
-				{ glyph: 'package', text: 'CurseForge browser & Poggit integration' },
-				{ glyph: 'folder-open', text: 'Three-dot menu Explorer folder jumps' },
-				{ glyph: 'sliders', text: 'One-click mod & plugin enable/disable toggle' },
-				{ glyph: 'layers', text: 'Bedrock .mcpack, .mcaddon ingestion' },
-				{ glyph: 'sparkles', text: 'Automatic Geyser & Floodgate cross-play' }
+				{ glyph: 'package', text: 'In-app Modrinth marketplace browser.' },
+				{ glyph: 'package', text: 'CurseForge browser & Poggit integration.' },
+				{ glyph: 'folder-open', text: 'Three-dot menu Explorer folder jumps.' },
+				{ glyph: 'sliders', text: 'One-click mod & plugin toggles.' },
+				{ glyph: 'layers', text: 'Bedrock .mcpack, .mcaddon ingestion.' },
+				{ glyph: 'sparkles', text: 'Automatic Geyser & Floodgate cross-play.' }
 			]
 		},
 		{
 			label: 'Backups & Storage',
 			items: [
-				{ glyph: 'cloud', text: 'Automated Google Drive replication' },
-				{ glyph: 'cloud', text: 'Dropbox & OneDrive OAuth sync' },
-				{ glyph: 'shield', text: 'SHA-256 archive integrity checks' },
-				{ glyph: 'refresh-cw', text: 'Automated Cron & reboot scheduling' },
-				{ glyph: 'terminal', text: 'Pre-backup RCON save sync' },
-				{ glyph: 'hard-drive', text: '100% data sovereignty on your disk' }
+				{ glyph: 'cloud', text: 'Automated Google Drive replication.' },
+				{ glyph: 'cloud', text: 'Dropbox & OneDrive OAuth sync.' },
+				{ glyph: 'shield', text: 'SHA-256 archive integrity checks.' },
+				{ glyph: 'refresh-cw', text: 'Automated Cron & reboot scheduling.' },
+				{ glyph: 'terminal', text: 'Pre-backup RCON save sync.' },
+				{ glyph: 'hard-drive', text: '100% data sovereignty on your disk.' }
 			]
 		}
 	];
@@ -106,6 +106,7 @@
 									<img
 										src={item.icon}
 										alt={item.text}
+										srcset="{item.icon} 1x, {item.icon} 2x"
 										width="16"
 										height="16"
 										loading="lazy"

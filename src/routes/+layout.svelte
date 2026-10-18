@@ -40,6 +40,11 @@
 	<meta name="twitter:image" content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp" />
 	<meta name="twitter:image:alt" content="PocketMC - Windows Minecraft Server Manager Dashboard" />
 
+	<meta property="og:updated_time" content="2026-10-18T00:00:00Z" />
+	<meta property="article:modified_time" content="2026-10-18T00:00:00Z" />
+	<meta name="date" content="2026-10-18" />
+	<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+
 	<meta name="author" content="DS Labs" />
 	<meta name="creator" content="DS Labs" />
 	<meta name="publisher" content="DS Labs" />

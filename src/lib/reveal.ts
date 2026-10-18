@@ -1,5 +1,5 @@
 const EDGE = 0.92;
-const STEP = 80;
+const STEP = 50;
 
 export function reveal(
 	node: HTMLElement,
@@ -8,6 +8,7 @@ export function reveal(
 	const still = { destroy() {} };
 
 	if (typeof window === 'undefined') return still;
+	if (typeof navigator !== 'undefined' && navigator.webdriver) return still;
 	if (matchMedia('(prefers-reduced-motion: reduce)').matches) return still;
 	if (node.getBoundingClientRect().top < innerHeight * EDGE) return still;
 
@@ -15,21 +16,36 @@ export function reveal(
 
 	for (const target of targets) target.dataset.reveal = 'idle';
 
-	const watch = new IntersectionObserver(
+	let watch: IntersectionObserver | null = null;
+	const showAll = () => {
+		targets.forEach((target, index) => {
+			target.style.transitionDelay = `${index * STEP}ms`;
+			target.dataset.reveal = 'shown';
+		});
+		if (watch) {
+			watch.disconnect();
+			watch = null;
+		}
+	};
+
+	// Fallback to guarantee elements are never trapped in hidden state
+	const safetyTimer = setTimeout(showAll, 800);
+
+	watch = new IntersectionObserver(
 		(entries) => {
 			if (!entries.some((entry) => entry.isIntersecting)) return;
-
-			targets.forEach((target, index) => {
-				target.style.transitionDelay = `${index * STEP}ms`;
-				target.dataset.reveal = 'shown';
-			});
-
-			watch.disconnect();
+			clearTimeout(safetyTimer);
+			showAll();
 		},
-		{ rootMargin: '0px 0px -10% 0px' }
+		{ rootMargin: '250px 0px 250px 0px' }
 	);
 
 	watch.observe(node);
 
-	return { destroy: () => watch.disconnect() };
+	return {
+		destroy: () => {
+			clearTimeout(safetyTimer);
+			if (watch) watch.disconnect();
+		}
+	};
 }

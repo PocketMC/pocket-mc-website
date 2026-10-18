@@ -55,7 +55,7 @@
 		align-items: flex-end;
 		justify-content: space-between;
 		width: 100%;
-		height: 96px;
+		height: 64px;
 	}
 
 	span {
