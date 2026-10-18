@@ -10,7 +10,6 @@
 	let index = $state<Section[] | null>(null);
 	let query = $state('');
 	let active = $state(0);
-	let mac = $state(false);
 
 	const hits = $derived<Hit[]>(index ? search(index, query) : []);
 
@@ -62,8 +61,6 @@
 	}
 
 	onMount(() => {
-		mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
-
 		const onkey = (event: KeyboardEvent) => {
 			if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {
 				event.preventDefault();
@@ -92,7 +89,7 @@
 		<path d="M20 20l-3.5-3.5" />
 	</svg>
 	<span class="placeholder">Search docs</span>
-	<kbd>{mac ? '⌘' : 'Ctrl'} K</kbd>
+	<kbd>Ctrl K</kbd>
 </button>
 
 <dialog

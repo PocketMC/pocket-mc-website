@@ -39,8 +39,7 @@
 				</div>
 				<div>
 					<h3>Project</h3>
-					<a href={repo} target="_blank" rel="noopener noreferrer">GitHub (Windows)</a>
-					<a href="https://github.com/PocketMC/pocket-mc-linux-mac" target="_blank" rel="noopener noreferrer">GitHub (Linux/Mac)</a>
+					<a href={repo} target="_blank" rel="noopener noreferrer">GitHub Repository</a>
 					<a href={website} target="_blank" rel="noopener noreferrer">Website Source</a>
 					<a href="/changelog">Changelog</a>
 					<a href="/about">About Us</a>

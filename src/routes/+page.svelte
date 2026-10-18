@@ -15,7 +15,7 @@
 	<title>PocketMC · Free Local Minecraft Server Manager</title>
 	<meta
 		name="description"
-		content="The #1 local-first Minecraft server manager for Windows, Linux and macOS. Paper, Fabric, Forge, NeoForge & Bedrock with Playit.gg tunnels, Adoptium runtimes and cloud backups."
+		content="The #1 local-first Minecraft server manager. Paper, Fabric, Forge, NeoForge & Bedrock with Playit.gg tunnels, Adoptium runtimes and cloud backups."
 	/>
 </svelte:head>
 

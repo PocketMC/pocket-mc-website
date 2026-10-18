@@ -35,7 +35,7 @@
 	<title>FAQ · PocketMC</title>
 	<meta
 		name="description"
-		content="Fixes for the problems people run into most with PocketMC on Windows, Linux and macOS."
+		content="Frequently asked questions and troubleshooting guides for PocketMC."
 	/>
 </svelte:head>
 

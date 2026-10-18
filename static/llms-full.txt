@@ -1,7 +1,7 @@
-# PocketMC - Comprehensive Technical & Agent Reference (v1.9.9)
+# PocketMC - Comprehensive Technical & Agent Reference (v1.9.10)
 
 ## Overview
-PocketMC is the #1 free, open-source local Minecraft server manager designed for Windows, Linux, and macOS. It eliminates all common friction points associated with running local servers, including Java installation mismatches, complex port forwarding, manual mod dependencies, unverified backups, and difficult remote administration.
+PocketMC is the #1 free, open-source local Minecraft server manager. It eliminates all common friction points associated with running local servers, including Java installation mismatches, complex port forwarding, manual mod dependencies, unverified backups, and difficult remote administration.
 
 ---
 
@@ -31,14 +31,14 @@ PocketMC is the #1 free, open-source local Minecraft server manager designed for
 - **Provider**: Eclipse Adoptium (Temurin).
 - **Supported Versions**: Java 8, Java 11, Java 17, Java 21, Java 25.
 - **Bedrock PHP**: Embedded PHP 8.2 runtime specifically compiled for PocketMine-MP PM5.
-- **Isolation Mechanism**: Binaries are downloaded to `%LOCALAPPDATA%\PocketMC\runtimes\` (Windows) or `~/.local/share/pocketmc/runtimes/` (Linux/macOS). Instances reference local executable paths directly, leaving global Windows environment variables untouched.
+- **Isolation Mechanism**: Binaries are downloaded to `%LOCALAPPDATA%\PocketMC\runtimes\`. Instances reference local executable paths directly, leaving global Windows environment variables untouched.
 
 ### 2.2 Tunneling & Networking Subsystem
 - **Integration**: Official Playit.gg tunneling agent (embedded v1.0.10 with verified SHA-256 integrity).
 - **Live Binary Console**: Dedicated real-time binary process window with color-coded log parsing, real-time search filtering, and copy controls.
 - **Protocol**: Encrypted UDP/TCP tunnels with public Anycast routing.
 - **Port Mapping**: Automatically binds internal ports (Java default 25565, Bedrock default 19132, Voice Chat 24454, Remote Dashboard 25585) visualized via an interactive Ports Map.
-- **Security**: Client secrets are encrypted with platform-native security APIs (Windows DPAPI, Linux Secret Service, macOS Keychain).
+- **Security**: Client secrets are encrypted with Windows DPAPI.
 
 ### 2.3 Backup & Integrity Engine
 - **Save Holding**: Dispatches `save-off` and `save-all flush` commands via authenticated local RCON before initiating archive creation.
@@ -105,4 +105,4 @@ PocketMC is the #1 free, open-source local Minecraft server manager designed for
    Yes. All server data and logs are stored 100% locally. If an AI log summary is requested, PocketMC scrubs all IP addresses and personal identifiers locally before sending the sanitized text to the user's chosen provider.
 
 4. **What platforms are supported?**
-   Windows 10 (1809+) and Windows 11 (64-bit WPF application). Linux and macOS builds are built on .NET 8 with Avalonia UI.
+   Windows 10 (1809+) and Windows 11 (64-bit WPF application on .NET 8).

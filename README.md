@@ -1,6 +1,6 @@
 # PocketMC Website
 
-The official static landing page and showcase for **PocketMC**, the free, open-source local Minecraft server manager for Windows, Linux, and macOS.
+The official static landing page and showcase for **PocketMC**, the free, open-source local Minecraft server manager.
 
 [![Website](https://img.shields.io/badge/Website-Live%20Page-black?style=flat-square)](https://pocketmc.github.io/)
 [![GitHub Release](https://img.shields.io/github/v/release/PocketMC/pocket-mc-windows?style=flat-square&color=black&label=App%20Release)](https://github.com/PocketMC/pocket-mc-windows/releases/latest)
@@ -18,7 +18,6 @@ The PocketMC website is a high-performance, client-only landing page designed to
 
 * **Live Deployment**: [pocketmc.github.io](https://pocketmc.github.io/)
 * **App Repository**: [PocketMC/pocket-mc-windows](https://github.com/PocketMC/pocket-mc-windows)
-* **Linux/Mac Repository**: [PocketMC/pocket-mc-linux-mac](https://github.com/PocketMC/pocket-mc-linux-mac)
 
 ---
 

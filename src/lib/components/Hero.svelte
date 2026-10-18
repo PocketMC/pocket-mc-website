@@ -63,8 +63,6 @@
 			{/if}
 			Free and open source
 			<span class="dot">·</span>
-			Windows, Linux, macOS
-			<span class="dot">·</span>
 			{license ?? 'MIT'}
 		</p>
 	</div>

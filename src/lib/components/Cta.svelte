@@ -14,7 +14,7 @@
 				<span class="kicker">Get Started</span>
 				<h2>Run your server on your own terms</h2>
 				<p class="lead">
-					Free, local, private, and always under your control. Available for Windows, Linux, and macOS.
+					Free, local, private, and always under your control.
 				</p>
 				<div class="actions">
 					<a class="btn btn-primary" href="#steps">

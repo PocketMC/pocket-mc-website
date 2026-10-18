@@ -25,7 +25,7 @@
 	port forwarding, and wrangling fragile batch scripts.
 </p>
 <p>
-	PocketMC was created to bridge this gap: it turns your existing Windows, Linux, or macOS hardware
+	PocketMC was created to bridge this gap: it turns your existing personal computer
 	into an automated, production-grade Minecraft server hub.
 </p>
 
