@@ -13,7 +13,7 @@
 	<title>PocketMC - #1 Local Minecraft Server Manager for Windows</title>
 	<meta
 		name="description"
-		content="PocketMC is a free, open-source local Minecraft server manager for Windows. One-click setup for Java, Paper, Fabric, Forge, Bedrock with zero-port Playit.gg tunnels & cloud backups."
+		content="Free, open-source local Minecraft server manager for Windows by DS Labs. One-click setup for Java, Paper, Fabric & Bedrock with zero-port Playit.gg tunnels."
 	/>
 	<meta property="og:title" content="PocketMC - #1 Local Minecraft Server Manager for Windows" />
 	<meta

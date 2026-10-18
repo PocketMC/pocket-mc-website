@@ -14,13 +14,13 @@
 		{
 			label: 'Server Engines',
 			items: [
-				{ icon: '/icons/vanilla.png', text: 'Vanilla (Official Mojang JARs)' },
-				{ icon: '/icons/papermc.png', text: 'Paper (High-performance Spigot)' },
-				{ icon: '/icons/fabric.png', text: 'Fabric (Lightweight & modular)' },
-				{ icon: '/icons/forge.png', text: 'Forge (Classic mod loader)' },
-				{ icon: '/icons/neoforge.png', text: 'NeoForge (Modern mod loader)' },
-				{ icon: '/icons/bds.png', text: 'Bedrock Dedicated Server (BDS)' },
-				{ icon: '/icons/pocketmine-mp.png', text: 'PocketMine-MP (PHP 8.2 PM5)' }
+				{ icon: '/icons/vanilla.webp', text: 'Vanilla (Official Mojang JARs)' },
+				{ icon: '/icons/papermc.webp', text: 'Paper (High-performance Spigot)' },
+				{ icon: '/icons/fabric.webp', text: 'Fabric (Lightweight & modular)' },
+				{ icon: '/icons/forge.webp', text: 'Forge (Classic mod loader)' },
+				{ icon: '/icons/neoforge.webp', text: 'NeoForge (Modern mod loader)' },
+				{ icon: '/icons/bds.webp', text: 'Bedrock Dedicated Server (BDS)' },
+				{ icon: '/icons/pocketmine-mp.webp', text: 'PocketMine-MP (PHP 8.2 PM5)' }
 			]
 		},
 		{
@@ -42,7 +42,7 @@
 				{ glyph: 'hard-drive', text: 'Managed app-local dependencies' },
 				{ glyph: 'folder-open', text: 'Isolated instance directories' },
 				{ mark: 'windows', text: 'Runs in local user directory' },
-				{ icon: '/icons/pocketmine-mp.png', text: 'Auto PHP PM5 for Bedrock' }
+				{ icon: '/icons/pocketmine-mp.webp', text: 'Auto PHP PM5 for Bedrock' }
 			]
 		},
 		{
@@ -103,7 +103,7 @@
 						{#each cell.items as item (item.text)}
 							<li>
 								{#if item.icon}
-									<img src={item.icon} alt="" width="16" height="16" class="cell-icon" />
+									<img src={item.icon} alt={item.text} width="16" height="16" class="cell-icon" />
 								{:else if item.mark}
 									<Mark name={item.mark} size={15} />
 								{:else if item.glyph}
