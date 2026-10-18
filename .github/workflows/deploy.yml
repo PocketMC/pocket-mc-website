@@ -41,6 +41,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          SITE_BASE: '/pocket-mc-website/'
 
       - name: Test generated pages and discovery files
         run: npm test

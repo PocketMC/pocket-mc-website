@@ -116,7 +116,11 @@ console.log('\n8. XML Sitemap:');
 const sitemapPath = path.join(rootDir, 'dist', 'sitemap.xml');
 assert(fs.existsSync(sitemapPath), 'public/sitemap.xml exists');
 const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
-assert(sitemapContent.includes('<loc>https://pocketmc.github.io/</loc>'), 'sitemap.xml contains canonical root URL');
+assert(
+  sitemapContent.includes('<loc>https://pocketmc.github.io/</loc>') ||
+  sitemapContent.includes('<loc>https://pocketmc.github.io/pocket-mc-website/</loc>'),
+  'sitemap.xml contains canonical root URL'
+);
 assert(sitemapContent.includes('<lastmod>'), 'sitemap.xml contains <lastmod> timestamps');
 assert(sitemapContent.includes('/about/') && sitemapContent.includes('/contact/') && sitemapContent.includes('/privacy/'), 'sitemap.xml lists trust anchor pages');
 
