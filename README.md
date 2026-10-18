@@ -1,187 +1,72 @@
-# PocketMC Website
+# PocketMC website
 
-The official static landing page and showcase for **PocketMC**, the free, open-source local Minecraft server manager for Windows, Linux, and macOS.
+A multi-page static website for PocketMC, the open-source local Minecraft server manager. Built with React 19, TypeScript, Vite 8, and Tailwind CSS 4.
 
-[![Website](https://img.shields.io/badge/Website-Live%20Page-black?style=flat-square)](https://pocketmc.github.io/)
-[![GitHub Release](https://img.shields.io/github/v/release/PocketMC/pocket-mc-windows?style=flat-square&color=black&label=App%20Release)](https://github.com/PocketMC/pocket-mc-windows/releases/latest)
-[![License](https://img.shields.io/badge/License-MIT-black?style=flat-square)](LICENSE)
-[![React](https://img.shields.io/badge/React-19.2-black?style=flat-square&logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-black?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-black?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![Vite](https://img.shields.io/badge/Vite-8.0-black?style=flat-square&logo=vite)](https://vite.dev/)
+## Design and pages
 
----
+The design follows the local Sonora website: self-hosted Inter, a 1288px frame, thin section rules, compact controls, dark/light/system themes, and a three-column documentation layout. PocketMC branding, screenshots, download links, and product content are retained.
 
-## Overview
+The build generates **24 HTML pages plus a custom 404**:
 
-The PocketMC website is a high-performance, client-only landing page designed to communicate trust, demonstrate local-first Minecraft server management capabilities, and drive desktop application downloads.
+- Home, Install, Features, Community, FAQ, and Changelog.
+- Documentation home and nine product guides.
+- Existing API, Authentication, MCP, and Events references.
+- About, Contact, Privacy, and Terms.
 
-* **Live Deployment**: [pocketmc.github.io](https://pocketmc.github.io/)
-* **App Repository**: [PocketMC/pocket-mc-windows](https://github.com/PocketMC/pocket-mc-windows)
-* **Linux/Mac Repository**: [PocketMC/pocket-mc-linux-mac](https://github.com/PocketMC/pocket-mc-linux-mac)
+Each page includes rendered HTML, its own title, description, canonical URL, and structured data. The sitemap is generated from the same route registry. Navigation uses ordinary links, so direct entry, refresh, browser history, and opening pages in new tabs work on static hosts.
 
----
+## Development
 
-## Technology Stack
+Use Node.js 24 or later.
 
-| Layer | Technologies |
-| :--- | :--- |
-| **UI Framework** | React 19.2 (Client-Side Rendering) |
-| **Language** | TypeScript 6.0 (Strict mode, explicit interfaces) |
-| **Styling & Theme** | Tailwind CSS v4, dynamic CSS variable system (`index.css`) |
-| **Motion & Animation** | Motion (`motion/react` v12), GSAP, native CSS transforms |
-| **Tooling & Bundler** | Vite 8.0 with apex routing support (`/`) |
-| **Icons & Media** | Custom SVG vectors, optimized WebP graphics, lazy-loaded dialog portals |
-
----
-
-## Design System & Principles
-
-* **Monochrome Palette**: Built on a strict black, white, and neutral grey aesthetic mapped to semantic CSS tokens (`--base`, `--base-card`, `--base-muted`, `--main`, `--main-muted`, `--divider`).
-* **Adaptive Theme Engine**: Smooth dark and light mode transitions with zero layout shift and persistent local storage synchronization.
-* **Component Layering**: High-priority modal dialogs are teleported directly to `document.body` via React Portals (`z-[99999]`) to avoid stacking context collisions.
-* **Mobile-First Responsiveness**: Tailored layout adaptations from ultra-compact viewports (320px) to ultra-wide displays with hardware-accelerated fixed headers and containment (`contain: layout paint`).
-
----
-
-## Page Structure & Sections
-
-| Section | Component | Purpose |
-| :--- | :--- | :--- |
-| **Header** | `Header.tsx` | Fixed navigation bar with IntersectionObserver scrollspy, theme switch, and mobile drawer. |
-| **Hero** | `HeroSection.tsx` | Value proposition, download CTAs, video player with speed and fullscreen controls, and core statistics. |
-| **Tour** | `TourSection.tsx` | 16:9 screenshot showcase (`Explore every screen.`) with multi-image gallery arrows and interactive dock navigation. |
-| **Engines** | `SoftwaresSection.tsx` | Interactive matrix of supported engines (Vanilla, Paper, Fabric, Forge, NeoForge, BDS, PocketMine-MP) with Geyser crossplay details. |
-| **Comparison** | `ComparisonSection.tsx` | Side-by-side technical matrix comparing PocketMC against alternatives (Pterodactyl Panel, SquidServers, auto-mcs, MCSManager, Crafty Controller, etc.) with technical audit proof modals. |
-| **Stability** | `StabilitySection.tsx` | Collapsible 3-pillar breakdown of lifecycle safety, AI log diagnostics, and background file safeguards. |
-| **FAQ** | `FaqSection.tsx` | Interactive accordion answering questions regarding runtimes, Bedrock crossplay, cloud backups, and zero-port-forwarding. |
-| **Call to Action** | `CtaSection.tsx` | Final download prompts and direct links to GitHub repositories and community Discord. |
-| **Footer** | `Footer.tsx` | Open-source MIT licensing attribution, legal modals (Terms of Service, Privacy Policy), and donation links. |
-
----
-
-## SEO & Machine-Readable Metadata
-
-* **Search Engine Optimization**: Enriched meta tags, high-intent Minecraft hosting keyword maps, and canonical URLs.
-* **Schema.org Structured Data**:
-  * `SoftwareApplication` schema with Google SERP `AggregateRating` (4.9 rating based on community reviews) and multi-OS attributes.
-  * `FAQPage` schema enabling Google search rich snippet accordions.
-* **Robots & Sitemap**: Automated crawling definitions in `public/robots.txt` and `public/sitemap.xml`.
-* **AI Engine Indexing (`public/llm.txt`)**: Curated, machine-readable developer documentation for AI search engines (Perplexity, ChatGPT, Claude).
-
----
-
-## Project Structure
-
-```text
-pocket-mc-website/
-├── public/                         # Static assets served as-is
-│   ├── bg_animation/               # Background WebP frame assets
-│   ├── Hero_bg_animation/          # Hero animation assets
-│   ├── icons/                      # Server engine SVGs (Paper, Fabric, etc.)
-│   ├── screenshots/                # Application UI screenshots
-│   ├── llm.txt                     # Machine-readable context for AI crawlers
-│   ├── robots.txt                  # Search engine directives
-│   └── sitemap.xml                 # XML sitemap
-├── src/
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Footer.tsx          # Page footer and legal triggers
-│   │   │   └── Header.tsx          # Fixed header with theme and nav controls
-│   │   ├── sections/
-│   │   │   ├── ComparisonSection.tsx # Technical comparison table & cards
-│   │   │   ├── CtaSection.tsx      # Bottom call to action
-│   │   │   ├── FaqSection.tsx      # Animated FAQ accordion
-│   │   │   ├── HeroSection.tsx     # Hero banner and media player
-│   │   │   ├── PlatformsSection.tsx # Platform download targets
-│   │   │   ├── SoftwaresSection.tsx # Supported server softwares
-│   │   │   ├── StabilitySection.tsx # Collapsible stability pillar cards
-│   │   │   └── TourSection.tsx     # Screenshot tour and gallery
-│   │   └── ui/
-│   │       ├── LightboxModal.tsx   # Fullscreen image viewer portal
-│   │       ├── PlatformDownloadModal.tsx # Multi-OS download portal
-│   │       ├── ProofModal.tsx      # Technical audit evidence portal
-│   │       ├── TextModal.tsx       # Terms and Privacy modal portal
-│   │       └── table.tsx           # Accessible data table primitives
-│   ├── data/
-│   │   ├── comparisonData.ts       # Competitor audit matrices and proofs
-│   │   ├── detailFeatures.ts       # Stability pillar feature definitions
-│   │   ├── faqData.ts              # Frequently asked questions and answers
-│   │   ├── serverSoftwares.ts      # Server engine metadata and icons
-│   │   ├── socialLinks.ts          # External community and repository links
-│   │   └── tourTabs.ts             # Screenshot gallery tab configurations
-│   ├── utils/
-│   │   └── getAssetUrl.ts          # Base path resolver for GitHub Pages
-│   ├── App.tsx                     # Root page coordinator and modal state
-│   ├── index.css                   # Global Tailwind v4 styles and tokens
-│   └── main.tsx                    # React application entry point
-├── index.html                      # Root HTML and JSON-LD structured schemas
-├── package.json                    # Project dependencies and build scripts
-├── tsconfig.json                   # TypeScript project configuration
-└── vite.config.ts                  # Vite bundler configuration
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-* [Node.js](https://nodejs.org/) (version 20 or higher recommended)
-* [npm](https://www.npmjs.com/) (version 10 or higher)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/PocketMC/pocket-mc-website.git
-cd pocket-mc-website
-
-# Install dependencies
-npm install
-```
-
-### Development Server
-
-```bash
+```sh
+npm ci
 npm run dev
-```
-
-Starts the local development server at `http://localhost:5173/`.
-
-### Production Build
-
-```bash
+npm run lint
 npm run build
+npm test
+npm run preview -- --host 127.0.0.1 --port 4173
 ```
 
-Runs TypeScript type checks (`tsc -b`) and bundles optimized static assets into the `dist/` directory.
+`npm test` verifies the generated output and discovery files; run the build first. Builds write only to `dist/` and do not copy or prune any sibling repository.
 
-### Preview Production Build
+## Browser verification
 
-```bash
-npm run preview
+With the production preview running on port 4173:
+
+```sh
+npm run test:browser
 ```
 
-Locally serves the compiled `dist/` output for verification before deployment.
+The Puppeteer audit captures every page at 1440px and 390px, checks internal links, metadata, overflow and image loading, then exercises themes, installer tabs, clipboard copying, mobile navigation, search, FAQ deep links, screenshot dialogs, browser history, 404 behavior, 320px layouts, and content without JavaScript. Output goes to `.ai/screenshots/pocketmc/` (ignored by Git).
 
----
+The audit uses installed Windows Chrome by default. Set `CHROME_PATH` to another Chrome/Chromium executable and `AUDIT_ORIGIN` to another preview origin when needed.
+
+`npm run capture:reference` captures the local Sonora project running on port 5174. `node scripts/contact-sheets.mjs` makes overview images from the captures.
 
 ## Deployment
 
-The website is hosted on **GitHub Pages**.
+GitHub Actions builds, lints, tests, and publishes `dist/` to GitHub Pages on the configured branches. Local work does not publish anything.
 
-Deployments are automated through GitHub Actions. Pushing code changes to the `main` branch triggers a workflow that validates TypeScript types, builds the production distribution bundle, and deploys the output to the `gh-pages` branch.
+The default site base is `/`, matching `https://pocketmc.github.io/`. For a project-subdirectory deployment, set `SITE_BASE=/pocket-mc-website/` **for both build and preview**. Set `SITE_ORIGIN` for a different canonical origin. Assets, navigation, generated HTML, and sitemap use the configured base.
 
-## Contact & Community
+## Editing
 
-- **Official Email:** [contactdslabs@gmail.com](mailto:contactdslabs@gmail.com)
-- **Community Discord:** [discord.gg/mWdMr8Mc2m](https://discord.gg/mWdMr8Mc2m)
-- **Issues & Feedback:** [GitHub Issues](https://github.com/PocketMC/pocket-mc-website/issues)
+- `src/data/site.ts`: product guides, FAQ content, feature groups, screenshots, and official links.
+- `src/data/routes.ts`: route registry and page metadata.
+- `src/pages/ProductPages.tsx`: home, installation, features, and community.
+- `src/pages/DocumentationPage.tsx`: shared docs layout and navigation.
+- `src/pages/HelpPages.tsx`: FAQ and selected release notes.
+- `src/components/site/`: shared layout, installer, search, and UI primitives.
+- `src/index.css`: design tokens and responsive styling.
+- `scripts/prerender.mjs`: static React rendering, metadata, structured data, and sitemap.
 
----
+Release notes are curated from the Windows repository changelog. Download buttons use official GitHub release assets. Windows and Linux/macOS editions have separate releases and may differ in features.
 
-## License
+## Official links
 
-This project is open-source software licensed under the [MIT License](LICENSE).
-
+- [Website](https://pocketmc.github.io/)
+- [Windows source](https://github.com/PocketMC/pocket-mc-windows)
+- [Linux and macOS source](https://github.com/PocketMC/pocket-mc-linux-mac)
+- [Discord](https://discord.gg/mWdMr8Mc2m)
+- [Contact](mailto:contactdslabs@gmail.com)

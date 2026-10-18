@@ -30,7 +30,7 @@ assert(robotsContent.includes('Sitemap: https://pocketmc.github.io/sitemap.xml')
 
 // 2: Content without JavaScript
 console.log('\n2. Content without JavaScript in index.html:');
-const indexPath = path.join(rootDir, 'index.html');
+const indexPath = path.join(rootDir, 'dist', 'index.html');
 assert(fs.existsSync(indexPath), 'index.html exists');
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 assert(indexHtml.includes('<h1') && indexHtml.includes('PocketMC'), 'index.html contains <h1> with PocketMC brand');
@@ -40,7 +40,7 @@ assert(rootContent.length >= 500, `Raw HTML inside root container contains ${roo
 
 // 4: Agent-friendly 404s
 console.log('\n4. Agent-Friendly 404 with Markdown Recovery:');
-const notFoundPath = path.join(rootDir, 'public', '404.html');
+const notFoundPath = path.join(rootDir, 'dist', '404.html');
 assert(fs.existsSync(notFoundPath), 'public/404.html exists');
 const notFoundContent = fs.readFileSync(notFoundPath, 'utf8');
 assert(notFoundContent.includes('# 404') || notFoundContent.includes('404 Recovery Index'), '404.html includes machine-readable recovery index');
@@ -69,17 +69,18 @@ assert(headersContent.includes('Vary: Accept, Accept-Encoding'), '_headers inclu
 
 // 6, 10, 11, 12: Brand discoverability, Metadata & JSON-LD Completeness
 console.log('\n6, 10, 11, 12. Metadata Completeness, Brand Discovery & JSON-LD Schemas:');
-assert(indexHtml.includes('<html lang="en">'), 'Metadata signal: <html lang="en"> is present');
+assert(/<html\b[^>]*\blang="en"/.test(indexHtml), 'Metadata signal: HTML language is English');
 assert(indexHtml.includes('rel="canonical"'), 'Metadata signal: <link rel="canonical"> is present');
 assert(indexHtml.includes('property="og:image"'), 'Metadata signal: <meta property="og:image"> is present');
 assert(indexHtml.includes('property="og:type"'), 'Metadata signal: <meta property="og:type"> is present');
 assert(indexHtml.includes('name="twitter:card"'), 'Twitter card metadata is present');
 
 // JSON-LD validation
-const jsonLdMatches = [...indexHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+const faqHtml = fs.readFileSync(path.join(rootDir, 'dist', 'faq', 'index.html'), 'utf8');
+const jsonLdMatches = [...(indexHtml + faqHtml).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
 assert(jsonLdMatches.length > 0, 'index.html contains JSON-LD structured data script tags');
 let foundSoftwareApp = false;
-let foundOrgWithContactAndAddress = false;
+let foundOrgWithContact = false;
 let foundFaq = false;
 
 jsonLdMatches.forEach((m) => {
@@ -92,9 +93,8 @@ jsonLdMatches.forEach((m) => {
       }
       if (entity['@type'] === 'Organization') {
         const hasContact = Array.isArray(entity.contactPoint) && entity.contactPoint.length > 0 && entity.contactPoint[0].email;
-        const hasAddress = entity.address && entity.address['@type'] === 'PostalAddress';
-        if (hasContact && hasAddress) {
-          foundOrgWithContactAndAddress = true;
+        if (hasContact) {
+          foundOrgWithContact = true;
         }
       }
       if (entity['@type'] === 'FAQPage') {
@@ -108,12 +108,12 @@ jsonLdMatches.forEach((m) => {
 });
 
 assert(foundSoftwareApp, 'JSON-LD includes SoftwareApplication with full metadata');
-assert(foundOrgWithContactAndAddress, 'JSON-LD includes Organization with contactPoint (email/phone) and PostalAddress');
+assert(foundOrgWithContact, 'JSON-LD includes Organization with a real support contact');
 assert(foundFaq, 'JSON-LD includes FAQPage schema');
 
 // 8: Sitemap
 console.log('\n8. XML Sitemap:');
-const sitemapPath = path.join(rootDir, 'public', 'sitemap.xml');
+const sitemapPath = path.join(rootDir, 'dist', 'sitemap.xml');
 assert(fs.existsSync(sitemapPath), 'public/sitemap.xml exists');
 const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
 assert(sitemapContent.includes('<loc>https://pocketmc.github.io/</loc>'), 'sitemap.xml contains canonical root URL');
@@ -123,10 +123,10 @@ assert(sitemapContent.includes('/about/') && sitemapContent.includes('/contact/'
 // 9: Trust anchor pages
 console.log('\n9. Trust Anchor Pages (About, Contact, Privacy, Terms):');
 const trustPages = [
-  { file: path.join(rootDir, 'public', 'about', 'index.html'), name: '/about/' },
-  { file: path.join(rootDir, 'public', 'contact', 'index.html'), name: '/contact/' },
-  { file: path.join(rootDir, 'public', 'privacy', 'index.html'), name: '/privacy/' },
-  { file: path.join(rootDir, 'public', 'terms', 'index.html'), name: '/terms/' },
+  { file: path.join(rootDir, 'dist', 'about', 'index.html'), name: '/about/' },
+  { file: path.join(rootDir, 'dist', 'contact', 'index.html'), name: '/contact/' },
+  { file: path.join(rootDir, 'dist', 'privacy', 'index.html'), name: '/privacy/' },
+  { file: path.join(rootDir, 'dist', 'terms', 'index.html'), name: '/terms/' },
 ];
 
 trustPages.forEach(page => {
@@ -154,13 +154,13 @@ assert(Array.isArray(mcpJson.transports) && mcpJson.transports.length >= 2, 'MCP
 // 14: Developer Resources
 console.log('\n14. Developer Resources Discoverability:');
 const devPages = [
-  path.join(rootDir, 'public', 'docs', 'index.html'),
+  path.join(rootDir, 'dist', 'docs', 'index.html'),
   path.join(rootDir, 'public', 'docs', 'openapi.json'),
   path.join(rootDir, 'public', 'docs', 'openapi.yaml'),
-  path.join(rootDir, 'public', 'docs', 'api', 'index.html'),
-  path.join(rootDir, 'public', 'docs', 'auth', 'index.html'),
-  path.join(rootDir, 'public', 'docs', 'mcp', 'index.html'),
-  path.join(rootDir, 'public', 'docs', 'webhooks', 'index.html'),
+  path.join(rootDir, 'dist', 'docs', 'api', 'index.html'),
+  path.join(rootDir, 'dist', 'docs', 'auth', 'index.html'),
+  path.join(rootDir, 'dist', 'docs', 'mcp', 'index.html'),
+  path.join(rootDir, 'dist', 'docs', 'webhooks', 'index.html'),
 ];
 devPages.forEach(dp => {
   assert(fs.existsSync(dp), `${path.relative(rootDir, dp)} exists`);

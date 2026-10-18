@@ -22,7 +22,12 @@ const PAGE_NAV_ITEMS = [
   { id: "contact", label: "Contact", href: "/contact/" },
 ];
 
-export default function Header({ theme, toggleTheme, currentRoute = "home", onNavigate }: HeaderProps) {
+export default function Header({
+  theme,
+  toggleTheme,
+  currentRoute = "home",
+  onNavigate,
+}: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
@@ -46,14 +51,21 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
     if (onNavigate) {
       onNavigate(routeId);
     } else {
-      window.location.href = `/${routeId}/`;
+      window.location.assign(`/${routeId}/`);
     }
   };
 
   useEffect(() => {
     if (currentRoute !== "home") return;
 
-    const sectionIds = ["hero", "screenshots", "under-the-hood", "comparison", "stability", "faq"];
+    const sectionIds = [
+      "hero",
+      "screenshots",
+      "under-the-hood",
+      "comparison",
+      "stability",
+      "faq",
+    ];
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
@@ -149,7 +161,9 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
                   Home
                 </a>
                 {PAGE_NAV_ITEMS.map((item) => {
-                  const isActive = currentRoute === item.id || (item.id === "docs" && currentRoute?.startsWith("docs"));
+                  const isActive =
+                    currentRoute === item.id ||
+                    (item.id === "docs" && currentRoute?.startsWith("docs"));
                   return (
                     <a
                       key={item.id}
@@ -251,7 +265,11 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
                 stroke="currentColor"
                 strokeWidth={2}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
               <svg
@@ -261,7 +279,11 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
                 stroke="currentColor"
                 strokeWidth={2}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             )}
           </button>
@@ -275,26 +297,36 @@ export default function Header({ theme, toggleTheme, currentRoute = "home", onNa
             href="/"
             onClick={handleBrandClick}
             className={`py-2 border-b border-divider/40 transition-colors flex items-center justify-between ${
-              currentRoute === "home" ? "font-bold text-main" : "text-main-muted hover:text-main"
+              currentRoute === "home"
+                ? "font-bold text-main"
+                : "text-main-muted hover:text-main"
             }`}
           >
             <span>Home</span>
-            {currentRoute === "home" && <span className="w-1.5 h-1.5 rounded-full bg-main" />}
+            {currentRoute === "home" && (
+              <span className="w-1.5 h-1.5 rounded-full bg-main" />
+            )}
           </a>
 
           {PAGE_NAV_ITEMS.map((item) => {
-            const isActive = currentRoute === item.id || (item.id === "docs" && currentRoute?.startsWith("docs"));
+            const isActive =
+              currentRoute === item.id ||
+              (item.id === "docs" && currentRoute?.startsWith("docs"));
             return (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={(e) => handlePageClick(e, item.id)}
                 className={`py-2 border-b border-divider/40 transition-colors flex items-center justify-between ${
-                  isActive ? "font-bold text-main" : "text-main-muted hover:text-main"
+                  isActive
+                    ? "font-bold text-main"
+                    : "text-main-muted hover:text-main"
                 }`}
               >
                 <span>{item.label}</span>
-                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-main" />}
+                {isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-main" />
+                )}
               </a>
             );
           })}

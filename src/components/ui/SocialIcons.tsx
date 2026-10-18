@@ -77,11 +77,17 @@ export function WindowsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function LinuxIcon(props: SVGProps<SVGSVGElement>) {
+import { getAssetUrl } from "../../utils/getAssetUrl";
+
+export function LinuxIcon(props: SVGProps<SVGSVGElement> & { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M12 2C9.5 2 7.5 3.8 7.5 6.2c0 1.2.5 2.3 1.3 3.1-1.9.6-3.3 2.4-3.3 4.6 0 2.1 1.3 3.8 3.1 4.5-1.1.7-1.8 1.9-1.8 3.3 0 2.2 2.3 4 5.2 4s5.2-1.8 5.2-4c0-1.4-.7-2.6-1.8-3.3 1.8-.7 3.1-2.4 3.1-4.5 0-2.2-1.4-4-3.3-4.6.8-.8 1.3-1.9 1.3-3.1C16.5 3.8 14.5 2 12 2zm-1.5 3.5c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zm3 0c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zm-3 3h3l-1.5 1.5-1.5-1.5z" />
-    </svg>
+    <img
+      src={getAssetUrl("icons/linux.png")}
+      width={16}
+      height={16}
+      alt="Linux"
+      className={`linux-icon-img ${props.className || "social-icon"}`}
+    />
   );
 }
 

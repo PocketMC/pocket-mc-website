@@ -1,49 +1,42 @@
-import { motion } from "motion/react";
+import { getAssetUrl } from "../../utils/getAssetUrl";
 
-interface WebhooksDocsPageProps {
-  navigate?: (path: string) => void;
-}
-
-export default function WebhooksDocsPage({ navigate }: WebhooksDocsPageProps) {
-  const handleBack = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (navigate) {
-      navigate("/docs/");
-    } else {
-      window.location.href = "/docs/";
-    }
-  };
-
+export default function WebhooksDocsPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-14">
       {/* Breadcrumb / Back Navigation */}
       <div className="mb-6">
         <a
-          href="/docs/"
-          onClick={handleBack}
+          href={getAssetUrl("docs/")}
+
           className="inline-flex items-center gap-1.5 text-xs font-mono text-main-muted hover:text-main transition-colors"
         >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-3.5 h-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Back to Developer Portal
         </a>
       </div>
 
       {/* Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="mb-10"
-      >
+      <div className="mb-10">
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-3">
           Event Streams &amp; WebSockets
         </h1>
         <p className="text-base sm:text-lg text-main-muted leading-relaxed max-w-3xl">
-          Stream real-time console log output and monitor instance state changes using WebSocket connections and REST endpoints.
+          Stream real-time console log output and monitor instance state changes
+          using WebSocket connections and REST endpoints.
         </p>
-      </motion.div>
+      </div>
 
       {/* Sections */}
       <div className="space-y-8 mb-12">
@@ -53,10 +46,14 @@ export default function WebhooksDocsPage({ navigate }: WebhooksDocsPageProps) {
             1. WebSocket Live Console Stream
           </h2>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Connect to <code className="font-mono text-xs">ws://localhost:25580/ws/instances/&#123;id&#125;/console</code> to stream stdout/stderr lines and send stdin commands:
+            Connect to{" "}
+            <code className="font-mono text-xs">
+              ws://localhost:25580/ws/instances/&#123;id&#125;/console
+            </code>{" "}
+            to stream stdout/stderr lines and send stdin commands:
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
-{`const ws = new WebSocket('ws://localhost:25580/ws/instances/paper-121/console');
+            {`const ws = new WebSocket('ws://localhost:25580/ws/instances/paper-121/console');
 
 ws.onmessage = (event) => {
   const logLine = JSON.parse(event.data);
@@ -78,16 +75,30 @@ ws.send(JSON.stringify({ command: 'say Hello from WebSocket client' }));`}
           </p>
           <div className="space-y-3 font-mono text-xs">
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">GET /health</span>
-              <span className="text-main-muted">Daemon uptime, memory usage, and host OS metadata.</span>
+              <span className="font-bold text-main block mb-1">
+                GET /health
+              </span>
+              <span className="text-main-muted">
+                Daemon uptime, memory usage, and host OS metadata.
+              </span>
             </div>
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">GET /api/status</span>
-              <span className="text-main-muted">Overall service health, active server counts, and remote control settings.</span>
+              <span className="font-bold text-main block mb-1">
+                GET /api/status
+              </span>
+              <span className="text-main-muted">
+                Overall service health, active server counts, and remote control
+                settings.
+              </span>
             </div>
             <div className="p-3.5 rounded-lg bg-base-muted border border-divider">
-              <span className="font-bold text-main block mb-1">GET /api/instances</span>
-              <span className="text-main-muted">Real-time status, engine versions, and running state for all local servers.</span>
+              <span className="font-bold text-main block mb-1">
+                GET /api/instances
+              </span>
+              <span className="text-main-muted">
+                Real-time status, engine versions, and running state for all
+                local servers.
+              </span>
             </div>
           </div>
         </div>

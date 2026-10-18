@@ -1,49 +1,45 @@
-import { motion } from "motion/react";
+import { getAssetUrl } from "../../utils/getAssetUrl";
 
-interface ApiDocsPageProps {
-  navigate?: (path: string) => void;
-}
-
-export default function ApiDocsPage({ navigate }: ApiDocsPageProps) {
-  const handleBack = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (navigate) {
-      navigate("/docs/");
-    } else {
-      window.location.href = "/docs/";
-    }
-  };
-
+export default function ApiDocsPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-14">
       {/* Breadcrumb */}
       <div className="mb-6">
         <a
-          href="/docs/"
-          onClick={handleBack}
+          href={getAssetUrl("docs/")}
+
           className="inline-flex items-center gap-1.5 text-xs font-mono text-main-muted hover:text-main transition-colors"
         >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-3.5 h-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Back to Developer Portal
         </a>
       </div>
 
       {/* Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="mb-10"
-      >
+      <div className="mb-10">
         <h1 className="text-3xl sm:text-5xl font-black tracking-[-0.04em] text-main leading-tight mb-3">
           Remote Control REST API
         </h1>
         <p className="text-base sm:text-lg text-main-muted leading-relaxed max-w-3xl">
-          PocketMC runs an embedded Kestrel HTTP server on port <code className="font-mono text-xs px-1.5 py-0.5 rounded bg-base-muted text-main border border-divider">25580</code> when Remote Control is enabled. All endpoints accept and return JSON.
+          PocketMC runs an embedded Kestrel HTTP server on port{" "}
+          <code className="font-mono text-xs px-1.5 py-0.5 rounded bg-base-muted text-main border border-divider">
+            25580
+          </code>{" "}
+          when Remote Control is enabled. All endpoints accept and return JSON.
         </p>
-      </motion.div>
+      </div>
 
       {/* Server Base URL Box */}
       <div className="p-4 sm:p-5 rounded-xl border border-divider bg-base-card mb-10 font-mono text-xs text-main-muted flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -65,13 +61,16 @@ export default function ApiDocsPage({ navigate }: ApiDocsPageProps) {
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               GET
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/health</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /health
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Unauthenticated health check endpoint returning server daemon status.
+            Unauthenticated health check endpoint returning server daemon
+            status.
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
-{`HTTP/1.1 200 OK
+            {`HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
@@ -86,13 +85,18 @@ Content-Type: application/json
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               POST
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/api/login</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /api/login
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Authenticates remote control users against configured password hashes. Issues a secure <code className="font-mono text-xs">RemoteCookies</code> session token. Rate limited to 5 attempts per minute.
+            Authenticates remote control users against configured password
+            hashes. Issues a secure{" "}
+            <code className="font-mono text-xs">RemoteCookies</code> session
+            token. Rate limited to 5 attempts per minute.
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
-{`POST /api/login HTTP/1.1
+            {`POST /api/login HTTP/1.1
 Content-Type: application/json
 
 {
@@ -111,10 +115,13 @@ Set-Cookie: RemoteCookies=<encrypted_session_stamp>; path=/; HttpOnly`}
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               GET
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/api/status</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /api/status
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Returns overall system resource usage, active instances count, and network interface addresses.
+            Returns overall system resource usage, active instances count, and
+            network interface addresses.
           </p>
         </div>
 
@@ -124,13 +131,16 @@ Set-Cookie: RemoteCookies=<encrypted_session_stamp>; path=/; HttpOnly`}
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               GET
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/api/instances</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /api/instances
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Lists configured Minecraft instances with runtime state, assigned port, and player counts.
+            Lists configured Minecraft instances with runtime state, assigned
+            port, and player counts.
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
-{`HTTP/1.1 200 OK
+            {`HTTP/1.1 200 OK
 Content-Type: application/json
 
 [
@@ -154,10 +164,13 @@ Content-Type: application/json
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               POST
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/api/instances/&#123;id&#125;/start</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /api/instances/&#123;id&#125;/start
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Launches the target server process under isolated Windows Job Objects with the designated Adoptium Java runtime.
+            Launches the target server process under isolated Windows Job
+            Objects with the designated Adoptium Java runtime.
           </p>
         </div>
 
@@ -167,13 +180,16 @@ Content-Type: application/json
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               POST
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/api/instances/&#123;id&#125;/console/command</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /api/instances/&#123;id&#125;/console/command
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed mb-4">
-            Sends a raw console command directly to the running server stdin stream. Rate limited to 30 commands per minute.
+            Sends a raw console command directly to the running server stdin
+            stream. Rate limited to 30 commands per minute.
           </p>
           <pre className="p-4 rounded-lg bg-base-muted border border-divider font-mono text-xs text-main overflow-x-auto">
-{`POST /api/instances/e3b0c442-98fc-4c14-9afb-f4c8996fb924/console/command HTTP/1.1
+            {`POST /api/instances/e3b0c442-98fc-4c14-9afb-f4c8996fb924/console/command HTTP/1.1
 Content-Type: application/json
 
 {
@@ -191,10 +207,13 @@ HTTP/1.1 200 OK
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               WS
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/ws/instances/&#123;id&#125;/console</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /ws/instances/&#123;id&#125;/console
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed">
-            Real-time WebSocket connection for bi-directional console log streaming and interactive terminal sessions.
+            Real-time WebSocket connection for bi-directional console log
+            streaming and interactive terminal sessions.
           </p>
         </div>
 
@@ -204,10 +223,13 @@ HTTP/1.1 200 OK
             <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-base-muted border border-divider text-main">
               GET / POST
             </span>
-            <span className="font-mono text-sm font-semibold text-main">/api/instances/&#123;id&#125;/files</span>
+            <span className="font-mono text-sm font-semibold text-main">
+              /api/instances/&#123;id&#125;/files
+            </span>
           </div>
           <p className="text-xs sm:text-sm text-main-muted leading-relaxed">
-            Browse server directories, read file contents, upload new configurations, create folders, and delete files remotely.
+            Browse server directories, read file contents, upload new
+            configurations, create folders, and delete files remotely.
           </p>
         </div>
       </div>

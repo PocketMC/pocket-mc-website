@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/sync-dist-html.cjs",
+    "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "node scripts/test-agent-readiness.cjs",
-    "convert-webp": "node scripts/convert-webp.cjs"
+    "convert-webp": "node scripts/convert-webp.cjs",
+    "test:browser": "node scripts/audit-site.mjs",
+    "capture:reference": "node scripts/capture-reference.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
     "@tailwindcss/vite": "^4.3.0",
     "motion": "^12.40.0",
     "react": "^19.2.6",
@@ -28,6 +31,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "puppeteer": "^25.14.0",
     "sharp": "^0.34.5",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
