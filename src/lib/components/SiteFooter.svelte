@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { discord, reddit, youtube, buymeacoffee, repo, website, email } from '$lib/data/links';
+	import { discord, reddit, youtube, buymeacoffee, repo, website } from '$lib/data/links';
 	import Logo from './Logo.svelte';
 	import Glyph from './Glyph.svelte';
 	import Mark from './Mark.svelte';
@@ -106,10 +106,6 @@
 					<a href="{repo}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">
 						<Glyph name="scale" size={13} />
 						<span>License ({license ?? 'MIT'})</span>
-					</a>
-					<a href="mailto:{email}">
-						<Glyph name="shield" size={13} />
-						<span>Security Contact</span>
 					</a>
 				</div>
 			</div>
