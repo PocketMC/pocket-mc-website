@@ -20,8 +20,8 @@
 					<span>PocketMC</span>
 				</a>
 				<p>
-					The local-first Minecraft server manager. Zero router setup, app-local Java provisioning,
-					and seamless cloud backups.
+					High-performance Minecraft server management right on your desktop. Zero port forwarding,
+					instant public tunnels, and pure bare-metal power.
 				</p>
 			</div>
 
