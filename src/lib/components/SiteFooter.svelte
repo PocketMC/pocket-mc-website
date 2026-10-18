@@ -22,7 +22,7 @@
 					<span>PocketMC</span>
 				</a>
 				<p>
-					High-performance Minecraft server management right on your desktop. Zero port forwarding,
+					High-performance Minecraft server management right on your desktop, crafted by DS Labs. Zero port forwarding,
 					instant public tunnels, and pure bare-metal power.
 				</p>
 			</div>
@@ -117,7 +117,7 @@
 
 		<div class="legal">
 			<p>
-				PocketMC is free and open-source software licensed under the {license ?? 'MIT'} License.
+				PocketMC is crafted by DS Labs. Free and open-source software licensed under the {license ?? 'MIT'} License.
 				NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
 			</p>
 			<p>

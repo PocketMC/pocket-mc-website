@@ -49,8 +49,13 @@
 			<span class="kicker">About</span>
 			<h1>About PocketMC</h1>
 			<p class="summary">
-				A local-first Minecraft server manager engineered to eliminate terminal complexity, safeguard
+				A local-first Minecraft server manager crafted by DS Labs to eliminate terminal complexity, safeguard
 				data sovereignty, and automate runtime operations on your personal computer.
+			</p>
+
+			<h2 id="ds-labs">Crafted by DS Labs</h2>
+			<p>
+				PocketMC is designed, engineered, and maintained by <strong>DS Labs</strong>, a software lab focused on local-first architecture, privacy-centric tooling, and high-performance desktop applications. Our philosophy centers on pure bare-metal execution, zero vendor lock-in, and uncompromising user control.
 			</p>
 
 			<h2 id="mission">Our Mission</h2>

@@ -40,6 +40,10 @@
 	<meta name="twitter:image" content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp" />
 	<meta name="twitter:image:alt" content="Pocket MC - Windows Minecraft Server Manager Dashboard" />
 
+	<meta name="author" content="DS Labs" />
+	<meta name="creator" content="DS Labs" />
+	<meta name="publisher" content="DS Labs" />
+
 	<!-- Machine-Readable LLM & Discovery -->
 	<link rel="alternate" type="text/markdown" href="https://pocketmc.github.io/llms-full.txt" title="Full Markdown Context for LLMs" />
 	<link rel="alternate" type="text/plain" href="https://pocketmc.github.io/llms.txt" title="LLM Index" />
@@ -56,8 +60,13 @@
 				url: 'https://pocketmc.github.io/',
 				name: 'Pocket MC',
 				alternateName: ['PocketMC', 'Pocket MC Windows', 'PocketMC Server Manager'],
-				description: 'Free and open-source local Minecraft server manager for Windows with Playit.gg tunnels, Adoptium Java runtimes, and cloud backups.',
-				inLanguage: 'en-US'
+				description: 'Free and open-source local Minecraft server manager for Windows crafted by DS Labs, with Playit.gg tunnels, Adoptium Java runtimes, and cloud backups.',
+				inLanguage: 'en-US',
+				publisher: {
+					'@type': 'Organization',
+					name: 'DS Labs',
+					url: 'https://pocketmc.github.io/'
+				}
 			},
 			{
 				'@type': 'SoftwareApplication',
@@ -70,6 +79,19 @@
 				image: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				screenshot: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				license: 'https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE',
+				author: {
+					'@type': 'Organization',
+					name: 'DS Labs',
+					url: 'https://pocketmc.github.io/'
+				},
+				creator: {
+					'@type': 'Organization',
+					name: 'DS Labs'
+				},
+				publisher: {
+					'@type': 'Organization',
+					name: 'DS Labs'
+				},
 				offers: {
 					'@type': 'Offer',
 					price: '0',
@@ -77,6 +99,7 @@
 				},
 				downloadUrl: 'https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe',
 				featureList: [
+					'Crafted by DS Labs as a native, local-first Minecraft server manager',
 					'One-click server installation for Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP',
 					'Automated Adoptium Java (8-25) and PHP 8.2 runtime provisioning without global PATH conflicts',
 					'Zero-port-forwarding Playit.gg network tunneling and Simple Voice Chat UDP mapping',
@@ -90,8 +113,8 @@
 			{
 				'@type': 'Organization',
 				'@id': 'https://pocketmc.github.io/#organization',
-				name: 'Pocket MC',
-				alternateName: 'PocketMC',
+				name: 'DS Labs',
+				alternateName: ['DS Labs', 'Pocket MC', 'PocketMC'],
 				url: 'https://pocketmc.github.io/',
 				logo: 'https://pocketmc.github.io/logo.webp',
 				sameAs: ['https://github.com/PocketMC', 'https://discord.gg/mWdMr8Mc2m']

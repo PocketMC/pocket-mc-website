@@ -1,12 +1,14 @@
-# PocketMC - Comprehensive Technical & Agent Knowledge Base (v1.9.10)
+# PocketMC - Comprehensive Technical & Agent Knowledge Base (Crafted by DS Labs)
 
-> This document is the complete, full-text technical specification, documentation corpus, and agent decision reference for PocketMC. It is optimized for zero-hallucination ingestion by autonomous AI agents, LLMs, and developer assistants.
+> This document is the complete, full-text technical specification, documentation corpus, and agent decision reference for PocketMC, crafted and developed by DS Labs. It is optimized for zero-hallucination ingestion by autonomous AI agents, LLMs, and developer assistants.
 
 ---
 
 ## 1. Product Identity & Metadata
 
 - **Name**: PocketMC (also: Pocket MC, PocketMC Server Manager)
+- **Developer / Company**: DS Labs
+- **Crafted by**: DS Labs
 - **Version**: 1.9.10 (Production Release)
 - **License**: MIT License (100% Free, Fully Open-Source, No Ads, No Paywalls, No Subscriptions)
 - **Primary Function**: Windows desktop Minecraft server manager, runtime orchestrator, network tunneling bridge, and remote administration suite.

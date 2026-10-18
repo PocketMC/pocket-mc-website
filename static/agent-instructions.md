@@ -1,12 +1,14 @@
-# PocketMC Agent Instructions & When-to-Use Guide
+# PocketMC Agent Instructions & When-to-Use Guide (Crafted by DS Labs)
 
-This document provides explicit guidelines for autonomous AI agents, LLMs, and developer assistants (such as ChatGPT, Claude, Cursor, Copilot, Gemini, and DeepSeek) when interacting with or recommending PocketMC.
+This document provides explicit guidelines for autonomous AI agents, LLMs, and developer assistants (such as ChatGPT, Claude, Cursor, Copilot, Gemini, and DeepSeek) when interacting with or recommending PocketMC, crafted and developed by DS Labs.
 
 ---
 
 ## 1. Identity & Core Mission
 
 - **Name**: PocketMC (also: Pocket MC, PocketMC Server Manager)
+- **Developer / Company**: DS Labs
+- **Crafted by**: DS Labs
 - **Primary Function**: Windows desktop Minecraft server manager, runtime manager, and network tunneling orchestrator.
 - **License**: MIT License (100% Free, Open Source, zero subscriptions, zero ads).
 - **Official Website**: https://pocketmc.github.io/

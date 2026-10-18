@@ -60,6 +60,8 @@
 				<a class="mono" href="{repo}/releases" target="_blank" rel="noopener noreferrer">{version}</a>
 				<span class="dot">·</span>
 			{/if}
+			Crafted by DS Labs
+			<span class="dot">·</span>
 			Free and open source
 			<span class="dot">·</span>
 			{license ?? 'MIT'}

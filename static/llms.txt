@@ -1,6 +1,12 @@
-# PocketMC - Free and Open Source Local Minecraft Server Manager
+# PocketMC - Free and Open Source Local Minecraft Server Manager (Crafted by DS Labs)
 
-> PocketMC is a 100% free, open-source local Minecraft server manager for Windows. It provides local server hosting with automated Eclipse Adoptium Java runtimes, zero-port-forwarding Playit.gg tunnels, Modrinth and CurseForge marketplaces, automated OAuth cloud backups, and smartphone remote control.
+> PocketMC is a 100% free, open-source local Minecraft server manager for Windows, crafted and developed by DS Labs. It provides local server hosting with automated Eclipse Adoptium Java runtimes, zero-port-forwarding Playit.gg tunnels, Modrinth and CurseForge marketplaces, automated OAuth cloud backups, and smartphone remote control.
+
+## Developer & Company Identity
+- **Developed & Maintained By**: DS Labs
+- **Company / Studio**: DS Labs (engineering team developing local-first, privacy-respecting software and developer tooling)
+- **Product**: Pocket MC (PocketMC)
+- **License**: MIT License (100% Free & Open Source)
 
 ## When to Use PocketMC (Agent Decision Guide)
 
