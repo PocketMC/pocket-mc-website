@@ -107,8 +107,9 @@
 			<ThemeSwitch />
 			<a href={repo} class="star" target="_blank" rel="noopener noreferrer">
 				<Mark name="github" size={15} />
-				GitHub
+				<span>GitHub</span>
 				{#if label}
+					<span class="sep" aria-hidden="true"></span>
 					<span class="count">{label}</span>
 				{/if}
 			</a>
@@ -142,8 +143,9 @@
 			{/each}
 			<a href={repo} class="repo" target="_blank" rel="noopener noreferrer" onclick={() => (open = false)}>
 				<Mark name="github" size={16} />
-				GitHub
+				<span>GitHub</span>
 				{#if label}
+					<span class="sep" aria-hidden="true"></span>
 					<span class="count">{label}</span>
 				{/if}
 			</a>
@@ -220,23 +222,49 @@
 
 	.star {
 		height: var(--control);
-		display: flex;
+		display: inline-flex;
 		align-items: center;
-		gap: 8px;
-		padding: 0 12px;
+		gap: 7px;
+		padding: 0 10px;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		font-size: 13px;
-		color: var(--chip-fg);
+		font-weight: 500;
+		color: var(--fg);
+		background: transparent;
 		white-space: nowrap;
+		text-decoration: none;
+		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 	}
 
-	.count {
-		padding: 1px 6px;
-		border-radius: 999px;
+	.star:hover {
 		background: var(--secondary);
-		font-family: var(--mono);
-		font-size: 11px;
+		border-color: var(--dim);
+		color: var(--fg);
+	}
+
+	.star .sep,
+	.menu .repo .sep {
+		display: inline-block;
+		width: 1px;
+		height: 12px;
+		background: var(--border);
+		margin: 0 1px;
+	}
+
+	.star .count,
+	.menu .repo .count {
+		font-size: 12.5px;
+		font-weight: 400;
+		color: var(--muted-fg);
+		background: none;
+		padding: 0;
+		border-radius: 0;
+		letter-spacing: -0.01em;
+	}
+
+	.star:hover .count,
+	.menu .repo:hover .count {
 		color: var(--fg);
 	}
 
@@ -294,13 +322,13 @@
 	}
 
 	.menu .repo {
-		display: flex;
+		display: inline-flex;
 		align-items: center;
 		gap: 8px;
 		margin-top: 8px;
 		padding-top: 14px;
 		border-top: 1px solid var(--line);
-		color: var(--muted-fg);
+		color: var(--fg);
 	}
 
 	.scrim {
