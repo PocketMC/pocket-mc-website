@@ -3,12 +3,41 @@
 
 	const videoSrc = '/Video/PocketMC.mp4';
 	let videoEl = $state<HTMLVideoElement | null>(null);
-	let isMuted = $state(true);
+	let isMuted = $state(false);
 
 	onMount(() => {
 		if (!videoEl) return;
 		videoEl.volume = 0.5;
-		videoEl.play().catch(() => {});
+		videoEl.muted = false;
+
+		const playPromise = videoEl.play();
+		if (playPromise !== undefined) {
+			playPromise.catch(() => {
+				// Browser policy blocked unmuted autoplay before interaction.
+				// Keep video playing and restore unmuted state on first interaction.
+				if (videoEl) {
+					videoEl.muted = true;
+					videoEl.play().catch(() => {});
+				}
+
+				const unmuteOnUserAction = () => {
+					if (videoEl && !isMuted) {
+						videoEl.muted = false;
+						videoEl.volume = 0.5;
+						videoEl.play().catch(() => {});
+					}
+					window.removeEventListener('click', unmuteOnUserAction);
+					window.removeEventListener('keydown', unmuteOnUserAction);
+					window.removeEventListener('pointerdown', unmuteOnUserAction);
+					window.removeEventListener('touchstart', unmuteOnUserAction);
+				};
+
+				window.addEventListener('click', unmuteOnUserAction, { once: true });
+				window.addEventListener('keydown', unmuteOnUserAction, { once: true });
+				window.addEventListener('pointerdown', unmuteOnUserAction, { once: true });
+				window.addEventListener('touchstart', unmuteOnUserAction, { once: true });
+			});
+		}
 	});
 
 	function setMuted(muted: boolean) {
