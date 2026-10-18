@@ -37,6 +37,18 @@
 		name="description"
 		content="Frequently asked questions and troubleshooting guides for PocketMC."
 	/>
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: faqItems.map((item) => ({
+			'@type': 'Question',
+			name: item.question,
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: item.answer.join(' ')
+			}
+		}))
+	})}</script>`}
 </svelte:head>
 
 <section class="section">

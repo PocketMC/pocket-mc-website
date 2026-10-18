@@ -12,7 +12,8 @@
 	let article = $state<HTMLElement | null>(null);
 	let picking = $state(false);
 
-	const index = $derived(pages.findIndex((entry) => page.url.pathname === `/docs/${entry.slug}`));
+	const path = $derived(page.url.pathname.replace(/\/+$/, ''));
+	const index = $derived(pages.findIndex((entry) => path === `/docs/${entry.slug}`));
 	const current = $derived(index >= 0 ? pages[index] : null);
 	const group = $derived(groups.find((entry) => current && entry.pages.includes(current)));
 	const previous = $derived(index > 0 ? pages[index - 1] : null);
@@ -20,6 +21,49 @@
 
 	afterNavigate(() => (picking = false));
 </script>
+
+<svelte:head>
+	{#if current}
+		{@html `<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'TechArticle',
+			headline: current.title,
+			description: current.summary,
+			url: `https://pocketmc.github.io/docs/${current.slug}`,
+			articleSection: group?.label,
+			isPartOf: {
+				'@type': 'WebSite',
+				name: 'PocketMC',
+				url: 'https://pocketmc.github.io/'
+			},
+			inLanguage: 'en-US'
+		})}</script>`}
+		{@html `<script type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: [
+				{
+					'@type': 'ListItem',
+					position: 1,
+					name: 'Home',
+					item: 'https://pocketmc.github.io/'
+				},
+				{
+					'@type': 'ListItem',
+					position: 2,
+					name: 'Documentation',
+					item: 'https://pocketmc.github.io/docs/introduction'
+				},
+				{
+					'@type': 'ListItem',
+					position: 3,
+					name: current.title,
+					item: `https://pocketmc.github.io/docs/${current.slug}`
+				}
+			]
+		})}</script>`}
+	{/if}
+</svelte:head>
 
 {#snippet list()}
 	{#each groups as grp (grp.label)}

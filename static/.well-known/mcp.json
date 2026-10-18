@@ -1,0 +1,84 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema.json",
+  "name": "PocketMC Server Manager",
+  "description": "Model Context Protocol interface for orchestrating local Minecraft server instances, reading telemetry, and managing server processes.",
+  "version": "1.9.10",
+  "homepage": "https://pocketmc.github.io/",
+  "documentation": "https://pocketmc.github.io/docs/api/",
+  "tools": [
+    {
+      "name": "list_instances",
+      "description": "List all configured Minecraft server instances with runtime metrics (status, memory, CPU, player count, active ports).",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "start_instance",
+      "description": "Start an existing Minecraft server instance by its unique ID.",
+      "parameters": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "description": "Instance ID" }
+        }
+      }
+    },
+    {
+      "name": "stop_instance",
+      "description": "Gracefully stop a running server instance using RCON save-all flush.",
+      "parameters": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "description": "Instance ID" },
+          "force": { "type": "boolean", "description": "Force kill if shutdown times out" }
+        }
+      }
+    },
+    {
+      "name": "send_console_command",
+      "description": "Execute a command string directly into the server console.",
+      "parameters": {
+        "type": "object",
+        "required": ["id", "command"],
+        "properties": {
+          "id": { "type": "string", "description": "Instance ID" },
+          "command": { "type": "string", "description": "Console command to run (e.g. 'say Hello')" }
+        }
+      }
+    },
+    {
+      "name": "trigger_backup",
+      "description": "Trigger an immediate RCON-held world backup with cloud replication.",
+      "parameters": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "description": "Instance ID" }
+        }
+      }
+    },
+    {
+      "name": "get_tunnels",
+      "description": "Get active Playit.gg and Cloudflare tunnel public addresses for server instances.",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "pocketmc://docs/llms-full.txt",
+      "name": "Full Documentation Corpus",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "pocketmc://api/openapi.json",
+      "name": "OpenAPI Specification",
+      "mimeType": "application/json"
+    }
+  ]
+}

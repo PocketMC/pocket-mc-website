@@ -51,6 +51,21 @@
 	/>
 	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" />
 	<link rel="preload" as="image" href="/screenshots/screenshot-console.webp" />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'ImageGallery',
+		name: 'PocketMC Screenshot Gallery',
+		description: 'Screenshots and visual overview of PocketMC across desktop and mobile.',
+		url: 'https://pocketmc.github.io/gallery/',
+		image: galleryItems.map((item) => ({
+			'@type': 'ImageObject',
+			name: item.title,
+			description: item.caption,
+			contentUrl: `https://pocketmc.github.io${item.src}`,
+			width: item.width,
+			height: item.height
+		}))
+	})}</script>`}
 </svelte:head>
 
 <svelte:window
