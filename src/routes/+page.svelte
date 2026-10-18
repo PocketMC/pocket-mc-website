@@ -1,7 +1,6 @@
 <script lang="ts">
 	import About from '$lib/components/About.svelte';
 	import Comparison from '$lib/components/Comparison.svelte';
-	import Cta from '$lib/components/Cta.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import Install from '$lib/components/Install.svelte';
 	import Preview from '$lib/components/Preview.svelte';
@@ -24,4 +23,3 @@
 <About />
 <Softwares />
 <Comparison />
-<Cta />
