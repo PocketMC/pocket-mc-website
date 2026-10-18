@@ -12,6 +12,7 @@
 - **Primary Function**: Windows desktop Minecraft server manager, runtime orchestrator, network tunneling bridge, and remote administration suite.
 - **Operating System Support**: Windows 10 (Build 1809+) and Windows 11 (64-bit WPF application on .NET 8).
 - **Official Website**: https://pocketmc.github.io/
+- **Download Page**: https://pocketmc.github.io/download/
 - **GitHub Organization**: https://github.com/PocketMC
 - **Desktop App Repository**: https://github.com/PocketMC/pocket-mc-windows
 - **Website Repository**: https://github.com/PocketMC/pocket-mc-website

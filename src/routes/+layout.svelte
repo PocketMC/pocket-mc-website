@@ -5,20 +5,48 @@
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import { anchors } from '$lib/anchors';
 
+	import { page } from '$app/state';
+
 	let { children, data } = $props();
 
 	onMount(() => {
 		if (!location.hash) requestAnimationFrame(() => scrollTo(0, 0));
 		return anchors();
 	});
+
+	const canonicalUrl = $derived(
+		page.url.pathname === '/'
+			? 'https://pocketmc.github.io/'
+			: `https://pocketmc.github.io${page.url.pathname.replace(/\/+$/, '')}/`
+	);
 </script>
 
 <svelte:head>
+	<link rel="canonical" href={canonicalUrl} />
+	
+	<!-- Open Graph / Social Sharing -->
+	<meta property="og:site_name" content="Pocket MC" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={canonicalUrl} />
+	<meta property="og:image" content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp" />
+	<meta property="og:image:width" content="1920" />
+	<meta property="og:image:height" content="1040" />
+	<meta property="og:image:alt" content="Pocket MC - Windows Minecraft Server Manager Dashboard" />
+	<meta property="og:locale" content="en_US" />
+
+	<!-- Twitter Cards -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:url" content={canonicalUrl} />
+	<meta name="twitter:image" content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp" />
+	<meta name="twitter:image:alt" content="Pocket MC - Windows Minecraft Server Manager Dashboard" />
+
+	<!-- Machine-Readable LLM & Discovery -->
 	<link rel="alternate" type="text/markdown" href="https://pocketmc.github.io/llms-full.txt" title="Full Markdown Context for LLMs" />
 	<link rel="alternate" type="text/plain" href="https://pocketmc.github.io/llms.txt" title="LLM Index" />
 	<link rel="help" href="https://pocketmc.github.io/agent-instructions.md" title="AI Agent Instructions" />
 	<link rel="sitemap" type="application/xml" href="https://pocketmc.github.io/sitemap.xml" />
 	<meta name="ai-agent" content="enabled" />
+
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
 		'@graph': [
@@ -26,18 +54,21 @@
 				'@type': 'WebSite',
 				'@id': 'https://pocketmc.github.io/#website',
 				url: 'https://pocketmc.github.io/',
-				name: 'PocketMC',
-				alternateName: ['Pocket MC', 'PocketMC Windows', 'PocketMC Server Manager'],
+				name: 'Pocket MC',
+				alternateName: ['PocketMC', 'Pocket MC Windows', 'PocketMC Server Manager'],
 				description: 'Free and open-source local Minecraft server manager for Windows with Playit.gg tunnels, Adoptium Java runtimes, and cloud backups.',
 				inLanguage: 'en-US'
 			},
 			{
 				'@type': 'SoftwareApplication',
 				'@id': 'https://pocketmc.github.io/#software',
-				name: 'PocketMC',
+				name: 'Pocket MC',
+				alternateName: 'PocketMC',
 				applicationCategory: 'UtilitiesApplication',
 				operatingSystem: 'Windows 10, Windows 11 (64-bit)',
 				softwareVersion: data.version || 'v1.9.10',
+				image: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
+				screenshot: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				license: 'https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE',
 				offers: {
 					'@type': 'Offer',
@@ -59,8 +90,10 @@
 			{
 				'@type': 'Organization',
 				'@id': 'https://pocketmc.github.io/#organization',
-				name: 'PocketMC',
+				name: 'Pocket MC',
+				alternateName: 'PocketMC',
 				url: 'https://pocketmc.github.io/',
+				logo: 'https://pocketmc.github.io/logo.webp',
 				sameAs: ['https://github.com/PocketMC', 'https://discord.gg/mWdMr8Mc2m']
 			}
 		]

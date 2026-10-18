@@ -3,11 +3,40 @@
 </script>
 
 <svelte:head>
-	<title>Privacy Policy · PocketMC</title>
+	<title>Privacy Policy — Pocket MC Local-First Data Sovereignty & DPAPI (PocketMC)</title>
 	<meta
 		name="description"
-		content="Verified data flows, local-first architecture, DPAPI encryption, and telemetry practices of PocketMC."
+		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
 	/>
+	<meta property="og:title" content="Privacy Policy — Pocket MC Local-First Data Sovereignty" />
+	<meta
+		property="og:description"
+		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
+	/>
+	<meta name="twitter:title" content="Privacy Policy — Pocket MC Local-First Data Sovereignty" />
+	<meta
+		name="twitter:description"
+		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
+	/>
+
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: 'https://pocketmc.github.io/'
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Privacy Policy',
+				item: 'https://pocketmc.github.io/privacy/'
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 <section class="section">

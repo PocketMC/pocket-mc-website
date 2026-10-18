@@ -4,11 +4,40 @@
 </script>
 
 <svelte:head>
-	<title>Terms of Service · PocketMC</title>
+	<title>Terms of Service — Pocket MC Open Source License & Terms (PocketMC)</title>
 	<meta
 		name="description"
-		content="PocketMC Terms of Service, open-source licensing, acceptable use, and third-party disclaimers."
+		content="Pocket MC (PocketMC) Terms of Service. Review MIT open-source licensing terms, local execution rights, acceptable use guidelines, and Minecraft trademark disclaimers."
 	/>
+	<meta property="og:title" content="Terms of Service — Pocket MC Open Source License & Terms" />
+	<meta
+		property="og:description"
+		content="Pocket MC (PocketMC) Terms of Service. Review MIT open-source licensing terms, local execution rights, acceptable use guidelines, and Minecraft trademark disclaimers."
+	/>
+	<meta name="twitter:title" content="Terms of Service — Pocket MC Open Source License & Terms" />
+	<meta
+		name="twitter:description"
+		content="Pocket MC (PocketMC) Terms of Service. Review MIT open-source licensing terms, local execution rights, acceptable use guidelines, and Minecraft trademark disclaimers."
+	/>
+
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: 'https://pocketmc.github.io/'
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Terms of Service',
+				item: 'https://pocketmc.github.io/terms/'
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 <section class="section">

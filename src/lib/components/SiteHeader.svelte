@@ -110,7 +110,7 @@
 					<span class="count">{label}</span>
 				{/if}
 			</a>
-			<a href="{home}#steps" class="download">Install</a>
+			<a href="/download" class="download">Download</a>
 			<button
 				type="button"
 				class="toggle"
@@ -135,6 +135,7 @@
 
 	{#if open}
 		<nav id="menu" class="menu" aria-label="Menu" transition:fly={{ y: -8, duration }}>
+			<a href="/download" onclick={() => (open = false)}>Download</a>
 			{#each links as link (link.label)}
 				<a href={link.href} onclick={() => (open = false)}>{link.label}</a>
 			{/each}

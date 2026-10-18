@@ -44,27 +44,58 @@
 </script>
 
 <svelte:head>
-	<title>Gallery · PocketMC</title>
+	<title>Pocket MC Screenshot Gallery — Desktop & Mobile Web Dashboard UI (PocketMC)</title>
 	<meta
 		name="description"
-		content="Screenshots and visual overview of PocketMC across desktop and mobile."
+		content="Explore high-resolution screenshots of Pocket MC (PocketMC): server console, instance creation, Modrinth addon marketplace, cloud backups, and mobile companion dashboard."
+	/>
+	<meta property="og:title" content="Pocket MC Screenshot Gallery — Desktop & Mobile UI" />
+	<meta
+		property="og:description"
+		content="Explore high-resolution screenshots of Pocket MC (PocketMC): server console, instance creation, Modrinth addon marketplace, cloud backups, and mobile companion dashboard."
+	/>
+	<meta name="twitter:title" content="Pocket MC Screenshot Gallery — Desktop & Mobile UI" />
+	<meta
+		name="twitter:description"
+		content="Explore high-resolution screenshots of Pocket MC (PocketMC): server console, instance creation, Modrinth addon marketplace, cloud backups, and mobile companion dashboard."
 	/>
 	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" />
 	<link rel="preload" as="image" href="/screenshots/screenshot-console.webp" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
-		'@type': 'ImageGallery',
-		name: 'PocketMC Screenshot Gallery',
-		description: 'Screenshots and visual overview of PocketMC across desktop and mobile.',
-		url: 'https://pocketmc.github.io/gallery/',
-		image: galleryItems.map((item) => ({
-			'@type': 'ImageObject',
-			name: item.title,
-			description: item.caption,
-			contentUrl: `https://pocketmc.github.io${item.src}`,
-			width: item.width,
-			height: item.height
-		}))
+		'@graph': [
+			{
+				'@type': 'BreadcrumbList',
+				itemListElement: [
+					{
+						'@type': 'ListItem',
+						position: 1,
+						name: 'Home',
+						item: 'https://pocketmc.github.io/'
+					},
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Gallery',
+						item: 'https://pocketmc.github.io/gallery/'
+					}
+				]
+			},
+			{
+				'@type': 'ImageGallery',
+				name: 'Pocket MC Screenshot Gallery',
+				description: 'Screenshots and visual overview of Pocket MC across desktop and mobile companion dashboard.',
+				url: 'https://pocketmc.github.io/gallery/',
+				image: galleryItems.map((item) => ({
+					'@type': 'ImageObject',
+					name: item.title,
+					description: item.caption,
+					contentUrl: `https://pocketmc.github.io${item.src}`,
+					width: item.width,
+					height: item.height
+				}))
+			}
+		]
 	})}</script>`}
 </svelte:head>
 

@@ -24,16 +24,23 @@
 
 <svelte:head>
 	{#if current}
+		<meta property="og:title" content="{current.title} — Pocket MC Documentation (PocketMC)" />
+		<meta property="og:description" content={current.summary} />
+		<meta property="og:type" content="article" />
+		<meta name="twitter:title" content="{current.title} — Pocket MC Documentation (PocketMC)" />
+		<meta name="twitter:description" content={current.summary} />
+
 		{@html `<script type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'TechArticle',
 			headline: current.title,
 			description: current.summary,
-			url: `https://pocketmc.github.io/docs/${current.slug}`,
+			url: `https://pocketmc.github.io/docs/${current.slug}/`,
 			articleSection: group?.label,
 			isPartOf: {
 				'@type': 'WebSite',
-				name: 'PocketMC',
+				name: 'Pocket MC',
+				alternateName: 'PocketMC',
 				url: 'https://pocketmc.github.io/'
 			},
 			inLanguage: 'en-US'
@@ -52,13 +59,13 @@
 					'@type': 'ListItem',
 					position: 2,
 					name: 'Documentation',
-					item: 'https://pocketmc.github.io/docs/introduction'
+					item: 'https://pocketmc.github.io/docs/introduction/'
 				},
 				{
 					'@type': 'ListItem',
 					position: 3,
 					name: current.title,
-					item: `https://pocketmc.github.io/docs/${current.slug}`
+					item: `https://pocketmc.github.io/docs/${current.slug}/`
 				}
 			]
 		})}</script>`}

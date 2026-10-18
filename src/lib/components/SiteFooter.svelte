@@ -46,6 +46,10 @@
 						<Glyph name="book-open" size={13} />
 						<span>Docs</span>
 					</a>
+					<a href="/download">
+						<Glyph name="download" size={13} />
+						<span>Download</span>
+					</a>
 					<a href="/faq">
 						<Glyph name="help-circle" size={13} />
 						<span>FAQ</span>

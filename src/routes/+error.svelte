@@ -3,7 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>{page.status} · PocketMC</title>
+	<title>{page.status} · Page Not Found · PocketMC</title>
+	<meta name="robots" content="noindex, follow" />
 </svelte:head>
 
 <section class="section error-page">

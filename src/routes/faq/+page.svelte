@@ -32,22 +32,54 @@
 </script>
 
 <svelte:head>
-	<title>FAQ · PocketMC</title>
+	<title>Pocket MC FAQ — Minecraft Server Setup, Port Forwarding & Troubleshooting (PocketMC)</title>
 	<meta
 		name="description"
-		content="Frequently asked questions and troubleshooting guides for PocketMC."
+		content="Frequently asked questions about Pocket MC (PocketMC). Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
 	/>
+	<meta property="og:title" content="Pocket MC FAQ — Minecraft Server Setup & Troubleshooting" />
+	<meta
+		property="og:description"
+		content="Frequently asked questions about Pocket MC (PocketMC). Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
+	/>
+	<meta name="twitter:title" content="Pocket MC FAQ — Minecraft Server Setup & Troubleshooting" />
+	<meta
+		name="twitter:description"
+		content="Frequently asked questions about Pocket MC (PocketMC). Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
+	/>
+
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: faqItems.map((item) => ({
-			'@type': 'Question',
-			name: item.question,
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: item.answer.join(' ')
+		'@graph': [
+			{
+				'@type': 'BreadcrumbList',
+				itemListElement: [
+					{
+						'@type': 'ListItem',
+						position: 1,
+						name: 'Home',
+						item: 'https://pocketmc.github.io/'
+					},
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'FAQ',
+						item: 'https://pocketmc.github.io/faq/'
+					}
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				mainEntity: faqItems.map((item) => ({
+					'@type': 'Question',
+					name: item.question,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.answer.join(' ')
+					}
+				}))
 			}
-		}))
+		]
 	})}</script>`}
 </svelte:head>
 
