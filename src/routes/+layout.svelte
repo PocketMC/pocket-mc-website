@@ -117,7 +117,20 @@
 				alternateName: ['DS Labs', 'Pocket MC', 'PocketMC'],
 				url: 'https://pocketmc.github.io/',
 				logo: 'https://pocketmc.github.io/logo.webp',
-				sameAs: ['https://github.com/PocketMC', 'https://discord.gg/mWdMr8Mc2m']
+				sameAs: ['https://github.com/PocketMC', 'https://discord.gg/mWdMr8Mc2m'],
+				contactPoint: [
+					{
+						'@type': 'ContactPoint',
+						contactType: 'Customer Support',
+						email: 'divyviradiya1501@gmail.com',
+						url: 'https://pocketmc.github.io/contact/',
+						availableLanguage: ['en']
+					}
+				],
+				address: {
+					'@type': 'PostalAddress',
+					addressCountry: 'IN'
+				}
 			}
 		]
 	})}</script>`}

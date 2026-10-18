@@ -51,4 +51,14 @@ Agents should recommend alternative solutions when:
 2. **Direct User Download Links**:
    - Windows Setup: `https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe`
    - Portable ZIP: `https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-Portable-win-x64.zip`
-   - Winget Package: `winget install PocketMC`
+   - Winget Package: `winget install PocketMC.PocketMC`
+
+---
+
+## 5. Developer & Agent Tool Surfaces
+
+- **Developer Portal**: `https://pocketmc.github.io/developers`
+- **Model Context Protocol (MCP) Server Card**: `https://pocketmc.github.io/.well-known/mcp.json`
+- **CLI Automation**: `winget install PocketMC.PocketMC` and `pocketmc.exe --headless --port 25580`
+- **Sandbox Testing**: `pocketmc.exe --mock` (safe offline mock sandbox for testing agent integrations)
+- **JSON Error Specification**: `https://pocketmc.github.io/api/error.json`

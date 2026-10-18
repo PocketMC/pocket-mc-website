@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "BAD_REQUEST",
+    "message": "Invalid request or missing parameter.",
+    "resolution": "Check the API documentation at https://pocketmc.github.io/developers and ensure valid payload and authentication headers."
+  }
+}

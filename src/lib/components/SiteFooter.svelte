@@ -46,6 +46,10 @@
 						<Glyph name="book-open" size={13} />
 						<span>Docs</span>
 					</a>
+					<a href="/developers">
+						<Glyph name="code" size={13} />
+						<span>Developer Portal</span>
+					</a>
 					<a href="/download">
 						<Glyph name="download" size={13} />
 						<span>Download</span>
@@ -71,7 +75,7 @@
 					</a>
 					<a href="/contact">
 						<Glyph name="mail" size={13} />
-						<span>Contact</span>
+						<span>Support &amp; Contact</span>
 					</a>
 				</div>
 				<div>

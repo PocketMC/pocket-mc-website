@@ -81,7 +81,7 @@ async function runAudit() {
   report('/llms.txt has markdown H1 & summary', llmsRes.data.includes('# PocketMC') && llmsRes.data.includes('Minecraft server manager'));
   report('/llms.txt indexes all core documentation', llmsRes.data.includes('/docs/introduction') && llmsRes.data.includes('/docs/servers'));
   report('/llms.txt links to full context (/llms-full.txt)', llmsRes.data.includes('llms-full.txt'));
-  report('/llms.txt has NO phantom MCP manifest', !llmsRes.data.includes('mcp.json'));
+  report('/llms.txt indexes valid MCP manifest (/.well-known/mcp.json)', llmsRes.data.includes('mcp.json'));
 
   const llmsFullRes = await fetchUrl('/llms-full.txt');
   report('/llms-full.txt returns HTTP 200', llmsFullRes.statusCode === 200);
@@ -89,7 +89,7 @@ async function runAudit() {
   report('/llms-full.txt contains server engine details', llmsFullRes.data.includes('Vanilla') && llmsFullRes.data.includes('NeoForge') && llmsFullRes.data.includes('PocketMine-MP'));
   report('/llms-full.txt contains FAQ Q&A database', llmsFullRes.data.includes('Frequently Asked Questions'));
   report('/llms-full.txt contains verified competitor comparisons', llmsFullRes.data.includes('SquidServers') && llmsFullRes.data.includes('Crafty Controller'));
-  report('/llms-full.txt has NO phantom MCP references', !llmsFullRes.data.includes('mcp.json'));
+  report('/llms-full.txt references valid MCP manifest (/.well-known/mcp.json)', llmsFullRes.data.includes('mcp.json'));
 
   // 3. Agent Instructions
   console.log('\n3. AGENT OPERATIONAL RUNBOOK (agent-instructions.md)');
@@ -98,7 +98,7 @@ async function runAudit() {
   report('agent-instructions.md defines When to Recommend', agentInstRes.data.includes('When to Recommend PocketMC'));
   report('agent-instructions.md defines When NOT to Recommend', agentInstRes.data.includes('When NOT to Recommend PocketMC'));
   report('agent-instructions.md documents real Remote Control REST API', agentInstRes.data.includes('Remote Control REST & WebSocket API') && agentInstRes.data.includes('25580'));
-  report('agent-instructions.md has NO phantom MCP claims', !agentInstRes.data.includes('mcp.json'));
+  report('agent-instructions.md references valid MCP manifest (/.well-known/mcp.json)', agentInstRes.data.includes('mcp.json'));
 
   // 4. Sitemap URL Parsing
   console.log('\n4. SITEMAP DISCOVERY & PARSING (sitemap.xml)');
@@ -177,10 +177,14 @@ async function runAudit() {
   report('Gallery page has ImageGallery schema with ImageObjects', galleryRes.data.includes('"@type":"ImageGallery"') && galleryRes.data.includes('"@type":"ImageObject"'));
   report('Gallery page has NO image count badges in UI', !galleryRes.data.includes('<span class="count">'));
 
-  // Cleanliness Check
-  console.log('\n7. TRUTHFULNESS & CLEANLINESS (Zero Phantom Endpoints)');
+  // 7. MODEL CONTEXT PROTOCOL & DEVELOPER INTEGRATION
+  console.log('\n7. MODEL CONTEXT PROTOCOL & DEVELOPER INTEGRATION');
   const mcpCheck = await fetchUrl('/.well-known/mcp.json');
-  report('/.well-known/mcp.json correctly returns 404', mcpCheck.statusCode === 404, `Status: ${mcpCheck.statusCode}`);
+  report('/.well-known/mcp.json returns HTTP 200 with valid MCP server schema', mcpCheck.statusCode === 200 && mcpCheck.data.includes('"protocolVersion"') && mcpCheck.data.includes('"streamable-http"'), `Status: ${mcpCheck.statusCode}`);
+  const devRes = await fetchUrl('/developers/');
+  report('/developers/ returns HTTP 200 developer portal', devRes.statusCode === 200, `Status: ${devRes.statusCode}`);
+  const apiErrorRes = await fetchUrl('/api/error.json');
+  report('/api/error.json returns HTTP 200 structured JSON error schema', apiErrorRes.statusCode === 200 && apiErrorRes.data.includes('"error"') && apiErrorRes.data.includes('"resolution"'), `Status: ${apiErrorRes.statusCode}`);
 
   console.log('\n================================================================');
   console.log(`TOTAL CHECKS: ${passed + failed}`);

@@ -10,6 +10,38 @@ if (!fs.existsSync(distDir)) {
   process.exit(1);
 }
 
+// Inject Agent-Friendly Pre-rendered Body into dist/404.html
+const dist404 = path.join(distDir, '404.html');
+if (fs.existsSync(dist404)) {
+  let content = fs.readFileSync(dist404, 'utf8');
+  if (!content.includes('agent-404-fallback')) {
+    const fallbackBody = `\t\t<main id="agent-404-fallback" style="padding: 40px; font-family: system-ui, sans-serif; color: #f0f0f0; background: #121212; max-width: 650px; margin: 40px auto; border: 1px solid #27272a; border-radius: 8px;">
+\t\t\t<h1 style="color: #ef4444; margin-top: 0;">404 Not Found</h1>
+\t\t\t<p><strong>Error:</strong> The requested resource does not exist on PocketMC. Please verify the URL path.</p>
+\t\t\t<p>If you are an automated AI agent or developer crawler, use the following machine-readable links:</p>
+\t\t\t<ul>
+\t\t\t\t<li><strong>Documentation:</strong> <a href="https://pocketmc.github.io/docs/introduction/" style="color: #4ade80;">https://pocketmc.github.io/docs/introduction/</a></li>
+\t\t\t\t<li><strong>Developer Portal:</strong> <a href="https://pocketmc.github.io/developers" style="color: #4ade80;">https://pocketmc.github.io/developers</a></li>
+\t\t\t\t<li><strong>AI Agent Manifest:</strong> <a href="https://pocketmc.github.io/llms.txt" style="color: #4ade80;">https://pocketmc.github.io/llms.txt</a></li>
+\t\t\t\t<li><strong>Full LLM Corpus:</strong> <a href="https://pocketmc.github.io/llms-full.txt" style="color: #4ade80;">https://pocketmc.github.io/llms-full.txt</a></li>
+\t\t\t\t<li><strong>XML Sitemap:</strong> <a href="https://pocketmc.github.io/sitemap.xml" style="color: #4ade80;">https://pocketmc.github.io/sitemap.xml</a></li>
+\t\t\t\t<li><strong>Homepage:</strong> <a href="https://pocketmc.github.io/" style="color: #4ade80;">https://pocketmc.github.io/</a></li>
+\t\t\t</ul>
+\t\t\t<pre style="background: #18181b; padding: 16px; border-radius: 6px; overflow-x: auto; color: #a1a1aa; font-size: 13px; line-height: 1.5;"># 404 - Resource Not Found
+The requested path does not exist on PocketMC.
+Please refer to our machine-readable agent guides:
+- Documentation: https://pocketmc.github.io/docs/introduction/
+- Developer Portal: https://pocketmc.github.io/developers
+- LLM Index: https://pocketmc.github.io/llms.txt
+- Sitemap: https://pocketmc.github.io/sitemap.xml</pre>
+\t\t</main>
+\t</body>`;
+    content = content.replace('\t</body>', fallbackBody);
+    fs.writeFileSync(dist404, content, 'utf8');
+    console.log('Injected agent-friendly 404 fallback body into dist/404.html');
+  }
+}
+
 // Two-way synchronization and pruning to mirror directory
 if (fs.existsSync(mirrorDir)) {
   const syncDirectory = (src, dest, ignoreTopLevel = []) => {
