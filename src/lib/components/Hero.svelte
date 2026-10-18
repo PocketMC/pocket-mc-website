@@ -12,8 +12,8 @@
 			<img
 				src="/logo.webp"
 				alt="PocketMC"
-				width="88"
-				height="88"
+				width="104"
+				height="104"
 				class="hero-logo-img"
 			/>
 		</div>
@@ -98,17 +98,17 @@
 	}
 
 	.hero-logo-img {
-		width: 88px;
-		height: 88px;
+		width: 104px;
+		height: 104px;
 		display: block;
 		object-fit: contain;
-		filter: drop-shadow(0 0 35px rgba(34, 197, 94, 0.7)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+		filter: drop-shadow(0 0 22px rgba(34, 197, 94, 0.32)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
 		transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.3s ease;
 	}
 
 	.hero-logo-img:hover {
-		transform: scale(1.06) translateY(-3px);
-		filter: drop-shadow(0 0 50px rgba(34, 197, 94, 0.9)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+		transform: scale(1.05) translateY(-2px);
+		filter: drop-shadow(0 0 30px rgba(34, 197, 94, 0.45)) drop-shadow(0 16px 30px rgba(0, 0, 0, 0.6));
 	}
 
 	h1 {
@@ -174,8 +174,8 @@
 		}
 
 		.hero-logo-img {
-			width: 72px;
-			height: 72px;
+			width: 84px;
+			height: 84px;
 		}
 
 		.tagline {
