@@ -41,7 +41,7 @@
 	}
 
 	.grid {
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		grid-template-columns: repeat(12, 1fr);
 	}
 
 	.card {
@@ -50,6 +50,11 @@
 		gap: 12px;
 		padding: 22px;
 		background: var(--bg);
+		grid-column: span 3;
+	}
+
+	.card:nth-child(n + 5) {
+		grid-column: span 4;
 	}
 
 	.top {
@@ -100,13 +105,34 @@
 		color: var(--dim);
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 990px) {
 		.page {
 			padding-bottom: 48px;
 		}
 
 		.grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.card,
+		.card:nth-child(n + 5) {
+			grid-column: span 1;
+		}
+
+		.card:last-child {
+			grid-column: span 2;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.grid {
 			grid-template-columns: 1fr;
+		}
+
+		.card,
+		.card:nth-child(n + 5),
+		.card:last-child {
+			grid-column: span 1;
 		}
 	}
 </style>
