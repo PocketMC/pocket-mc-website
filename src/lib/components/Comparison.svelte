@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { comparisonCategories } from '$lib/data/comparison';
+	import { toolComparisons } from '$lib/data/comparison';
 	import { reveal } from '$lib/reveal';
 </script>
 
@@ -9,11 +9,11 @@
 
 	<div class="page">
 		<div class="section-head" use:reveal>
-			<span class="kicker">Benchmark</span>
+			<span class="kicker">Comparison</span>
 			<h2>How PocketMC Compares</h2>
 			<p class="lead">
-				Why pay monthly subscription fees for underpowered cloud VPS containers when your home PC has
-				vastly superior hardware ready to run for free?
+				From lightweight desktop launchers to distributed Linux web panels, see how PocketMC stacks up
+				against alternative hosting tools.
 			</p>
 		</div>
 
@@ -22,27 +22,36 @@
 				<table>
 					<thead>
 						<tr>
-							<th class="feature-col">Feature</th>
-							<th class="highlight-col">PocketMC</th>
-							<th>Cloud VPS / Hostinger</th>
-							<th>Free Hosts (Aternos)</th>
-							<th>Manual Server Setup</th>
+							<th class="th-tool">Tool</th>
+							<th class="th-category">Category</th>
+							<th class="th-strength">Core Strength</th>
+							<th class="th-wins">Where PocketMC Wins</th>
 						</tr>
 					</thead>
 					<tbody>
-						{#each comparisonCategories as category}
-							<tr class="category-row">
-								<td colspan="5">{category.title}</td>
+						{#each toolComparisons as item (item.tool)}
+							<tr class:highlight-row={item.isPocketMC}>
+								<td class="cell-tool">
+									<div class="tool-head">
+										{#if item.isPocketMC}
+											<span class="pulse-dot" aria-hidden="true"></span>
+										{/if}
+										<span class="tool-name" class:highlight-name={item.isPocketMC}>{item.tool}</span>
+										{#if item.badge}
+											<span class="badge best-badge">{item.badge}</span>
+										{/if}
+									</div>
+								</td>
+								<td class="cell-category">
+									<span class="category-pill">{item.category}</span>
+								</td>
+								<td class="cell-strength">
+									{item.coreStrength}
+								</td>
+								<td class="cell-wins" class:highlight-wins={item.isPocketMC}>
+									{item.pocketmcWins}
+								</td>
 							</tr>
-							{#each category.items as item}
-								<tr>
-									<td class="feature-title">{item.feature}</td>
-									<td class="highlight-val">{item.pocketmc}</td>
-									<td>{item.vps}</td>
-									<td>{item.aternos}</td>
-									<td>{item.manual}</td>
-								</tr>
-							{/each}
 						{/each}
 					</tbody>
 				</table>
@@ -64,11 +73,7 @@
 	.scroll-table {
 		width: 100%;
 		overflow-x: auto;
-		scrollbar-width: none;
-	}
-
-	.scroll-table::-webkit-scrollbar {
-		display: none;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	table {
@@ -80,10 +85,11 @@
 
 	th,
 	td {
-		padding: 14px 20px;
+		padding: 16px 20px;
 		border-bottom: 1px solid var(--line);
 		border-right: 1px solid var(--line);
 		background: var(--bg);
+		vertical-align: top;
 	}
 
 	th:last-child,
@@ -91,45 +97,106 @@
 		border-right: none;
 	}
 
+	tr:last-child td {
+		border-bottom: none;
+	}
+
 	thead th {
 		background: var(--secondary);
-		font-size: 13px;
-		font-weight: 600;
-		color: var(--muted-fg);
-	}
-
-	thead th.highlight-col {
-		color: var(--fg);
-		background: var(--secondary-hover);
-		border-bottom: 2px solid var(--fg);
-	}
-
-	.category-row td {
-		background: var(--secondary);
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 600;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.04em;
 		color: var(--dim);
-		padding-top: 18px;
-		padding-bottom: 10px;
-	}
-
-	.feature-title {
-		font-weight: 500;
-		color: var(--fg);
 		white-space: nowrap;
 	}
 
-	.highlight-val {
-		color: var(--syntax-string);
-		font-weight: 500;
-		background: var(--secondary-hover);
+	.th-tool {
+		width: 200px;
+		min-width: 190px;
 	}
 
-	td {
+	.th-category {
+		width: 180px;
+		min-width: 170px;
+	}
+
+	.th-strength {
+		width: 28%;
+		min-width: 260px;
+	}
+
+	.th-wins {
+		min-width: 320px;
+	}
+
+	.tool-head {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.tool-name {
+		font-weight: 600;
+		font-size: 14px;
+		color: var(--fg);
+	}
+
+	.highlight-name {
+		color: var(--fg);
+		font-size: 14.5px;
+	}
+
+	.pulse-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: #22c55e;
+		box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+		flex-shrink: 0;
+	}
+
+	.best-badge {
+		padding: 2px 7px;
+		font-size: 10.5px;
+		font-weight: 600;
+		border-radius: 999px;
+		background: rgba(34, 197, 94, 0.12);
+		color: #22c55e;
+		border: 1px solid rgba(34, 197, 94, 0.28);
+		white-space: nowrap;
+	}
+
+	.category-pill {
+		display: inline-block;
+		padding: 3px 9px;
+		border-radius: 6px;
+		border: 1px solid var(--border);
+		background: var(--secondary);
+		font-size: 11.5px;
+		font-weight: 500;
+		color: var(--chip-fg);
+		line-height: 1.4;
+	}
+
+	.cell-strength {
 		color: var(--muted-fg);
-		line-height: 1.5;
+		line-height: 1.55;
+	}
+
+	.cell-wins {
+		color: var(--muted-fg);
+		line-height: 1.55;
+	}
+
+	.highlight-row td {
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.highlight-wins {
+		color: var(--fg);
+		font-weight: 450;
 	}
 
 	@media (max-width: 900px) {
@@ -139,7 +206,7 @@
 
 		th,
 		td {
-			padding: 10px 14px;
+			padding: 12px 14px;
 			font-size: 12.5px;
 		}
 	}
