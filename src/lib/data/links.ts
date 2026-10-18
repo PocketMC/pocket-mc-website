@@ -1,8 +1,0 @@
-export const repo = 'https://github.com/PocketMC/pocket-mc-windows';
-export const discord = 'https://discord.gg/mWdMr8Mc2m';
-export const reddit = 'https://www.reddit.com/r/PocketMC/';
-export const youtube = 'https://www.youtube.com/@OfficialPocketMC';
-export const buymeacoffee = 'https://www.buymeacoffee.com/sahaj33';
-export const website = 'https://github.com/PocketMC/pocket-mc-website';
-export const org = 'https://github.com/PocketMC';
-export const email = 'contactdslabs@gmail.com';

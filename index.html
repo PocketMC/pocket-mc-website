@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="google-site-verification"
+      content="N3Nvo8fo2_VexoKoe00C6ss5b-hPNlpDbh2-Uu5XLy4"
+    />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+
+    <!-- Google Fonts Inter matching master branch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      />
+    </noscript>
+    <title>PocketMC — Your worlds. Your hardware.</title>
+    <meta
+      name="description"
+      content="A free, open-source Minecraft server manager for Windows, Linux, and macOS. Run Java and Bedrock servers on your own hardware."
+    />
+    <link rel="canonical" href="https://pocketmc.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PocketMC" />
+    <meta
+      property="og:title"
+      content="PocketMC — Your worlds. Your hardware."
+    />
+    <meta
+      property="og:description"
+      content="A free, open-source Minecraft server manager for Windows, Linux, and macOS. Run Java and Bedrock servers on your own hardware."
+    />
+    <meta property="og:url" content="https://pocketmc.github.io/" />
+    <meta
+      property="og:image"
+      content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="PocketMC — Your worlds. Your hardware."
+    />
+    <meta
+      name="twitter:description"
+      content="A free, open-source Minecraft server manager for Windows, Linux, and macOS. Run Java and Bedrock servers on your own hardware."
+    />
+    <meta
+      name="twitter:image"
+      content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp"
+    />
+    <link
+      rel="alternate"
+      type="text/markdown"
+      href="%BASE_URL%llms.txt"
+      title="PocketMC agent guide"
+    />
+    <script>
+      try {
+        const saved = localStorage.getItem("theme");
+        const theme =
+          saved === "system"
+            ? matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"
+            : saved === "light"
+              ? "light"
+              : "dark";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle("dark", theme === "dark");
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <noscript
+      ><style>
+        .question [hidden] {
+          display: block !important;
+        }
+        .search-trigger,
+        .theme-switch,
+        .mobile-toggle,
+        .preview-tabs {
+          display: none !important;
+        }
+      </style></noscript
+    >
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
