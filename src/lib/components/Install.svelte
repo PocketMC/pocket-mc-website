@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { installSteps, installNote } from '$lib/data/platforms';
+	import { installOptions, installNotice } from '$lib/data/platforms';
 	import { reveal } from '$lib/reveal';
 	import CopyButton from './CopyButton.svelte';
+	import Glyph from './Glyph.svelte';
 </script>
 
 <section id="steps" class="section">
@@ -11,54 +12,130 @@
 	<div class="page">
 		<div class="section-head" use:reveal>
 			<span class="kicker">Install</span>
-			<h2>Step by step</h2>
+			<h2>Get PocketMC</h2>
 			<p class="lead">
-				Deploy PocketMC in seconds with zero administrative elevation required.
+				Choose your preferred installation method. PocketMC runs locally in user space with zero
+				configuration required.
 			</p>
 		</div>
 
-		<div class="wire panel" use:reveal>
-			<div class="steps">
-				<div class="stack">
-					{#each installSteps as step, index (step.caption)}
-						<div class="step">
-							<span class="mono index">{String(index + 1).padStart(2, '0')}</span>
-							<div class="body">
-								<p class="caption">{step.caption}</p>
-								{#if step.link}
-									<a class="code link" href={step.link} target="_blank" rel="noopener noreferrer">
-										<span class="mono text">{step.command}</span>
-										<svg
-											width="14"
-											height="14"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											aria-hidden="true"
-										>
-											<path d="M12 3v13" />
-											<path d="M7 12l5 5 5-5" />
-											<path d="M4 21h16" />
-										</svg>
-									</a>
-								{:else}
-									<div class="code">
-										<pre class="mono text">{step.command}</pre>
-										<CopyButton text={step.command} />
-									</div>
-								{/if}
-								{#if step.hint}
-									<p class="hint-text">{step.hint}</p>
-								{/if}
-							</div>
+		<div class="wire grid" use:reveal={{ stagger: true }}>
+			{#each installOptions as opt (opt.id)}
+				<article class="card {opt.id}">
+					<div class="card-head">
+						<div class="icon-wrap">
+							{#if opt.id === 'installer'}
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+									<polyline points="7 10 12 15 17 10" />
+									<line x1="12" y1="15" x2="12" y2="3" />
+								</svg>
+							{:else if opt.id === 'winget'}
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<polyline points="4 17 10 11 4 5" />
+									<line x1="12" y1="19" x2="20" y2="19" />
+								</svg>
+							{:else}
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<polyline points="21 8 21 21 3 21 3 8" />
+									<rect x="1" y="3" width="22" height="5" />
+									<line x1="10" y1="12" x2="14" y2="12" />
+								</svg>
+							{/if}
 						</div>
-					{/each}
+						<span class="badge mono {opt.id === 'installer' ? 'highlight' : ''}">{opt.badge}</span>
+					</div>
 
-					<p class="note">{installNote}</p>
+					<div class="card-body">
+						<h3>{opt.title}</h3>
+						<p class="desc">{opt.description}</p>
+					</div>
+
+					<div class="card-action">
+						{#if opt.actionType === 'download'}
+							<a
+								class="action-btn {opt.id === 'installer' ? 'btn-primary' : 'btn-secondary'}"
+								href={opt.actionTarget}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<svg
+									width="15"
+									height="15"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<path d="M12 3v13" />
+									<path d="M7 12l5 5 5-5" />
+									<path d="M4 21h16" />
+								</svg>
+								<span>{opt.actionText}</span>
+								{#if opt.extension}
+									<span class="ext mono">{opt.extension}</span>
+								{/if}
+							</a>
+						{:else}
+							<div class="cmd-box">
+								<div class="cmd-inner">
+									<span class="prompt mono" aria-hidden="true">&gt;</span>
+									<code class="cmd-text mono">{opt.actionTarget}</code>
+								</div>
+								<CopyButton text={opt.actionTarget} />
+							</div>
+						{/if}
+					</div>
+
+					<div class="card-footer">
+						<span class="meta">{opt.meta}</span>
+					</div>
+				</article>
+			{/each}
+		</div>
+
+		<div class="notice-wrap" use:reveal>
+			<div class="notice-bar">
+				<div class="notice-icon">
+					<Glyph name="shield" size={16} />
 				</div>
+				<p class="notice-text">
+					<strong>User-space execution:</strong>
+					{installNotice}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -69,109 +146,231 @@
 		padding-bottom: 72px;
 	}
 
-	.panel {
-		max-width: 840px;
-		margin: 0 auto;
+	.grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		border-radius: var(--radius-lg);
-		overflow: hidden;
 	}
 
-	.steps {
-		padding: 32px;
+	.card {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding: 26px 22px;
 		background: var(--bg);
+		transition: background-color 0.18s ease;
 	}
 
-	.stack {
-		display: flex;
-		flex-direction: column;
-		gap: 24px;
-	}
-
-	.step {
-		display: flex;
-		align-items: flex-start;
-		gap: 18px;
-	}
-
-	.index {
-		padding-top: 2px;
-		font-size: 13px;
-		color: var(--dim);
-	}
-
-	.body {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.caption {
-		font-size: 14px;
-		font-weight: 500;
-		color: var(--fg);
-	}
-
-	.code {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 12px;
-		padding: 10px 14px;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
+	.card:hover {
 		background: var(--card);
 	}
 
-	.code.link {
-		color: var(--fg);
-		text-decoration: none;
-		transition: border-color 0.15s ease, background-color 0.15s ease;
+	.card-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
-	.code.link:hover {
-		border-color: var(--fg);
-		background: var(--secondary);
-	}
-
-	pre.text,
-	span.text {
-		margin: 0;
-		font-family: var(--mono);
-		font-size: 13px;
-		overflow-x: auto;
-		white-space: pre-wrap;
-		word-break: break-all;
-	}
-
-	.hint-text {
-		font-size: 12.5px;
-		color: var(--dim);
-		line-height: 1.5;
-	}
-
-	.note {
-		margin-top: 8px;
-		padding: 12px 16px;
+	.icon-wrap {
+		width: 36px;
+		height: 36px;
 		border-radius: var(--radius);
-		border: 1px solid var(--line);
+		border: 1px solid var(--border);
 		background: var(--secondary);
-		font-size: 13px;
-		line-height: 1.6;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--fg);
+	}
+
+	.badge {
+		font-size: 11px;
+		padding: 3px 9px;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		background: var(--secondary);
+		color: var(--dim);
+		letter-spacing: 0.04em;
+	}
+
+	.badge.highlight {
+		color: var(--fg);
+		border-color: var(--border-hover, #404040);
+		background: var(--secondary-hover);
+	}
+
+	.card-body {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		flex: 1;
+	}
+
+	h3 {
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--fg);
+	}
+
+	.desc {
+		font-size: 13.5px;
+		line-height: 1.55;
 		color: var(--muted-fg);
 	}
 
-	@media (max-width: 768px) {
+	.card-action {
+		margin-top: auto;
+		padding-top: 4px;
+	}
+
+	.action-btn {
+		width: 100%;
+		height: 42px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 0 16px;
+		border-radius: var(--radius);
+		font-size: 13.5px;
+		font-weight: 500;
+		text-decoration: none;
+		transition:
+			background-color 0.18s ease,
+			border-color 0.18s ease,
+			color 0.18s ease,
+			transform 0.12s ease;
+	}
+
+	.action-btn:hover {
+		transform: translateY(-1px);
+	}
+
+	.action-btn:active {
+		transform: translateY(0);
+	}
+
+	.action-btn.btn-primary {
+		background: var(--primary);
+		color: var(--primary-fg);
+		font-weight: 600;
+	}
+
+	.action-btn.btn-primary:hover {
+		background: var(--primary-hover);
+	}
+
+	.action-btn.btn-secondary {
+		border: 1px solid var(--border);
+		background: var(--secondary);
+		color: var(--fg);
+	}
+
+	.action-btn.btn-secondary:hover {
+		border-color: var(--dim);
+		background: var(--secondary-hover);
+	}
+
+	.ext {
+		font-size: 12px;
+		opacity: 0.7;
+	}
+
+	.cmd-box {
+		width: 100%;
+		height: 42px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		padding: 0 6px 0 12px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--secondary);
+		transition: border-color 0.18s ease;
+	}
+
+	.cmd-box:hover {
+		border-color: var(--dim);
+	}
+
+	.cmd-inner {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		overflow: hidden;
+		min-width: 0;
+	}
+
+	.prompt {
+		font-size: 12px;
+		color: var(--dim);
+		user-select: none;
+		flex-shrink: 0;
+	}
+
+	.cmd-text {
+		font-size: 12.5px;
+		color: var(--fg);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.card-footer {
+		display: flex;
+		align-items: center;
+		padding-top: 2px;
+	}
+
+	.meta {
+		font-size: 12px;
+		color: var(--dim);
+	}
+
+	.notice-wrap {
+		margin-top: 20px;
+	}
+
+	.notice-bar {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 14px 18px;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: var(--bg);
+	}
+
+	.notice-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--dim);
+		flex-shrink: 0;
+	}
+
+	.notice-text {
+		font-size: 12.5px;
+		line-height: 1.55;
+		color: var(--muted-fg);
+	}
+
+	.notice-text strong {
+		color: var(--fg);
+		font-weight: 600;
+	}
+
+	@media (max-width: 900px) {
 		.page {
 			padding-bottom: 48px;
 		}
 
-		.steps {
-			padding: 20px 16px;
+		.grid {
+			grid-template-columns: 1fr;
 		}
 
-		.step {
-			gap: 12px;
+		.notice-bar {
+			align-items: flex-start;
 		}
 	}
 </style>
