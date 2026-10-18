@@ -25,20 +25,20 @@
 	<link rel="canonical" href={canonicalUrl} />
 	
 	<!-- Open Graph / Social Sharing -->
-	<meta property="og:site_name" content="Pocket MC" />
+	<meta property="og:site_name" content="PocketMC" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content={canonicalUrl} />
 	<meta property="og:image" content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp" />
 	<meta property="og:image:width" content="1920" />
 	<meta property="og:image:height" content="1040" />
-	<meta property="og:image:alt" content="Pocket MC - Windows Minecraft Server Manager Dashboard" />
+	<meta property="og:image:alt" content="PocketMC - Windows Minecraft Server Manager Dashboard" />
 	<meta property="og:locale" content="en_US" />
 
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:url" content={canonicalUrl} />
 	<meta name="twitter:image" content="https://pocketmc.github.io/screenshots/screenshot-dashboard.webp" />
-	<meta name="twitter:image:alt" content="Pocket MC - Windows Minecraft Server Manager Dashboard" />
+	<meta name="twitter:image:alt" content="PocketMC - Windows Minecraft Server Manager Dashboard" />
 
 	<meta name="author" content="DS Labs" />
 	<meta name="creator" content="DS Labs" />
@@ -58,8 +58,8 @@
 				'@type': 'WebSite',
 				'@id': 'https://pocketmc.github.io/#website',
 				url: 'https://pocketmc.github.io/',
-				name: 'Pocket MC',
-				alternateName: ['PocketMC', 'Pocket MC Windows', 'PocketMC Server Manager'],
+				name: 'PocketMC',
+				alternateName: ['PocketMC', 'Pocket MC', 'Pocket MC Windows'],
 				description: 'Free and open-source local Minecraft server manager for Windows crafted by DS Labs, with Playit.gg tunnels, Adoptium Java runtimes, and cloud backups.',
 				inLanguage: 'en-US',
 				publisher: {
@@ -71,8 +71,8 @@
 			{
 				'@type': 'SoftwareApplication',
 				'@id': 'https://pocketmc.github.io/#software',
-				name: 'Pocket MC',
-				alternateName: 'PocketMC',
+				name: 'PocketMC',
+				alternateName: ['PocketMC', 'Pocket MC'],
 				applicationCategory: 'UtilitiesApplication',
 				operatingSystem: 'Windows 10, Windows 11 (64-bit)',
 				softwareVersion: data.version || 'v1.9.10',

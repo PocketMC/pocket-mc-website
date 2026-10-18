@@ -10,17 +10,17 @@
 </script>
 
 <svelte:head>
-	<title>Pocket MC - #1 Local Minecraft Server Manager for Windows (PocketMC)</title>
+	<title>PocketMC - #1 Local Minecraft Server Manager for Windows</title>
 	<meta
 		name="description"
-		content="Pocket MC (PocketMC) is a free, open-source local Minecraft server manager for Windows. One-click setup for Java, Paper, Fabric, Forge, Bedrock with zero-port Playit.gg tunnels & cloud backups."
+		content="PocketMC is a free, open-source local Minecraft server manager for Windows. One-click setup for Java, Paper, Fabric, Forge, Bedrock with zero-port Playit.gg tunnels & cloud backups."
 	/>
-	<meta property="og:title" content="Pocket MC - #1 Local Minecraft Server Manager for Windows (PocketMC)" />
+	<meta property="og:title" content="PocketMC - #1 Local Minecraft Server Manager for Windows" />
 	<meta
 		property="og:description"
 		content="One-click Minecraft server setup for Java, Paper, Fabric, Forge, NeoForge, Bedrock BDS & PocketMine-MP. Zero-port Playit.gg tunnels, Adoptium Java & cloud backups."
 	/>
-	<meta name="twitter:title" content="Pocket MC - #1 Local Minecraft Server Manager for Windows (PocketMC)" />
+	<meta name="twitter:title" content="PocketMC - #1 Local Minecraft Server Manager for Windows" />
 	<meta
 		name="twitter:description"
 		content="One-click Minecraft server setup for Java, Paper, Fabric, Forge, NeoForge, Bedrock BDS & PocketMine-MP. Zero-port Playit.gg tunnels, Adoptium Java & cloud backups."

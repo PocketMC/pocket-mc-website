@@ -5,7 +5,7 @@
 ## Developer & Company Identity
 - **Developed & Maintained By**: DS Labs
 - **Company / Studio**: DS Labs (engineering team developing local-first, privacy-respecting software and developer tooling)
-- **Product**: Pocket MC (PocketMC)
+- **Product**: PocketMC
 - **License**: MIT License (100% Free & Open Source)
 
 ## When to Use PocketMC (Agent Decision Guide)

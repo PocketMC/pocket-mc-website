@@ -32,20 +32,20 @@
 </script>
 
 <svelte:head>
-	<title>Pocket MC FAQ - Minecraft Server Setup, Port Forwarding & Troubleshooting (PocketMC)</title>
+	<title>PocketMC FAQ - Minecraft Server Setup & Troubleshooting</title>
 	<meta
 		name="description"
-		content="Frequently asked questions about Pocket MC (PocketMC). Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
+		content="Frequently asked questions about PocketMC. Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
 	/>
-	<meta property="og:title" content="Pocket MC FAQ - Minecraft Server Setup & Troubleshooting" />
+	<meta property="og:title" content="PocketMC FAQ - Minecraft Server Setup & Troubleshooting" />
 	<meta
 		property="og:description"
-		content="Frequently asked questions about Pocket MC (PocketMC). Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
+		content="Frequently asked questions about PocketMC. Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
 	/>
-	<meta name="twitter:title" content="Pocket MC FAQ - Minecraft Server Setup & Troubleshooting" />
+	<meta name="twitter:title" content="PocketMC FAQ - Minecraft Server Setup & Troubleshooting" />
 	<meta
 		name="twitter:description"
-		content="Frequently asked questions about Pocket MC (PocketMC). Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
+		content="Frequently asked questions about PocketMC. Learn how to host local Minecraft servers without port forwarding, resolve Java runtime issues, and set up cloud backups."
 	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({

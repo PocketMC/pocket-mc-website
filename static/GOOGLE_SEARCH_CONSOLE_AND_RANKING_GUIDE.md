@@ -1,7 +1,7 @@
-# Pocket MC — Complete Google Search Console & #1 Ranking Master Guide
+# PocketMC - Complete Google Search Console & #1 Ranking Master Guide
 
 > **Target Domain:** `https://pocketmc.github.io/`  
-> **Brand Identity:** Pocket MC (PocketMC)  
+> **Brand Identity:** PocketMC  
 > **Value Proposition:** #1 Local Minecraft Server Manager for Windows
 
 ---
@@ -104,12 +104,12 @@ We target users searching for **local, free, and zero-headache hosting** rather 
 | **Minecraft server automatic cloud backup Google Drive** | Utility Specific | `/docs/backups/` | Safe RCON save-holding, SHA-256 archive verification, zero lock conflicts |
 | **Minecraft server control panel Windows desktop** | Category Comparison | `/` & `#comparison` | Local-first, zero Docker overhead, desktop UI with mobile web dashboard companion |
 
-### Pillar 3: Title & Meta Description Formula (Zero Em Dashes)
+### Pillar 3: Title & Meta Description Formula (Zero Em Dashes, Clean Branding)
 Google prioritizes clean, high-CTR titles without formatting artifacts:
-* **Homepage Title:** `Pocket MC - #1 Local Minecraft Server Manager for Windows (PocketMC)`
-* **Download Title:** `Download Pocket MC - Windows Setup, Winget & Portable (PocketMC)`
-* **Docs Title:** `[Page Name] - Pocket MC Documentation (PocketMC)`
-* **Formula:** `[Primary Keyword] - [Clear Value Proposition / Feature] ([Brand Variations])`
+* **Homepage Title:** `PocketMC - #1 Local Minecraft Server Manager for Windows`
+* **Download Title:** `Download PocketMC - Windows Setup, Winget & Portable`
+* **Docs Title:** `[Page Name] - PocketMC Documentation`
+* **Formula:** `[Primary Keyword] - [Clear Value Proposition / Feature]`
 
 ### Pillar 4: High-Authority Backlink Acquisition (How to Trigger Google Rank #1)
 Google algorithms require external domain authority signals to place a new website at position #1. Execute these high-leverage steps:

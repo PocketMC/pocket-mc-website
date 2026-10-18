@@ -4,20 +4,20 @@
 </script>
 
 <svelte:head>
-	<title>About Pocket MC - Open Source Windows Minecraft Server Manager (PocketMC)</title>
+	<title>About PocketMC - Crafted by DS Labs</title>
 	<meta
 		name="description"
-		content="Learn about Pocket MC (PocketMC): our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
+		content="Learn about PocketMC, crafted by DS Labs: our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
 	/>
-	<meta property="og:title" content="About Pocket MC - Open Source Windows Minecraft Server Manager" />
+	<meta property="og:title" content="About PocketMC - Crafted by DS Labs" />
 	<meta
 		property="og:description"
-		content="Learn about Pocket MC (PocketMC): our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
+		content="Learn about PocketMC, crafted by DS Labs: our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
 	/>
-	<meta name="twitter:title" content="About Pocket MC - Open Source Windows Minecraft Server Manager" />
+	<meta name="twitter:title" content="About PocketMC - Crafted by DS Labs" />
 	<meta
 		name="twitter:description"
-		content="Learn about Pocket MC (PocketMC): our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
+		content="Learn about PocketMC, crafted by DS Labs: our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
 	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({

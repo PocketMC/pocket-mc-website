@@ -3,20 +3,20 @@
 </script>
 
 <svelte:head>
-	<title>Privacy Policy - Pocket MC Local-First Data Sovereignty & DPAPI (PocketMC)</title>
+	<title>PocketMC Privacy Policy - Local Data Sovereignty</title>
 	<meta
 		name="description"
-		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
+		content="Review the PocketMC Privacy Policy. Learn about our local-first architecture, Windows DPAPI encryption, zero remote telemetry collection, and complete user data sovereignty."
 	/>
-	<meta property="og:title" content="Privacy Policy - Pocket MC Local-First Data Sovereignty" />
+	<meta property="og:title" content="PocketMC Privacy Policy - Local Data Sovereignty" />
 	<meta
 		property="og:description"
-		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
+		content="Review the PocketMC Privacy Policy. Learn about our local-first architecture, Windows DPAPI encryption, zero remote telemetry collection, and complete user data sovereignty."
 	/>
-	<meta name="twitter:title" content="Privacy Policy - Pocket MC Local-First Data Sovereignty" />
+	<meta name="twitter:title" content="PocketMC Privacy Policy - Local Data Sovereignty" />
 	<meta
 		name="twitter:description"
-		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
+		content="Review the PocketMC Privacy Policy. Learn about our local-first architecture, Windows DPAPI encryption, zero remote telemetry collection, and complete user data sovereignty."
 	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({

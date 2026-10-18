@@ -24,10 +24,10 @@
 
 <svelte:head>
 	{#if current}
-		<meta property="og:title" content="{current.title} - Pocket MC Documentation (PocketMC)" />
+		<meta property="og:title" content="{current.title} - PocketMC Documentation" />
 		<meta property="og:description" content={current.summary} />
 		<meta property="og:type" content="article" />
-		<meta name="twitter:title" content="{current.title} - Pocket MC Documentation (PocketMC)" />
+		<meta name="twitter:title" content="{current.title} - PocketMC Documentation" />
 		<meta name="twitter:description" content={current.summary} />
 
 		{@html `<script type="application/ld+json">${JSON.stringify({
@@ -39,8 +39,8 @@
 			articleSection: group?.label,
 			isPartOf: {
 				'@type': 'WebSite',
-				name: 'Pocket MC',
-				alternateName: 'PocketMC',
+				name: 'PocketMC',
+				alternateName: ['PocketMC', 'Pocket MC'],
 				url: 'https://pocketmc.github.io/'
 			},
 			inLanguage: 'en-US'

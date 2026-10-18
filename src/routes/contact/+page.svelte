@@ -4,20 +4,20 @@
 </script>
 
 <svelte:head>
-	<title>Contact & Support - Pocket MC Discord, GitHub & Community (PocketMC)</title>
+	<title>PocketMC Support & Contact - Community Discord & Help</title>
 	<meta
 		name="description"
-		content="Get in touch with the Pocket MC (PocketMC) team. Join our official Discord community, report issues on GitHub, submit feature requests, or inquire about development."
+		content="Get official PocketMC support and connect with the community. Join our Discord server, report bugs on GitHub, submit feature requests, or contact the team."
 	/>
-	<meta property="og:title" content="Contact & Support - Pocket MC Community & Development" />
+	<meta property="og:title" content="PocketMC Support & Contact" />
 	<meta
 		property="og:description"
-		content="Get in touch with the Pocket MC (PocketMC) team. Join our official Discord community, report issues on GitHub, submit feature requests, or inquire about development."
+		content="Get official PocketMC support and connect with the community. Join our Discord server, report bugs on GitHub, submit feature requests, or contact the team."
 	/>
-	<meta name="twitter:title" content="Contact & Support - Pocket MC Community & Development" />
+	<meta name="twitter:title" content="PocketMC Support & Contact" />
 	<meta
 		name="twitter:description"
-		content="Get in touch with the Pocket MC (PocketMC) team. Join our official Discord community, report issues on GitHub, submit feature requests, or inquire about development."
+		content="Get official PocketMC support and connect with the community. Join our Discord server, report bugs on GitHub, submit feature requests, or contact the team."
 	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({

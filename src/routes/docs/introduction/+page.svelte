@@ -4,10 +4,10 @@
 </script>
 
 <svelte:head>
-	<title>Introduction · PocketMC Docs</title>
+	<title>PocketMC Documentation - Overview & Setup Guide</title>
 	<meta
 		name="description"
-		content="Architecture overview, local-first principles, and core capabilities of PocketMC."
+		content="Official PocketMC documentation: architecture overview, server engine setup, Adoptium Java runtimes, zero-port Playit.gg tunnels, and backup configuration."
 	/>
 </svelte:head>
 
