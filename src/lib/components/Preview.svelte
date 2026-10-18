@@ -12,31 +12,31 @@
 
 		const playPromise = videoEl.play();
 		if (playPromise !== undefined) {
-			playPromise.catch(() => {
-				// Browser policy blocked unmuted autoplay before interaction.
-				// Keep video playing and restore unmuted state on first interaction.
-				if (videoEl) {
-					videoEl.muted = true;
-					videoEl.play().catch(() => {});
-				}
-
-				const unmuteOnUserAction = () => {
-					if (videoEl && !isMuted) {
-						videoEl.muted = false;
-						videoEl.volume = 0.5;
+			playPromise
+				.then(() => {
+					isMuted = false;
+				})
+				.catch(() => {
+					// If the browser enforces user activation before audio,
+					// keep playing visually and immediately unmute on first gesture.
+					if (videoEl) {
+						videoEl.muted = true;
 						videoEl.play().catch(() => {});
 					}
-					window.removeEventListener('click', unmuteOnUserAction);
-					window.removeEventListener('keydown', unmuteOnUserAction);
-					window.removeEventListener('pointerdown', unmuteOnUserAction);
-					window.removeEventListener('touchstart', unmuteOnUserAction);
-				};
 
-				window.addEventListener('click', unmuteOnUserAction, { once: true });
-				window.addEventListener('keydown', unmuteOnUserAction, { once: true });
-				window.addEventListener('pointerdown', unmuteOnUserAction, { once: true });
-				window.addEventListener('touchstart', unmuteOnUserAction, { once: true });
-			});
+					const triggerUnmute = () => {
+						if (videoEl && !isMuted) {
+							videoEl.muted = false;
+							videoEl.volume = 0.5;
+							videoEl.play().catch(() => {});
+						}
+						const evts = ['click', 'pointerdown', 'keydown', 'scroll', 'mousemove', 'touchstart'];
+						evts.forEach((e) => window.removeEventListener(e, triggerUnmute));
+					};
+
+					const evts = ['click', 'pointerdown', 'keydown', 'scroll', 'mousemove', 'touchstart'];
+					evts.forEach((e) => window.addEventListener(e, triggerUnmute, { once: true, passive: true }));
+				});
 		}
 	});
 
@@ -53,8 +53,8 @@
 </script>
 
 <svelte:head>
-	<link rel="preload" as="video" href={videoSrc} type="video/mp4" />
-	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" />
+	<link rel="preload" as="video" href={videoSrc} type="video/mp4" fetchpriority="high" />
+	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" fetchpriority="high" />
 </svelte:head>
 
 <section id="tour" class="preview section">
@@ -76,7 +76,7 @@
 						preload="auto"
 						autoplay
 						loop
-						muted
+						muted={isMuted}
 						playsinline
 						class="showcase-media"
 					>
