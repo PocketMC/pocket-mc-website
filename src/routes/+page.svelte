@@ -6,7 +6,6 @@
 	import Install from '$lib/components/Install.svelte';
 	import Preview from '$lib/components/Preview.svelte';
 	import Softwares from '$lib/components/Softwares.svelte';
-	import Stability from '$lib/components/Stability.svelte';
 
 	let { data } = $props();
 </script>
@@ -25,5 +24,4 @@
 <About />
 <Softwares />
 <Comparison />
-<Stability />
 <Cta />
