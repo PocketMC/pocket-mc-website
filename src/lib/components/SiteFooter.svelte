@@ -2,6 +2,8 @@
 	import { page } from '$app/state';
 	import { discord, reddit, youtube, buymeacoffee, repo, website, email } from '$lib/data/links';
 	import Logo from './Logo.svelte';
+	import Glyph from './Glyph.svelte';
+	import Mark from './Mark.svelte';
 
 	let { license = 'MIT' }: { license?: string | null } = $props();
 
@@ -28,33 +30,87 @@
 			<div class="links">
 				<div>
 					<h3>Site</h3>
-					<a href="{home}#about">Features</a>
-					<a href="/gallery">Gallery</a>
-					<a href="{home}#comparison">Comparison</a>
-					<a href="/docs">Docs</a>
-					<a href="/faq">FAQ</a>
+					<a href="{home}#about">
+						<Glyph name="sliders" size={13} />
+						<span>Features</span>
+					</a>
+					<a href="/gallery">
+						<Glyph name="image" size={13} />
+						<span>Gallery</span>
+					</a>
+					<a href="{home}#comparison">
+						<Glyph name="columns" size={13} />
+						<span>Comparison</span>
+					</a>
+					<a href="/docs">
+						<Glyph name="book-open" size={13} />
+						<span>Docs</span>
+					</a>
+					<a href="/faq">
+						<Glyph name="help-circle" size={13} />
+						<span>FAQ</span>
+					</a>
 				</div>
 				<div>
 					<h3>Project</h3>
-					<a href={repo} target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-					<a href={website} target="_blank" rel="noopener noreferrer">Website Source</a>
-					<a href="/about">About Us</a>
-					<a href="/contact">Contact</a>
+					<a href={repo} target="_blank" rel="noopener noreferrer">
+						<Mark name="github" size={13} />
+						<span>GitHub Repository</span>
+					</a>
+					<a href={website} target="_blank" rel="noopener noreferrer">
+						<Glyph name="code" size={13} />
+						<span>Website Source</span>
+					</a>
+					<a href="/about">
+						<Glyph name="info" size={13} />
+						<span>About Us</span>
+					</a>
+					<a href="/contact">
+						<Glyph name="mail" size={13} />
+						<span>Contact</span>
+					</a>
 				</div>
 				<div>
 					<h3>Community</h3>
-					<a href={discord} target="_blank" rel="noopener noreferrer">Discord Server</a>
-					<a href={reddit} target="_blank" rel="noopener noreferrer">Reddit Community</a>
-					<a href={youtube} target="_blank" rel="noopener noreferrer">YouTube Channel</a>
-					<a href={buymeacoffee} target="_blank" rel="noopener noreferrer">Support Creator</a>
-					<a href="{repo}/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+					<a href={discord} target="_blank" rel="noopener noreferrer">
+						<Mark name="discord" size={13} />
+						<span>Discord Server</span>
+					</a>
+					<a href={reddit} target="_blank" rel="noopener noreferrer">
+						<Mark name="reddit" size={13} />
+						<span>Reddit Community</span>
+					</a>
+					<a href={youtube} target="_blank" rel="noopener noreferrer">
+						<Mark name="youtube" size={13} />
+						<span>YouTube Channel</span>
+					</a>
+					<a href={buymeacoffee} target="_blank" rel="noopener noreferrer">
+						<Mark name="buymeacoffee" size={13} />
+						<span>Support Creator</span>
+					</a>
+					<a href="{repo}/issues" target="_blank" rel="noopener noreferrer">
+						<Glyph name="alert-circle" size={13} />
+						<span>Report Issue</span>
+					</a>
 				</div>
 				<div>
 					<h3>Legal</h3>
-					<a href="/terms">Terms of Service</a>
-					<a href="/privacy">Privacy Policy</a>
-					<a href="{repo}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">License ({license ?? 'MIT'})</a>
-					<a href="mailto:{email}">Security Contact</a>
+					<a href="/terms">
+						<Glyph name="file-text" size={13} />
+						<span>Terms of Service</span>
+					</a>
+					<a href="/privacy">
+						<Glyph name="lock" size={13} />
+						<span>Privacy Policy</span>
+					</a>
+					<a href="{repo}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">
+						<Glyph name="scale" size={13} />
+						<span>License ({license ?? 'MIT'})</span>
+					</a>
+					<a href="mailto:{email}">
+						<Glyph name="shield" size={13} />
+						<span>Security Contact</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -121,7 +177,25 @@
 		color: var(--muted-fg);
 	}
 
+	.links a {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--muted-fg);
+		transition: color 0.15s ease;
+	}
+
+	.links a :global(svg) {
+		color: var(--dim);
+		flex-shrink: 0;
+		transition: color 0.15s ease;
+	}
+
 	.links a:hover {
+		color: var(--fg);
+	}
+
+	.links a:hover :global(svg) {
 		color: var(--fg);
 	}
 

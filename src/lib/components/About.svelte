@@ -1,18 +1,26 @@
 <script lang="ts">
 	import { reveal } from '$lib/reveal';
 	import Glyph from './Glyph.svelte';
+	import Mark from './Mark.svelte';
 
-	const cells = [
+	type CellItem = {
+		text: string;
+		glyph?: string;
+		icon?: string;
+		mark?: string;
+	};
+
+	const cells: { label: string; items: CellItem[] }[] = [
 		{
 			label: 'Server Engines',
 			items: [
-				{ glyph: 'server', text: 'Vanilla (Official Mojang JARs)' },
-				{ glyph: 'server', text: 'Paper (High-performance Spigot)' },
-				{ glyph: 'layers', text: 'Fabric (Lightweight & modular)' },
-				{ glyph: 'package', text: 'Forge (Classic mod loader)' },
-				{ glyph: 'package', text: 'NeoForge (Modern mod loader)' },
-				{ glyph: 'globe', text: 'Bedrock Dedicated Server (BDS)' },
-				{ glyph: 'zap', text: 'PocketMine-MP (PHP 8.2 PM5)' }
+				{ icon: '/icons/vanilla.png', text: 'Vanilla (Official Mojang JARs)' },
+				{ icon: '/icons/papermc.png', text: 'Paper (High-performance Spigot)' },
+				{ icon: '/icons/fabric.png', text: 'Fabric (Lightweight & modular)' },
+				{ icon: '/icons/forge.png', text: 'Forge (Classic mod loader)' },
+				{ icon: '/icons/neoforge.png', text: 'NeoForge (Modern mod loader)' },
+				{ icon: '/icons/bds.png', text: 'Bedrock Dedicated Server (BDS)' },
+				{ icon: '/icons/pocketmine-mp.png', text: 'PocketMine-MP (PHP 8.2 PM5)' }
 			]
 		},
 		{
@@ -22,7 +30,7 @@
 				{ glyph: 'refresh-cw', text: 'Crash recovery with auto-backoff' },
 				{ glyph: 'zap', text: 'Port-collision preflight guard' },
 				{ glyph: 'hard-drive', text: 'Low-disk warning (< 2 GB guard)' },
-				{ glyph: 'cpu', text: 'Windows sleep mode inhibition' },
+				{ mark: 'windows', text: 'Windows sleep mode inhibition' },
 				{ glyph: 'sliders', text: '80% System RAM over-allocation alert' }
 			]
 		},
@@ -32,9 +40,9 @@
 				{ glyph: 'cpu', text: 'Adoptium JREs (Java 8, 11, 17, 21, 25)' },
 				{ glyph: 'zap', text: 'Auto-selection based on server JAR' },
 				{ glyph: 'hard-drive', text: 'Managed app-local dependencies' },
-				{ glyph: 'package', text: 'Isolated instance directories' },
-				{ glyph: 'shield', text: 'Runs in local user directory' },
-				{ glyph: 'refresh-cw', text: 'Auto PHP PM5 for Bedrock' }
+				{ glyph: 'folder-open', text: 'Isolated instance directories' },
+				{ mark: 'windows', text: 'Runs in local user directory' },
+				{ icon: '/icons/pocketmine-mp.png', text: 'Auto PHP PM5 for Bedrock' }
 			]
 		},
 		{
@@ -45,7 +53,7 @@
 				{ glyph: 'smartphone', text: 'Responsive mobile web dashboard' },
 				{ glyph: 'shield', text: 'Instant QR code mobile pairing' },
 				{ glyph: 'terminal', text: 'Multi-user roles & permission scopes' },
-				{ glyph: 'sparkles', text: 'Discord Rich Presence with live server status' }
+				{ mark: 'discord', text: 'Discord Rich Presence with live server status' }
 			]
 		},
 		{
@@ -94,7 +102,13 @@
 					<ul>
 						{#each cell.items as item (item.text)}
 							<li>
-								<Glyph name={item.glyph} size={15} />
+								{#if item.icon}
+									<img src={item.icon} alt="" width="16" height="16" class="cell-icon" />
+								{:else if item.mark}
+									<Mark name={item.mark} size={15} />
+								{:else if item.glyph}
+									<Glyph name={item.glyph} size={15} />
+								{/if}
 								<span>{item.text}</span>
 							</li>
 						{/each}
@@ -146,6 +160,14 @@
 	li :global(svg) {
 		color: var(--dim);
 		flex-shrink: 0;
+	}
+
+	.cell-icon {
+		width: 15px;
+		height: 15px;
+		object-fit: contain;
+		flex-shrink: 0;
+		border-radius: 2px;
 	}
 
 	@media (max-width: 900px) {
