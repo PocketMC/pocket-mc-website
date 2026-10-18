@@ -101,11 +101,6 @@
 							onclick={() => (activeCategory = cat.id)}
 						>
 							<span>{cat.label}</span>
-							{#if cat.id === 'all'}
-								<span class="count">({galleryItems.length})</span>
-							{:else if cat.id === 'mobile'}
-								<span class="count">({galleryItems.filter((i) => i.categoryId === 'mobile').length})</span>
-							{/if}
 						</button>
 					{/each}
 				</div>
@@ -416,11 +411,6 @@
 		background: var(--secondary-active);
 		color: var(--fg);
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	}
-
-	.count {
-		font-size: 11px;
-		opacity: 0.65;
 	}
 
 	/* Content Sections */
