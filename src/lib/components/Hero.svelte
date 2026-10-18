@@ -105,13 +105,6 @@
 		height: 104px;
 		display: block;
 		object-fit: contain;
-		filter: drop-shadow(0 0 22px rgba(34, 197, 94, 0.32)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
-		transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.3s ease;
-	}
-
-	.hero-logo-img:hover {
-		transform: scale(1.05) translateY(-2px);
-		filter: drop-shadow(0 0 30px rgba(34, 197, 94, 0.45)) drop-shadow(0 16px 30px rgba(0, 0, 0, 0.6));
 	}
 
 	h1 {
