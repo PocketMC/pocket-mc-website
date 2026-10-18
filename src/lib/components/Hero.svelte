@@ -27,7 +27,7 @@
 		<h1 data-enter style="--enter: 0.05s">PocketMC</h1>
 
 		<p class="tagline" data-enter style="--enter: 0.09s">
-			Stop fighting your router. Spin up high-performance Minecraft servers in seconds — zero port forwarding, instant public tunnels, and pure bare-metal power.
+			Just a local Minecraft server manager.
 		</p>
 
 		<div class="cta" data-enter style="--enter: 0.14s">
