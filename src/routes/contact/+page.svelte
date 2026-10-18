@@ -4,17 +4,17 @@
 </script>
 
 <svelte:head>
-	<title>Contact & Support — Pocket MC Discord, GitHub & Community (PocketMC)</title>
+	<title>Contact & Support - Pocket MC Discord, GitHub & Community (PocketMC)</title>
 	<meta
 		name="description"
 		content="Get in touch with the Pocket MC (PocketMC) team. Join our official Discord community, report issues on GitHub, submit feature requests, or inquire about development."
 	/>
-	<meta property="og:title" content="Contact & Support — Pocket MC Community & Development" />
+	<meta property="og:title" content="Contact & Support - Pocket MC Community & Development" />
 	<meta
 		property="og:description"
 		content="Get in touch with the Pocket MC (PocketMC) team. Join our official Discord community, report issues on GitHub, submit feature requests, or inquire about development."
 	/>
-	<meta name="twitter:title" content="Contact & Support — Pocket MC Community & Development" />
+	<meta name="twitter:title" content="Contact & Support - Pocket MC Community & Development" />
 	<meta
 		name="twitter:description"
 		content="Get in touch with the Pocket MC (PocketMC) team. Join our official Discord community, report issues on GitHub, submit feature requests, or inquire about development."
@@ -60,13 +60,13 @@
 			</p>
 			<ul>
 				<li>
-					<a href={discord} target="_blank" rel="noopener noreferrer">Official PocketMC Discord</a> &mdash; Live community support and development updates.
+					<a href={discord} target="_blank" rel="noopener noreferrer">Official PocketMC Discord</a> - Live community support and development updates.
 				</li>
 				<li>
-					<a href={reddit} target="_blank" rel="noopener noreferrer">r/PocketMC on Reddit</a> &mdash; Community showcases, guides, and discussions.
+					<a href={reddit} target="_blank" rel="noopener noreferrer">r/PocketMC on Reddit</a> - Community showcases, guides, and discussions.
 				</li>
 				<li>
-					<a href={youtube} target="_blank" rel="noopener noreferrer">Official YouTube Channel</a> &mdash; Video tutorials and showcase demonstrations.
+					<a href={youtube} target="_blank" rel="noopener noreferrer">Official YouTube Channel</a> - Video tutorials and showcase demonstrations.
 				</li>
 			</ul>
 

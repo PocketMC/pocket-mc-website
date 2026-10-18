@@ -20,8 +20,8 @@
 
 <h2 id="dpapi-encryption">DPAPI Credential Encryption</h2>
 <p>
-	Sensitive secrets—including third-party cloud OAuth tokens (Google Drive, Dropbox, OneDrive) and
-	Remote Control user password hashes—are never stored in plaintext on disk.
+	Sensitive secrets (including third-party cloud OAuth tokens for Google Drive, Dropbox, OneDrive, and
+	Remote Control user password hashes) are never stored in plaintext on disk.
 </p>
 <p>
 	On Windows, PocketMC encrypts all secrets using the native <strong>Windows Data Protection API (DPAPI)</strong>

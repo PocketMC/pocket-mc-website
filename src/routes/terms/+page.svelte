@@ -4,17 +4,17 @@
 </script>
 
 <svelte:head>
-	<title>Terms of Service — Pocket MC Open Source License & Terms (PocketMC)</title>
+	<title>Terms of Service - Pocket MC Open Source License & Terms (PocketMC)</title>
 	<meta
 		name="description"
 		content="Pocket MC (PocketMC) Terms of Service. Review MIT open-source licensing terms, local execution rights, acceptable use guidelines, and Minecraft trademark disclaimers."
 	/>
-	<meta property="og:title" content="Terms of Service — Pocket MC Open Source License & Terms" />
+	<meta property="og:title" content="Terms of Service - Pocket MC Open Source License & Terms" />
 	<meta
 		property="og:description"
 		content="Pocket MC (PocketMC) Terms of Service. Review MIT open-source licensing terms, local execution rights, acceptable use guidelines, and Minecraft trademark disclaimers."
 	/>
-	<meta name="twitter:title" content="Terms of Service — Pocket MC Open Source License & Terms" />
+	<meta name="twitter:title" content="Terms of Service - Pocket MC Open Source License & Terms" />
 	<meta
 		name="twitter:description"
 		content="Pocket MC (PocketMC) Terms of Service. Review MIT open-source licensing terms, local execution rights, acceptable use guidelines, and Minecraft trademark disclaimers."

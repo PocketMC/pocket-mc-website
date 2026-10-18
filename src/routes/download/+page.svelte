@@ -7,17 +7,17 @@
 </script>
 
 <svelte:head>
-	<title>Download Pocket MC — Windows Setup, Winget & Portable (PocketMC)</title>
+	<title>Download Pocket MC - Windows Setup, Winget & Portable (PocketMC)</title>
 	<meta
 		name="description"
 		content="Download Pocket MC (PocketMC) for Windows 10 & 11 (64-bit). Choose between the official Windows installer (.exe), Microsoft Winget terminal command, or standalone portable ZIP."
 	/>
-	<meta property="og:title" content="Download Pocket MC — Windows Setup, Winget & Portable (PocketMC)" />
+	<meta property="og:title" content="Download Pocket MC - Windows Setup, Winget & Portable (PocketMC)" />
 	<meta
 		property="og:description"
 		content="Free, open-source Minecraft server manager for Windows. Download the setup installer, install via Winget, or run standalone portable ZIP."
 	/>
-	<meta name="twitter:title" content="Download Pocket MC — Windows Setup, Winget & Portable (PocketMC)" />
+	<meta name="twitter:title" content="Download Pocket MC - Windows Setup, Winget & Portable (PocketMC)" />
 	<meta
 		name="twitter:description"
 		content="Free, open-source Minecraft server manager for Windows. Download the setup installer, install via Winget, or run standalone portable ZIP."

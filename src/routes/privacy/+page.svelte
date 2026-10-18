@@ -3,17 +3,17 @@
 </script>
 
 <svelte:head>
-	<title>Privacy Policy — Pocket MC Local-First Data Sovereignty & DPAPI (PocketMC)</title>
+	<title>Privacy Policy - Pocket MC Local-First Data Sovereignty & DPAPI (PocketMC)</title>
 	<meta
 		name="description"
 		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
 	/>
-	<meta property="og:title" content="Privacy Policy — Pocket MC Local-First Data Sovereignty" />
+	<meta property="og:title" content="Privacy Policy - Pocket MC Local-First Data Sovereignty" />
 	<meta
 		property="og:description"
 		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
 	/>
-	<meta name="twitter:title" content="Privacy Policy — Pocket MC Local-First Data Sovereignty" />
+	<meta name="twitter:title" content="Privacy Policy - Pocket MC Local-First Data Sovereignty" />
 	<meta
 		name="twitter:description"
 		content="Review the Pocket MC (PocketMC) Privacy Policy. Learn about local-first architecture, Windows DPAPI encryption, zero remote data collection, and local telemetry controls."
@@ -60,8 +60,8 @@
 				<code class="mono">%LOCALAPPDATA%\PocketMC</code>).
 			</p>
 			<p>
-				Sensitive credentials—including OAuth refresh tokens for cloud backup providers (Google Drive, Dropbox,
-				OneDrive) and Remote Control user password hashes—are never stored in plaintext. On Windows, they are
+				Sensitive credentials (including OAuth refresh tokens for cloud backup providers Google Drive, Dropbox,
+				and OneDrive, as well as Remote Control user password hashes) are never stored in plaintext. On Windows, they are
 				encrypted using the native <strong>Windows Data Protection API (DPAPI)</strong>
 				(<code class="mono">ProtectedData.Protect</code>) scoped to the current user SID. A copy of the
 				configuration files transferred to another account or computer cannot be decrypted.

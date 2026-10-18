@@ -96,7 +96,7 @@
 	<li>Official Mojang Bedrock binaries for stable releases and preview builds.</li>
 	<li>Automatic Windows loopback network isolation exemption (<code class="mono">CheckNetIsolation.exe</code>) so Bedrock clients on the host machine can connect to local instances.</li>
 	<li>Persistent <code class="mono">pocketmc-bans.json</code> sidecar providing persistent player ban moderation across BDS server restarts.</li>
-	<li>Zero Java dependency — runs natively on 64-bit Windows.</li>
+	<li>Zero Java dependency: runs natively on 64-bit Windows.</li>
 </ul>
 
 <h2 id="pocketmine-mp">PocketMine-MP (PHP)</h2>

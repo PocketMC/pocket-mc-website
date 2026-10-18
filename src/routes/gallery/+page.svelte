@@ -44,17 +44,17 @@
 </script>
 
 <svelte:head>
-	<title>Pocket MC Screenshot Gallery — Desktop & Mobile Web Dashboard UI (PocketMC)</title>
+	<title>Pocket MC Screenshot Gallery - Desktop & Mobile Web Dashboard UI (PocketMC)</title>
 	<meta
 		name="description"
 		content="Explore high-resolution screenshots of Pocket MC (PocketMC): server console, instance creation, Modrinth addon marketplace, cloud backups, and mobile companion dashboard."
 	/>
-	<meta property="og:title" content="Pocket MC Screenshot Gallery — Desktop & Mobile UI" />
+	<meta property="og:title" content="Pocket MC Screenshot Gallery - Desktop & Mobile UI" />
 	<meta
 		property="og:description"
 		content="Explore high-resolution screenshots of Pocket MC (PocketMC): server console, instance creation, Modrinth addon marketplace, cloud backups, and mobile companion dashboard."
 	/>
-	<meta name="twitter:title" content="Pocket MC Screenshot Gallery — Desktop & Mobile UI" />
+	<meta name="twitter:title" content="Pocket MC Screenshot Gallery - Desktop & Mobile UI" />
 	<meta
 		name="twitter:description"
 		content="Explore high-resolution screenshots of Pocket MC (PocketMC): server console, instance creation, Modrinth addon marketplace, cloud backups, and mobile companion dashboard."

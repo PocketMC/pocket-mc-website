@@ -4,17 +4,17 @@
 </script>
 
 <svelte:head>
-	<title>About Pocket MC — Open Source Windows Minecraft Server Manager (PocketMC)</title>
+	<title>About Pocket MC - Open Source Windows Minecraft Server Manager (PocketMC)</title>
 	<meta
 		name="description"
 		content="Learn about Pocket MC (PocketMC): our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
 	/>
-	<meta property="og:title" content="About Pocket MC — Open Source Windows Minecraft Server Manager" />
+	<meta property="og:title" content="About Pocket MC - Open Source Windows Minecraft Server Manager" />
 	<meta
 		property="og:description"
 		content="Learn about Pocket MC (PocketMC): our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
 	/>
-	<meta name="twitter:title" content="About Pocket MC — Open Source Windows Minecraft Server Manager" />
+	<meta name="twitter:title" content="About Pocket MC - Open Source Windows Minecraft Server Manager" />
 	<meta
 		name="twitter:description"
 		content="Learn about Pocket MC (PocketMC): our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
