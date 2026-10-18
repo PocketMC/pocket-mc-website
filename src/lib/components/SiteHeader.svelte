@@ -18,7 +18,6 @@
 	const home = $derived(page.url.pathname === '/' ? '' : '/');
 
 	const links = $derived([
-		{ href: `${home}#steps`, label: 'Install' },
 		{ href: `${home}#about`, label: 'Features' },
 		{ href: '/gallery', label: 'Gallery' },
 		{ href: `${home}#comparison`, label: 'Comparison' },

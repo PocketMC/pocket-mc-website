@@ -28,7 +28,6 @@
 			<div class="links">
 				<div>
 					<h3>Site</h3>
-					<a href="{home}#steps">Install</a>
 					<a href="{home}#about">Features</a>
 					<a href="/gallery">Gallery</a>
 					<a href="{home}#comparison">Comparison</a>
