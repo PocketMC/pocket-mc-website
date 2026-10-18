@@ -204,7 +204,10 @@ try {
   );
   // Header brand link navigation to home hero page.
   await page.goto(href("/features/"), { waitUntil: "networkidle0" });
-  await page.click("a.brand");
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: "networkidle0" }),
+    page.click("a.brand"),
+  ]);
   assert.equal(new URL(page.url()).pathname, base);
 
   // Dedicated Gallery page and Lightbox interaction (commit 1ef48e2).
@@ -227,7 +230,10 @@ try {
   // Test hero gallery pill navigation on home page
   await page.goto(href("/"), { waitUntil: "networkidle0" });
   await page.waitForSelector(".hero-gallery-pill");
-  await page.click(".hero-gallery-pill");
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: "networkidle0" }),
+    page.click(".hero-gallery-pill"),
+  ]);
   assert.equal(new URL(page.url()).pathname, `${base}gallery/`);
 
   // Features page screenshot enlargement and history.
@@ -237,7 +243,7 @@ try {
   await page.keyboard.press("Escape");
   assert.equal(await page.$(".image-dialog[open]"), null);
   await page.goBack({ waitUntil: "networkidle0" });
-  assert.equal(new URL(page.url()).pathname, base);
+  assert.equal(new URL(page.url()).pathname, `${base}gallery/`);
   await page.goto(href("/missing-page/"));
   assert.match(
     await page.$eval("h1", (el) => el.textContent),
