@@ -7,7 +7,7 @@
 	<title>Remote Dashboard · PocketMC Docs</title>
 	<meta
 		name="description"
-		content="Self-hosted responsive web panel, QR code mobile pairing, and permission scopes."
+		content="Self-hosted responsive web panel, quick QR web dashboard URL access, and permission scopes."
 	/>
 </svelte:head>
 
@@ -29,14 +29,14 @@
 	<li>Create an admin user and password.</li>
 </ol>
 
-<h2 id="mobile-qr-pairing">Instant Mobile QR Pairing</h2>
+<h2 id="mobile-qr-access">Quick QR Web Dashboard Access</h2>
 <p>
-	Connecting from your smartphone requires no manual IP typing:
+	Opening the web dashboard from your smartphone or tablet requires no manual IP typing:
 </p>
 <ul>
-	<li>Click the <strong>Pair Mobile Device</strong> button in the Remote Control settings.</li>
-	<li>Scan the displayed QR code with your phone camera.</li>
-	<li>The browser automatically opens the portal and completes authenticated token exchange.</li>
+	<li>View the <strong>Dashboard QR Code</strong> in the Remote Control settings.</li>
+	<li>Scan the displayed QR code with your phone camera or QR reader.</li>
+	<li>The QR code directly encodes your web dashboard URL so your browser opens the panel immediately.</li>
 </ul>
 
 <h2 id="granular-permissions">User Permission Scopes</h2>

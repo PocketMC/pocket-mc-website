@@ -103,9 +103,9 @@ export const tourTabs: TourTab[] = [
 			'PocketMC includes a built-in web server hosting a secure, password-protected remote dashboard. Access it over local Wi-Fi or securely over the internet via Playit.gg HTTPS or Cloudflare Quick Tunnels, with multi-user permissions.',
 		bullets: [
 			'Multi-user accounts with granular permission scopes (Console, Players, Settings, Files)',
-			'Instant phone pairing via QR code scanner on the dashboard',
+			'Quick phone access: scan the QR code to open the web dashboard URL instantly',
 			'Live terminal streaming and instance power controls over mobile browsers',
-			'Discord Bot pairing: receive secure remote control links directly in your DMs'
+			'Discord Bot integration: receive secure remote control links directly in your DMs'
 		]
 	},
 	{

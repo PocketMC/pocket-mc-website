@@ -51,7 +51,7 @@
 				{ glyph: 'globe', text: 'Integrated Playit.gg tunnel agent' },
 				{ glyph: 'zap', text: 'Cloudflare Quick Tunnels support' },
 				{ glyph: 'smartphone', text: 'Responsive mobile web dashboard' },
-				{ glyph: 'shield', text: 'Instant QR code mobile pairing' },
+				{ glyph: 'smartphone', text: 'Quick QR access to web dashboard' },
 				{ glyph: 'terminal', text: 'Multi-user roles & permission scopes' },
 				{ mark: 'discord', text: 'Discord Rich Presence with live server status' }
 			]

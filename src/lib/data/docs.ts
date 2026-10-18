@@ -57,7 +57,7 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'remote',
 				title: 'Remote Dashboard',
-				summary: 'Self-hosted responsive web panel, QR code mobile pairing, and permission scopes.'
+				summary: 'Self-hosted responsive web panel, quick QR web dashboard URL access, and permission scopes.'
 			},
 			{
 				slug: 'discord',

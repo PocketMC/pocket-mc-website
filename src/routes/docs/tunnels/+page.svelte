@@ -30,7 +30,7 @@
 	<li><strong>Integrated Agent Console:</strong> View live tunnel latency, connection status, and health metrics directly in PocketMC.</li>
 </ul>
 
-<h2 id="quick-pairing">One-Click Pairing Wizard</h2>
+<h2 id="quick-setup">One-Click Setup Wizard</h2>
 <ol>
 	<li>Navigate to <MenuPath steps={['Settings', 'Tunnels']} /> and click <strong>Setup Playit.gg</strong>.</li>
 	<li>PocketMC launches the agent and generates a unique claim URL.</li>

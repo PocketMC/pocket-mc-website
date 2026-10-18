@@ -114,7 +114,7 @@
 						</div>
 
 						{#if sec.id === 'mobile'}
-							<!-- Dedicated portrait phone grid: perfectly fits 9:19.5 aspect ratio -->
+							<!-- Dedicated portrait phone grid: perfectly fits natural smartphone aspect ratio -->
 							<div class="mobile-grid">
 								{#each sec.items as item (item.id)}
 									<button
@@ -123,10 +123,12 @@
 										onclick={() => openLightbox(item)}
 										aria-label="View {item.title} full size"
 									>
-										<div class="phone-frame">
+										<div class="phone-frame" style="aspect-ratio: {item.width} / {item.height};">
 											<img
 												src={item.src}
 												alt={item.title}
+												width={item.width}
+												height={item.height}
 												loading="lazy"
 												class="phone-img"
 											/>
@@ -139,7 +141,7 @@
 								{/each}
 							</div>
 						{:else}
-							<!-- Desktop landscape grid: perfectly fits 16:10 / 16:9 aspect ratio -->
+							<!-- Desktop landscape grid: perfectly fits natural screenshot aspect ratio -->
 							<div class="desktop-grid">
 								{#each sec.items as item (item.id)}
 									<button
@@ -149,10 +151,16 @@
 										onclick={() => openLightbox(item)}
 										aria-label="View {item.title} full size"
 									>
-										<div class="desktop-frame" class:wide-frame={item.width > 3000}>
+										<div
+											class="desktop-frame"
+											class:wide-frame={item.width > 3000}
+											style="aspect-ratio: {item.width} / {item.height};"
+										>
 											<img
 												src={item.src}
 												alt={item.title}
+												width={item.width}
+												height={item.height}
 												loading="lazy"
 												class="desktop-img"
 											/>
@@ -184,10 +192,12 @@
 									onclick={() => openLightbox(item)}
 									aria-label="View {item.title} full size"
 								>
-									<div class="phone-frame">
+									<div class="phone-frame" style="aspect-ratio: {item.width} / {item.height};">
 										<img
 											src={item.src}
 											alt={item.title}
+											width={item.width}
+											height={item.height}
 											loading="lazy"
 											class="phone-img"
 										/>
@@ -209,10 +219,16 @@
 									onclick={() => openLightbox(item)}
 									aria-label="View {item.title} full size"
 								>
-									<div class="desktop-frame" class:wide-frame={item.width > 3000}>
+									<div
+										class="desktop-frame"
+										class:wide-frame={item.width > 3000}
+										style="aspect-ratio: {item.width} / {item.height};"
+									>
 										<img
 											src={item.src}
 											alt={item.title}
+											width={item.width}
+											height={item.height}
 											loading="lazy"
 											class="desktop-img"
 										/>
@@ -462,20 +478,18 @@
 		grid-column: 1 / -1;
 	}
 
-	/* Desktop frame: exact rounded edges and shadows matching showcase video */
+	/* Desktop frame: exact rounded edges and shadows matching screenshot size */
 	.desktop-frame {
 		width: 100%;
-		aspect-ratio: 16 / 10;
-		background: #000;
+		background: var(--card);
 		border: 1px solid var(--border);
 		border-radius: var(--radius-lg);
 		overflow: hidden;
 		box-shadow:
 			var(--shadow),
-			0 0 40px -10px rgba(34, 197, 94, 0.1);
-		display: flex;
-		align-items: center;
-		justify-content: center;
+			0 0 40px -10px rgba(34, 197, 94, 0.08);
+		display: block;
+		line-height: 0;
 		transition: border-color 0.15s ease, box-shadow 0.2s ease;
 	}
 
@@ -483,23 +497,18 @@
 		border-color: var(--dim);
 		box-shadow:
 			var(--shadow),
-			0 0 60px -10px rgba(34, 197, 94, 0.2);
+			0 0 60px -10px rgba(34, 197, 94, 0.18);
 	}
 
-	.desktop-frame.wide-frame {
-		aspect-ratio: 2.4 / 1;
-	}
-
-	/* Desktop image: object-fit contain so zero pixels are cut off */
+	/* Desktop image: covers frame perfectly without any black bars or letterboxing */
 	.desktop-img {
 		width: 100%;
 		height: 100%;
-		object-fit: contain;
+		object-fit: cover;
 		display: block;
-		border-radius: calc(var(--radius-lg) - 1px);
 	}
 
-	/* Mobile Grid: 9:19.5 aspect ratio for smartphone screenshots */
+	/* Mobile Grid: columns for smartphone screenshots */
 	.mobile-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -523,22 +532,20 @@
 		transform: translateY(-2px);
 	}
 
-	/* Phone frame: 9:19.5 aspect ratio, zero image cutting, rounded edges */
+	/* Phone frame: sized naturally to phone screenshot dimensions with zero black bars */
 	.phone-frame {
 		width: 100%;
 		max-width: 270px;
-		aspect-ratio: 9 / 19.5;
 		margin: 0 auto;
-		background: #000;
+		background: var(--card);
 		border: 1px solid var(--border);
 		border-radius: var(--radius-lg);
 		overflow: hidden;
 		box-shadow:
 			var(--shadow),
-			0 0 35px -10px rgba(59, 130, 246, 0.15);
-		display: flex;
-		align-items: center;
-		justify-content: center;
+			0 0 35px -10px rgba(59, 130, 246, 0.12);
+		display: block;
+		line-height: 0;
 		transition: border-color 0.15s ease, box-shadow 0.2s ease;
 	}
 
@@ -546,16 +553,15 @@
 		border-color: var(--dim);
 		box-shadow:
 			var(--shadow),
-			0 0 50px -10px rgba(59, 130, 246, 0.25);
+			0 0 50px -10px rgba(59, 130, 246, 0.22);
 	}
 
-	/* Phone image: object-fit contain with zero cutting */
+	/* Phone image: covers frame perfectly with zero black bars */
 	.phone-img {
 		width: 100%;
 		height: 100%;
-		object-fit: contain;
+		object-fit: cover;
 		display: block;
-		border-radius: calc(var(--radius-lg) - 1px);
 	}
 
 	/* Card Captions */

@@ -15,7 +15,7 @@ export const faqItems: FaqItem[] = [
 		answer: [
 			'PocketMC supports remote access for both gaming and administration without router configuration:',
 			'1. For Players (Joining Minecraft): Use the built-in Playit.gg tunnel agent. It routes your local port to a public address (e.g. example.playit.gg). Friends can paste this address directly into their Minecraft multiplayer menu to connect instantly.',
-			'2. For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or over the internet via Playit.gg HTTPS or Cloudflare Quick Tunnels. You can pair your phone or secondary device instantly by scanning the dashboard QR code.'
+			'2. For Admins (Managing Remotely): Enable the Remote Control Dashboard in settings. This hosts a secure, password-protected web panel accessible over LAN or over the internet via Playit.gg HTTPS or Cloudflare Quick Tunnels. You can open the dashboard URL directly on your phone or tablet by scanning the displayed QR code.'
 		]
 	},
 	{
@@ -41,7 +41,7 @@ export const faqItems: FaqItem[] = [
 		question: 'How does Playit.gg tunneling work? Do I need to configure port forwarding?',
 		answer: [
 			'Zero router configuration or port forwarding is required. PocketMC features an integrated Playit.gg agent setup wizard.',
-			'Once paired, it automatically provisions background agent processes, maps local ports (Java 25565, Bedrock 19132, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players.'
+			'Once linked, it automatically provisions background agent processes, maps local ports (Java 25565, Bedrock 19132, Geyser, PocketMine, and Simple Voice Chat), and creates public addresses for your players.'
 		]
 	},
 	{
