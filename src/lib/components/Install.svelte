@@ -103,9 +103,6 @@
 									<path d="M4 21h16" />
 								</svg>
 								<span>{opt.actionText}</span>
-								{#if opt.extension}
-									<span class="ext mono">{opt.extension}</span>
-								{/if}
 							</a>
 						{:else}
 							<div class="cmd-box">
@@ -254,11 +251,6 @@
 	.action-btn.btn-secondary:hover {
 		border-color: var(--dim);
 		background: var(--secondary-hover);
-	}
-
-	.ext {
-		font-size: 12px;
-		opacity: 0.7;
 	}
 
 	.cmd-box {

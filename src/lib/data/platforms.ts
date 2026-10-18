@@ -14,7 +14,6 @@ export interface InstallOption {
 	actionType: 'download' | 'command';
 	actionText: string;
 	actionTarget: string;
-	extension?: string;
 	meta: string;
 }
 
@@ -26,9 +25,8 @@ export const installOptions: InstallOption[] = [
 		description:
 			'Standard Windows setup wizard. Creates desktop shortcuts and supports automatic in-app updates.',
 		actionType: 'download',
-		actionText: 'Download Setup',
+		actionText: 'Download Installer',
 		actionTarget: installerUrl,
-		extension: '.exe',
 		meta: 'Windows 10 / 11 · 64-bit'
 	},
 	{
@@ -51,7 +49,6 @@ export const installOptions: InstallOption[] = [
 		actionType: 'download',
 		actionText: 'Download Portable',
 		actionTarget: portableUrl,
-		extension: '.zip',
 		meta: 'Windows 10 / 11 · Portable'
 	}
 ];
