@@ -12,12 +12,37 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'servers',
 				title: 'Server Engines',
-				summary: 'Supported Minecraft engines: Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine.'
+				summary: 'Supported Minecraft engines: Paper, Purpur, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine.'
 			},
 			{
 				slug: 'runtimes',
 				title: 'Java & Runtimes',
 				summary: 'App-local Adoptium JRE management, PHP 8.2 PM5, memory limits, and auto-selection.'
+			}
+		]
+	},
+	{
+		label: 'Server Management',
+		pages: [
+			{
+				slug: 'addons',
+				title: 'Plugins & Mods',
+				summary: 'Modrinth and CurseForge marketplace browsing, dependency resolution, and Geyser crossplay.'
+			},
+			{
+				slug: 'management',
+				title: 'Instance & World Management',
+				summary: 'World importing (.zip/.mcworld), server.properties editor, player bans, and sleep inhibition.'
+			},
+			{
+				slug: 'backups',
+				title: 'Cloud Backups',
+				summary: 'Safe RCON save-holding, SHA-256 integrity validation, and Google Drive / Dropbox / OneDrive sync.'
+			},
+			{
+				slug: 'recovery',
+				title: 'Crash Recovery',
+				summary: 'Automated reboot scheduler, crash-loop backoff limits, and Windows sleep inhibition.'
 			}
 		]
 	},
@@ -37,52 +62,27 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'discord',
 				title: 'Discord Integration',
-				summary: 'Custom Discord Rich Presence (RPC) and automated welcome bot verification.'
+				summary: 'Real-time Discord Rich Presence (RPC) showing player counts, server engine, and tunnel addresses.'
 			}
 		]
 	},
 	{
-		label: 'Developer Portal',
+		label: 'Developer & Security',
 		pages: [
 			{
 				slug: 'api',
 				title: 'REST API Reference',
-				summary: 'Local daemon HTTP endpoints for server lifecycle, console logs, and instances.'
+				summary: 'Embedded Kestrel HTTP and WebSocket endpoints for instance lifecycle, console streaming, and files.'
 			},
 			{
 				slug: 'auth',
 				title: 'Authentication & Security',
-				summary: 'Token generation, DPAPI encryption, loopback isolation, and access controls.'
-			},
-			{
-				slug: 'mcp',
-				title: 'Model Context Protocol (MCP)',
-				summary: 'Expose local server control tools and resources directly to AI coding agents.'
-			},
-			{
-				slug: 'webhooks',
-				title: 'Webhooks & Events',
-				summary: 'Event subscriptions, JSON payload signatures, and real-time state broadcasts.'
-			}
-		]
-	},
-	{
-		label: 'Operations & Safety',
-		pages: [
-			{
-				slug: 'backups',
-				title: 'Cloud Backups',
-				summary: 'Safe RCON save-holding, SHA-256 integrity validation, and Google Drive / Dropbox / OneDrive sync.'
-			},
-			{
-				slug: 'recovery',
-				title: 'Crash Recovery',
-				summary: 'Automated reboot scheduler, crash-loop backoff limits, and Windows sleep inhibition.'
+				summary: 'Session cookies, DPAPI credential encryption, loopback isolation, and rate limiting.'
 			},
 			{
 				slug: 'ai',
 				title: 'AI Log Summaries',
-				summary: 'Log sanitization, token caching, and integration with Ollama, Gemini, and OpenAI.'
+				summary: 'Log sanitization, token caching, and integration with Ollama, Gemini, OpenAI, Claude, and Mistral.'
 			}
 		]
 	}

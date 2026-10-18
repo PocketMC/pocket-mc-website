@@ -80,3 +80,8 @@
 	If you prefer to use a custom GraalVM, OpenJ9, or pre-installed JDK binary, you can navigate to
 	<MenuPath steps={['Settings', 'Runtimes']} /> and provide a custom path to any <code class="mono">java.exe</code> binary.
 </p>
+
+<h2 id="php-runtime">PocketMine-MP (PHP 8.2 PM5)</h2>
+<p>
+	PocketMine-MP is written in PHP rather than Java. PocketMC automatically downloads, stages, and manages an app-local, high-performance PHP 8.2 runtime configured specifically for PM5. It operates in isolation without requiring PHP to be installed system-wide or added to your Windows environment variables.
+</p>

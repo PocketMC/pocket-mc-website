@@ -35,8 +35,7 @@
 		remain exclusively on your local disk. PocketMC never locks your files inside proprietary cloud silos.
 	</li>
 	<li>
-		<strong>Zero Administrator Privileges:</strong> Runs entirely within user-space. Never pollutes system
-		environment variables, registry keys, or global PATH directives.
+		<strong>User-Space Isolation:</strong> Operates entirely in your local user directory. All runtimes and server instances are isolated without altering global system PATH variables.
 	</li>
 	<li>
 		<strong>Automated Runtimes:</strong> Downloads and manages Eclipse Adoptium JRE binaries (Java 8, 11,

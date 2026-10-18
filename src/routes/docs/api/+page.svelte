@@ -4,174 +4,164 @@
 </script>
 
 <svelte:head>
-	<title>REST API Reference · PocketMC Docs</title>
+	<title>Remote Control API · PocketMC Docs</title>
 	<meta
 		name="description"
-		content="Local daemon HTTP endpoints for server lifecycle, console logs, and instances."
+		content="Embedded Kestrel HTTP and WebSocket endpoints for instance lifecycle, live console streaming, player moderation, and file management."
 	/>
 </svelte:head>
 
-<span class="kicker">Developer Portal</span>
-<h1>REST API Reference</h1>
+<span class="kicker">Developer & Security</span>
+<h1>Remote Control API</h1>
 <p class="summary">
-	When Remote Control is active, PocketMC runs an embedded Kestrel HTTP server on port 
-	<code class="mono">25580</code>. All endpoints accept and return JSON.
+	When Remote Control is active, PocketMC runs an embedded ASP.NET Core Kestrel web server on port 
+	<code class="mono">25580</code>. It serves the responsive web dashboard and exposes a REST and WebSocket API
+	for controlling your Minecraft servers.
 </p>
 
 <div class="note">
 	<strong>Base Endpoint:</strong> <code class="mono">http://127.0.0.1:25580</code> &middot; 
-	<strong>Authentication:</strong> Session Cookie or Bearer Token via <code class="mono">POST /api/login</code>
+	<strong>Authentication:</strong> Cookie session via <code class="mono">POST /api/login</code>
 </div>
 
-<h2 id="authentication">Authentication</h2>
+<h2 id="authentication">Authentication &amp; Sessions</h2>
 <p>
-	Authenticate by exchanging credentials for a session cookie or bearer token.
+	To interact with protected API endpoints, authenticate by sending your credentials to <code class="mono">/api/login</code>.
+	Upon successful authentication, the daemon issues a secure <code class="mono">RemoteCookies</code> session cookie.
 </p>
 
 <Code
 	label="POST /api/login"
 	lang="json"
 	text={`POST /api/login HTTP/1.1
+Host: 127.0.0.1:25580
 Content-Type: application/json
 
 {
   "username": "admin",
-  "password": "your-password"
+  "password": "your-secure-password"
 }`}
 />
 
 <Code
 	label="200 OK Response"
 	lang="json"
-	text={`{
-  "status": "authenticated",
-  "token": "pmc_sec_89f0a2d1e4...",
-  "expiresAt": "2026-10-18T14:30:00Z",
-  "permissions": ["all"]
+	text={`HTTP/1.1 200 OK
+Set-Cookie: RemoteCookies=...; path=/; samesite=lax; httponly
+
+{
+  "success": true
 }`}
 />
 
-<h2 id="system-status">System Status &amp; Health</h2>
+<p class="small text-muted">
+	Note: The login endpoint enforces rate limiting (maximum 5 failed attempts per minute per IP address).
+</p>
+
+<h2 id="status-and-instances">Daemon Status &amp; Instances</h2>
 <p>
-	Query overall host daemon health, system architecture, CPU/RAM utilization, and active server counts.
+	Query host status, local URLs, public tunnel endpoints, and list permitted server instances:
 </p>
 
 <Code
 	label="GET /api/status"
 	lang="json"
 	text={`GET /api/status HTTP/1.1
-Authorization: Bearer pmc_sec_89f0a2d1e4...`}
+Cookie: RemoteCookies=...`}
 />
 
 <Code
 	label="200 OK Response"
 	lang="json"
 	text={`{
-  "version": "1.9.10",
-  "uptimeSeconds": 14280,
-  "system": {
-    "totalMemoryMb": 32768,
-    "availableMemoryMb": 18450,
-    "cpuUsagePercent": 14.2
-  },
-  "instances": {
-    "total": 3,
-    "running": 1
-  }
+  "enabled": true,
+  "hostRunning": true,
+  "port": 25580,
+  "accessMode": "LocalAndTunnel",
+  "localUrls": ["http://127.0.0.1:25580", "http://192.168.1.50:25580"],
+  "publicUrl": "https://random-words.trycloudflare.com",
+  "tunnelRunning": true,
+  "allowRemoteConsoleCommands": true,
+  "allowRemotePlayerActions": true,
+  "allowRemoteServerSettings": true,
+  "allowRemoteServerAddons": true,
+  "allowRemoteFileManager": true,
+  "allowRemoteServerBackups": true
 }`}
 />
 
-<h2 id="list-instances">List Server Instances</h2>
+<h2 id="instance-lifecycle">Instance Lifecycle Control</h2>
 <p>
-	Returns an array of all configured server instances with their current run states, ports, engines, and memory limits.
+	Start, stop, or restart any instance by its UUID:
 </p>
 
-<Code
-	label="GET /api/instances"
-	lang="json"
-	text={`GET /api/instances HTTP/1.1
-Authorization: Bearer pmc_sec_89f0a2d1e4...`}
-/>
+<table>
+	<thead>
+		<tr>
+			<th>Method</th>
+			<th>Endpoint</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code class="mono">GET</code></td>
+			<td><code class="mono">/api/instances</code></td>
+			<td>Lists all instances accessible to the authenticated user.</td>
+		</tr>
+		<tr>
+			<td><code class="mono">GET</code></td>
+			<td><code class="mono">/api/instances/{'{'}id{'}'}/status</code></td>
+			<td>Fetches live run state, player count, CPU %, and memory usage.</td>
+		</tr>
+		<tr>
+			<td><code class="mono">POST</code></td>
+			<td><code class="mono">/api/instances/{'{'}id{'}'}/start</code></td>
+			<td>Spawns the server process and binds listening sockets.</td>
+		</tr>
+		<tr>
+			<td><code class="mono">POST</code></td>
+			<td><code class="mono">/api/instances/{'{'}id{'}'}/stop</code></td>
+			<td>Sends graceful stop command with RCON save-flush before process exit.</td>
+		</tr>
+		<tr>
+			<td><code class="mono">POST</code></td>
+			<td><code class="mono">/api/instances/{'{'}id{'}'}/restart</code></td>
+			<td>Stops the running instance cleanly, then initiates a fresh boot.</td>
+		</tr>
+	</tbody>
+</table>
 
-<Code
-	label="200 OK Response"
-	lang="json"
-	text={`[
-  {
-    "id": "e3b0c442-98fc-4c14-9afb-f4c8996fb924",
-    "name": "Survival SMP",
-    "engine": "Paper",
-    "minecraftVersion": "1.21.1",
-    "status": "Running",
-    "port": 25565,
-    "allocatedRamMb": 6144,
-    "players": {
-      "online": 4,
-      "max": 20
-    }
-  }
-]`}
-/>
-
-<h2 id="instance-lifecycle">Instance Lifecycle Controls</h2>
+<h2 id="console-streaming">Live Console &amp; WebSockets</h2>
 <p>
-	Start, stop, or force-terminate a server instance. Stopping initiates a graceful RCON save-flush.
+	PocketMC supports both buffered polling and bidirectional real-time WebSocket terminal streaming:
 </p>
 
-<Code
-	label={'POST /api/instances/{id}/start'}
-	lang="json"
-	text={`POST /api/instances/e3b0c442-98fc-4c14-9afb-f4c8996fb924/start HTTP/1.1
-Authorization: Bearer pmc_sec_89f0a2d1e4...`}
-/>
+<ul>
+	<li><strong>Buffered Output:</strong> <code class="mono">GET /api/instances/{'{'}id{'}'}/console/history</code> returns recent console output lines stored in the circular memory buffer.</li>
+	<li><strong>Command Input:</strong> <code class="mono">POST /api/instances/{'{'}id{'}'}/console/command</code> accepts a JSON body <code class="mono">{'{'}"command": "say Hello"{'}'}</code>. Rate limited to 30 requests per minute.</li>
+	<li><strong>WebSocket Stream:</strong> Connect to <code class="mono">/ws/instances/{'{'}id{'}'}/console</code> to stream live terminal log lines directly to your browser as they are written by the server process, and transmit commands through the persistent socket.</li>
+</ul>
 
-<Code
-	label={'POST /api/instances/{id}/stop'}
-	lang="json"
-	text={`POST /api/instances/e3b0c442-98fc-4c14-9afb-f4c8996fb924/stop HTTP/1.1
-Authorization: Bearer pmc_sec_89f0a2d1e4...
-Content-Type: application/json
-
-{
-  "graceful": true,
-  "timeoutSeconds": 30
-}`}
-/>
-
-<h2 id="console-commands">Console Commands</h2>
+<h2 id="players-and-properties">Player Moderation &amp; Settings</h2>
 <p>
-	Dispatch server commands directly into the server standard input stream.
+	Manage connected players and server properties remotely:
 </p>
 
-<Code
-	label={'POST /api/instances/{id}/console/command'}
-	lang="json"
-	text={`POST /api/instances/e3b0c442-98fc-4c14-9afb-f4c8996fb924/console/command HTTP/1.1
-Authorization: Bearer pmc_sec_89f0a2d1e4...
-Content-Type: application/json
+<ul>
+	<li><strong>Player List:</strong> <code class="mono">GET /api/instances/{'{'}id{'}'}/players</code> returns online player usernames and player count.</li>
+	<li><strong>Player Actions:</strong> <code class="mono">POST /api/instances/{'{'}id{'}'}/players/{'{'}name{'}'}/[kick|ban|pardon|op|deop]</code> executes moderation commands directly through the server console or sidecar ban list.</li>
+	<li><strong>Server Properties:</strong> <code class="mono">GET /api/instances/{'{'}id{'}'}/properties</code> and <code class="mono">PUT /api/instances/{'{'}id{'}'}/properties</code> allow remote inspection and editing of MOTD, gamemode, difficulty, max-players, PvP, whitelist, and view distance.</li>
+</ul>
 
-{
-  "command": "say Server rebooting in 5 minutes for maintenance"
-}`}
-/>
-
-<Code
-	label="200 OK Response"
-	lang="json"
-	text={`{
-  "success": true,
-  "timestamp": "2026-10-18T03:00:00Z"
-}`}
-/>
-
-<h2 id="file-management">File Management</h2>
+<h2 id="files-and-backups">File Manager &amp; Backups</h2>
 <p>
-	Read, write, upload, and browse server files securely. Path traversal outside the instance root directory is strictly prohibited.
+	PocketMC includes sandboxed file management and remote backup triggers:
 </p>
 
-<Code
-	label={'GET /api/instances/{id}/files?path=server.properties'}
-	lang="json"
-	text={`GET /api/instances/e3b0c442-98fc-4c14-9afb-f4c8996fb924/files?path=server.properties HTTP/1.1
-Authorization: Bearer pmc_sec_89f0a2d1e4...`}
-/>
+<ul>
+	<li><strong>Browse Files:</strong> <code class="mono">GET /api/instances/{'{'}id{'}'}/files?path=plugins</code> lists directory contents with file sizes and timestamps.</li>
+	<li><strong>Read/Write Configs:</strong> <code class="mono">GET /api/instances/{'{'}id{'}'}/files/content?path=config.yml</code> and <code class="mono">PUT /api/instances/{'{'}id{'}'}/files/content</code> view and edit text files under 1 MB directly from the web browser.</li>
+	<li><strong>Upload &amp; Delete:</strong> <code class="mono">POST /api/instances/{'{'}id{'}'}/files/upload</code> uploads files via multipart form data; <code class="mono">DELETE /api/instances/{'{'}id{'}'}/files?path=...</code> removes files safely inside the instance folder sandbox.</li>
+	<li><strong>Backups:</strong> <code class="mono">GET /api/instances/{'{'}id{'}'}/backups</code> lists available backup archives with SHA-256 integrity status; <code class="mono">POST /api/instances/{'{'}id{'}'}/backups</code> triggers an immediate background RCON save-flush backup.</li>
+</ul>

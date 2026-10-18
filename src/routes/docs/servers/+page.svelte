@@ -18,15 +18,21 @@
 	automated version indexing and one-click jar provisioning.
 </p>
 
-<h2 id="paper">Paper</h2>
+<h2 id="paper-and-purpur">Paper &amp; Purpur</h2>
 <p>
-	<a href="https://papermc.io" target="_blank" rel="noopener noreferrer">Paper</a> is the industry standard for high-performance Spigot-compatible servers. PocketMC queries PaperMC's official v2 REST API to fetch builds for Minecraft 1.8.8 through the latest release.
+	<a href="https://papermc.io" target="_blank" rel="noopener noreferrer">Paper</a> and <a href="https://purpurmc.org" target="_blank" rel="noopener noreferrer">Purpur</a> are the industry standards for high-performance Spigot-compatible servers. PocketMC queries PaperMC's and Purpur's official REST APIs to index builds from Minecraft 1.8.8 through the latest release.
 </p>
 <ul>
 	<li>Full Spigot and Bukkit plugin compatibility.</li>
 	<li>Asynchronous chunk loading and optimized entity ticking.</li>
 	<li>Automated Geyser &amp; Floodgate cross-play installer integration.</li>
+	<li>Purpur brings additional gameplay configurability and mob customization toggles.</li>
 </ul>
+
+<h2 id="vanilla">Vanilla (Official Mojang)</h2>
+<p>
+	For a pure, unmodded Minecraft experience, PocketMC queries Mojang's official version manifest (<code class="mono">launchermeta.mojang.com</code>) to download unmodified server JARs directly from Mojang's CDN for any release or snapshot version.
+</p>
 
 <h2 id="fabric">Fabric</h2>
 <p>

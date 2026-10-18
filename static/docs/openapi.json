@@ -1,27 +1,22 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "PocketMC Local & Remote Control REST API",
-    "version": "1.9.9",
-    "description": "Complete REST API for orchestrating local Minecraft servers, managing Adoptium Java runtimes, controlling Playit.gg tunnels, and managing OAuth cloud backups via the PocketMC desktop daemon or secure remote web panel.",
+    "title": "PocketMC Remote Control REST API",
+    "version": "1.9.10",
+    "description": "Embedded ASP.NET Core Kestrel HTTP & WebSocket API running locally on port 25580 for orchestrating local Minecraft servers, managing instances, streaming real-time console output, and managing files.",
     "contact": {
-      "name": "PocketMC Developer Support",
-      "url": "https://pocketmc.github.io/docs/",
-      "email": "contactdslabs@gmail.com"
+      "name": "PocketMC",
+      "url": "https://pocketmc.github.io/docs/api/"
     },
     "license": {
       "name": "MIT",
-      "url": "https://github.com/PocketMC/pocket-mc-windows/blob/main/LICENSE"
+      "url": "https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE"
     }
   },
   "servers": [
     {
       "url": "http://localhost:25580",
       "description": "Local Desktop Daemon Endpoint"
-    },
-    {
-      "url": "https://pocket-mc-proxy.onrender.com",
-      "description": "Hosted Remote Control & Telemetry Proxy"
     }
   ],
   "security": [
@@ -33,235 +28,42 @@
     "/health": {
       "get": {
         "operationId": "getHealth",
-        "summary": "Health and daemon status",
-        "description": "Returns daemon version, uptime, and host operating system info.",
+        "summary": "Health probe",
+        "description": "Returns status ok when daemon is active.",
+        "security": [],
         "responses": {
           "200": {
             "description": "Daemon is healthy and active.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HealthResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal daemon error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/instances": {
-      "get": {
-        "operationId": "listInstances",
-        "summary": "List Minecraft server instances",
-        "description": "Retrieve an array of all configured server instances on the host.",
-        "security": [
-          {
-            "OAuth2": ["servers:read"]
-          },
-          {
-            "BearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of instances successfully retrieved.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Instance"
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" }
                   }
                 }
               }
             }
-          },
-          "401": {
-            "description": "Unauthorized access.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
-              }
-            }
           }
         }
       }
     },
-    "/instances/{id}/start": {
+    "/api/login": {
       "post": {
-        "operationId": "startInstance",
-        "summary": "Start server instance",
-        "description": "Spawns the Minecraft server process with isolated Adoptium Java runtime.",
-        "security": [
-          {
-            "OAuth2": ["servers:write"]
-          },
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "Unique instance identifier",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Server instance start initiated.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ActionResponse" }
-              }
-            }
-          },
-          "404": {
-            "description": "Instance not found.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/instances/{id}/stop": {
-      "post": {
-        "operationId": "stopInstance",
-        "summary": "Gracefully stop server instance",
-        "description": "Sends RCON save-all and stop command sequence to safely shutdown the server.",
-        "security": [
-          {
-            "OAuth2": ["servers:write"]
-          },
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "Unique instance identifier",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Server shutdown initiated.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ActionResponse" }
-              }
-            }
-          },
-          "404": {
-            "description": "Instance not found.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/instances/{id}/logs": {
-      "get": {
-        "operationId": "getInstanceLogs",
-        "summary": "Retrieve sanitized console logs",
-        "description": "Fetches sanitized real-time logs with auto-redacted IP addresses and credentials.",
-        "security": [
-          {
-            "OAuth2": ["logs:read"]
-          },
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "Unique instance identifier",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "lines",
-            "in": "query",
-            "description": "Number of log lines to fetch",
-            "schema": { "type": "integer", "default": 100, "maximum": 1000 }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sanitized console logs retrieved.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LogsResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Instance not found.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/instances/{id}/backup": {
-      "post": {
-        "operationId": "createBackup",
-        "summary": "Trigger automated backup",
-        "description": "Creates an integrity-verified archive with optional cloud replication.",
-        "security": [
-          {
-            "OAuth2": ["backups:create"]
-          },
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "Unique instance identifier",
-            "schema": { "type": "string" }
-          }
-        ],
+        "operationId": "login",
+        "summary": "Authenticate Remote Control session",
+        "description": "Authenticates user credentials and sets an HTTP-only RemoteCookies session cookie.",
+        "security": [],
         "requestBody": {
-          "description": "Backup options",
-          "required": false,
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["username", "password"],
                 "properties": {
-                  "cloudReplicate": { "type": "boolean", "default": true }
+                  "username": { "type": "string", "example": "admin" },
+                  "password": { "type": "string", "example": "password" }
                 }
               }
             }
@@ -269,174 +71,285 @@
         },
         "responses": {
           "200": {
-            "description": "Backup created successfully.",
+            "description": "Authentication successful.",
+            "headers": {
+              "Set-Cookie": {
+                "schema": { "type": "string" },
+                "description": "Session cookie (RemoteCookies)"
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BackupResponse"
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true }
+                  }
                 }
               }
             }
           },
-          "404": {
-            "description": "Instance not found.",
+          "400": {
+            "description": "Invalid credentials or missing fields."
+          },
+          "429": {
+            "description": "Rate limit exceeded (max 5 failed attempts per minute)."
+          }
+        }
+      }
+    },
+    "/api/status": {
+      "get": {
+        "operationId": "getStatus",
+        "summary": "Host status and user permissions",
+        "description": "Returns daemon status, local/public URLs, tunnel state, and session permissions.",
+        "responses": {
+          "200": {
+            "description": "Status payload.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": { "type": "boolean" },
+                    "hostRunning": { "type": "boolean" },
+                    "port": { "type": "integer", "example": 25580 },
+                    "accessMode": { "type": "string" },
+                    "localUrls": { "type": "array", "items": { "type": "string" } },
+                    "publicUrl": { "type": "string", "nullable": true },
+                    "tunnelRunning": { "type": "boolean" },
+                    "allowRemoteConsoleCommands": { "type": "boolean" },
+                    "allowRemotePlayerActions": { "type": "boolean" },
+                    "allowRemoteServerSettings": { "type": "boolean" },
+                    "allowRemoteServerAddons": { "type": "boolean" },
+                    "allowRemoteFileManager": { "type": "boolean" },
+                    "allowRemoteServerBackups": { "type": "boolean" }
+                  }
+                }
               }
             }
           }
         }
       }
     },
-    "/instances/{id}/tunnel": {
+    "/api/instances": {
       "get": {
-        "operationId": "getTunnelStatus",
-        "summary": "Get Playit tunnel status",
-        "description": "Queries the active Playit.gg network tunnel configuration.",
-        "security": [
-          {
-            "OAuth2": ["tunnels:manage"]
-          },
-          {
-            "BearerAuth": []
+        "operationId": "listInstances",
+        "summary": "List permitted instances",
+        "description": "Returns all server instances accessible to the authenticated session.",
+        "responses": {
+          "200": {
+            "description": "List of instance DTOs."
           }
-        ],
+        }
+      }
+    },
+    "/api/instances/{instanceId}/status": {
+      "get": {
+        "operationId": "getInstanceStatus",
+        "summary": "Get instance runtime metrics",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "Unique instance identifier",
-            "schema": { "type": "string" }
-          }
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Instance status including state, players, CPU, and RAM." },
+          "404": { "description": "Instance not found." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/start": {
+      "post": {
+        "operationId": "startInstance",
+        "summary": "Start server instance",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Instance starting." },
+          "400": { "description": "Failed to start instance." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/stop": {
+      "post": {
+        "operationId": "stopInstance",
+        "summary": "Stop server instance",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Instance stopping with RCON save-flush." },
+          "400": { "description": "Failed to stop instance." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/restart": {
+      "post": {
+        "operationId": "restartInstance",
+        "summary": "Restart server instance",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Instance restarting." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/console/history": {
+      "get": {
+        "operationId": "getConsoleHistory",
+        "summary": "Get buffered console logs",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
         ],
         "responses": {
           "200": {
-            "description": "Playit tunnel status details.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TunnelResponse"
+            "description": "Array of log line strings."
+          }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/console/command": {
+      "post": {
+        "operationId": "sendConsoleCommand",
+        "summary": "Submit command to server console",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["command"],
+                "properties": {
+                  "command": { "type": "string", "example": "say Server maintenance in 5 minutes" }
                 }
               }
             }
-          },
-          "404": {
-            "description": "Instance not found.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
-              }
-            }
           }
+        },
+        "responses": {
+          "200": { "description": "Command transmitted to standard input." },
+          "429": { "description": "Rate limit exceeded (30 commands per minute)." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/players": {
+      "get": {
+        "operationId": "getPlayers",
+        "summary": "Get online players",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Player usernames and active count." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/players/{name}/{action}": {
+      "post": {
+        "operationId": "executePlayerAction",
+        "summary": "Execute moderation action on player",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+          { "name": "name", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "action", "in": "path", "required": true, "schema": { "type": "string", "enum": ["kick", "ban", "pardon", "op", "deop"] } }
+        ],
+        "responses": {
+          "200": { "description": "Player action executed." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/properties": {
+      "get": {
+        "operationId": "getProperties",
+        "summary": "Read server.properties",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Server properties DTO." }
+        }
+      },
+      "put": {
+        "operationId": "saveProperties",
+        "summary": "Save server.properties",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Properties saved successfully." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/addons": {
+      "get": {
+        "operationId": "getAddons",
+        "summary": "List installed plugins and mods",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Array of installed addon DTOs." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/files": {
+      "get": {
+        "operationId": "listFiles",
+        "summary": "List files in directory",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+          { "name": "path", "in": "query", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Directory listing items." }
+        }
+      },
+      "delete": {
+        "operationId": "deleteFile",
+        "summary": "Delete file or directory",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+          { "name": "path", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "File or folder deleted." }
+        }
+      }
+    },
+    "/api/instances/{instanceId}/backups": {
+      "get": {
+        "operationId": "listBackups",
+        "summary": "List backup archives",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "List of backup archives with checksum information." }
+        }
+      },
+      "post": {
+        "operationId": "triggerBackup",
+        "summary": "Trigger background backup",
+        "parameters": [
+          { "name": "instanceId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } }
+        ],
+        "responses": {
+          "200": { "description": "Backup initiated in background." }
         }
       }
     }
   },
   "components": {
-    "schemas": {
-      "HealthResponse": {
-        "type": "object",
-        "required": ["status", "version", "platform", "activeInstances"],
-        "properties": {
-          "status": { "type": "string", "example": "ok" },
-          "version": { "type": "string", "example": "1.9.9" },
-          "platform": { "type": "string", "example": "win-x64" },
-          "activeInstances": { "type": "integer", "example": 2 }
-        }
-      },
-      "Instance": {
-        "type": "object",
-        "required": ["id", "name", "software", "version", "port", "status"],
-        "properties": {
-          "id": { "type": "string", "example": "paper-survival" },
-          "name": { "type": "string", "example": "PaperMC Survival 1.21.1" },
-          "software": { "type": "string", "example": "PaperMC" },
-          "version": { "type": "string", "example": "1.21.1" },
-          "javaVersion": { "type": "string", "example": "21" },
-          "port": { "type": "integer", "example": 25565 },
-          "status": { "type": "string", "enum": ["running", "stopped", "starting"], "example": "running" },
-          "playersOnline": { "type": "integer", "example": 4 },
-          "maxPlayers": { "type": "integer", "example": 20 },
-          "memoryMb": { "type": "integer", "example": 4096 }
-        }
-      },
-      "ActionResponse": {
-        "type": "object",
-        "required": ["success", "message"],
-        "properties": {
-          "success": { "type": "boolean", "example": true },
-          "message": { "type": "string", "example": "Operation executed successfully." }
-        }
-      },
-      "LogsResponse": {
-        "type": "object",
-        "required": ["lines"],
-        "properties": {
-          "lines": {
-            "type": "array",
-            "items": { "type": "string" },
-            "example": ["[00:00:01 INFO]: Server started on *:25565"]
-          }
-        }
-      },
-      "BackupResponse": {
-        "type": "object",
-        "required": ["backupId", "sizeBytes", "sha256", "cloudStatus"],
-        "properties": {
-          "backupId": { "type": "string", "example": "backup-2026-08-24-001" },
-          "sizeBytes": { "type": "integer", "example": 145829104 },
-          "sha256": { "type": "string", "example": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
-          "cloudStatus": { "type": "string", "example": "synced" }
-        }
-      },
-      "TunnelResponse": {
-        "type": "object",
-        "required": ["enabled", "tunnelAddress", "numericAddress", "pingMs"],
-        "properties": {
-          "enabled": { "type": "boolean", "example": true },
-          "tunnelAddress": { "type": "string", "example": "myserver.playit.gg" },
-          "numericAddress": { "type": "string", "example": "147.185.221.19:25565" },
-          "pingMs": { "type": "integer", "example": 28 }
-        }
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "required": ["type", "title", "status", "detail", "code"],
-        "properties": {
-          "type": { "type": "string", "format": "uri", "example": "https://pocketmc.github.io/docs#error" },
-          "title": { "type": "string", "example": "Resource Not Found" },
-          "status": { "type": "integer", "example": 404 },
-          "detail": { "type": "string", "example": "The specified server instance does not exist." },
-          "code": { "type": "string", "example": "instance_not_found" },
-          "resolution": { "type": "string", "example": "Verify the instance ID via GET /instances" }
-        }
-      }
-    },
     "securitySchemes": {
-      "OAuth2": {
-        "type": "oauth2",
-        "description": "Standard OAuth 2.0 authentication with scoped permissions",
-        "flows": {
-          "authorizationCode": {
-            "authorizationUrl": "https://pocket-mc-proxy.onrender.com/oauth/authorize",
-            "tokenUrl": "https://pocket-mc-proxy.onrender.com/oauth/token",
-            "scopes": {
-              "servers:read": "Read server instances, metrics, and health statuses",
-              "servers:write": "Start, stop, and configure server instances",
-              "backups:create": "Trigger and manage local and cloud backups",
-              "logs:read": "Read sanitized server console log streams",
-              "tunnels:manage": "Configure Playit.gg network tunnels"
-            }
-          }
-        }
-      },
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT/HMAC-SHA256",
-        "description": "Self-serve API session token for local desktop daemon"
+      "CookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "RemoteCookies",
+        "description": "ASP.NET Core session cookie issued by /api/login."
       }
     }
   }

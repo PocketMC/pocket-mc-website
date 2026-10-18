@@ -31,7 +31,7 @@
 		{
 			glyph: 'zap',
 			title: 'Isolated Desktop User-Space',
-			desc: 'Operates 100% inside your standard user profile. No administrative elevation, no driver installations, and zero pollution of your system PATH.'
+			desc: 'Operates cleanly inside your local user directory. Manages self-contained runtimes without modifying global system PATH environment variables.'
 		}
 	];
 </script>

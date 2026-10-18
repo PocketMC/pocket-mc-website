@@ -3,10 +3,10 @@
 </script>
 
 <svelte:head>
-	<title>Privacy & Security Policy · PocketMC</title>
+	<title>Privacy Policy · PocketMC</title>
 	<meta
 		name="description"
-		content="PocketMC operates under a strict local-first philosophy. Your server files, worlds, credentials, and settings live on your own hardware."
+		content="Verified data flows, local-first architecture, DPAPI encryption, and telemetry practices of PocketMC."
 	/>
 </svelte:head>
 
@@ -17,55 +17,113 @@
 	<div class="page doc-container">
 		<article class="prose">
 			<span class="kicker">Legal</span>
-			<h1>Privacy &amp; Security Policy</h1>
+			<h1>Privacy Policy</h1>
 			<p class="summary">
-				PocketMC operates under a strict local-first architecture. Your server files, worlds, credentials,
-				and configurations live exclusively on your personal hardware, never on remote commercial servers.
+				PocketMC operates under a strict local-first architecture. Your Minecraft server instances, worlds,
+				credentials, and logs live on your own hardware. This policy describes all verified data flows,
+				local encryption mechanisms, third-party integrations, and optional telemetry.
 			</p>
 
-			<h2 id="storage-and-encryption">Storage &amp; Local Encryption</h2>
+			<h2 id="local-storage-and-dpapi">1. Local Storage &amp; Credential Protection</h2>
 			<p>
-				All Minecraft world saves, player inventories, configuration files, terminal logs, and server databases
-				are stored locally on the disk folder you designate. No cloud synchronization or off-site transmission
-				occurs unless you explicitly authenticate and authorize a third-party cloud provider.
+				All Minecraft server files, game worlds, player save data, whitelist/ban files, properties, and runtime
+				logs are stored exclusively on your local disk (in your chosen server root directory or
+				<code class="mono">%LOCALAPPDATA%\PocketMC</code>).
 			</p>
 			<p>
-				On Windows, third-party credentials—including OAuth tokens for Google Drive, Dropbox, and OneDrive,
-				as well as remote dashboard administrative passwords—are encrypted via the <strong>Windows Data Protection API (DPAPI)</strong>.
-				These secrets are tied cryptographically to your Windows user account security identifier (SID) and cannot
-				be read by other user accounts on the machine.
-			</p>
-
-			<h2 id="network-and-tunneling">Network Traffic &amp; Tunneling</h2>
-			<p>
-				When you enable the integrated <strong>Playit.gg</strong> agent, server game packets are encrypted
-				and routed through Playit.gg's global edge infrastructure to allow friends to connect without port forwarding.
-				PocketMC does not inspect, store, or log player network traffic.
+				Sensitive credentials—including OAuth refresh tokens for cloud backup providers (Google Drive, Dropbox,
+				OneDrive) and Remote Control user password hashes—are never stored in plaintext. On Windows, they are
+				encrypted using the native <strong>Windows Data Protection API (DPAPI)</strong>
+				(<code class="mono">ProtectedData.Protect</code>) scoped to the current user SID. A copy of the
+				configuration files transferred to another account or computer cannot be decrypted.
 			</p>
 
-			<h2 id="ai-diagnostics-privacy">AI Diagnostics &amp; Log Sanitization</h2>
+			<h2 id="telemetry-data-flows">2. Telemetry &amp; Diagnostics (Opt-in)</h2>
 			<p>
-				PocketMC's optional AI Log Summary feature translates complex server logs and crash traces into
-				plain-English reports.
+				PocketMC includes an optional telemetry service (<code class="mono">TelemetryService</code>) designed
+				solely to measure application adoption, active server counts, and crash stability.
 			</p>
+
 			<ul>
 				<li>
-					<strong>Local Inference with Ollama:</strong> If you use local Ollama models, all processing takes place
-					100% on your machine with zero data leaving your hardware.
+					<strong>Master Control:</strong> Telemetry is controllable via the <code class="mono">EnableTelemetry</code>
+					setting in <code class="mono">settings.json</code> and can be toggled on or off at any time in Settings.
 				</li>
 				<li>
-					<strong>Cloud Providers:</strong> If you choose Google Gemini, OpenAI, Anthropic Claude, or Mistral,
-					PocketMC pre-processes and scrubs the log before transmission—automatically stripping player IP addresses,
-					email addresses, and sensitive tokens.
+					<strong>Identifiers:</strong> PocketMC generates a random GUID (<code class="mono">TelemetryClientId</code>)
+					stored in your local settings, along with a salted SHA-256 hash of your Windows Machine GUID
+					(<code class="mono">DeviceIdentifier.GetMachineId</code>) to deduplicate install events without storing hardware serials or personal identities.
+				</li>
+				<li>
+					<strong>Installation &amp; Upgrade Events:</strong> Sent once upon first launch or version update. Contains
+					the client ID, salted machine ID hash, application version, upgrade flag, and approximate country.
+				</li>
+				<li>
+					<strong>Periodic Heartbeat:</strong> Sent every 5 minutes while the application is active. Contains the
+					client ID, salted machine ID hash, app version, running state, active server count, and engine types (e.g. Paper, Fabric).
+				</li>
+				<li>
+					<strong>Server Action Counters:</strong> Reports high-level operational counts (such as server creation or start events) without instance names, paths, or file contents.
+				</li>
+				<li>
+					<strong>Approximate Country Lookup:</strong> To understand regional distribution, PocketMC makes a single request to <code class="mono">ip-api.com</code> or <code class="mono">ipapi.co</code>. Only the returned country name string is cached and reported. IP addresses are not stored in PocketMC telemetry databases.
+				</li>
+				<li>
+					<strong>Destination Infrastructure:</strong> Telemetry payloads are transmitted over encrypted HTTPS to PocketMC backend services hosted on Render (<code class="mono">pocket-mc-proxy.onrender.com</code>).
 				</li>
 			</ul>
 
-			<h2 id="telemetry">Telemetry &amp; Crash Reports</h2>
+			<h2 id="ai-diagnostics">3. Application Logs &amp; AI Analysis</h2>
 			<p>
-				PocketMC does not sell, license, or monetize user data. Any optional, anonymous diagnostic signals
-				(such as application startup confirmation or error exceptions) are strictly non-identifiable and
-				can be toggled off at any time in Settings.
+				Server terminal logs and crash stack traces remain 100% on your local disk. They are never automatically
+				uploaded to any remote server.
 			</p>
+			<p>
+				If you explicitly choose to run an <strong>AI Log Summary</strong> or <strong>Crash Post-Mortem Analysis</strong>:
+			</p>
+			<ul>
+				<li>
+					<strong>Local Inference (Ollama):</strong> When using a local Ollama model (<code class="mono">http://localhost:11434</code>), all analysis runs on your local CPU/GPU. Zero log data leaves your machine.
+				</li>
+				<li>
+					<strong>Cloud Providers:</strong> When using cloud providers (Google Gemini, OpenAI, Anthropic Claude, Mistral, or Groq), PocketMC's <code class="mono">LogSanitizer</code> automatically scrubs player IP addresses, player email addresses, local Windows user profile paths (e.g. <code class="mono">C:\Users\username\...</code>), and private tokens before sending the excerpt to the provider using your configured API key.
+				</li>
+			</ul>
+
+			<h2 id="third-party-integrations">4. Third-Party Services &amp; Connectivity</h2>
+			<p>
+				PocketMC integrates with external services to provide optional networking, downloads, and backups:
+			</p>
+			<ul>
+				<li>
+					<strong>Playit.gg:</strong> When game tunneling is enabled, PocketMC launches the official Playit.gg agent. Gameplay network packets flow through Playit.gg's edge routing infrastructure to allow players to join without port forwarding.
+				</li>
+				<li>
+					<strong>Cloudflare Quick Tunnels:</strong> When Remote Control internet tunneling is active, PocketMC runs <code class="mono">cloudflared</code> to generate a temporary HTTPS ingress address. Traffic is encrypted in transit between your browser and local host daemon.
+				</li>
+				<li>
+					<strong>Download Providers:</strong> Server JARs, vanilla assets, and Adoptium JREs are retrieved directly from official distribution CDNs (Adoptium, Mojang, PaperMC, Purpur, Fabric, NeoForge, and PocketMine).
+				</li>
+				<li>
+					<strong>Marketplaces (Modrinth &amp; CurseForge):</strong> Search queries and addon package downloads communicate directly with the Modrinth and CurseForge public APIs.
+				</li>
+				<li>
+					<strong>Cloud Backup Providers (Google Drive, Dropbox, OneDrive):</strong> Backup archives are uploaded directly to your authenticated cloud storage account. OAuth token exchange for Google Drive is brokered through <code class="mono">pocket-mc-proxy</code> to protect application client credentials; Dropbox and OneDrive use direct PKCE.
+				</li>
+				<li>
+					<strong>Discord Rich Presence:</strong> Communicates exclusively with the local Discord desktop application via the local IPC pipe to display status on your profile. No Discord server communication occurs from PocketMC.
+				</li>
+			</ul>
+
+			<h2 id="user-controls">5. Data Deletion &amp; Retention</h2>
+			<p>
+				Because PocketMC is a local desktop application, you retain complete authority over your data:
+			</p>
+			<ul>
+				<li>Deleting an instance folder or backup archive permanently removes the files from your storage.</li>
+				<li>Uninstalling PocketMC and removing <code class="mono">%LOCALAPPDATA%\PocketMC</code> completely erases all local settings, cached runtimes, credentials, and logs.</li>
+				<li>You can toggle telemetry off at any time in Settings, which permanently disables all background reporting loops.</li>
+			</ul>
 		</article>
 	</div>
 </section>

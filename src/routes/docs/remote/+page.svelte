@@ -53,24 +53,32 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><code class="mono">Console:Read</code></td>
-			<td>View live colorized server console output in real-time.</td>
+			<td><code class="mono">AllowRemoteConsoleCommands</code></td>
+			<td>Stream real-time terminal output via WebSockets and execute console commands.</td>
 		</tr>
 		<tr>
-			<td><code class="mono">Console:Write</code></td>
-			<td>Send commands to the running server terminal.</td>
+			<td><code class="mono">AllowRemotePlayerActions</code></td>
+			<td>Kick, ban, pardon, op, or de-op connected and offline players.</td>
 		</tr>
 		<tr>
-			<td><code class="mono">Server:Lifecycle</code></td>
-			<td>Start, stop, and restart server instances.</td>
+			<td><code class="mono">AllowRemoteServerSettings</code></td>
+			<td>View and edit server.properties configuration settings.</td>
 		</tr>
 		<tr>
-			<td><code class="mono">Files:Manage</code></td>
-			<td>Browse directories, upload configs, and edit server properties.</td>
+			<td><code class="mono">AllowRemoteServerAddons</code></td>
+			<td>View installed plugins/mods and toggle them enabled or disabled.</td>
 		</tr>
 		<tr>
-			<td><code class="mono">Backups:Manage</code></td>
-			<td>Trigger manual backups and restore previous save states.</td>
+			<td><code class="mono">AllowRemoteFileManager</code></td>
+			<td>Browse files, edit text configurations under 1 MB, and upload files.</td>
+		</tr>
+		<tr>
+			<td><code class="mono">AllowRemoteServerBackups</code></td>
+			<td>Inspect backup history and trigger manual RCON-safe world backups.</td>
+		</tr>
+		<tr>
+			<td><code class="mono">AllowedInstanceIds</code></td>
+			<td>Restrict user access strictly to specific designated server instances.</td>
 		</tr>
 	</tbody>
 </table>

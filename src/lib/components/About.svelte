@@ -32,7 +32,7 @@
 				{ glyph: 'zap', text: 'Auto-selection based on server JAR' },
 				{ glyph: 'hard-drive', text: 'Managed app-local dependencies' },
 				{ glyph: 'package', text: 'Isolated instance directories' },
-				{ glyph: 'shield', text: 'Zero administrator elevation needed' },
+				{ glyph: 'shield', text: 'Runs in local user directory' },
 				{ glyph: 'refresh-cw', text: 'Auto PHP PM5 for Bedrock' }
 			]
 		},
@@ -44,7 +44,7 @@
 				{ glyph: 'smartphone', text: 'Responsive mobile web dashboard' },
 				{ glyph: 'shield', text: 'Instant QR code mobile pairing' },
 				{ glyph: 'terminal', text: 'Multi-user roles & permission scopes' },
-				{ glyph: 'sparkles', text: 'Discord Bot access token pairing' }
+				{ glyph: 'sparkles', text: 'Discord Rich Presence with live server status' }
 			]
 		},
 		{
@@ -53,7 +53,7 @@
 				{ glyph: 'package', text: 'In-app Modrinth marketplace browser' },
 				{ glyph: 'package', text: 'CurseForge browser & Poggit integration' },
 				{ glyph: 'folder-open', text: 'Three-dot menu Explorer folder jumps' },
-				{ glyph: 'sliders', text: 'Enable / disable mods without rename' },
+				{ glyph: 'sliders', text: 'One-click mod & plugin enable/disable toggle' },
 				{ glyph: 'layers', text: 'Bedrock .mcpack, .mcaddon ingestion' },
 				{ glyph: 'sparkles', text: 'Automatic Geyser & Floodgate cross-play' }
 			]
