@@ -92,15 +92,6 @@
 						<span>Unmute</span>
 					</button>
 				</div>
-
-				<!-- Link to screenshot gallery -->
-				<a href="/gallery" class="gallery-btn">
-					<span>View screenshot gallery</span>
-					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<line x1="5" y1="12" x2="19" y2="12" />
-						<polyline points="12 5 19 12 12 19" />
-					</svg>
-				</a>
 			</div>
 		</figure>
 	</div>
@@ -238,40 +229,6 @@
 		stroke-linejoin: round;
 	}
 
-	.gallery-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		height: 38px;
-		padding: 0 18px;
-		border: 1px solid var(--border);
-		border-radius: var(--radius);
-		background: var(--card);
-		color: var(--fg);
-		font-size: 13.5px;
-		font-weight: 500;
-		white-space: nowrap;
-		text-decoration: none;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
-	}
-
-	.gallery-btn:hover {
-		background: var(--secondary-hover);
-		border-color: var(--dim);
-		transform: translateY(-1px);
-	}
-
-	.gallery-btn svg {
-		color: var(--dim);
-		transition: transform 0.15s ease, color 0.15s ease;
-	}
-
-	.gallery-btn:hover svg {
-		transform: translateX(3px);
-		color: var(--fg);
-	}
-
 	@media (max-width: 768px) {
 		.preview {
 			padding: 0 0 48px;
@@ -282,9 +239,9 @@
 			gap: 10px;
 		}
 
-		.gallery-btn,
 		.audio-switch {
 			width: 100%;
+			max-width: 260px;
 			justify-content: center;
 		}
 
