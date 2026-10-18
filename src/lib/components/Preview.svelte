@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { youtube } from '$lib/data/links';
 
 	const videoSrc = '/Video/PocketMC.mp4';
 	let videoEl = $state<HTMLVideoElement | null>(null);
@@ -92,6 +93,21 @@
 						<span>Unmute</span>
 					</button>
 				</div>
+
+				<!-- Classic YouTube tab button matching website themes and tabs -->
+				<a
+					href={youtube}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="youtube-tab"
+					title="Official YouTube Channel"
+					aria-label="Official YouTube Channel"
+				>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+						<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+					</svg>
+					<span>YouTube</span>
+				</a>
 			</div>
 		</figure>
 	</div>
@@ -100,7 +116,7 @@
 <style>
 	.preview {
 		position: relative;
-		padding: 0 0 72px;
+		padding: 56px 0 64px;
 	}
 
 	.preview .page {
@@ -173,9 +189,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 12px;
+		gap: 10px;
 		width: 100%;
-		margin-top: 20px;
+		margin-top: 24px;
 		flex-wrap: wrap;
 	}
 
@@ -229,25 +245,63 @@
 		stroke-linejoin: round;
 	}
 
+	/* Classic YouTube tab button matching ThemeSwitch / audio-switch aesthetics */
+	.youtube-tab {
+		height: 38px;
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		padding: 0 14px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		color: var(--dim);
+		font-size: 13px;
+		font-weight: 500;
+		text-decoration: none;
+		white-space: nowrap;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.youtube-tab:hover {
+		color: var(--fg);
+		background: var(--secondary-active);
+		border-color: var(--border);
+		box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+	}
+
+	.youtube-tab svg {
+		width: 14px;
+		height: 14px;
+		fill: currentColor;
+		transition: transform 0.15s ease;
+	}
+
+	.youtube-tab:hover svg {
+		transform: scale(1.05);
+	}
+
 	@media (max-width: 768px) {
 		.preview {
-			padding: 0 0 48px;
+			padding: 32px 0 44px;
 		}
 
 		.preview-actions {
 			margin-top: 16px;
-			gap: 10px;
+			gap: 8px;
 		}
 
 		.audio-switch {
-			width: 100%;
-			max-width: 260px;
-			justify-content: center;
+			max-width: none;
 		}
 
 		.switch-btn {
-			flex: 1;
-			justify-content: center;
+			padding: 0 10px;
+		}
+
+		.youtube-tab {
+			padding: 0 12px;
 		}
 	}
 </style>
