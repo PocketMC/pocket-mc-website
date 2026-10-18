@@ -1,11 +1,11 @@
 {
   "name": "pocket-mc-website",
-  "version": "1.9.9",
+  "version": "1.9.10",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && node scripts/sync-dist-html.cjs",
+    "build": "node scripts/inspect-repo.cjs && vite build && node scripts/sync-dist-html.cjs",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },

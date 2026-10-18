@@ -68,7 +68,7 @@ export const galleryItems: GalleryItem[] = [
 		categoryId: 'instances',
 		categoryLabel: 'Dashboard',
 		title: 'About PocketMC',
-		caption: 'Local-first architecture, GPL-3.0 open source licensing, and project documentation.',
+		caption: 'Local-first architecture, MIT open source licensing, and project documentation.',
 		src: '/screenshots/about.webp',
 		width: 1920,
 		height: 1040,

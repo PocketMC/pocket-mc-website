@@ -32,7 +32,7 @@
 
 	const label = $derived.by(() => {
 		const count = live ?? stars;
-		if (count === null) return null;
+		if (count === null || count === undefined) return null;
 		if (count < 1000) return String(count);
 		return (count / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
 	});
@@ -43,11 +43,38 @@
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) duration = 0;
 
 		try {
-			const res = await fetch('https://api.github.com/repos/PocketMC/pocket-mc-windows');
-			if (res.ok) live = (await res.json()).stargazers_count;
-		} catch {
-			live = null;
-		}
+			const cached = sessionStorage.getItem('pocketmc_stars');
+			if (cached) {
+				live = Number(cached);
+				return;
+			}
+		} catch {}
+
+		try {
+			const res = await fetch('https://api.github.com/repos/PocketMC/pocket-mc-windows', {
+				headers: { Accept: 'application/vnd.github.v3+json' }
+			});
+			if (res.ok) {
+				const data = await res.json();
+				if (typeof data.stargazers_count === 'number') {
+					live = data.stargazers_count;
+					try {
+						sessionStorage.setItem('pocketmc_stars', String(live));
+					} catch {}
+					return;
+				}
+			}
+		} catch {}
+
+		try {
+			const res = await fetch('/repo-metadata.json');
+			if (res.ok) {
+				const meta = await res.json();
+				if (typeof meta.stars === 'number') {
+					live = meta.stars;
+				}
+			}
+		} catch {}
 	});
 </script>
 

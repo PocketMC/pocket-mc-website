@@ -19,7 +19,7 @@
 	/>
 </svelte:head>
 
-<Hero version={data.version} />
+<Hero version={data.version} license={data.license} />
 <Preview />
 <Install />
 <About />

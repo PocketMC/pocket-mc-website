@@ -67,7 +67,7 @@ Authorization: Bearer pmc_sec_89f0a2d1e4...`}
 	label="200 OK Response"
 	lang="json"
 	text={`{
-  "version": "1.9.9",
+  "version": "1.9.10",
   "uptimeSeconds": 14280,
   "system": {
     "totalMemoryMb": 32768,

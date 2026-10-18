@@ -3,7 +3,13 @@
 	import Mark from './Mark.svelte';
 	import Visualizer from './Visualizer.svelte';
 
-	let { version = 'v1.9.10' }: { version?: string | null } = $props();
+	let {
+		version = 'v1.9.10',
+		license = 'MIT'
+	}: {
+		version?: string | null;
+		license?: string | null;
+	} = $props();
 </script>
 
 <section id="top" class="hero">
@@ -59,7 +65,7 @@
 			<span class="dot">·</span>
 			Windows, Linux, macOS
 			<span class="dot">·</span>
-			GPL-3.0
+			{license ?? 'MIT'}
 		</p>
 	</div>
 

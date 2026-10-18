@@ -56,7 +56,7 @@
 
 			<h2 id="open-source">Free &amp; Open Source</h2>
 			<p>
-				PocketMC is 100% free software released under the <strong>GNU General Public License v3.0</strong>.
+				PocketMC is 100% free and open-source software released under the <strong>MIT License</strong>.
 				The complete source code is public and transparent on GitHub. You are free to inspect, audit, fork,
 				and contribute.
 			</p>

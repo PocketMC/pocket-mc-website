@@ -17,5 +17,5 @@
 
 <div class="page-column">
 	{@render children()}
-	<SiteFooter />
+	<SiteFooter license={data.license} />
 </div>

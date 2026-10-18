@@ -3,6 +3,8 @@
 	import { discord, reddit, youtube, buymeacoffee, repo, website, email } from '$lib/data/links';
 	import Logo from './Logo.svelte';
 
+	let { license = 'MIT' }: { license?: string | null } = $props();
+
 	const home = $derived(page.url.pathname === '/' ? '' : '/');
 </script>
 
@@ -56,7 +58,7 @@
 					<h3>Legal</h3>
 					<a href="/terms">Terms of Service</a>
 					<a href="/privacy">Privacy Policy</a>
-					<a href="{repo}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">License (GPL-3.0)</a>
+					<a href="{repo}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">License ({license ?? 'MIT'})</a>
 					<a href="mailto:{email}">Security Contact</a>
 				</div>
 			</div>
@@ -64,7 +66,7 @@
 
 		<div class="legal">
 			<p>
-				PocketMC is free and open-source software licensed under the GNU General Public License v3.0.
+				PocketMC is free and open-source software licensed under the {license ?? 'MIT'} License.
 				NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
 			</p>
 			<p>
