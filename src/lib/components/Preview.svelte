@@ -3,41 +3,26 @@
 
 	const videoSrc = '/Video/PocketMC.mp4';
 	let videoEl = $state<HTMLVideoElement | null>(null);
-	let isMuted = $state(false);
+	let isMuted = $state(true);
 
 	onMount(() => {
 		if (!videoEl) return;
 		videoEl.volume = 0.5;
-		videoEl.muted = false;
+		videoEl.play().catch(() => {});
 
-		const playPromise = videoEl.play();
-		if (playPromise !== undefined) {
-			playPromise
-				.then(() => {
-					isMuted = false;
-				})
-				.catch(() => {
-					// If the browser enforces user activation before audio,
-					// keep playing visually and immediately unmute on first gesture.
-					if (videoEl) {
-						videoEl.muted = true;
-						videoEl.play().catch(() => {});
-					}
+		// Unmute to 50% on user's first natural interaction anywhere on the site
+		const autoUnmute = () => {
+			if (videoEl && isMuted) {
+				setMuted(false);
+			}
+			['pointerdown', 'click', 'keydown', 'touchstart'].forEach((e) => {
+				window.removeEventListener(e, autoUnmute);
+			});
+		};
 
-					const triggerUnmute = () => {
-						if (videoEl && !isMuted) {
-							videoEl.muted = false;
-							videoEl.volume = 0.5;
-							videoEl.play().catch(() => {});
-						}
-						const evts = ['click', 'pointerdown', 'keydown', 'scroll', 'mousemove', 'touchstart'];
-						evts.forEach((e) => window.removeEventListener(e, triggerUnmute));
-					};
-
-					const evts = ['click', 'pointerdown', 'keydown', 'scroll', 'mousemove', 'touchstart'];
-					evts.forEach((e) => window.addEventListener(e, triggerUnmute, { once: true, passive: true }));
-				});
-		}
+		['pointerdown', 'click', 'keydown', 'touchstart'].forEach((e) => {
+			window.addEventListener(e, autoUnmute, { once: true });
+		});
 	});
 
 	function setMuted(muted: boolean) {
@@ -53,7 +38,6 @@
 </script>
 
 <svelte:head>
-	<link rel="preload" as="video" href={videoSrc} type="video/mp4" fetchpriority="high" />
 	<link rel="preload" as="image" href="/screenshots/screenshot-dashboard.webp" fetchpriority="high" />
 </svelte:head>
 
@@ -76,7 +60,7 @@
 						preload="auto"
 						autoplay
 						loop
-						muted={isMuted}
+						muted
 						playsinline
 						class="showcase-media"
 					>
