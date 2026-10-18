@@ -52,9 +52,6 @@ export const installOptions: InstallOption[] = [
 		actionText: 'Download Portable',
 		actionTarget: portableUrl,
 		extension: '.zip',
-		meta: 'Zero registry writes · Portable'
+		meta: 'Windows 10 / 11 · Portable'
 	}
 ];
-
-export const installNotice =
-	'No administrator privileges required. PocketMC installs per-user in your local profile (%LOCALAPPDATA%) and manages server runtimes locally without touching system environment variables.';

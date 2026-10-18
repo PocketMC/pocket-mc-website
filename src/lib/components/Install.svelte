@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { installOptions, installNotice } from '$lib/data/platforms';
+	import { installOptions } from '$lib/data/platforms';
 	import { reveal } from '$lib/reveal';
 	import CopyButton from './CopyButton.svelte';
-	import Glyph from './Glyph.svelte';
 </script>
 
 <section id="steps" class="section">
@@ -14,8 +13,7 @@
 			<span class="kicker">Install</span>
 			<h2>Get PocketMC</h2>
 			<p class="lead">
-				Choose your preferred installation method. PocketMC runs locally in user space with zero
-				configuration required.
+				Choose your preferred installation method. PocketMC runs locally with zero configuration required.
 			</p>
 		</div>
 
@@ -125,18 +123,6 @@
 					</div>
 				</article>
 			{/each}
-		</div>
-
-		<div class="notice-wrap" use:reveal>
-			<div class="notice-bar">
-				<div class="notice-icon">
-					<Glyph name="shield" size={16} />
-				</div>
-				<p class="notice-text">
-					<strong>User-space execution:</strong>
-					{installNotice}
-				</p>
-			</div>
 		</div>
 	</div>
 </section>
@@ -327,39 +313,6 @@
 		color: var(--dim);
 	}
 
-	.notice-wrap {
-		margin-top: 20px;
-	}
-
-	.notice-bar {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		padding: 14px 18px;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		background: var(--bg);
-	}
-
-	.notice-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--dim);
-		flex-shrink: 0;
-	}
-
-	.notice-text {
-		font-size: 12.5px;
-		line-height: 1.55;
-		color: var(--muted-fg);
-	}
-
-	.notice-text strong {
-		color: var(--fg);
-		font-weight: 600;
-	}
-
 	@media (max-width: 900px) {
 		.page {
 			padding-bottom: 48px;
@@ -367,10 +320,6 @@
 
 		.grid {
 			grid-template-columns: 1fr;
-		}
-
-		.notice-bar {
-			align-items: flex-start;
 		}
 	}
 </style>
