@@ -131,7 +131,7 @@ The `v1.9.8...v1.9.9` diff spans 179 changed files (+12,139, -2,747) with enhanc
     - Toggle showing online player count and server capacity
     - Toggle showing server connection address / tunnel (mutually exclusive with version/engine display)
     - Toggle showing server platform and Minecraft version
-    - Toggle showing server software platform logo (Paper, Purpur, Fabric, Forge, NeoForge, Bedrock, PocketMine, Vanilla)
+    - Toggle showing server software platform logo (Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock, PocketMine)
     - Toggle showing "Download PocketMC" profile action button
   - Implemented an interactive live preview card dynamically reflecting the configured Discord Rich Presence cards in real time.
 - **Wallpaper Theme Customization (Blur & Dimming Controls)**
@@ -250,7 +250,7 @@ The `v1.9.7...v1.9.8` diff represents improvements across add-on lifecycle handl
 ### Added
 
 - **Accurate Diagnostic Dialogs for Local Add-on Uploads**
-  - Added comprehensive multi-loader and plugin metadata scanning during local file uploads (`AddModAsync` and `AddPluginAsync`) across all supported Java server types (Paper, Fabric, Forge, NeoForge, Purpur, Spigot, Bukkit).
+  - Added comprehensive multi-loader and plugin metadata scanning during local file uploads (`AddModAsync` and `AddPluginAsync`) across all supported Java server types (Vanilla, Paper, Fabric, Forge, NeoForge, Spigot, Bukkit).
   - Replaced generic "Missing Metadata" popups with exact diagnostic reasons: `Incompatible Mod Loader` (e.g. Forge on Fabric), `Invalid Mod` (Bukkit plugin in mods folder), `Incompatible Add-on` (mod uploaded to plugins folder), `Client-Only Mod`, `Incompatible Minecraft / Loader Version`, and `Corrupt JAR Archive`.
   - Added user choice dialogs allowing server administrators to bypass warnings and install add-ons anyway instead of blocking installation.
 - **One-Click Incompatible Add-on Removal Banner**

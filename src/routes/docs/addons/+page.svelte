@@ -83,7 +83,7 @@
 </p>
 
 <ul>
-	<li>During server creation or addon configuration on Paper, Purpur, or Fabric, check <strong>Enable Bedrock Crossplay</strong>.</li>
+	<li>During server creation or addon configuration on Paper or Fabric, check <strong>Enable Bedrock Crossplay</strong>.</li>
 	<li>PocketMC automatically downloads the latest stable builds from the official GeyserMC API (<code class="mono">download.geysermc.org</code>).</li>
 	<li>PocketMC automatically configures listening ports (<code class="mono">25565</code> TCP for Java and <code class="mono">19132</code> UDP for Bedrock).</li>
 	<li>When Playit tunneling is enabled, PocketMC registers both Java and Bedrock tunnel endpoints and displays both join addresses on your dashboard and Discord Rich Presence.</li>

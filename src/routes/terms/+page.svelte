@@ -83,7 +83,7 @@ SOFTWARE.`}
 
 			<h2 id="third-party-services">4. Third-Party Software, Addons &amp; Services</h2>
 			<p>
-				PocketMC facilitates integration with third-party server engines (Paper, Purpur, Fabric, Forge, NeoForge, Bedrock BDS, PocketMine-MP),
+				PocketMC facilitates integration with third-party server engines (Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock BDS, PocketMine-MP),
 				runtime providers (Eclipse Adoptium), addon repositories (Modrinth, CurseForge, Poggit), tunneling providers (Playit.gg, Cloudflare),
 				and cloud storage services (Google Drive, Dropbox, OneDrive).
 			</p>

@@ -18,7 +18,7 @@ export const tourTabs: TourTab[] = [
 		description:
 			'Watch PocketMC in action: 1-click server provisioning, real-time Adoptium Java runtime installation, colorized live terminal logging, and zero-router Playit.gg network tunneling.',
 		bullets: [
-			'Single-click instance creation for Paper, Fabric, Forge, NeoForge, Vanilla & Bedrock',
+			'Single-click instance creation for Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock & PocketMine-MP',
 			'Interactive live terminal with ANSI color support, auto-scroll, and command auto-completion',
 			'Integrated Playit.gg tunnel agent with instant copy-to-clipboard public join address',
 			'Zero-friction user experience running entirely in desktop user-space'

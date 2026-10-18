@@ -77,7 +77,7 @@
 </p>
 <ol>
 	<li>Download and run <strong class="mono">PocketMC-Setup.exe</strong> from the home page.</li>
-	<li>Click <MenuPath steps={['Create Server', 'Select Engine']} /> and choose Paper, Fabric, or Vanilla.</li>
+	<li>Click <MenuPath steps={['Create Server', 'Select Engine']} /> and choose Vanilla, Paper, or Fabric.</li>
 	<li>Pick your preferred Minecraft version. PocketMC automatically provisions the required Java runtime.</li>
 	<li>Click <strong>Start Server</strong>. Your live console will initialize immediately.</li>
 	<li>Copy your tunnel join address from the dashboard to share with friends.</li>

@@ -60,7 +60,7 @@
 				</li>
 				<li>
 					<strong>Periodic Heartbeat:</strong> Sent every 5 minutes while the application is active. Contains the
-					client ID, salted machine ID hash, app version, running state, active server count, and engine types (e.g. Paper, Fabric).
+					client ID, salted machine ID hash, app version, running state, active server count, and engine types (e.g. Vanilla, Paper, Fabric).
 				</li>
 				<li>
 					<strong>Server Action Counters:</strong> Reports high-level operational counts (such as server creation or start events) without instance names, paths, or file contents.
@@ -102,7 +102,7 @@
 					<strong>Cloudflare Quick Tunnels:</strong> When Remote Control internet tunneling is active, PocketMC runs <code class="mono">cloudflared</code> to generate a temporary HTTPS ingress address. Traffic is encrypted in transit between your browser and local host daemon.
 				</li>
 				<li>
-					<strong>Download Providers:</strong> Server JARs, vanilla assets, and Adoptium JREs are retrieved directly from official distribution CDNs (Adoptium, Mojang, PaperMC, Purpur, Fabric, NeoForge, and PocketMine).
+					<strong>Download Providers:</strong> Server JARs, vanilla assets, and Adoptium JREs are retrieved directly from official distribution CDNs (Adoptium, Mojang, PaperMC, Fabric, Forge, NeoForge, and PocketMine).
 				</li>
 				<li>
 					<strong>Marketplaces (Modrinth &amp; CurseForge):</strong> Search queries and addon package downloads communicate directly with the Modrinth and CurseForge public APIs.

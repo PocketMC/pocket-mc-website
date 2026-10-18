@@ -1,5 +1,12 @@
 export const serverSoftwares = [
 	{
+		name: 'Vanilla Java',
+		icon: '/icons/vanilla.png',
+		description: 'Official Mojang dedicated server JARs downloaded directly from Mojang CDN.',
+		tag: 'Java',
+		versions: '1.8.8 – Latest'
+	},
+	{
 		name: 'Paper',
 		icon: '/icons/papermc.png',
 		description: 'High-performance Spigot fork with extreme optimizations and plugin support.',
@@ -14,13 +21,6 @@ export const serverSoftwares = [
 		versions: '1.14 – Latest'
 	},
 	{
-		name: 'NeoForge',
-		icon: '/icons/neoforge.png',
-		description: 'Community-driven modern modding platform for modern Minecraft versions.',
-		tag: 'Mods',
-		versions: '1.20.2 – Latest'
-	},
-	{
 		name: 'Forge',
 		icon: '/icons/forge.png',
 		description: 'Classic heavyweight mod loader powering thousands of iconic modpacks.',
@@ -28,11 +28,11 @@ export const serverSoftwares = [
 		versions: '1.8.8 – Latest'
 	},
 	{
-		name: 'Vanilla Java',
-		icon: '/icons/vanilla.png',
-		description: 'Official Mojang dedicated server JARs direct from Mojang servers.',
-		tag: 'Java',
-		versions: '1.8.8 – Latest'
+		name: 'NeoForge',
+		icon: '/icons/neoforge.png',
+		description: 'Community-driven modern modding platform for modern Minecraft versions.',
+		tag: 'Mods',
+		versions: '1.20.2 – Latest'
 	},
 	{
 		name: 'Bedrock Dedicated Server',

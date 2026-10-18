@@ -27,7 +27,7 @@
 <ul>
 	<li><strong>Real-Time Game Activity:</strong> Displays your active server state (Starting, Online, or Stopping) and elapsed uptime.</li>
 	<li><strong>Player Counts:</strong> Shows live connected player metrics (e.g. <code class="mono">4/20 Players</code>) synchronized with the server process.</li>
-	<li><strong>Engine Branding:</strong> Dynamically loads high-resolution badges matching your server engine (Paper, Fabric, NeoForge, Forge, BDS, PocketMine-MP, or Vanilla).</li>
+	<li><strong>Engine Branding:</strong> Dynamically loads high-resolution badges matching your server engine (Vanilla, Paper, Fabric, Forge, NeoForge, BDS, or PocketMine-MP).</li>
 	<li><strong>Public Join Address:</strong> When Playit tunneling is enabled, your public join address is displayed so friends can copy it directly from your Discord profile.</li>
 	<li><strong>Geyser Crossplay Detection:</strong> If Geyser is installed on your server, PocketMC automatically detects both endpoints and formats both Java and Bedrock addresses in your presence status.</li>
 	<li><strong>Website Link Button:</strong> Includes an interactive button linking friends directly to the official PocketMC website.</li>

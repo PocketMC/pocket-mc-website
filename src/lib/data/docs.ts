@@ -12,7 +12,7 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'servers',
 				title: 'Server Engines',
-				summary: 'Supported Minecraft engines: Paper, Purpur, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine.'
+				summary: 'Supported Minecraft engines: Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP.'
 			},
 			{
 				slug: 'runtimes',

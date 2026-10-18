@@ -6,10 +6,11 @@
 		{
 			label: 'Server Engines',
 			items: [
+				{ glyph: 'server', text: 'Vanilla (Official Mojang JARs)' },
 				{ glyph: 'server', text: 'Paper (High-performance Spigot)' },
 				{ glyph: 'layers', text: 'Fabric (Lightweight & modular)' },
-				{ glyph: 'package', text: 'NeoForge & Forge mod loaders' },
-				{ glyph: 'server', text: 'Official Mojang Vanilla JARs' },
+				{ glyph: 'package', text: 'Forge (Classic mod loader)' },
+				{ glyph: 'package', text: 'NeoForge (Modern mod loader)' },
 				{ glyph: 'globe', text: 'Bedrock Dedicated Server (BDS)' },
 				{ glyph: 'zap', text: 'PocketMine-MP (PHP 8.2 PM5)' }
 			]

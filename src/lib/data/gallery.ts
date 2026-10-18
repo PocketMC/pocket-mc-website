@@ -116,7 +116,7 @@ export const galleryItems: GalleryItem[] = [
 		categoryId: 'mods',
 		categoryLabel: 'Mods & Plugins',
 		title: 'Plugin Registry',
-		caption: 'Plugin management for Paper, Purpur, Spigot, and Bedrock PocketMine-MP servers.',
+		caption: 'Plugin management for Paper and Bedrock PocketMine-MP servers.',
 		src: '/screenshots/screenshot-plugins.webp',
 		width: 1920,
 		height: 1040,

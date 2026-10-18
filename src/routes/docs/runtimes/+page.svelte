@@ -36,27 +36,27 @@
 		<tr>
 			<td>Minecraft 1.20.5 – Latest</td>
 			<td>Java 21 / Java 25</td>
-			<td>Paper, Fabric, NeoForge, Vanilla</td>
+			<td>Vanilla, Paper, Fabric, NeoForge</td>
 		</tr>
 		<tr>
 			<td>Minecraft 1.18 – 1.20.4</td>
 			<td>Java 17</td>
-			<td>Paper, Fabric, Forge, Vanilla</td>
+			<td>Vanilla, Paper, Fabric, Forge</td>
 		</tr>
 		<tr>
 			<td>Minecraft 1.17 – 1.17.1</td>
 			<td>Java 16</td>
-			<td>Spigot, Paper, Fabric</td>
+			<td>Vanilla, Paper, Fabric</td>
 		</tr>
 		<tr>
 			<td>Minecraft 1.12 – 1.16.5</td>
 			<td>Java 11 / Java 8</td>
-			<td>Forge, Spigot, Vanilla</td>
+			<td>Vanilla, Paper, Forge</td>
 		</tr>
 		<tr>
 			<td>Minecraft 1.8.8 – 1.11.2</td>
 			<td>Java 8</td>
-			<td>Classic Forge, Paper, Spigot</td>
+			<td>Vanilla, Paper, Classic Forge</td>
 		</tr>
 	</tbody>
 </table>

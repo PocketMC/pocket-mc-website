@@ -49,7 +49,7 @@ export const faqItems: FaqItem[] = [
 		category: 'Gameplay & Engines',
 		question: 'Can Bedrock (console/mobile) players join a Java server managed by PocketMC?',
 		answer: [
-			'Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders (Paper, Fabric, Purpur).',
+			'Yes. PocketMC supports automatic GeyserMC and Floodgate setup during server creation for supported Java server loaders (Paper, Fabric).',
 			'It also scans your mod and plugin folders to verify cross-play status and displays active cross-play indicators on your dashboard.'
 		]
 	},

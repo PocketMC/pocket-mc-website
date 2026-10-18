@@ -63,8 +63,8 @@ PocketMC is a free, open-source local Minecraft server manager for Windows. It s
 
 | Engine | Type | Supported Versions | Notes |
 | :--- | :--- | :--- | :--- |
-| PaperMC & Purpur | Java | 1.8.8 to Latest | High performance, Spigot/Bukkit plugins, automated Geyser crossplay. |
 | Vanilla Java | Java | 1.8.8 to Latest | Official Mojang server JAR releases directly from Mojang CDN. |
+| Paper | Java | 1.8.8 to Latest | High performance, Spigot/Bukkit plugins, automated Geyser crossplay. |
 | Fabric | Java | 1.14 to Latest | Lightweight modern mod loader with automated installer downloads. |
 | Forge | Java | 1.8.8 to Latest | Traditional Minecraft modding framework with installer execution. |
 | NeoForge | Java | 1.20.2 to Latest | Modern community fork of Forge with automated Maven metadata sync. |
