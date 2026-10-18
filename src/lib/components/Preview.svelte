@@ -7,22 +7,10 @@
 
 	onMount(() => {
 		if (!videoEl) return;
+		videoEl.defaultMuted = true;
+		videoEl.muted = true;
 		videoEl.volume = 0.5;
 		videoEl.play().catch(() => {});
-
-		// Unmute to 50% on user's first natural interaction anywhere on the site
-		const autoUnmute = () => {
-			if (videoEl && isMuted) {
-				setMuted(false);
-			}
-			['pointerdown', 'click', 'keydown', 'touchstart'].forEach((e) => {
-				window.removeEventListener(e, autoUnmute);
-			});
-		};
-
-		['pointerdown', 'click', 'keydown', 'touchstart'].forEach((e) => {
-			window.addEventListener(e, autoUnmute, { once: true });
-		});
 	});
 
 	function setMuted(muted: boolean) {
@@ -31,8 +19,8 @@
 			videoEl.muted = muted;
 			if (!muted) {
 				videoEl.volume = 0.5;
-				videoEl.play().catch(() => {});
 			}
+			videoEl.play().catch(() => {});
 		}
 	}
 </script>
