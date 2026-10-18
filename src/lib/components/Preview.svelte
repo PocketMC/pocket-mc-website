@@ -36,6 +36,7 @@
 
 	<div class="page">
 		<figure class="shot" data-enter style="--enter: 0.32s">
+			<figcaption class="sr-only">PocketMC desktop user interface preview</figcaption>
 			<!-- Subtle ambient backlight aura -->
 			<div class="frame-aura" aria-hidden="true"></div>
 
@@ -53,6 +54,7 @@
 						playsinline
 						class="showcase-media"
 					>
+						<track kind="captions" label="English" src="data:text/vtt,WEBVTT" default />
 						Your browser does not support the video tag.
 					</video>
 				</div>

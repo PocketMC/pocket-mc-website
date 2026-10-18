@@ -9,6 +9,7 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="apple-touch-icon" href="/logo.webp" />
 		<meta name="theme-color" content="#121212" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -19,44 +20,8 @@
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-			media="print"
-			onload="this.media='all'"
 		/>
-		<noscript>
-			<link
-				rel="stylesheet"
-				href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-			/>
-		</noscript>
-		<script>
-			const root = document.documentElement;
-			root.classList.add('js');
-
-			try {
-				const stored = localStorage.getItem('theme');
-				if (stored === 'light' || stored === 'dark') {
-					root.dataset.theme = stored;
-				}
-			} catch {}
-
-			try {
-				const nav = performance.getEntriesByType('navigation')[0];
-				if (location.hash && (!nav || nav.type === 'reload')) {
-					history.replaceState(history.state, '', location.pathname + location.search);
-				}
-			} catch {}
-
-			addEventListener('beforeunload', () => scrollTo(0, 0));
-
-			const settled = () => root.classList.add('fonts');
-
-			if (document.fonts) {
-				document.fonts.ready.then(settled);
-				setTimeout(settled, 900);
-			} else {
-				settled();
-			}
-		</script>
+		<script>!function(){var e=document.documentElement;e.classList.add("js");try{var t=localStorage.getItem("theme");"light"!==t&&"dark"!==t||(e.dataset.theme=t)}catch(e){}try{var a=performance.getEntriesByType("navigation")[0];location.hash&&(!a||"reload"===a.type)&&history.replaceState(history.state,"",location.pathname+location.search)}catch(e){}addEventListener("beforeunload",function(){return scrollTo(0,0)});var n=function(){return e.classList.add("fonts")};document.fonts?(document.fonts.ready.then(n),setTimeout(n,900)):n()}();</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

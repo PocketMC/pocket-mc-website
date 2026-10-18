@@ -20,6 +20,7 @@
 				alt="PocketMC"
 				width="104"
 				height="104"
+				fetchpriority="high"
 				class="hero-logo-img"
 			/>
 		</div>

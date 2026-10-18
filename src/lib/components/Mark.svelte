@@ -42,9 +42,3 @@
 <svg width={box} height={box} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
 	>{@html `<path fill-rule="${evenodd.has(name) ? 'evenodd' : 'nonzero'}" d="${marks.get(name) ?? ''}" />`}</svg
 >
-
-<style>
-	svg {
-		flex-shrink: 0;
-	}
-</style>

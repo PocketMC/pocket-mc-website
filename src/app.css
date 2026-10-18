@@ -374,3 +374,38 @@ html.fonts [data-enter] {
 		transition-duration: 0.01ms !important;
 	}
 }
+
+svg {
+	flex-shrink: 0;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.skip-link {
+	position: absolute;
+	top: -9999px;
+	left: 16px;
+	z-index: 999999;
+	padding: 8px 16px;
+	background: var(--card, #171717);
+	color: var(--fg, #fafafa);
+	border: 1px solid var(--border, #262626);
+	border-radius: var(--radius, 8px);
+	font-size: 13.5px;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.skip-link:focus {
+	top: 16px;
+}

@@ -21,7 +21,15 @@
 			{#each serverSoftwares as s (s.name)}
 				<article class="card">
 					<div class="top">
-						<img src={s.icon} alt={s.name} width="32" height="32" class="software-icon" />
+						<img
+							src={s.icon}
+							alt={s.name}
+							width="32"
+							height="32"
+							loading="lazy"
+							decoding="async"
+							class="software-icon"
+						/>
 						<div class="meta">
 							<h3>{s.name}</h3>
 							<span class="tag">{s.tag}</span>

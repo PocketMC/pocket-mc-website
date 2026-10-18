@@ -136,9 +136,13 @@
 	})}</script>`}
 </svelte:head>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <SiteHeader stars={data.stars} />
 
 <div class="page-column">
-	{@render children()}
+	<main id="main-content">
+		{@render children()}
+	</main>
 	<SiteFooter license={data.license} />
 </div>

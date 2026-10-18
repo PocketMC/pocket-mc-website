@@ -136,9 +136,3 @@
 	stroke-linejoin="round"
 	aria-hidden="true"
 >{@html glyphs.get(name) ?? '<circle cx="12" cy="12" r="10"/>'}</svg>
-
-<style>
-	svg {
-		flex-shrink: 0;
-	}
-</style>

@@ -103,7 +103,15 @@
 						{#each cell.items as item (item.text)}
 							<li>
 								{#if item.icon}
-									<img src={item.icon} alt={item.text} width="16" height="16" class="cell-icon" />
+									<img
+										src={item.icon}
+										alt={item.text}
+										width="16"
+										height="16"
+										loading="lazy"
+										decoding="async"
+										class="cell-icon"
+									/>
 								{:else if item.mark}
 									<Mark name={item.mark} size={15} />
 								{:else if item.glyph}
