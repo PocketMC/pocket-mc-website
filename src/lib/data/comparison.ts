@@ -12,7 +12,7 @@ export const comparisonCategories = [
 			},
 			{
 				feature: 'Hardware Limits',
-				pocketmc: 'Uses 100% of your PC RAM/CPU',
+				pocketmc: 'Uncapped (full PC specs with 80% RAM guard)',
 				pocketmcHighlight: true,
 				vps: 'Capped at paid tier specs',
 				aternos: 'Strict 2–4 GB RAM cap',
