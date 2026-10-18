@@ -7,7 +7,7 @@
 	<title>Instance & World Management · PocketMC Docs</title>
 	<meta
 		name="description"
-		content="World importing (.zip/.mcworld), server.properties editor, Bedrock ban sidecar, and Windows sleep prevention."
+		content="World importing (.zip/.mcworld), instance export/import bundles, server.properties editor, Bedrock ban sidecar, and Windows sleep prevention."
 	/>
 </svelte:head>
 
@@ -33,6 +33,43 @@
 	<li><strong>Engine-Specific Resolution:</strong> Automatically places world files in the correct location for each engine (<code class="mono">serverDir/world</code> for Java Edition, or <code class="mono">serverDir/worlds/{'{'}LevelName{'}'}</code> for Bedrock Dedicated Server).</li>
 	<li><strong>Path Traversal Protection:</strong> Uses <code class="mono">SafeZipExtractor</code> to validate every relative entry path, preventing Zip Slip extraction exploits.</li>
 </ul>
+
+<h2 id="instance-portability">Full Instance Portability (Export &amp; Import)</h2>
+<p>
+	Beyond importing isolated world folders, PocketMC includes an end-to-end instance portability engine
+	(<code class="mono">InstanceExportService</code> and <code class="mono">InstanceImportService</code>)
+	that packages or restores entire server environments into clean, self-contained archive bundles.
+</p>
+
+<h3>Exporting an Instance</h3>
+<p>
+	To share a configured server with friends or migrate your server to another Windows machine:
+</p>
+<ol>
+	<li>Open the instance card in PocketMC and select <MenuPath steps={['Actions', 'Export Instance']} />.</li>
+	<li>Select an export destination on your disk.</li>
+	<li>PocketMC streams server components into an optimized archive while ensuring active lock files (such as <code class="mono">session.lock</code>) and platform binaries are safely excluded.</li>
+</ol>
+
+<p>The exported archive bundle preserves:</p>
+<ul>
+	<li><strong>Server Core &amp; Configs:</strong> Engine metadata, <code class="mono">server.properties</code>, <code class="mono">eula.txt</code>, and engine-specific configurations (<code class="mono">paper.yml</code>, <code class="mono">spigot.yml</code>, <code class="mono">bukkit.yml</code>).</li>
+	<li><strong>Player Security &amp; Permissions:</strong> <code class="mono">ops.json</code>, <code class="mono">whitelist.json</code> (or Bedrock <code class="mono">allowlist.json</code>), <code class="mono">banned-players.json</code>, <code class="mono">banned-ips.json</code>, and Bedrock ban sidecar storage.</li>
+	<li><strong>Addon Inventory:</strong> All plugins and mods with active states preserved (including <code class="mono">.disabled</code> toggles) and <code class="mono">addon_manifest.json</code> metadata.</li>
+	<li><strong>Complete World Dimensions:</strong> All dimension folders (<code class="mono">world</code>, <code class="mono">world_nether</code>, <code class="mono">world_the_end</code>, or Bedrock <code class="mono">worlds</code>).</li>
+</ul>
+
+<h3>Importing an Instance</h3>
+<p>
+	Restoring an exported server bundle or compatible archive is just as seamless:
+</p>
+<ol>
+	<li>Click <strong>Import Instance</strong> on the PocketMC home screen.</li>
+	<li>Select your exported <code class="mono">.zip</code> archive.</li>
+	<li>PocketMC validates archive headers, detects server engine metadata (<code class="mono">pocket-mc.json</code> or server properties), and verifies port availability.</li>
+	<li>The archive is unpacked through <code class="mono">SafeZipExtractor</code> with strict path sanitization to guard against Zip Slip attacks.</li>
+	<li>The imported instance is registered immediately in your instance list, ready to launch.</li>
+</ol>
 
 <h2 id="server-properties">Structured Configuration Editor</h2>
 <p>

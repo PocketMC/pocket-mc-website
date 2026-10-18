@@ -32,7 +32,7 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'management',
 				title: 'Instance & World Management',
-				summary: 'World importing (.zip/.mcworld), server.properties editor, player bans, and sleep inhibition.'
+				summary: 'World importing (.zip/.mcworld), instance export/import bundles, server.properties editor, and player bans.'
 			},
 			{
 				slug: 'backups',
@@ -42,7 +42,7 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'recovery',
 				title: 'Crash Recovery',
-				summary: 'Automated reboot scheduler, crash-loop backoff limits, and Windows sleep inhibition.'
+				summary: 'Automated reboot scheduler with in-game countdowns, crash-loop backoff limits, and Windows sleep inhibition.'
 			}
 		]
 	},
@@ -52,7 +52,7 @@ export const groups: { label: string; pages: DocPage[] }[] = [
 			{
 				slug: 'tunnels',
 				title: 'Network Tunnels',
-				summary: 'Zero-port-forward tunneling via integrated Playit.gg agent and Cloudflare Quick Tunnels.'
+				summary: 'Zero-port-forward tunneling via Playit.gg, Simple Voice Chat UDP mapping, and Cloudflare Quick Tunnels.'
 			},
 			{
 				slug: 'remote',
