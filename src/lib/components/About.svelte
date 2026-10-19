@@ -40,7 +40,7 @@
 				{ glyph: 'hard-drive', text: 'Kept inside PocketMC without touching system PATH.' },
 				{ glyph: 'folder-open', text: 'Separate working folders for each server.' },
 				{ mark: 'windows', text: 'Runs without requiring administrator rights.' },
-				{ icon: '/icons/pocketmine-mp.webp', text: 'Includes PHP 8.2 for PocketMine-MP.' }
+				{ glyph: 'server', text: 'Includes PHP 8.2 for PocketMine-MP.' }
 			]
 		},
 		{

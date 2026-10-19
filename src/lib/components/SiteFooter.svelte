@@ -18,7 +18,7 @@
 		<div class="cols">
 			<div class="about">
 				<a href="{home}#top" class="brand">
-					<Logo size={20} />
+					<Logo size={20} loading="lazy" />
 					<span>PocketMC</span>
 				</a>
 				<p>
@@ -111,11 +111,43 @@
 						<Glyph name="lock" size={13} />
 						<span>Privacy Policy</span>
 					</a>
+					<a href="/about#editorial-policy">
+						<Glyph name="shield" size={13} />
+						<span>Editorial Policy</span>
+					</a>
 					<a href="{repo}/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">
 						<Glyph name="scale" size={13} />
 						<span>License ({license ?? 'MIT'})</span>
 					</a>
 				</div>
+			</div>
+		</div>
+
+		<div class="share-bar">
+			<span class="share-label">Share PocketMC:</span>
+			<div class="share-links">
+				<a
+					href="https://twitter.com/intent/tweet?text=PocketMC%20-%20Best%20free%20local%20Minecraft%20server%20hosting%20software%20for%20Windows&url=https%3A%2F%2Fpocketmc.github.io%2F"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="share-btn"
+					aria-label="Share PocketMC on X / Twitter"
+				>
+					<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+						<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+					</svg>
+					<span>Post on X</span>
+				</a>
+				<a
+					href="https://www.reddit.com/submit?url=https%3A%2F%2Fpocketmc.github.io%2F&title=PocketMC%20-%20Free%20Local%20Minecraft%20Server%20Hosting%20for%20Windows"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="share-btn"
+					aria-label="Share PocketMC on Reddit"
+				>
+					<Mark name="reddit" size={12} />
+					<span>Share on Reddit</span>
+				</a>
 			</div>
 		</div>
 
@@ -213,6 +245,49 @@
 		font-weight: 600;
 		text-transform: uppercase;
 		color: var(--muted-fg);
+	}
+
+	.share-bar {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		margin-top: 36px;
+		padding-top: 20px;
+		border-top: 1px dashed var(--line);
+		flex-wrap: wrap;
+	}
+
+	.share-label {
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		color: var(--dim);
+		letter-spacing: 0.04em;
+	}
+
+	.share-links {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.share-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 5px 12px;
+		font-size: 12px;
+		color: var(--muted-fg);
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+		text-decoration: none;
+		transition: color 0.15s ease, border-color 0.15s ease;
+	}
+
+	.share-btn:hover {
+		color: var(--fg);
+		border-color: var(--border-hover);
 	}
 
 	.legal {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	const BARS = 64;
+	const BARS = 32;
 	const FLOOR = 0.06;
 	const IDLE = 0.55;
 
@@ -59,7 +59,7 @@
 	}
 
 	span {
-		width: 1px;
+		width: 2px;
 		min-height: 3px;
 		border-radius: 1px;
 		background: var(--muted-fg);
@@ -70,10 +70,6 @@
 	@media (max-width: 900px) {
 		.viz {
 			height: 64px;
-		}
-
-		span:nth-child(odd) {
-			display: none;
 		}
 	}
 </style>

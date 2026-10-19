@@ -59,7 +59,7 @@
 
 			<h2 id="ds-labs">Crafted by DS Labs</h2>
 			<p>
-				PocketMC is designed and maintained by <strong><a href={dslabs} target="_blank" rel="noopener noreferrer">DS Labs</a></strong>, creating privacy-focused desktop tools and local-first software. We believe your software should run directly on your hardware without subscriptions or vendor lock-in. Explore our work at <a href={dslabs} target="_blank" rel="noopener noreferrer">ds-labs.vercel.app</a>.
+				PocketMC is designed, engineered, and maintained by <strong><a href={dslabs} target="_blank" rel="noopener noreferrer">DS Labs</a></strong>, specializing in systems programming, C#/.NET Windows architecture, and local-first developer tooling. We believe software should run directly on your hardware without subscriptions, tracking, or vendor lock-in. Explore our work at <a href={dslabs} target="_blank" rel="noopener noreferrer">ds-labs.vercel.app</a>.
 			</p>
 
 			<h2 id="mission">Our Mission</h2>
@@ -86,6 +86,22 @@
 				<li>
 					<strong>Tunnel Integration:</strong> Built-in Playit.gg and Cloudflare tunnels let friends join
 					your server over the internet without opening router ports.
+				</li>
+			</ul>
+
+			<h2 id="editorial-policy">Editorial &amp; Verification Policy</h2>
+			<p>
+				We hold our technical documentation, troubleshooting guides, and competitor comparisons to strict engineering standards:
+			</p>
+			<ul>
+				<li>
+					<strong>Audited Code Evidence:</strong> Product capabilities and architectural claims are verified against official documentation, license agreements, and public source repositories as of October 2026.
+				</li>
+				<li>
+					<strong>Zero Sponsored Placement:</strong> All benchmarks and tool comparisons reflect empirical technical analysis without commercial influence, affiliate arrangements, or paid prioritization.
+				</li>
+				<li>
+					<strong>Reproducible Testing:</strong> Memory footprints, process sandboxing, and backup write-holds are tested on clean Windows 10 and 11 environments. Corrections and reproduction reports can be submitted through our public issue tracker.
 				</li>
 			</ul>
 

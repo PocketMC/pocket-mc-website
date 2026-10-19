@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { size = 22 }: { size?: number } = $props();
+	let { size = 22, loading = 'eager' }: { size?: number; loading?: 'eager' | 'lazy' } = $props();
 </script>
 
 <img
@@ -8,6 +8,8 @@
 	alt="PocketMC"
 	width={size}
 	height={size}
+	{loading}
+	decoding="async"
 	class="logo-img"
 	style="width: {size}px; height: {size}px;"
 />
