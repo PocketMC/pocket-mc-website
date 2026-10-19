@@ -131,7 +131,7 @@ export const tourTabs: TourTab[] = [
 			'Personalize your desktop experience. Upload custom wallpaper backgrounds, adjust blur intensity from 0 to 120 px, customize dimming opacity, and pick between Mica, Acrylic, and native window backdrops.',
 		bullets: [
 			'Custom background image uploads with desktop wallpaper restore presets',
-			'Wallpaper blur slider (0–120px) and dark dimming overlay control (0–100%)',
+			'Wallpaper blur slider (0-120px) and dark dimming overlay control (0-100%)',
 			'Dynamic accent color palettes with custom HEX picker',
 			'Hardware-accelerated window backdrops with ClearType text optimization'
 		]

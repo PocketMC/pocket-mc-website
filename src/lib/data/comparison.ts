@@ -79,7 +79,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'SquidServers',
-		icon: '/icons/competitors/squidservers.png',
+		icon: '/icons/competitors/squidservers.webp',
 		category: 'Desktop App',
 		coreStrength:
 			'User-friendly local hosting with official BDS, Geyser crossplay, Modrinth mod/plugin installer, Playit.gg tunnels, and metrics',
@@ -129,7 +129,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'auto-mcs',
-		icon: '/icons/competitors/auto-mcs.png',
+		icon: '/icons/competitors/auto-mcs.webp',
 		category: 'Desktop GUI (Python Tkinter)',
 		coreStrength:
 			'Python Tkinter GUI with playit.gg, Modrinth search, and custom scripting (amscript)',
@@ -171,7 +171,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'MCSManager',
-		icon: '/icons/competitors/mcsmanager.png',
+		icon: '/icons/competitors/mcsmanager.webp',
 		category: 'Web panel (Node.js)',
 		coreStrength:
 			'Distributed, multi-user web panel for Minecraft and Steam servers',
@@ -214,7 +214,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'Crafty Controller',
-		icon: '/icons/competitors/crafty.png',
+		icon: '/icons/competitors/crafty.webp',
 		category: 'Web panel (Python Tornado)',
 		coreStrength:
 			'Python web panel supporting multi-server scheduling and backups',
@@ -256,7 +256,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'Pterodactyl Panel',
-		icon: '/icons/competitors/pterodactyl.png',
+		icon: '/icons/competitors/pterodactyl.webp',
 		category: 'Web panel & Wings daemon (Linux VPS)',
 		coreStrength:
 			'Enterprise client-server web app (PHP/Laravel + Redis + Nginx) and Go daemon (Wings) over Docker for 24/7 Linux VPS and commercial hosting',
@@ -305,7 +305,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'Essential Mod',
-		icon: '/icons/competitors/essential.png',
+		icon: '/icons/competitors/essential.webp',
 		category: 'Client mod / P2P hosting',
 		coreStrength:
 			'Easy friend world hosting',
@@ -347,7 +347,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'Minehut',
-		icon: '/icons/competitors/minehut.png',
+		icon: '/icons/competitors/minehut.webp',
 		category: 'Managed cloud host',
 		coreStrength:
 			'Free-to-start hosted servers and community hosting',
@@ -389,7 +389,7 @@ export const toolComparisons: CompetitorComparison[] = [
 	},
 	{
 		tool: 'playit.gg',
-		icon: '/icons/competitors/playit.png',
+		icon: '/icons/competitors/playit.webp',
 		category: 'Tunnel service',
 		coreStrength:
 			'Excellent public tunnel service',

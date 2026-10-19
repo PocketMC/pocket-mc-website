@@ -14,7 +14,7 @@
 
 <section id="top" class="hero">
 	<div class="page">
-		<div class="hero-brand" data-enter>
+		<div class="hero-brand">
 			<img
 				src="/logo.webp"
 				srcset="/logo.webp 1x, /logo.webp 2x"

@@ -91,7 +91,7 @@
 				image: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				screenshot: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				license: 'https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE',
-				description: 'The premier free, open-source local Minecraft server hosting software and management suite for Windows PCs. Run Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP servers with zero port forwarding, automatic Adoptium Java runtimes, and cloud backups.',
+				description: 'Free, open-source local Minecraft server hosting software for Windows. Run Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP with zero port forwarding, automatic Java runtimes, and cloud backups.',
 				keywords: 'local minecraft server hosting, local minecraft server manager, self-hosted minecraft server, host minecraft server without port forwarding, free minecraft server software, adoptium java manager, playit minecraft, pocketmc',
 				author: {
 					'@type': 'Organization',

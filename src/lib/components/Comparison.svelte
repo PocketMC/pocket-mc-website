@@ -84,6 +84,12 @@
 				</table>
 			</div>
 		</div>
+
+		<div class="methodology-note">
+			<p>
+				<strong>Evaluation Methodology:</strong> Competitor architectures and capabilities were audited against official documentation, software license terms, and public source repositories as of October 2026. Runtime isolation, process sandboxing, and backup integrity were benchmarked on Windows 11. Click the info icon on any row to inspect cited documentation and code evidence.
+			</p>
+		</div>
 	</div>
 
 	<dialog
@@ -274,6 +280,22 @@
 <style>
 	.page {
 		padding-bottom: 72px;
+	}
+
+	.methodology-note {
+		margin-top: 16px;
+		padding: 12px 18px;
+		background: var(--secondary);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		font-size: 12.5px;
+		line-height: 1.6;
+		color: var(--muted-fg);
+	}
+
+	.methodology-note strong {
+		color: var(--fg);
+		font-weight: 600;
 	}
 
 	.table-wrap {

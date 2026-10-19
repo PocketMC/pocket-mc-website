@@ -10,24 +10,24 @@
 </script>
 
 <svelte:head>
-	<title>PocketMC · Best Local Minecraft Server Hosting Software for Windows</title>
+	<title>PocketMC · Best Local Minecraft Server Hosting for Windows</title>
 	<meta
 		name="description"
-		content="The premier free, open-source local Minecraft server hosting software for Windows. Run Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP servers with zero port forwarding, automatic Java management, and cloud backups."
+		content="Free, open-source local Minecraft server hosting software for Windows. Run Paper, Fabric, Forge, NeoForge, and Bedrock with zero port forwarding, automatic Java, and cloud backups."
 	/>
 	<meta
 		name="keywords"
 		content="local minecraft server hosting, best local minecraft server software, self host minecraft server windows, free minecraft server host on pc, host minecraft server without port forwarding, minecraft server manager windows, pocketmc"
 	/>
-	<meta property="og:title" content="PocketMC · Best Local Minecraft Server Hosting Software for Windows" />
+	<meta property="og:title" content="PocketMC · Best Local Minecraft Server Hosting for Windows" />
 	<meta
 		property="og:description"
-		content="Run Java, Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP servers locally on Windows. Includes Playit.gg tunnels, Adoptium Java, and cloud backups."
+		content="Run Java, Paper, Fabric, Forge, NeoForge, Bedrock, and PocketMine servers locally on Windows with zero port forwarding and cloud backups."
 	/>
-	<meta name="twitter:title" content="PocketMC · Best Local Minecraft Server Hosting Software for Windows" />
+	<meta name="twitter:title" content="PocketMC · Best Local Minecraft Server Hosting for Windows" />
 	<meta
 		name="twitter:description"
-		content="Run Java, Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP servers locally on Windows. Includes Playit.gg tunnels, Adoptium Java, and cloud backups."
+		content="Run Java, Paper, Fabric, Forge, NeoForge, Bedrock, and PocketMine servers locally on Windows with zero port forwarding and cloud backups."
 	/>
 </svelte:head>
 

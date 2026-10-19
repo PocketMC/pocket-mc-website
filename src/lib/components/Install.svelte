@@ -121,6 +121,33 @@
 				</article>
 			{/each}
 		</div>
+
+		<div class="quick-start" use:reveal>
+			<h3 class="quick-start-title">First-Run Quick Start</h3>
+			<div class="steps-row">
+				<div class="step-col">
+					<span class="step-num">1</span>
+					<div class="step-info">
+						<h4>Install &amp; Launch</h4>
+						<p>Run the Windows installer or <code>winget install PocketMC</code>. No admin rights or manual Java setup needed.</p>
+					</div>
+				</div>
+				<div class="step-col">
+					<span class="step-num">2</span>
+					<div class="step-info">
+						<h4>Select Server Engine</h4>
+						<p>Pick Paper, Fabric, Forge, Bedrock, or PocketMine. PocketMC auto-provisions the exact runtime required.</p>
+					</div>
+				</div>
+				<div class="step-col">
+					<span class="step-num">3</span>
+					<div class="step-info">
+						<h4>Share Public Address</h4>
+						<p>Copy your instant zero-config Playit.gg join address and share with friends over the internet.</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -310,6 +337,71 @@
 		color: var(--dim);
 	}
 
+	.quick-start {
+		margin-top: 28px;
+		padding: 24px 28px;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+	}
+
+	.quick-start-title {
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--dim);
+		margin-bottom: 16px;
+	}
+
+	.steps-row {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 20px;
+	}
+
+	.step-col {
+		display: flex;
+		gap: 12px;
+		align-items: flex-start;
+	}
+
+	.step-num {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: var(--secondary);
+		border: 1px solid var(--border);
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--fg);
+		flex-shrink: 0;
+	}
+
+	.step-info h4 {
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--fg);
+		margin-bottom: 4px;
+	}
+
+	.step-info p {
+		font-size: 12.5px;
+		line-height: 1.5;
+		color: var(--muted-fg);
+	}
+
+	.step-info code {
+		font-size: 11.5px;
+		padding: 2px 5px;
+		border-radius: 4px;
+		background: var(--secondary);
+		color: var(--fg);
+	}
+
 	@media (max-width: 900px) {
 		.page {
 			padding-bottom: 48px;
@@ -317,6 +409,11 @@
 
 		.grid {
 			grid-template-columns: 1fr;
+		}
+
+		.steps-row {
+			grid-template-columns: 1fr;
+			gap: 16px;
 		}
 	}
 </style>

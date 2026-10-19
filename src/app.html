@@ -4,10 +4,24 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="google-site-verification" content="xo-fJdA8-y3mHNGwgR5dmHEUCVLoCD04pnYCqhpPVao" />
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-7QWQVJQ1GL"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-7QWQVJQ1GL');
+		</script>
+		<script>
+			if (window.location.hostname === 'www.pocketmc.github.io') {
+				window.location.replace('https://pocketmc.github.io' + window.location.pathname + window.location.search + window.location.hash);
+			}
+		</script>
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="apple-touch-icon" href="/logo.webp" />
+		<link rel="preload" as="image" href="/logo.webp" type="image/webp" fetchpriority="high" />
 		<meta name="theme-color" content="#121212" />
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +34,15 @@
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			media="print"
+			onload="this.media='all'"
 		/>
+		<noscript>
+			<link
+				rel="stylesheet"
+				href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			/>
+		</noscript>
 		<script>!function(){var e=document.documentElement;e.classList.add("js");try{var t=localStorage.getItem("theme");"light"!==t&&"dark"!==t||(e.dataset.theme=t)}catch(e){}try{var a=performance.getEntriesByType("navigation")[0];location.hash&&(!a||"reload"===a.type)&&history.replaceState(history.state,"",location.pathname+location.search)}catch(e){}addEventListener("beforeunload",function(){return scrollTo(0,0)})}();</script>
 		%sveltekit.head%
 	</head>
