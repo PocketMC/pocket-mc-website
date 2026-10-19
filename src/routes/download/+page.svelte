@@ -127,8 +127,8 @@
 
 <style>
 	.dl-header {
-		padding-top: 48px;
-		padding-bottom: 0;
+		padding-top: clamp(40px, 6vh, 56px);
+		padding-bottom: clamp(40px, 6vh, 56px);
 	}
 
 	.head {
