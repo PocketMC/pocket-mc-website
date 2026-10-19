@@ -54,36 +54,34 @@
 
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		'@context': 'https://schema.org',
-		'@graph': [
+		'@type': 'BreadcrumbList',
+		itemListElement: [
 			{
-				'@type': 'BreadcrumbList',
-				itemListElement: [
-					{
-						'@type': 'ListItem',
-						position: 1,
-						name: 'Home',
-						item: 'https://pocketmc.github.io/'
-					},
-					{
-						'@type': 'ListItem',
-						position: 2,
-						name: 'FAQ',
-						item: 'https://pocketmc.github.io/faq/'
-					}
-				]
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: 'https://pocketmc.github.io/'
 			},
 			{
-				'@type': 'FAQPage',
-				mainEntity: faqItems.map((item) => ({
-					'@type': 'Question',
-					name: item.question,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: item.answer.join(' ')
-					}
-				}))
+				'@type': 'ListItem',
+				position: 2,
+				name: 'FAQ',
+				item: 'https://pocketmc.github.io/faq/'
 			}
 		]
+	})}</script>`}
+
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: faqItems.map((item) => ({
+			'@type': 'Question',
+			name: item.question,
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: item.answer.join(' ')
+			}
+		}))
 	})}</script>`}
 </svelte:head>
 

@@ -41,6 +41,12 @@
 				</article>
 			{/each}
 		</div>
+
+		<div class="runtime-note" use:reveal>
+			<p>
+				<strong>Isolated Server Sandboxing:</strong> PocketMC verifies upstream release APIs to provision official binaries on demand. Each instance maintains its own dedicated directory for mods, worlds, server properties, and runtime configurations without file collisions or port conflicts.
+			</p>
+		</div>
 	</div>
 </section>
 
@@ -123,6 +129,25 @@
 	.versions {
 		font-size: 11.5px;
 		color: var(--dim);
+	}
+
+	.runtime-note {
+		margin-top: 24px;
+		padding: 16px 20px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+	}
+
+	.runtime-note p {
+		margin: 0;
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--muted-fg);
+	}
+
+	.runtime-note strong {
+		color: var(--fg);
 	}
 
 	@media (max-width: 990px) {
