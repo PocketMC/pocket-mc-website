@@ -14,71 +14,77 @@
 <span class="kicker">Start here</span>
 <h1>Introduction</h1>
 <p class="summary">
-	PocketMC is a local-first Minecraft server manager engineered to eliminate terminal complexity,
-	safeguard data sovereignty, and automate runtime operations on your personal computer.
+	PocketMC is a local-first Minecraft server manager for Windows. It runs directly on your machine,
+	isolates server runtimes into dedicated folders, and automates Java provisioning, networking tunnels,
+	backups, and remote management.
 </p>
 
-<h2 id="core-principles">Core Principles</h2>
+<h2 id="core-principles">Design Principles</h2>
 <p>
-	Traditional Minecraft hosting forces a false dilemma: either pay recurring monthly fees to
-	underpowered shared hosting services, or spend hours manually installing JDKs, configuring router
-	port forwarding, and wrangling fragile batch scripts.
-</p>
-<p>
-	PocketMC was created to bridge this gap: it turns your existing personal computer
-	into an automated, production-grade Minecraft server hub.
+	Running a Minecraft server at home usually involves manual Java installations, router port forwarding,
+	fragile startup scripts, and keeping track of mod dependencies by hand. PocketMC handles these operations
+	locally while giving you direct access to server files on your drive.
 </p>
 
 <ul>
 	<li>
-		<strong>100% Data Sovereignty:</strong> All server instances, worlds, plugins, player data, and configurations
-		remain exclusively on your local disk. PocketMC never locks your files inside proprietary cloud silos.
+		Local storage: All server files, worlds, plugins, player records, and settings remain on your
+		local drive in standard Minecraft formats. You can move, edit, or back up folders directly in File Explorer.
 	</li>
 	<li>
-		<strong>User-Space Isolation:</strong> Operates entirely in your local user directory. All runtimes and server instances are isolated without altering global system PATH variables.
+		Isolated runtimes: Eclipse Adoptium JRE builds and PHP binaries are downloaded into dedicated runtime
+		subdirectories. PocketMC launches each server with its required runtime without altering your system PATH or Windows registry.
 	</li>
 	<li>
-		<strong>Automated Runtimes:</strong> Downloads and manages Eclipse Adoptium JRE binaries (Java 8, 11,
-		17, 21, and 25) locally, assigning the exact version needed for each server build.
+		Outbound tunneling: An integrated Playit.gg daemon and Cloudflare Quick Tunnel provider route traffic over
+		secure outbound tunnels. Friends can connect over the internet without modifying router firewall settings.
 	</li>
 	<li>
-		<strong>Zero Router Setup:</strong> Features native Playit.gg network tunneling and Cloudflare Quick
-		Tunnels, routing connections over public endpoints without router port forwarding.
+		Process supervision: Servers run inside Win32 Job Objects. When PocketMC closes, child processes terminate
+		predictably without leaving orphaned Java instances running in the background.
 	</li>
 </ul>
 
-<h2 id="architecture-overview">Architecture Overview</h2>
+<h2 id="architecture-overview">Directory Layout</h2>
 <p>
-	The application is architected around isolated instance worktrees and a resilient background daemon.
-	On Windows, it runs natively with WPF, hardware-accelerated Mica/Acrylic materials, and 120Hz+ display
-	synchronization.
+	PocketMC organizes instances, runtimes, and tunnels inside a central root folder (by default,
+	<code class="mono">%USERPROFILE%\Documents\PocketMC</code>, or any folder you choose during initial setup):
 </p>
 
 <Code
-	label="Directory Layout"
+	label="Filesystem Layout"
 	text={`PocketMC/
+├── instances/
+│   └── survival-paper/
+│       ├── .pocket-mc.json          # Instance metadata and runtime configuration
+│       ├── server.properties        # Standard Minecraft server configuration
+│       ├── server.jar               # Versioned engine binary (Paper, Fabric, etc.)
+│       ├── plugins/                 # Addons, mods, or datapacks
+│       ├── world/                   # Dimension save folders
+│       └── backups/
+│           ├── .pocket-mc-backups.json  # Checksum manifest and trigger history
+│           └── world-2026-03-15.zip # Local world archives
 ├── runtimes/
-│   ├── java-8/
-│   ├── java-17/
-│   ├── java-21/
-│   └── java-25/
-├── servers/
-│   ├── survival-paper/
-│   │   ├── server.properties
-│   │   ├── server.jar
-│   │   └── plugins/
-│   └── fabric-creative/
-└── backups/`}
+│   ├── java-8/                      # Adoptium JRE binaries for classic builds
+│   ├── java-17/                     # Adoptium JRE for 1.18 - 1.20.4
+│   └── java-21/                     # Adoptium JRE for modern 1.20.5+
+├── runtime/
+│   └── php8.2/                      # App-local PHP runtime for PocketMine-MP
+├── tunnel/
+│   ├── playit.exe                   # Verified tunnel agent binary
+│   └── playit.toml                  # Active session credentials
+├── settings.json                    # DPAPI-encrypted user settings
+└── logs/                            # Application diagnostic logs`}
 />
 
 <h2 id="quick-start">Quick Start</h2>
 <p>
-	Getting your first server running takes less than two minutes:
+	Setting up your first server takes a few steps:
 </p>
 <ol>
-	<li>Download and run <strong class="mono">PocketMC-Setup.exe</strong> from the home page.</li>
-	<li>Click <MenuPath steps={['Create Server', 'Select Engine']} /> and choose Vanilla, Paper, or Fabric.</li>
-	<li>Pick your preferred Minecraft version. PocketMC automatically provisions the required Java runtime.</li>
-	<li>Click <strong>Start Server</strong>. Your live console will initialize immediately.</li>
-	<li>Copy your tunnel join address from the dashboard to share with friends.</li>
+	<li>Run <strong class="mono">PocketMC-Setup.exe</strong> and complete initial folder selection.</li>
+	<li>Click <MenuPath steps={['Create Server', 'Select Engine']} /> and choose your preferred engine (Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock BDS, or PocketMine-MP).</li>
+	<li>Pick a Minecraft version. PocketMC checks whether the required Java or PHP runtime is present and downloads it automatically if needed.</li>
+	<li>Click <strong>Start Server</strong>. The terminal will initialize and stream startup output in real time.</li>
+	<li>Copy your tunnel join address from the server dashboard to share with friends.</li>
 </ol>

@@ -14,90 +14,68 @@
 <span class="kicker">Server Management</span>
 <h1>Instance &amp; World Management</h1>
 <p class="summary">
-	PocketMC automates server lifecycle operations, handles resilient world imports, provides structured
-	property editing, and guards system resources while servers are active.
+	PocketMC manages server configuration, world imports, full-instance export archives, player moderation,
+	and Windows background execution guards.
 </p>
 
-<h2 id="world-importing">Intelligent World Archive Importing</h2>
+<h2 id="world-importing">World Archive Importing</h2>
 <p>
-	Minecraft world archives downloaded from forums, backups, or community sites are packaged in wildly different ways.
-	Some place world files directly at the ZIP root, while others bury them inside multiple nested folders.
+	Community world downloads and backups are packaged in many folder layouts. PocketMC's <code class="mono">WorldManager</code>
+	locates and extracts world saves safely:
 </p>
-<p>
-	PocketMC's <code class="mono">WorldManager</code> handles world ingestion intelligently:
-</p>
-
 <ul>
-	<li><strong>Supported Formats:</strong> Ingests standard <code class="mono">.zip</code> archives and Bedrock <code class="mono">.mcworld</code> export packages.</li>
-	<li><strong>Recursive Root Detection:</strong> Searches archive contents recursively for <code class="mono">level.dat</code> to locate the true world root directory, regardless of nested packaging.</li>
-	<li><strong>Engine-Specific Resolution:</strong> Automatically places world files in the correct location for each engine (<code class="mono">serverDir/world</code> for Java Edition, or <code class="mono">serverDir/worlds/{'{'}LevelName{'}'}</code> for Bedrock Dedicated Server).</li>
-	<li><strong>Path Traversal Protection:</strong> Uses <code class="mono">SafeZipExtractor</code> to validate every relative entry path, preventing Zip Slip extraction exploits.</li>
+	<li>Archive formats: Accepts standard <code class="mono">.zip</code> archives and Bedrock <code class="mono">.mcworld</code> export packages.</li>
+	<li>Root detection: Recursively scans the archive for <code class="mono">level.dat</code> to locate the world root, even if the files are buried several folders deep.</li>
+	<li>Placement: Places world files in <code class="mono">world/</code> for Java Edition servers, or under <code class="mono">worlds/{'{'}level-name{'}'}</code> for Bedrock Dedicated Server.</li>
+	<li>Path safety: Uses <code class="mono">SafeZipExtractor</code> to verify that extracted paths remain inside the target instance directory, blocking directory traversal (Zip Slip) attacks.</li>
 </ul>
 
-<h2 id="instance-portability">Full Instance Portability (Export &amp; Import)</h2>
+<h2 id="instance-portability">Instance Export and Import</h2>
 <p>
-	Beyond importing isolated world folders, PocketMC includes an end-to-end instance portability engine
-	(<code class="mono">InstanceExportService</code> and <code class="mono">InstanceImportService</code>)
-	that packages or restores entire server environments into clean, self-contained archive bundles.
+	PocketMC includes an export and import system to transfer configured servers between Windows PCs or create standalone backups.
 </p>
 
 <h3>Exporting an Instance</h3>
 <p>
-	To share a configured server with friends or migrate your server to another Windows machine:
+	Under <MenuPath steps={['Instance Card', 'Actions', 'Export Instance']} />, PocketMC packages your server into a single archive:
 </p>
-<ol>
-	<li>Open the instance card in PocketMC and select <MenuPath steps={['Actions', 'Export Instance']} />.</li>
-	<li>Select an export destination on your disk.</li>
-	<li>PocketMC streams server components into an optimized archive while ensuring active lock files (such as <code class="mono">session.lock</code>) and platform binaries are safely excluded.</li>
-</ol>
-
-<p>The exported archive bundle preserves:</p>
 <ul>
-	<li><strong>Server Core &amp; Configs:</strong> Engine metadata, <code class="mono">server.properties</code>, <code class="mono">eula.txt</code>, and engine-specific configurations (<code class="mono">paper.yml</code>, <code class="mono">spigot.yml</code>, <code class="mono">bukkit.yml</code>).</li>
-	<li><strong>Player Security &amp; Permissions:</strong> <code class="mono">ops.json</code>, <code class="mono">whitelist.json</code> (or Bedrock <code class="mono">allowlist.json</code>), <code class="mono">banned-players.json</code>, <code class="mono">banned-ips.json</code>, and Bedrock ban sidecar storage.</li>
-	<li><strong>Addon Inventory:</strong> All plugins and mods with active states preserved (including <code class="mono">.disabled</code> toggles) and <code class="mono">addon_manifest.json</code> metadata.</li>
-	<li><strong>Complete World Dimensions:</strong> All dimension folders (<code class="mono">world</code>, <code class="mono">world_nether</code>, <code class="mono">world_the_end</code>, or Bedrock <code class="mono">worlds</code>).</li>
+	<li>Server configuration: Engine settings, <code class="mono">server.properties</code>, <code class="mono">eula.txt</code>, and loader files (<code class="mono">paper.yml</code>, <code class="mono">spigot.yml</code>).</li>
+	<li>Player data: Permissions (<code class="mono">ops.json</code>), allowlists (<code class="mono">whitelist.json</code>), ban records, and Bedrock sidecar files.</li>
+	<li>Addon files: Installed plugins and mods, their active states (including <code class="mono">.disabled</code> markers), and <code class="mono">pocket-mc-addons.json</code> metadata.</li>
+	<li>World saves: Overworld, Nether, and End dimensions. Transient lock files like <code class="mono">session.lock</code> are skipped automatically.</li>
 </ul>
 
 <h3>Importing an Instance</h3>
 <p>
-	Restoring an exported server bundle or compatible archive is just as seamless:
+	Click <strong>Import Instance</strong> on the home screen and select a compatible <code class="mono">.zip</code> bundle.
+	PocketMC checks the archive manifest, confirms port availability, unpacks the files safely, and registers the server in your active instance list.
 </p>
-<ol>
-	<li>Click <strong>Import Instance</strong> on the PocketMC home screen.</li>
-	<li>Select your exported <code class="mono">.zip</code> archive.</li>
-	<li>PocketMC validates archive headers, detects server engine metadata (<code class="mono">pocket-mc.json</code> or server properties), and verifies port availability.</li>
-	<li>The archive is unpacked through <code class="mono">SafeZipExtractor</code> with strict path sanitization to guard against Zip Slip attacks.</li>
-	<li>The imported instance is registered immediately in your instance list, ready to launch.</li>
-</ol>
 
-<h2 id="server-properties">Structured Configuration Editor</h2>
+<h2 id="server-properties">Configuration Editor</h2>
 <p>
-	Instead of manually editing plaintext configuration files with a text editor and risking syntax errors,
-	PocketMC provides a structured GUI editor for <code class="mono">server.properties</code>:
+	PocketMC provides a structured interface for <code class="mono">server.properties</code>:
 </p>
-
 <ul>
-	<li>Easily configure MOTD (Message of the Day), game mode, difficulty, max player count, and world seed.</li>
-	<li>Toggle gameplay flags including PvP, flight allowance, command blocks, Nether access, and whitelist enforcement.</li>
-	<li>Adjust simulation and view distances with visual sliders.</li>
-	<li>The parser preserves unknown keys and comments, ensuring compatibility with custom engine builds.</li>
+	<li>Common settings: MOTD, game mode, difficulty, max player count, and world seed.</li>
+	<li>Gameplay rules: PvP, flight allowance, command blocks, Nether access, and whitelist enforcement.</li>
+	<li>Render settings: View distance and simulation distance sliders.</li>
+	<li>Preserves custom fields: Comments and unrecognized engine-specific configuration flags remain intact when saving.</li>
 </ul>
 
 <h2 id="player-moderation">Player Moderation &amp; Bedrock Ban Sidecar</h2>
 <p>
-	PocketMC includes a built-in player manager for active server instances:
+	The server dashboard includes tools to manage connected players:
 </p>
-
 <ul>
-	<li><strong>Live Player Tracking:</strong> Monitors connected player names, operator status, and real-time player counts.</li>
-	<li><strong>Moderation Actions:</strong> Execute Op, De-op, Kick, Ban, Pardon, and Whitelist commands directly from the UI without memorizing console syntax.</li>
-	<li><strong>Bedrock Ban Sidecar:</strong> Official Bedrock Dedicated Server (BDS) lacks native persistent ban file support (like Java's <code class="mono">banned-players.json</code>). PocketMC solves this by maintaining a local sidecar file (<code class="mono">pocketmc-bans.json</code>) that tracks banned player names, reasons, and timestamps to enforce moderation across restarts.</li>
+	<li>Player tracking: Displays real-time online players, operator privileges, and ping latency.</li>
+	<li>Moderation: Execute Kick, Ban, Pardon, Op, and De-op actions directly from the user interface.</li>
+	<li>Bedrock ban sidecar: Vanilla Bedrock Dedicated Server does not include a persistent ban file format. PocketMC maintains <code class="mono">pocketmc-bans.json</code> in the instance folder, recording banned player names, XUIDs, reasons, and timestamps to enforce moderation across server reboots.</li>
 </ul>
 
-<h2 id="power-and-safety">Preflight Guards &amp; Windows Power Management</h2>
+<h2 id="power-and-safety">Preflight Guards &amp; Process Supervision</h2>
 <p>
-	PocketMC enforces safety checks before and during server execution:
+	PocketMC performs system checks before launching servers and monitors background execution:
 </p>
 
 <table>
@@ -109,20 +87,20 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><strong>Windows Sleep Inhibitor</strong></td>
-			<td>Invokes <code class="mono">SetThreadExecutionState</code> (<code class="mono">ES_SYSTEM_REQUIRED | ES_CONTINUOUS</code>) via Windows kernel32 while any server is running. This keeps your server online when your PC is idle, automatically restoring normal power-saving behavior once all instances stop.</td>
+			<td>Windows Sleep Inhibitor</td>
+			<td>Calls <code class="mono">SetThreadExecutionState(ES_SYSTEM_REQUIRED | ES_CONTINUOUS)</code> in <code class="mono">kernel32.dll</code> while any server runs. This prevents Windows from entering sleep mode while idle, restoring your normal sleep schedule when all instances stop.</td>
 		</tr>
 		<tr>
-			<td><strong>Port Collision Detection</strong></td>
-			<td>Probes target listening ports (<code class="mono">25565</code> TCP, <code class="mono">19132</code> UDP, Voice Chat <code class="mono">24454</code> UDP) prior to server launch, warning you immediately if another instance or background application already owns the socket.</td>
+			<td>Process Tree Management</td>
+			<td>Assigns server processes to a Win32 Job Object configured with <code class="mono">JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</code>. If PocketMC exits or closes unexpectedly, child Java and Bedrock processes terminate immediately without leaving background JVMs.</td>
 		</tr>
 		<tr>
-			<td><strong>Disk Space Guard</strong></td>
-			<td>Checks available disk storage on the target partition, alerting you if free disk headroom drops below 2 GB to prevent world write truncation.</td>
+			<td>Socket Collision Probe</td>
+			<td>Probes game and voice ports (<code class="mono">25565</code> TCP, <code class="mono">19132</code> UDP, Voice Chat <code class="mono">24454</code> UDP) with exclusive address binding before starting the server, alerting you if another program already owns the port.</td>
 		</tr>
 		<tr>
-			<td><strong>RAM Allocation Guard</strong></td>
-			<td>Evaluates your physical RAM before applying Java heap parameters (<code class="mono">-Xmx</code>), preventing allocations that exceed 80% of total system memory.</td>
+			<td>Disk Storage Guard</td>
+			<td>Monitors free storage on your installation drive, warning if available disk headroom drops below 2 GB to prevent world corruption from incomplete writes.</td>
 		</tr>
 	</tbody>
 </table>

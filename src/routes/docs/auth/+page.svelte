@@ -7,44 +7,45 @@
 	<title>Authentication & Security · PocketMC Docs</title>
 	<meta
 		name="description"
-		content="Cookie session authentication, DPAPI encryption, UWP loopback isolation, and rate limiting."
+		content="DPAPI v2 entropy credential encryption, ZeroMemory scrubbing, cookie session security, rate limiting, and UWP loopback isolation."
 	/>
 </svelte:head>
 
 <span class="kicker">Developer & Security</span>
-<h1>Authentication &amp; Security</h1>
+<h1>Authentication and Security</h1>
 <p class="summary">
-	PocketMC implements a robust security model designed to safeguard user credentials, isolate instance
-	sandboxes, prevent brute-force attacks, and protect local system resources.
+	PocketMC secures server credentials, remote administrative access, and operating system resources through native Windows APIs, cryptographic memory scrubbing, and isolated process boundaries.
 </p>
 
 <h2 id="dpapi-encryption">DPAPI Credential Encryption</h2>
 <p>
-	Sensitive secrets (including third-party cloud OAuth tokens for Google Drive, Dropbox, OneDrive, and
-	Remote Control user password hashes) are never stored in plaintext on disk.
+	Sensitive credentials are never written to disk in plaintext. This includes cloud backup OAuth refresh tokens (Google Drive, Dropbox, OneDrive), Playit.gg agent secrets, CurseForge API keys, LLM provider tokens, and Remote Control user password hashes.
 </p>
 <p>
-	On Windows, PocketMC encrypts all secrets using the native <strong>Windows Data Protection API (DPAPI)</strong>
-	(<code class="mono">ProtectedData.Protect</code>) with <code class="mono">DataProtectionScope.CurrentUser</code>.
-	Encryption keys are managed directly by the Windows kernel and cryptographically bound to your specific
-	Windows User Account Security Identifier (SID). If another user or process copies your <code class="mono">settings.json</code>
-	file to another machine or account, the secrets cannot be decrypted.
-</p>
-
-<h2 id="session-authentication">Cookie-Based Session Auth</h2>
-<p>
-	The embedded Remote Control server uses ASP.NET Core cookie authentication (<code class="mono">RemoteCookies</code>).
+	On Windows, PocketMC encrypts every secret using the native Windows Data Protection API (<code class="mono">ProtectedData.Protect</code>) scoped to <code class="mono">DataProtectionScope.CurrentUser</code>. PocketMC applies a v2 protection scheme:
 </p>
 
 <ul>
-	<li><strong>Password Hashing:</strong> User passwords are salted and hashed using cryptographic PBKDF2/SHA-256 before storage.</li>
-	<li><strong>Security Stamps:</strong> Every user profile includes an internal security stamp. If a user password is changed or an account is modified, the security stamp rotates, immediately invalidating all active remote sessions.</li>
-	<li><strong>24-Hour Expiration:</strong> Session cookies carry a strict 24-hour expiration policy and are flagged with <code class="mono">HttpOnly</code> and <code class="mono">SameSite=Lax</code> to prevent cross-site scripting (XSS) extraction.</li>
+	<li><strong>SID-Bound Entropy:</strong> The encryption operation incorporates optional entropy derived from the SHA-256 hash of your Windows user Security Identifier (SID) combined with an internal application salt string. Even if another user account on the same machine reads the configuration file, Windows DPAPI rejects decryption.</li>
+	<li><strong>Format Prefix:</strong> Encrypted payloads are formatted as <code class="mono">dpapi:v2:&lt;base64&gt;</code>, allowing seamless version migration if encryption parameters change.</li>
+	<li><strong>Memory Scrubbing:</strong> Immediately after encryption or decryption completes, PocketMC calls <code class="mono">CryptographicOperations.ZeroMemory</code> on all plaintext byte buffers and intermediate arrays. This ensures raw credentials do not linger in managed garbage collection heaps or memory dump files.</li>
 </ul>
 
-<h2 id="granular-permissions">Multi-User Permission Scopes</h2>
+<h2 id="session-authentication">Session Authentication and Invalidation</h2>
 <p>
-	When inviting friends or co-admins to help manage your servers via the web dashboard, you can define individual user accounts with specific granular permissions:
+	The embedded Kestrel web server authenticates administrators using ASP.NET Core cookie authentication:
+</p>
+
+<ul>
+	<li><strong>Cookie Name:</strong> <code class="mono">PocketMCRemoteAuth</code>.</li>
+	<li><strong>Security Flags:</strong> Configured with <code class="mono">HttpOnly</code>, <code class="mono">SameSite=Strict</code>, and a 24-hour expiration lifespan.</li>
+	<li><strong>Password Storage:</strong> User passwords are encrypted using PBKDF2 with SHA-256 and individual per-user salts.</li>
+	<li><strong>Security Stamp Invalidation:</strong> Each user profile holds a GUID security stamp. Whenever you change a password or modify permission flags, PocketMC rotates this stamp. Every incoming request validates the cookie claims against the live security stamp in memory; if they do not match, the session is rejected immediately.</li>
+</ul>
+
+<h2 id="granular-permissions">User Permission Flags</h2>
+<p>
+	Sub-user accounts can be granted selective capabilities to manage servers without granting full administrative ownership:
 </p>
 
 <table>
@@ -57,57 +58,54 @@
 	<tbody>
 		<tr>
 			<td><code class="mono">AllowRemoteConsoleCommands</code></td>
-			<td>Allows sending terminal commands and streaming live console output via WebSockets.</td>
+			<td>Stream real-time terminal output and submit commands to the server STDIN.</td>
 		</tr>
 		<tr>
 			<td><code class="mono">AllowRemotePlayerActions</code></td>
-			<td>Allows executing Kick, Ban, Pardon, Op, and De-op player actions.</td>
+			<td>Execute Kick, Ban, Pardon, Op, and De-op operations on players.</td>
 		</tr>
 		<tr>
 			<td><code class="mono">AllowRemoteServerSettings</code></td>
-			<td>Allows viewing and modifying <code class="mono">server.properties</code>.</td>
+			<td>View and update values in <code class="mono">server.properties</code>.</td>
 		</tr>
 		<tr>
 			<td><code class="mono">AllowRemoteServerAddons</code></td>
-			<td>Allows viewing installed plugins/mods and toggling them enabled or disabled.</td>
+			<td>Inspect installed plugins and mods, toggle their state, or uninstall them.</td>
 		</tr>
 		<tr>
 			<td><code class="mono">AllowRemoteFileManager</code></td>
-			<td>Allows browsing directories, editing configs (&lt; 1 MB), and uploading files.</td>
+			<td>Browse directories, read text files under 1 MB, upload files up to 100 MB, and delete files.</td>
 		</tr>
 		<tr>
 			<td><code class="mono">AllowRemoteServerBackups</code></td>
-			<td>Allows viewing backup history and triggering manual world backups.</td>
+			<td>Inspect backup history and trigger manual RCON-safe backups.</td>
 		</tr>
 		<tr>
 			<td><code class="mono">AllowedInstanceIds</code></td>
-			<td>Restricts the user's visibility and controls strictly to designated server instances.</td>
+			<td>Restricts account visibility strictly to the listed server GUIDs.</td>
 		</tr>
 	</tbody>
 </table>
 
 <h2 id="rate-limiting">Brute-Force Rate Limiting</h2>
 <p>
-	The Remote Control daemon enforces proactive rate limiting (<code class="mono">RemoteRequestLimiter</code>)
-	using an in-memory token bucket algorithm:
+	The Remote Control host protects endpoints using an in-memory token bucket rate limiter:
 </p>
 
 <ul>
-	<li><strong>Login Protection:</strong> Authentication attempts to <code class="mono">/api/login</code> are capped at 5 attempts per minute per client IP. Excess attempts receive an immediate <code class="mono">429 Too Many Requests</code> response.</li>
-	<li><strong>Console Command Flooding:</strong> Command submissions to running server instances are limited to 30 requests per minute to prevent accidental or malicious terminal flooding.</li>
+	<li><strong>Login Protection:</strong> Authentication requests to <code class="mono">/api/login</code> are capped at 5 failed attempts per minute per IP address. Additional attempts are blocked with HTTP 429 until the cooldown expires.</li>
+	<li><strong>Terminal Flooding:</strong> Console commands submitted through the REST API or WebSocket are limited to 30 requests per minute per instance.</li>
 </ul>
 
-<h2 id="loopback-isolation">Windows UWP Loopback Isolation</h2>
+<h2 id="loopback-isolation">Windows UWP Loopback Exemption</h2>
 <p>
-	By default, Windows AppContainer security blocks Minecraft Bedrock Edition (which runs as a Universal Windows Platform app)
-	from connecting to loopback network addresses (<code class="mono">127.0.0.1</code> or <code class="mono">localhost</code>) on the same machine.
+	Minecraft Bedrock Edition on Windows runs inside a Universal Windows Platform (UWP) AppContainer sandbox. By default, Windows network isolation prohibits UWP applications from sending network traffic to loopback addresses (<code class="mono">127.0.0.1</code> or <code class="mono">localhost</code>).
 </p>
 <p>
-	To allow Bedrock players on Windows to join their own local BDS or PocketMine servers without friction, PocketMC automatically
-	executes the official Windows network isolation exemption:
+	When hosting a Bedrock server locally, this policy prevents the host player from joining their own game. PocketMC registers the official network isolation exemption using the Windows native utility:
 </p>
 
 <Code
-	label="PowerShell (Executed Automatically by PocketMC)"
+	label="Loopback Exemption Command"
 	text={`CheckNetIsolation.exe LoopbackExempt -a -p="Microsoft.MinecraftUWP_8wekyb3d8bbwe"`}
 />

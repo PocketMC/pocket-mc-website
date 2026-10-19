@@ -11,30 +11,38 @@
 	/>
 </svelte:head>
 
-<span class="kicker">Operations & Safety</span>
+<span class="kicker">Operations &amp; Safety</span>
 <h1>Crash Recovery</h1>
 <p class="summary">
-	Automate server reboot schedules, protect against continuous crash-loops, and keep servers online
-	when your desktop computer idles.
+	PocketMC supervises running server processes, protects against crash loops, automates maintenance reboots
+	with in-game warnings, and prevents Windows from entering sleep mode while servers are active.
 </p>
 
-<h2 id="crash-loop-protection">Crash-Loop Protection &amp; Backoff</h2>
+<h2 id="crash-loop-protection">Crash Loop Protection</h2>
 <p>
-	If a mod throws an uncaught exception or an out-of-memory error causes a server instance to crash,
-	PocketMC catches the exit signal and analyzes the crash output.
+	When a server terminates unexpectedly due to an unhandled exception or memory error, PocketMC captures the exit code and crash report:
 </p>
-<p>
-	To prevent burning CPU cycles in an infinite crash loop, PocketMC enforces a strict <strong>3-attempt crash limit</strong>
-	with exponential backoff delays (10s, 30s, 60s). If the server fails to stay healthy across 3 boots, the instance is
-	halted and an alert is flagged on your dashboard.
-</p>
+<ul>
+	<li>Exponential backoff: PocketMC attempts up to 3 automated restarts with progressive delays (10s, 30s, 60s).</li>
+	<li>Failure halt: If the server fails to complete its boot sequence within 3 consecutive attempts, PocketMC suspends further restarts, flags the instance in an error state, and logs the stack trace.</li>
+	<li>Health reset: Once a server stays online and operational past the initial startup window, the failure counter resets to zero.</li>
+</ul>
 
-<h2 id="maintenance-scheduler">Automated Reboot Scheduler &amp; In-Game Countdown</h2>
+<h2 id="job-objects">Child Process Supervision (Job Objects)</h2>
 <p>
-	Long-running Minecraft servers accumulate fragmented Java heap allocations, uncollected entity references,
-	and memory leaks from complex plugins over days of continuous operation. PocketMC features an intelligent background
-	reboot scheduler (<code class="mono">ServerRebootSchedulerService</code>) that automates periodic maintenance
-	while keeping online players informed.
+	Traditional batch scripts can leave orphaned Java processes running in the background when the terminal window closes.
+	PocketMC binds each launched server process to a Windows Job Object:
+</p>
+<ul>
+	<li>Kernel-level tracking: Uses <code class="mono">CreateJobObject</code> and <code class="mono">AssignProcessToJobObject</code> from Windows <code class="mono">kernel32.dll</code>.</li>
+	<li>Kill on close: Configured with <code class="mono">JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</code> (0x2000). If PocketMC is closed, terminates, or crashes, the Windows kernel terminates all child Java, Bedrock, and tunnel processes automatically.</li>
+	<li>Port release: Prevents orphaned JVMs from holding port leases or locking save files.</li>
+</ul>
+
+<h2 id="maintenance-scheduler">Scheduled Reboots &amp; In-Game Broadcasts</h2>
+<p>
+	Long-running Minecraft servers can experience memory fragmentation over days of continuous operation.
+	PocketMC's <code class="mono">ServerRebootSchedulerService</code> manages scheduled restarts:
 </p>
 
 <h3>Reboot Modes</h3>
@@ -42,35 +50,28 @@
 	Configure reboot behavior per instance under <MenuPath steps={['Instance Settings', 'Maintenance & Recovery']} />:
 </p>
 <ul>
-	<li><strong>Daily Maintenance Window:</strong> Reboots your server at a fixed local time each day (e.g. <code class="mono">04:00 AM</code>). PocketMC verifies local day boundaries to prevent duplicate restarts within the same window.</li>
-	<li><strong>Interval Recurrence:</strong> Reboots the server after a fixed number of operational uptime hours (e.g. every <code class="mono">12</code> or <code class="mono">24</code> hours) measured from the last reboot or initial session launch.</li>
-	<li><strong>Minimum Uptime Safeguard:</strong> The scheduler automatically suppresses reboot triggers if the server was booted less than 1 minute ago, preventing unintended reboot cascades during startup.</li>
+	<li>Daily window: Restarts your server at a fixed local time each day (for example, <code class="mono">04:00 AM</code>). PocketMC tracks day boundaries to prevent duplicate restarts within the same window.</li>
+	<li>Uptime interval: Restarts the server after a set number of operational hours (such as every 12 or 24 hours).</li>
+	<li>Startup safeguard: The scheduler ignores restart triggers if the server was booted less than 60 seconds ago, preventing restart loops during boot.</li>
 </ul>
 
-<h3>Staged In-Game Broadcast Warnings</h3>
+<h3>In-Game Countdown Alerts</h3>
 <p>
-	Sudden server restarts disrupt active player gameplay and risk lost progress. When warnings are enabled:
+	When countdown warnings are enabled:
 </p>
 <ol>
-	<li>PocketMC initiates a countdown based on your configured warning duration (default: <code class="mono">60</code> seconds).</li>
-	<li>Broadcasts countdown alerts directly into the in-game chat using <code class="mono">say</code> at staged intervals (<code class="mono">60s</code>, <code class="mono">30s</code>, <code class="mono">15s</code>, <code class="mono">10s</code>, <code class="mono">5s</code> down to <code class="mono">1s</code>).</li>
-	<li>Emits corresponding timestamps to the PocketMC console and logs.</li>
-	<li>Dispatches a final broadcast (<code class="mono">"Server is rebooting now..."</code>) immediately prior to initiating engine shutdown.</li>
+	<li>PocketMC initiates a countdown before restarting (default: 60 seconds).</li>
+	<li>Sends countdown alerts to in-game chat using <code class="mono">say</code> at staged intervals (60s, 30s, 15s, 10s, 5s down to 1s).</li>
+	<li>Broadcasts a final message (<code class="mono">Server is rebooting now...</code>) immediately before issuing the shutdown command.</li>
+	<li>If an administrator manually stops the instance during a countdown, the scheduled task cancels immediately.</li>
 </ol>
-
-<h3>Safe Termination &amp; Cancellation</h3>
-<ul>
-	<li><strong>In-Flight Cancellation:</strong> If a server administrator manually stops, restarts, or kills the instance while a reboot countdown is ticking, the scheduled task is aborted immediately with zero orphaned timers.</li>
-	<li><strong>Crash-Loop Intercept:</strong> If the server crashes during or immediately following a reboot, PocketMC's crash-loop protection engages, suspending the maintenance schedule until the root cause is resolved.</li>
-	<li><strong>Desktop Notification:</strong> On completion, PocketMC displays a native Windows desktop toast notification confirming that the server was cleanly rebooted per schedule.</li>
-</ul>
 
 <h2 id="windows-sleep-inhibition">Windows Sleep Inhibition</h2>
 <p>
-	By default, Windows puts idle computers to sleep after a period of user inactivity, which terminates
-	active multiplayer connections.
+	Windows power settings normally put idle desktop computers to sleep, which drops active player connections.
 </p>
 <p>
-	PocketMC calls the Windows API (<code class="mono">SetThreadExecutionState</code>) with <code class="mono">ES_SYSTEM_REQUIRED | ES_CONTINUOUS</code>
-	while any server instance is running. Once all servers are stopped, standard Windows power management resumes.
+	PocketMC includes a sleep prevention service that calls <code class="mono">SetThreadExecutionState</code> with
+	<code class="mono">ES_SYSTEM_REQUIRED | ES_CONTINUOUS</code> while any server runs.
+	A coordinator tracks running instances; when the last server stops, normal Windows power-saving behavior resumes automatically.
 </p>
