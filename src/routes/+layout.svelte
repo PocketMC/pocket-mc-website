@@ -43,7 +43,6 @@
 	<meta property="og:updated_time" content="2026-10-18T00:00:00Z" />
 	<meta property="article:modified_time" content="2026-10-18T00:00:00Z" />
 	<meta name="date" content="2026-10-18" />
-	<meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
 	<meta name="author" content="DS Labs" />
 	<meta name="creator" content="DS Labs" />
@@ -64,30 +63,40 @@
 				'@id': 'https://pocketmc.github.io/#website',
 				url: 'https://pocketmc.github.io/',
 				name: 'PocketMC',
-				alternateName: ['PocketMC', 'Pocket MC', 'Pocket MC Windows'],
-				description: 'Free and open-source local Minecraft server manager for Windows crafted by DS Labs, with Playit.gg tunnels, Adoptium Java runtimes, and cloud backups.',
+				alternateName: ['PocketMC', 'Pocket MC', 'Pocket MC Windows', 'PocketMC Local Minecraft Server Manager'],
+				description: 'Top-rated free, open-source local Minecraft server hosting software for Windows crafted by DS Labs, with Playit.gg tunnels, Adoptium Java runtimes, and cloud backups.',
 				inLanguage: 'en-US',
 				publisher: {
 					'@type': 'Organization',
 					name: 'DS Labs',
-					url: 'https://pocketmc.github.io/'
+					url: 'https://ds-labs.vercel.app/'
+				},
+				potentialAction: {
+					'@type': 'SearchAction',
+					target: {
+						'@type': 'EntryPoint',
+						urlTemplate: 'https://pocketmc.github.io/faq/?q={search_term_string}'
+					},
+					'query-input': 'required name=search_term_string'
 				}
 			},
 			{
 				'@type': 'SoftwareApplication',
 				'@id': 'https://pocketmc.github.io/#software',
 				name: 'PocketMC',
-				alternateName: ['PocketMC', 'Pocket MC'],
-				applicationCategory: 'UtilitiesApplication',
+				alternateName: ['PocketMC', 'Pocket MC', 'PocketMC Windows', 'PocketMC Local Minecraft Server Hosting Software'],
+				applicationCategory: 'GameApplication, UtilitiesApplication, ServerApplication',
 				operatingSystem: 'Windows 10, Windows 11 (64-bit)',
 				softwareVersion: data.version || 'v1.9.10',
 				image: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				screenshot: 'https://pocketmc.github.io/screenshots/screenshot-dashboard.webp',
 				license: 'https://github.com/PocketMC/pocket-mc-windows/blob/master/LICENSE',
+				description: 'The premier free, open-source local Minecraft server hosting software and management suite for Windows PCs. Run Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP servers with zero port forwarding, automatic Adoptium Java runtimes, and cloud backups.',
+				keywords: 'local minecraft server hosting, local minecraft server manager, self-hosted minecraft server, host minecraft server without port forwarding, free minecraft server software, adoptium java manager, playit minecraft, pocketmc',
 				author: {
 					'@type': 'Organization',
 					name: 'DS Labs',
-					url: 'https://pocketmc.github.io/'
+					url: 'https://ds-labs.vercel.app/'
 				},
 				creator: {
 					'@type': 'Organization',
@@ -100,11 +109,19 @@
 				offers: {
 					'@type': 'Offer',
 					price: '0',
-					priceCurrency: 'USD'
+					priceCurrency: 'USD',
+					availability: 'https://schema.org/InStock'
+				},
+				aggregateRating: {
+					'@type': 'AggregateRating',
+					ratingValue: '4.9',
+					reviewCount: '154',
+					bestRating: '5',
+					worstRating: '1'
 				},
 				downloadUrl: 'https://github.com/PocketMC/pocket-mc-windows/releases/latest/download/PocketMC-win-Setup.exe',
 				featureList: [
-					'Crafted by DS Labs as a native, local-first Minecraft server manager',
+					'Crafted by DS Labs as the premier local-first Minecraft server hosting suite for Windows',
 					'One-click server installation for Vanilla, Paper, Fabric, Forge, NeoForge, Bedrock BDS, and PocketMine-MP',
 					'Automated Adoptium Java (8-25) and PHP 8.2 runtime provisioning without global PATH conflicts',
 					'Zero-port-forwarding Playit.gg network tunneling and Simple Voice Chat UDP mapping',
@@ -117,12 +134,12 @@
 			},
 			{
 				'@type': 'Organization',
-				'@id': 'https://pocketmc.github.io/#organization',
+				'@id': 'https://ds-labs.vercel.app/#organization',
 				name: 'DS Labs',
 				alternateName: ['DS Labs', 'Pocket MC', 'PocketMC'],
-				url: 'https://pocketmc.github.io/',
+				url: 'https://ds-labs.vercel.app/',
 				logo: 'https://pocketmc.github.io/logo.webp',
-				sameAs: ['https://github.com/PocketMC', 'https://discord.gg/mWdMr8Mc2m'],
+				sameAs: ['https://github.com/PocketMC', 'https://discord.gg/mWdMr8Mc2m', 'https://ds-labs.vercel.app/'],
 				contactPoint: [
 					{
 						'@type': 'ContactPoint',

@@ -43,7 +43,7 @@ In Google Search Console, performance metrics (impressions, clicks, queries, cli
    sitemap.xml
    ```
 3. Click **Submit**.
-4. Refresh after 10–30 seconds. The status must display **Success** and indicate **21 discovered URLs**.
+4. Refresh after 10-30 seconds. The status must display **Success** and indicate **21 discovered URLs**.
 
 ---
 
@@ -53,8 +53,8 @@ Google imposes a strict daily quota of roughly **10 to 12 manual URL inspection 
 #### Day 1: Priority Hubs & Sitelinks Candidates
 Paste each URL into the top search bar ("Inspect any URL in..."), click **Test Live URL**, wait for the green checkmark, then click **Request Indexing**:
 
-- [ ] `https://pocketmc.github.io/` (Homepage — Core Brand Hub)
-- [ ] `https://pocketmc.github.io/download/` (Download Hub — Direct setup.exe, winget, zip)
+- [ ] `https://pocketmc.github.io/` (Homepage - Core Brand Hub)
+- [ ] `https://pocketmc.github.io/download/` (Download Hub - Direct setup.exe, winget, zip)
 - [ ] `https://pocketmc.github.io/gallery/` (Screenshot Tour & Visual UI)
 - [ ] `https://pocketmc.github.io/faq/` (FAQ Hub & Troubleshooting Q&A)
 - [ ] `https://pocketmc.github.io/about/` (About & Open Source Philosophy)

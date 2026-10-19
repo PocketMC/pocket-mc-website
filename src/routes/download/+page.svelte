@@ -7,20 +7,24 @@
 </script>
 
 <svelte:head>
-	<title>Download PocketMC - Windows Setup, Winget & Portable</title>
+	<title>Download PocketMC · Free Local Minecraft Server Hosting Software</title>
 	<meta
 		name="description"
-		content="Download PocketMC for Windows 10 & 11 (64-bit). Choose between the official Windows installer (.exe), Microsoft Winget terminal command, or standalone portable ZIP."
+		content="Download PocketMC for Windows 10 and 11. The premier free, open-source local Minecraft server hosting software with zero port forwarding, Adoptium Java, and cloud backups."
 	/>
-	<meta property="og:title" content="Download PocketMC - Windows Setup, Winget & Portable" />
+	<meta
+		name="keywords"
+		content="download pocketmc, local minecraft server hosting software, free minecraft server host windows, minecraft server manager download, pocketmc winget"
+	/>
+	<meta property="og:title" content="Download PocketMC · Free Local Minecraft Server Hosting Software" />
 	<meta
 		property="og:description"
-		content="Free, open-source Minecraft server manager for Windows. Download the setup installer, install via Winget, or run standalone portable ZIP."
+		content="Download PocketMC for Windows 10 and 11. Choose between the official Windows installer (.exe), Microsoft Winget terminal command, or standalone portable ZIP."
 	/>
-	<meta name="twitter:title" content="Download PocketMC - Windows Setup, Winget & Portable" />
+	<meta name="twitter:title" content="Download PocketMC · Free Local Minecraft Server Hosting Software" />
 	<meta
 		name="twitter:description"
-		content="Free, open-source Minecraft server manager for Windows. Download the setup installer, install via Winget, or run standalone portable ZIP."
+		content="Download PocketMC for Windows 10 and 11. Choose between the official Windows installer (.exe), Microsoft Winget terminal command, or standalone portable ZIP."
 	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({

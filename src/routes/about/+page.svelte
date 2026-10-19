@@ -1,23 +1,27 @@
 <script lang="ts">
 	import '$lib/prose.css';
-	import { repo, discord, reddit } from '$lib/data/links';
+	import { repo, discord, reddit, dslabs } from '$lib/data/links';
 </script>
 
 <svelte:head>
-	<title>About PocketMC - Crafted by DS Labs</title>
+	<title>About PocketMC · Open-Source Local Minecraft Server Hosting Project</title>
 	<meta
 		name="description"
-		content="Learn about PocketMC, crafted by DS Labs: our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
+		content="Learn about PocketMC, crafted by DS Labs: the premier open-source local Minecraft server hosting suite for Windows with zero port forwarding, Adoptium Java, and cloud backups."
 	/>
-	<meta property="og:title" content="About PocketMC - Crafted by DS Labs" />
+	<meta
+		name="keywords"
+		content="about pocketmc, local minecraft server hosting, ds labs, open source minecraft server manager, self hosted minecraft windows"
+	/>
+	<meta property="og:title" content="About PocketMC · Open-Source Local Minecraft Server Hosting Project" />
 	<meta
 		property="og:description"
-		content="Learn about PocketMC, crafted by DS Labs: our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
+		content="Learn about PocketMC, crafted by DS Labs: local-first architecture, local file storage, user-space isolation, and MIT open-source mission."
 	/>
-	<meta name="twitter:title" content="About PocketMC - Crafted by DS Labs" />
+	<meta name="twitter:title" content="About PocketMC · Open-Source Local Minecraft Server Hosting Project" />
 	<meta
 		name="twitter:description"
-		content="Learn about PocketMC, crafted by DS Labs: our local-first architecture, 100% data sovereignty principles, user-space isolation, and MIT open-source mission."
+		content="Learn about PocketMC, crafted by DS Labs: local-first architecture, local file storage, user-space isolation, and MIT open-source mission."
 	/>
 
 	{@html `<script type="application/ld+json">${JSON.stringify({
@@ -49,50 +53,46 @@
 			<span class="kicker">About</span>
 			<h1>About PocketMC</h1>
 			<p class="summary">
-				A local-first Minecraft server manager crafted by DS Labs to eliminate terminal complexity, safeguard
-				data sovereignty, and automate runtime operations on your personal computer.
+				A local-first Minecraft server manager crafted by DS Labs to make running, configuring, and sharing
+				servers on your PC simple.
 			</p>
 
 			<h2 id="ds-labs">Crafted by DS Labs</h2>
 			<p>
-				PocketMC is designed, engineered, and maintained by <strong>DS Labs</strong>, a software lab focused on local-first architecture, privacy-centric tooling, and high-performance desktop applications. Our philosophy centers on pure bare-metal execution, zero vendor lock-in, and uncompromising user control.
+				PocketMC is designed and maintained by <strong><a href={dslabs} target="_blank" rel="noopener noreferrer">DS Labs</a></strong>, creating privacy-focused desktop tools and local-first software. We believe your software should run directly on your hardware without subscriptions or vendor lock-in. Explore our work at <a href={dslabs} target="_blank" rel="noopener noreferrer">ds-labs.vercel.app</a>.
 			</p>
 
 			<h2 id="mission">Our Mission</h2>
 			<p>
-				Hosting a Minecraft server should be as effortless as launching the game itself. For over a
-				decade, players have had to choose between paying recurring subscription fees for underpowered
-				cloud hosting or navigating complex terminal environments, manual Java installations, and home
-				router configurations.
+				Hosting a Minecraft server should be straightforward. For years, setting up a server meant either
+				paying monthly subscription fees for cloud hosts or dealing with command-line scripts, manual Java version
+				matching, and home router port forwarding.
 			</p>
 			<p>
-				PocketMC transforms your existing desktop or laptop computer into a powerful, automated Minecraft
-				server host with zero router port forwarding and zero system pollution.
+				PocketMC lets you run dedicated Minecraft servers directly on your Windows PC with automated Java
+				management, one-click sharing via Playit.gg tunnels, and full control over your files.
 			</p>
 
 			<h2 id="core-pillars">Core Architectural Pillars</h2>
 			<ul>
 				<li>
-					<strong>Data Sovereignty:</strong> Your worlds, player inventories, and server configurations
-					live on your local drive. They are never locked inside proprietary cloud silos or held hostage
-					behind subscription plans.
+					<strong>Local File Storage:</strong> Your worlds, player data, and configurations stay on your
+					hard drive, not locked in cloud subscriptions.
 				</li>
 				<li>
-					<strong>Desktop User-Space:</strong> PocketMC installs per-user and never requires administrative
-					elevation. It isolates Adoptium runtimes and instance directories completely from system
-					environment variables.
+					<strong>User-Space Isolation:</strong> Runs without administrator rights and keeps Java runtimes
+					inside the app folder without altering your system PATH.
 				</li>
 				<li>
-					<strong>Zero-Friction Networking:</strong> With embedded Playit.gg and Cloudflare tunnels, friends
-					can connect to your local server over the public internet immediately.
+					<strong>Tunnel Integration:</strong> Built-in Playit.gg and Cloudflare tunnels let friends join
+					your server over the internet without opening router ports.
 				</li>
 			</ul>
 
 			<h2 id="open-source">Free &amp; Open Source</h2>
 			<p>
-				PocketMC is 100% free and open-source software released under the <strong>MIT License</strong>.
-				The complete source code is public and transparent on GitHub. You are free to inspect, audit, fork,
-				and contribute.
+				PocketMC is free and open-source software released under the <strong>MIT License</strong>.
+				The complete source code is public on GitHub for anyone to inspect, modify, or contribute to.
 			</p>
 			<p>
 				Join our community on <a href={discord} target="_blank" rel="noopener noreferrer">Discord</a> or

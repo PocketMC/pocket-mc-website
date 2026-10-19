@@ -12,70 +12,68 @@
 
 	const cells: { label: string; items: CellItem[] }[] = [
 		{
-			label: 'Server Engines',
+			label: 'Terminal & Diagnostics',
 			items: [
-				{ icon: '/icons/vanilla.webp', text: 'Vanilla (Official Mojang JARs).' },
-				{ icon: '/icons/papermc.webp', text: 'Paper (High-performance Spigot).' },
-				{ icon: '/icons/fabric.webp', text: 'Fabric (Lightweight & modular).' },
-				{ icon: '/icons/forge.webp', text: 'Forge (Classic mod loader).' },
-				{ icon: '/icons/neoforge.webp', text: 'NeoForge (Modern mod loader).' },
-				{ icon: '/icons/bds.webp', text: 'Bedrock Dedicated Server (BDS).' },
-				{ icon: '/icons/pocketmine-mp.webp', text: 'PocketMine-MP (PHP 8.2 PM5).' }
+				{ glyph: 'terminal', text: 'ANSI color console with live logs and command history.' },
+				{ glyph: 'zap', text: 'Offline crash summaries powered by local Ollama models.' },
+				{ glyph: 'cpu', text: 'Real-time CPU, RAM, and tick stability telemetry.' },
+				{ glyph: 'shield', text: 'One-click graceful stop and process termination.' },
+				{ glyph: 'folder-open', text: 'Filter logs by keywords, warnings, and errors.' }
 			]
 		},
 		{
 			label: 'Lifecycle & Safety',
 			items: [
-				{ glyph: 'shield', text: 'RCON graceful save-holding flush.' },
-				{ glyph: 'refresh-cw', text: 'Crash recovery with auto-backoff.' },
-				{ glyph: 'zap', text: 'Port collision preflight guard.' },
-				{ glyph: 'hard-drive', text: 'Low-disk warning (< 2 GB guard).' },
-				{ mark: 'windows', text: 'Windows sleep mode inhibition.' },
-				{ glyph: 'sliders', text: 'High RAM alert at 80% capacity.' }
+				{ glyph: 'shield', text: 'Safe shutdown with world saves before closing.' },
+				{ glyph: 'refresh-cw', text: 'Auto-restart after crashes with backoff limits.' },
+				{ glyph: 'zap', text: 'Port collision checks before server launch.' },
+				{ glyph: 'hard-drive', text: 'Low disk space warnings below 2 GB.' },
+				{ mark: 'windows', text: 'Keeps Windows awake while servers run.' },
+				{ glyph: 'sliders', text: 'Alerts when memory usage crosses 80%.' }
 			]
 		},
 		{
 			label: 'Java & Runtimes',
 			items: [
-				{ glyph: 'cpu', text: 'Adoptium JREs for Java 8, 11, 17, 21, and 25.' },
-				{ glyph: 'zap', text: 'Auto-selection based on server JAR.' },
-				{ glyph: 'hard-drive', text: 'Managed app-local dependencies.' },
-				{ glyph: 'folder-open', text: 'Isolated instance directories.' },
-				{ mark: 'windows', text: 'Runs in local user directory.' },
-				{ icon: '/icons/pocketmine-mp.webp', text: 'Automatic PHP PM5 for Bedrock.' }
+				{ glyph: 'cpu', text: 'Adoptium runtimes for Java 8, 11, 17, 21, and 25.' },
+				{ glyph: 'zap', text: 'Picks the right Java version based on your server.' },
+				{ glyph: 'hard-drive', text: 'Kept inside PocketMC without touching system PATH.' },
+				{ glyph: 'folder-open', text: 'Separate working folders for each server.' },
+				{ mark: 'windows', text: 'Runs without requiring administrator rights.' },
+				{ icon: '/icons/pocketmine-mp.webp', text: 'Includes PHP 8.2 for PocketMine-MP.' }
 			]
 		},
 		{
 			label: 'Networking & Remote',
 			items: [
-				{ glyph: 'globe', text: 'Integrated Playit.gg tunnel agent.' },
-				{ glyph: 'zap', text: 'Cloudflare Quick Tunnels support.' },
-				{ glyph: 'smartphone', text: 'Responsive mobile web dashboard.' },
-				{ glyph: 'smartphone', text: 'Quick QR access to web dashboard.' },
-				{ glyph: 'terminal', text: 'Multi-user roles & permission scopes.' },
-				{ mark: 'discord', text: 'Discord Rich Presence with live server status.' }
+				{ glyph: 'globe', text: 'Playit.gg tunnels for sharing without port forwarding.' },
+				{ glyph: 'zap', text: 'Optional Cloudflare Quick Tunnels support.' },
+				{ glyph: 'smartphone', text: 'Mobile web dashboard via local network PIN or QR code.' },
+				{ glyph: 'terminal', text: 'Operator and viewer roles for dashboard users.' },
+				{ mark: 'discord', text: 'Discord Rich Presence with live player counts.' },
+				{ glyph: 'globe', text: 'Built-in UDP tunnel mapping for Simple Voice Chat.' }
 			]
 		},
 		{
 			label: 'Content & Add-ons',
 			items: [
-				{ glyph: 'package', text: 'In-app Modrinth marketplace browser.' },
-				{ glyph: 'package', text: 'CurseForge browser & Poggit integration.' },
-				{ glyph: 'folder-open', text: 'Three-dot menu Explorer folder jumps.' },
-				{ glyph: 'sliders', text: 'One-click mod & plugin toggles.' },
-				{ glyph: 'layers', text: 'Bedrock .mcpack, .mcaddon ingestion.' },
-				{ glyph: 'sparkles', text: 'Automatic Geyser & Floodgate cross-play.' }
+				{ glyph: 'package', text: 'Search and download mods and plugins from Modrinth.' },
+				{ glyph: 'package', text: 'CurseForge mod browser and Poggit plugin support.' },
+				{ glyph: 'folder-open', text: 'One-click shortcuts to world, config, and plugin folders.' },
+				{ glyph: 'sliders', text: 'Toggle individual mods and plugins on or off anytime.' },
+				{ glyph: 'layers', text: 'Drag-and-drop installer for .mcpack and .mcaddon files.' },
+				{ glyph: 'sparkles', text: 'One-click Geyser and Floodgate setup for Bedrock cross-play.' }
 			]
 		},
 		{
 			label: 'Backups & Storage',
 			items: [
-				{ glyph: 'cloud', text: 'Automated Google Drive replication.' },
-				{ glyph: 'cloud', text: 'Dropbox & OneDrive OAuth sync.' },
-				{ glyph: 'shield', text: 'SHA-256 archive integrity checks.' },
-				{ glyph: 'refresh-cw', text: 'Automated Cron & reboot scheduling.' },
-				{ glyph: 'terminal', text: 'Pre-backup RCON save sync.' },
-				{ glyph: 'hard-drive', text: '100% data sovereignty on your disk.' }
+				{ glyph: 'cloud', text: 'Scheduled backups synced directly to Google Drive.' },
+				{ glyph: 'cloud', text: 'Optional sync to OneDrive and Dropbox.' },
+				{ glyph: 'shield', text: 'Zip archive integrity verification with SHA-256.' },
+				{ glyph: 'refresh-cw', text: 'Automatic backup schedules with cron support.' },
+				{ glyph: 'terminal', text: 'Flushes and disables world saves during backup creation.' },
+				{ glyph: 'hard-drive', text: 'All server files remain stored directly on your PC.' }
 			]
 		}
 	];
@@ -88,10 +86,9 @@
 	<div class="page">
 		<div class="section-head" use:reveal>
 			<span class="kicker">Features</span>
-			<h2>What it does</h2>
+			<h2>Built for Local Minecraft Server Hosting</h2>
 			<p class="lead">
-				Engineered to eliminate terminal complexity, safeguard data sovereignty, and automate local
-				Minecraft server operations.
+				Everything you need to run, configure, and share Minecraft servers locally on Windows without touching the command line.
 			</p>
 		</div>
 
