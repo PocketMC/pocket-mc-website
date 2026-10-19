@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { discord, reddit, youtube, buymeacoffee, repo, website } from '$lib/data/links';
+	import { discord, reddit, youtube, buymeacoffee, repo, website, dslabs } from '$lib/data/links';
 	import Logo from './Logo.svelte';
 	import Glyph from './Glyph.svelte';
 	import Mark from './Mark.svelte';
@@ -22,8 +22,8 @@
 					<span>PocketMC</span>
 				</a>
 				<p>
-					High-performance Minecraft server management right on your desktop, crafted by <a href="/about" rel="author" class="author-link">DS Labs</a>. Zero port forwarding,
-					instant public tunnels, and pure bare-metal power.
+					Local Minecraft server management for Windows, crafted by <a href={dslabs} target="_blank" rel="noopener noreferrer author" class="author-link">DS Labs</a>.
+					Zero port forwarding, instant public tunnels, and full control over your files.
 				</p>
 			</div>
 
@@ -68,6 +68,10 @@
 					<a href="/about">
 						<Glyph name="info" size={13} />
 						<span>About Us</span>
+					</a>
+					<a href={dslabs} target="_blank" rel="noopener noreferrer">
+						<Glyph name="globe" size={13} />
+						<span>DS Labs</span>
 					</a>
 					<a href="/contact">
 						<Glyph name="mail" size={13} />
@@ -116,11 +120,15 @@
 		</div>
 
 		<div class="legal">
-			<p>
-				Crafted by <a href="/about" rel="author" class="author-link">DS Labs</a>. Free and open-source software licensed under the {license ?? 'MIT'} License.
-				<span class="dot">·</span>
-				<time datetime="2026-10-18">Updated: October 2026</time>
-			</p>
+			<div class="legal-row">
+				<span>
+					Crafted by <a href={dslabs} target="_blank" rel="noopener noreferrer author" class="author-link">DS Labs</a>.
+					Free and open-source software licensed under the {license ?? 'MIT'} License.
+				</span>
+				<span class="legal-date">
+					<time datetime="2026-10-18">Updated: October 2026</time>
+				</span>
+			</div>
 			<p class="disclaimer-note">
 				<strong>Disclaimer:</strong> PocketMC is an independent open-source project created by DS Labs. It is NOT AN OFFICIAL MINECRAFT PRODUCT and is NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT. Minecraft is a trademark of Mojang Synergies AB. All other trademarks, product names, and company logos referenced on this website belong to their respective owners.
 			</p>
@@ -210,15 +218,41 @@
 	.legal {
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
+		gap: 12px;
 		margin-top: 48px;
-		padding-top: 20px;
+		padding-top: 22px;
 		border-top: 1px solid var(--line);
 	}
 
-	.legal p {
-		max-width: 72ch;
+	.legal-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		flex-wrap: wrap;
+		font-size: 12.5px;
+		line-height: 1.5;
+		color: var(--muted-fg);
+	}
+
+	.legal-row a.author-link {
+		color: var(--fg);
+		text-decoration: underline;
+		text-decoration-color: var(--faint);
+	}
+
+	.legal-row a.author-link:hover {
+		text-decoration-color: var(--fg);
+	}
+
+	.legal-date {
+		color: var(--dim);
 		font-size: 12px;
+	}
+
+	.disclaimer-note {
+		margin: 0;
+		font-size: 11.5px;
 		line-height: 1.6;
 		color: var(--dim);
 		text-wrap: pretty;

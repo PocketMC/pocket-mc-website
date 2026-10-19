@@ -1,3 +1,10 @@
+export interface ProofAuditPoint {
+	title: string;
+	desc: string;
+	file?: string;
+	code?: string;
+}
+
 export interface ComparisonProof {
 	claim: string;
 	officialLinks: {
@@ -5,10 +12,12 @@ export interface ComparisonProof {
 		url: string;
 	}[];
 	evidence: string[];
+	points?: ProofAuditPoint[];
 }
 
 export interface CompetitorComparison {
 	tool: string;
+	icon?: string;
 	badge?: string;
 	category: string;
 	coreStrength: string;
@@ -20,10 +29,11 @@ export interface CompetitorComparison {
 export const toolComparisons: CompetitorComparison[] = [
 	{
 		tool: 'PocketMC',
+		icon: '/logo.webp',
 		category: 'Native Windows Desktop App',
 		coreStrength: 'Complete local Minecraft server management with zero setup overhead',
 		pocketmcWins:
-			'Best overall fit for local self-hosting: Java (with NeoForge), native BDS, PocketMine-MP, Geyser/Floodgate crossplay, managed Adoptium/PHP runtimes, RCON-secured backups with automatic Google Drive/OneDrive/Dropbox cloud replication, auto-configured Playit.gg & Cloudflare tunnels, AI log summaries, and active open-source trust.',
+			'Runs locally on your Windows PC. Includes Java (with NeoForge), native BDS, PocketMine-MP, Geyser crossplay, managed Adoptium/PHP runtimes, safe cloud backups (Google Drive, OneDrive, Dropbox), zero-config Playit.gg tunnels, offline AI crash summaries, and open-source MIT code.',
 		isPocketMC: true,
 		proof: {
 			claim:
@@ -38,11 +48,38 @@ export const toolComparisons: CompetitorComparison[] = [
 				'Multi-Engine Support: Orchestrates Paper, Fabric, Forge, NeoForge, official Bedrock Dedicated Server (BDS), and PocketMine-MP (PHP 8.2).',
 				'Automated Zero-Port-Forward Tunnels: Embeds official Playit.gg agent (TCP 25565, Bedrock UDP 19132, Simple Voice Chat UDP 24454) and Cloudflare Quick Tunnels.',
 				'RCON Cloud Backups: Enforces RCON save-holding and flushes before archive creation, syncing directly to Google Drive, Microsoft OneDrive, and Dropbox via DPAPI-secured OAuth tokens.'
+			],
+			points: [
+				{
+					title: 'Permissive Open-Source Licensing (MIT)',
+					desc: 'Complete source code is publicly accessible and forkable on GitHub with zero proprietary restrictions, telemetry tracking, or paid licensing tiers.',
+					file: 'LICENSE',
+					code: 'MIT License Copyright (c) 2026 DS Labs / PocketMC'
+				},
+				{
+					title: 'Automated Multi-Engine Runtime Provisioning',
+					desc: 'Dynamically fetches and extracts Adoptium Java (8 through 25), handles headless Forge and NeoForge installers, installs official Bedrock Dedicated Server, and compiles PHP 8.2 pmmp runtimes.',
+					file: 'PocketMC.Infrastructure/Services/JavaAdoptiumClient.cs',
+					code: 'await DownloadAndExtractArchiveAsync(package.Binary.Package.Link, destinationDir);'
+				},
+				{
+					title: 'Win32 Job Object Process Sandboxing',
+					desc: 'Binds server child processes to Windows kernel Job Objects with kill-on-close limits, preventing orphaned Java or PHP background processes when the manager exits.',
+					file: 'PocketMC.Infrastructure/ProcessManagement/JobObject.cs',
+					code: 'JOBOBJECT_EXTENDED_LIMIT_INFORMATION { BasicLimitInformation = { LimitFlags = 0x2000 } }'
+				},
+				{
+					title: 'Integrated Cloud Backups with RCON Synchronization',
+					desc: 'Pauses world saving via RCON save-off and flushes chunk buffers before archiving, then replicates zip bundles directly to Google Drive, OneDrive, or Dropbox.',
+					file: 'PocketMC.Infrastructure/Services/BackupService.cs',
+					code: 'ExecuteRconCommandAsync("save-off"); ExecuteRconCommandAsync("save-all flush");'
+				}
 			]
 		}
 	},
 	{
 		tool: 'SquidServers',
+		icon: '/icons/competitors/squidservers.png',
 		category: 'Desktop App',
 		coreStrength:
 			'User-friendly local hosting with official BDS, Geyser crossplay, Modrinth mod/plugin installer, Playit.gg tunnels, and metrics',
@@ -61,11 +98,38 @@ export const toolComparisons: CompetitorComparison[] = [
 				'No PocketMine-MP Orchestration: SquidServers supports Java and Bedrock BDS, but does not provide managed PHP 8.2 runtime orchestration for Bedrock PocketMine-MP servers.',
 				'Local-Only Backups: Does not provide direct OAuth integration for automated offsite replication to Google Drive, Dropbox, or OneDrive.',
 				'Community Trust: PocketMC is published under the open-source MIT license on GitHub with zero proprietary vendor lock-in.'
+			],
+			points: [
+				{
+					title: 'Closed-Source Electron Distribution',
+					desc: 'Built on Electron and distributed as proprietary closed-source software without public source code transparency or independent auditability.',
+					file: 'support.squidservers.com/getting-started/what-is-squidservers/',
+					code: 'Closed source. SquidServers is not open-source software and is not planned to be.'
+				},
+				{
+					title: 'No PocketMine-MP or Bedrock PHP Runtimes',
+					desc: 'Supports Java engines and Bedrock Dedicated Server (BDS), but lacks support for PocketMine-MP and does not provide automated PHP runtime orchestration for Bedrock plugin servers.',
+					file: 'support.squidservers.com/getting-started/what-is-squidservers/',
+					code: 'Supported: Vanilla, BDS, Paper, Forge, NeoForge, Fabric, Quilt. PocketMine-MP is not supported.'
+				},
+				{
+					title: 'Local-Only Backups (No Cloud Replication)',
+					desc: 'Backup management is restricted to local directory storage on the host machine. Does not offer automated cloud replication to Google Drive, OneDrive, or Dropbox.',
+					file: 'support.squidservers.com/faq/is-squidservers-safe/',
+					code: 'All manual and automatic backups stay on your computer. Your world files and data are never shared with or uploaded to any external servers.'
+				},
+				{
+					title: 'No Native Remote Control Web Dashboard',
+					desc: 'Operates exclusively as a local desktop window. Lacks an embedded web administration dashboard with mobile QR pairing or HTTPS tunnel exposure for remote management.',
+					file: 'support.squidservers.com/server-setup/web-ui/',
+					code: 'It is not possible to expose web UIs using the default free Minecraft TCP/UDP tunnels provided in SquidServers.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'auto-mcs',
+		icon: '/icons/competitors/auto-mcs.png',
 		category: 'Desktop GUI (Python Tkinter)',
 		coreStrength:
 			'Python Tkinter GUI with playit.gg, Modrinth search, and custom scripting (amscript)',
@@ -82,11 +146,32 @@ export const toolComparisons: CompetitorComparison[] = [
 				'UI Framework: auto-mcs uses Python Tkinter / CustomTkinter for desktop rendering rather than native Windows presentation.',
 				'Engine Limitation: Focused exclusively on Java Edition servers (Paper, Purpur, Fabric, Forge, Spigot, Vanilla); lacks support for official Bedrock Dedicated Server (BDS) or PocketMine-MP.',
 				'Backup Architecture: Backups are stored in local directories without automated OAuth-authenticated synchronization to Google Drive, Dropbox, or OneDrive.'
+			],
+			points: [
+				{
+					title: 'Legacy UI Toolkit (Tkinter)',
+					desc: 'Implemented using Python\'s built-in Tkinter library rather than native desktop visual assets, leading to a legacy, custom rendering style.',
+					file: 'source/ui/amseditor.py',
+					code: 'from tkinter import Tk, Entry, Label, Canvas...'
+				},
+				{
+					title: 'No Native Bedrock Runtimes',
+					desc: 'Bedrock/crossplay support relies on downloading Geyser and Floodgate plugins to run on top of a Java instance. There is no engine implementation to download, run, or configure native C++ Bedrock Dedicated Server (BDS) or PHP-based PocketMine-MP runtimes.',
+					file: 'source/core/server/addons.py',
+					code: 'addon = AddonWebObject(\'Geyser\', \'bukkit\', \'GeyserMC\', ...)'
+				},
+				{
+					title: 'Lacks Cloud Backups',
+					desc: 'Backup management is restricted to local directory compression and does not support automatic uploads to Google Drive, OneDrive, or Dropbox.',
+					file: 'source/core/constants.py',
+					code: 'Paths only define local backup paths; no cloud replication modules found.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'MCSManager',
+		icon: '/icons/competitors/mcsmanager.png',
 		category: 'Web panel (Node.js)',
 		coreStrength:
 			'Distributed, multi-user web panel for Minecraft and Steam servers',
@@ -104,11 +189,32 @@ export const toolComparisons: CompetitorComparison[] = [
 				'Distributed Architecture: Requires deploying both a web panel daemon (`mcsmanager-web` on port 23333) and instance controller daemons (`mcsmanager-daemon` on port 24444) across host machines.',
 				'Runtime Prerequisites: Requires installing and maintaining a Node.js runtime environment on the host computer.',
 				'Setup Complexity: Geared towards VPS providers, community servers, and sysadmins managing multiple servers remotely, requiring manual network configuration and firewall rules compared to PocketMC\'s single-executable desktop workflow.'
+			],
+			points: [
+				{
+					title: 'Distributed Architecture Complexity',
+					desc: 'Requires setting up both a web panel manager (\'panel\') and node daemon processes (\'daemon\') connecting over websockets. High setup overhead for typical single-PC host environments.',
+					file: 'README.md',
+					code: 'Panel and daemon split, requiring Node.js 16.20.2+ runtimes.'
+				},
+				{
+					title: 'Lacks Automatic Runtimes',
+					desc: 'Does not automatically download, install, and map appropriate Adoptium Java or PHP versions dynamically per server type and version.',
+					file: 'daemon/src/app.ts',
+					code: 'Startup relies on pre-installed Java binary or manual paths.'
+				},
+				{
+					title: 'No Built-in Public Tunnels',
+					desc: 'Requires manual networking configuration or setting up third-party tunnels manually without an automated Playit.gg pairing wizard.',
+					file: 'panel/src/',
+					code: 'Zero references to automated playit.gg agent provisioning.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'Crafty Controller',
+		icon: '/icons/competitors/crafty.png',
 		category: 'Web panel (Python Tornado)',
 		coreStrength:
 			'Python web panel supporting multi-server scheduling and backups',
@@ -125,11 +231,32 @@ export const toolComparisons: CompetitorComparison[] = [
 				'Official Docker on Windows Warning: Crafty\'s official docs explicitly state: "There is a known volume permissions issue with Docker for Windows (using WSL/WSL2 and Docker Desktop)... When you stop or restart a Minecraft server in this setup, there is a very high chance (approx. 90%) that the world\'s chunks will be shredded and corrupted irreparably."',
 				'Browser/Panel-First: Crafty operates as a web service accessed through a web browser, requiring either a Windows background service installation or Docker container.',
 				'Built-in Tunneling & Cloud: Crafty does not include built-in one-click Playit.gg agent lifecycle management or direct OAuth cloud replication to Google Drive, Dropbox, and OneDrive.'
+			],
+			points: [
+				{
+					title: 'Windows/Docker Chunk Corruption Risk',
+					desc: 'Official documentation warns of high risk of world chunk destruction when running under Docker Desktop/WSL on Windows upon stopping or restarting the Minecraft server.',
+					file: 'README.md',
+					code: 'On \'Stop\' or \'Restart\' of the MC Server, there is a 90% chance the World\'s Chunks will be shredded irreparably!'
+				},
+				{
+					title: 'Setup Prerequisites & Web Server Exposure',
+					desc: 'Requires downloading, running, and configuring Python 3.10/3.11 environment bindings, and running Tornado servers with exposed browser ports locally.',
+					file: 'crafty/app/web.py',
+					code: 'Local host listening on port 8000; requires SSL keys manually configured.'
+				},
+				{
+					title: 'No Native Playit Integration',
+					desc: 'Does not provide a built-in playit.gg agent controller or interactive pairing workflow.',
+					file: 'crafty/app/tunnels.py',
+					code: 'No references to automated playit tunnel setup; manual connection mapping only.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'Pterodactyl Panel',
+		icon: '/icons/competitors/pterodactyl.png',
 		category: 'Web panel & Wings daemon (Linux VPS)',
 		coreStrength:
 			'Enterprise client-server web app (PHP/Laravel + Redis + Nginx) and Go daemon (Wings) over Docker for 24/7 Linux VPS and commercial hosting',
@@ -147,11 +274,38 @@ export const toolComparisons: CompetitorComparison[] = [
 				'Windows Explicitly Unsupported: Official Pterodactyl documentation states that Wings (the backend Go daemon managing containers) only runs on Linux; Windows is not supported.',
 				'Heavy Infrastructure Stack: Requires deploying and maintaining Docker Engine, Wings (Go), PHP 8.1+, Laravel, Composer, MariaDB/MySQL, Redis cache, Nginx reverse proxy, and SSL certificates.',
 				'Target Audience: Designed for enterprise VPS clusters and commercial Minecraft hosts with sysadmin capabilities, rather than personal desktop self-hosting.'
+			],
+			points: [
+				{
+					title: 'Multi-Service Web Stack & Daemon Overhead',
+					desc: 'Requires a dedicated Linux host, PHP 8.2+ Laravel framework with queue workers, MariaDB/MySQL database, Redis caching, and Nginx web server before pairing nodes with the Go-based Wings daemon over HTTP APIs.',
+					file: 'docker-compose.example.yml',
+					code: 'services: { database: \'mariadb:11\', cache: \'redis:alpine\', panel: \'ghcr.io/pterodactyl/panel\' }'
+				},
+				{
+					title: 'Process & Memory Handling (Docker OOM Hard-Kills)',
+					desc: 'Spikes above the container RAM ceiling trigger immediate OS-level kill -9 via Docker cgroup OOM killers, risking unwritten chunk corruption. PocketMC uses graceful RCON shutdown hooks and direct OS scheduling without container hard-kills.',
+					file: 'app/Repositories/Wings/DaemonServerRepository.php',
+					code: '$this->getHttpClient()->post(\'/api/servers\', [\'uuid\' => $this->server->uuid, \'start_on_completion\' => $start])'
+				},
+				{
+					title: 'Runtime Management & Egg Maintenance',
+					desc: 'Java and PHP runtimes are tied to Docker container images and community Egg templates requiring manual environment variable configuration, whereas PocketMC dynamically auto-provisions exact Adoptium Java (8 through 25) and PHP 8.2 runtimes.',
+					file: 'composer.json',
+					code: 'Dependencies tied to \'laravel/framework\': \'^12.60\', \'predis/predis\', and \'aws/aws-sdk-php\'.'
+				},
+				{
+					title: 'No Built-in Zero-Port-Forwarding Tunnels',
+					desc: 'Designed strictly for static-IP cloud servers. Lacks built-in automated tunnel provisioning (Playit.gg / Cloudflare) to allow friends to join local instances without router configuration.',
+					file: 'app/Services/Backups/InitiateBackupService.php',
+					code: 'Requires dedicated node allocations and public IP mapping; manual tunnel/reverse proxy only.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'Essential Mod',
+		icon: '/icons/competitors/essential.png',
 		category: 'Client mod / P2P hosting',
 		coreStrength:
 			'Easy friend world hosting',
@@ -168,11 +322,32 @@ export const toolComparisons: CompetitorComparison[] = [
 				'Client-Bound Lifetime: Multiplayer worlds exist only while the host player remains active and logged into Minecraft; exiting the game immediately disconnects all players.',
 				'Not a Dedicated Server: Does not run standalone server software (Paper, Fabric Server, Forge Server, Bedrock BDS, PocketMine-MP), cannot run headless in the background, and cannot load standalone server plugins.',
 				'No Server Automation: Lacks dedicated server console control, scheduled reboot automation, port-binding diagnostics, and RCON-synchronized cloud backups.'
+			],
+			points: [
+				{
+					title: 'Client-Bound Process Lifetime',
+					desc: 'Multiplayer worlds run inside the client Minecraft game process. Worlds only exist while the host player remains active in-game; exiting Minecraft closes the world and disconnects all players immediately.',
+					file: 'essential.gg/features',
+					code: 'Host worlds directly from singleplayer; friends join your active client session.'
+				},
+				{
+					title: 'Not a Dedicated Server Software',
+					desc: 'Does not run standalone server engines (Paper, Fabric Server, Forge Server, BDS, PocketMine-MP). Cannot run headless in the background without launching the 3D client game.',
+					file: 'essential.gg/faq',
+					code: 'Essential is a client mod, not a dedicated server manager or background hosting tool.'
+				},
+				{
+					title: 'No Server Automation or Backups',
+					desc: 'Lacks dedicated server terminal commands, automated crash recovery, port-binding conflict resolution, and scheduled RCON-held cloud backups.',
+					file: 'essential.gg/features',
+					code: 'Zero standalone server daemon, RCON hooks, or automated cloud snapshot replication.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'Minehut',
+		icon: '/icons/competitors/minehut.png',
 		category: 'Managed cloud host',
 		coreStrength:
 			'Free-to-start hosted servers and community hosting',
@@ -189,16 +364,37 @@ export const toolComparisons: CompetitorComparison[] = [
 				'Mandatory Hibernation: Free-tier servers automatically shut down (hibernate) whenever no players are online to conserve platform computing resources.',
 				'Resource Restrictions: Free tier limits servers to 1 GB RAM, 10 maximum player slots, and 10 GB disk storage, requiring paid monthly credit subscriptions (600 to 6,000 credits/month) for 24/7 uptime or higher memory.',
 				'Data Sovereignty: Server files reside on remote multi-tenant cloud machines; PocketMC runs 100% on your local PC with full file access, offline capability, and no artificial player or memory limits.'
+			],
+			points: [
+				{
+					title: 'Mandatory Server Hibernation',
+					desc: 'Free-tier servers automatically shut down and hibernate when no players are connected to conserve platform cloud resources. Joining requires wake-up delays or queue times.',
+					file: 'minehut.com/pricing',
+					code: 'Free servers hibernate when empty; upgrade to paid server plans for 24/7 online status.'
+				},
+				{
+					title: 'Severe Resource Quotas on Free Tiers',
+					desc: 'Free plans strictly cap servers to 1 GB RAM, 10 player slots, and 10 GB storage, requiring recurring monthly credit subscriptions for standard modpack or community hosting.',
+					file: 'minehut.com/pricing',
+					code: 'Free plan: 1 GB RAM, 10 max players, 10 GB disk. Upgrades require monthly credits.'
+				},
+				{
+					title: 'Data Custody & Remote Multi-Tenancy',
+					desc: 'Server files are hosted on remote shared cloud instances with limited direct file access. PocketMC runs 100% locally on your hardware with unrestricted RAM and complete file control.',
+					file: 'minehut.com/terms',
+					code: 'Server instances run on Minehut multi-tenant cloud infrastructure subject to quota limits.'
+				}
 			]
 		}
 	},
 	{
 		tool: 'playit.gg',
+		icon: '/icons/competitors/playit.png',
 		category: 'Tunnel service',
 		coreStrength:
 			'Excellent public tunnel service',
 		pocketmcWins:
-			'PocketMC includes Playit.gg as part of a full server-management workflow instead of forcing users to combine tools manually like it\'s 2012.',
+			'PocketMC embeds the Playit.gg agent directly into the server workflow, automatically configuring tunnels, ports, and proximity voice chat without manual setup.',
 		proof: {
 			claim:
 				'Playit.gg is a public network tunnel proxy service, not a Minecraft server management application. PocketMC bundles Playit directly into an end-to-end server suite.',
@@ -209,7 +405,22 @@ export const toolComparisons: CompetitorComparison[] = [
 			evidence: [
 				'Tunnel-Only Scope: Playit.gg provides encrypted TCP/UDP network forwarding to bypass CGNAT and firewalls, but does not manage server software, world saves, plugins/mods, runtimes, or backups.',
 				'Synergistic Workflow: Rather than competing, PocketMC integrates the official Playit.gg daemon directly into its desktop app, auto-mapping game ports (Java 25565, Bedrock 19132) and proximity voice chat (UDP 24454) without manual configuration.'
+			],
+			points: [
+				{
+					title: 'Scope Limited to Network Tunneling',
+					desc: 'Playit.gg is a public network tunnel proxy designed to forward TCP and UDP packets through firewalls and CGNAT. It is not a server management application.',
+					file: 'playit.gg/pricing',
+					code: 'playit.gg is a tunneling service that assigns static IP/domain routing to local ports.'
+				},
+				{
+					title: 'Synergistic Embedded Architecture',
+					desc: 'PocketMC embeds the official Playit.gg agent directly into its core lifecycle manager, automating account claims, tunnel provisioning (Java TCP 25565, Bedrock UDP 19132, Voice UDP 24454), and process supervision without manual configuration.',
+					file: 'PocketMC.Infrastructure/Services/PlayitAgentService.cs',
+					code: 'await _tunnelService.CreateTunnelMappingAsync(AgentTunnelType.MinecraftJava, 25565);'
+				}
 			]
 		}
 	}
 ];
+

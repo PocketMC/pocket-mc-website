@@ -34,7 +34,7 @@ export const installOptions: InstallOption[] = [
 		badge: 'Terminal',
 		title: 'Windows Package Manager',
 		description:
-			'Install and update automatically via Windows Terminal or PowerShell via Microsoft Winget.',
+			'Install and update from Windows Terminal or PowerShell using Microsoft Winget.',
 		actionType: 'command',
 		actionText: wingetCommand,
 		actionTarget: wingetCommand,
@@ -45,7 +45,7 @@ export const installOptions: InstallOption[] = [
 		badge: 'Standalone',
 		title: 'Portable ZIP',
 		description:
-			'Zero installation required. Extract to any directory or USB drive and run standalone anywhere.',
+			'No installation needed. Extract to any folder or USB drive and run directly.',
 		actionType: 'download',
 		actionText: 'Download Portable',
 		actionTarget: portableUrl,

@@ -27,3 +27,6 @@ screenshots_verify/
 
 # GSD Planning
 .planning/
+
+# AI Agent State
+.ai/

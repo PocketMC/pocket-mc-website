@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { repo } from '$lib/data/links';
+	import { repo, dslabs } from '$lib/data/links';
 	import Mark from './Mark.svelte';
 	import Visualizer from './Visualizer.svelte';
 
@@ -29,7 +29,7 @@
 		<h1 data-enter style="--enter: 0.05s">PocketMC</h1>
 
 		<p class="tagline" data-enter style="--enter: 0.09s">
-			Just a local Minecraft server manager.
+			Automates every step of Minecraft server hosting.
 		</p>
 
 		<div class="cta" data-enter style="--enter: 0.14s">
@@ -62,7 +62,7 @@
 				<a class="mono" href="{repo}/releases" target="_blank" rel="noopener noreferrer">{version}</a>
 				<span class="dot">·</span>
 			{/if}
-			Crafted by <a href="/about" rel="author" class="author-link">DS Labs</a>
+			Crafted by <a href={dslabs} target="_blank" rel="noopener noreferrer author" class="author-link">DS Labs</a>
 			<span class="dot">·</span>
 			Free and open source
 			<span class="dot">·</span>

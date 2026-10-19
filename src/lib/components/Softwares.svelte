@@ -12,8 +12,7 @@
 			<span class="kicker">Ecosystem</span>
 			<h2>Supported Server Engines</h2>
 			<p class="lead">
-				From vanilla survival to massive modded networks, PocketMC supports the industry's most popular
-				Java and Bedrock loaders out of the box.
+				PocketMC installs, launches, and updates popular Java and Bedrock server software with no manual configuration.
 			</p>
 		</div>
 
@@ -30,6 +29,7 @@
 							loading="lazy"
 							decoding="async"
 							class="software-icon"
+							class:forge-icon={s.name === 'Forge'}
 						/>
 						<div class="meta">
 							<h3>{s.name}</h3>
@@ -77,6 +77,17 @@
 		height: 32px;
 		object-fit: contain;
 		flex-shrink: 0;
+		transition: filter 0.18s ease;
+	}
+
+	:global(:root[data-theme='light']) .forge-icon {
+		filter: invert(1);
+	}
+
+	@media (prefers-color-scheme: light) {
+		:global(:root:not([data-theme='dark'])) .forge-icon {
+			filter: invert(1);
+		}
 	}
 
 	.meta {

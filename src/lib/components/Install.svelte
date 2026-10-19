@@ -13,7 +13,7 @@
 			<span class="kicker">Install</span>
 			<h2>Get PocketMC</h2>
 			<p class="lead">
-				Choose your preferred installation method. PocketMC runs locally with zero configuration required.
+				Choose how you want to install PocketMC on Windows 10 and 11.
 			</p>
 		</div>
 
@@ -127,6 +127,11 @@
 <style>
 	.page {
 		padding-bottom: 72px;
+	}
+
+	.lead {
+		max-width: 680px;
+		text-wrap: balance;
 	}
 
 	.grid {

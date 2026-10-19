@@ -6,3 +6,4 @@ export const buymeacoffee = 'https://www.buymeacoffee.com/sahaj33';
 export const website = 'https://github.com/PocketMC/pocket-mc-website';
 export const org = 'https://github.com/PocketMC';
 export const email = 'contactdslabs@gmail.com';
+export const dslabs = 'https://ds-labs.vercel.app/';

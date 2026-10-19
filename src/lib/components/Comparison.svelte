@@ -25,8 +25,7 @@
 			<span class="kicker">Comparison</span>
 			<h2>How PocketMC Compares</h2>
 			<p class="lead">
-				From lightweight desktop launchers to distributed Linux web panels, see how PocketMC stacks up
-				against alternative hosting tools. Click the <span class="lead-icon-hint">ⓘ</span> icon beside any tool to inspect verified documentation and official sources.
+				See how PocketMC compares to other Minecraft server managers and hosting methods. Click the <span class="lead-icon-hint">ⓘ</span> icon beside any tool to inspect official sources and verified evidence.
 			</p>
 		</div>
 
@@ -36,7 +35,6 @@
 					<thead>
 						<tr>
 							<th class="th-tool">Tool</th>
-							<th class="th-category">Category</th>
 							<th class="th-strength">Core Strength</th>
 							<th class="th-wins">Where PocketMC Wins</th>
 						</tr>
@@ -45,23 +43,34 @@
 						{#each toolComparisons as item (item.tool)}
 							<tr class:highlight-row={item.isPocketMC}>
 								<td class="cell-tool">
-									<div class="tool-head">
-										<span class="tool-name" class:highlight-name={item.isPocketMC}>{item.tool}</span>
-										{#if item.proof}
-											<button
-												type="button"
-												class="info-btn"
-												aria-label="View verified comparison sources for {item.tool}"
-												title="View verified sources & proof"
-												onclick={() => openProof(item)}
-											>
-												<Glyph name="info" size={12} />
-											</button>
-										{/if}
+									<div class="tool-cell">
+										<div class="tool-head">
+											{#if item.icon}
+												<img
+													src={item.icon}
+													alt="{item.tool} logo"
+													width="20"
+													height="20"
+													loading="lazy"
+													decoding="async"
+													class="tool-icon"
+												/>
+											{/if}
+											<span class="tool-name" class:highlight-name={item.isPocketMC}>{item.tool}</span>
+											{#if item.proof}
+												<button
+													type="button"
+													class="info-btn"
+													aria-label="View verified comparison sources for {item.tool}"
+													title="View verified sources & proof"
+													onclick={() => openProof(item)}
+												>
+													<Glyph name="info" size={12} />
+												</button>
+											{/if}
+										</div>
+										<span class="category-pill">{item.category}</span>
 									</div>
-								</td>
-								<td class="cell-category">
-									<span class="category-pill">{item.category}</span>
 								</td>
 								<td class="cell-strength">
 									{item.coreStrength}
@@ -93,6 +102,15 @@
 				<div class="proof-header">
 					<div class="proof-header-left">
 						<div class="proof-title-row">
+							{#if selectedTool.icon}
+								<img
+									src={selectedTool.icon}
+									alt="{selectedTool.tool} logo"
+									width="24"
+									height="24"
+									class="proof-tool-icon"
+								/>
+							{/if}
 							<h3 id="proof-title" class="proof-title">{selectedTool.tool}</h3>
 							<span class="category-pill">{selectedTool.category}</span>
 						</div>
@@ -122,8 +140,69 @@
 						<p class="proof-claim">{selectedTool.proof.claim}</p>
 					</div>
 
+					{#if selectedTool.proof.points && selectedTool.proof.points.length > 0}
+						<div class="proof-block">
+							<span class="proof-label">Technical Audit &amp; Code Evidence</span>
+							<div class="audit-points">
+								{#each selectedTool.proof.points as pt, i (i)}
+									<div class="audit-card">
+										<div class="audit-head">
+											<span class="audit-num">{i + 1}</span>
+											<h4 class="audit-title">{pt.title}</h4>
+										</div>
+										<p class="audit-desc">{pt.desc}</p>
+										{#if pt.file || pt.code}
+											<div class="audit-tags">
+												{#if pt.file}
+													<span class="audit-tag file-tag" title="Source location">
+														<svg
+															width="12"
+															height="12"
+															viewBox="0 0 24 24"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="2"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															class="audit-tag-icon"
+															aria-hidden="true"
+														>
+															<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+															<polyline points="13 2 13 9 20 9" />
+														</svg>
+														<span>{pt.file}</span>
+													</span>
+												{/if}
+												{#if pt.code}
+													<span class="audit-tag code-tag" title="Code or documentation quotation">
+														<svg
+															width="12"
+															height="12"
+															viewBox="0 0 24 24"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="2"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															class="audit-tag-icon"
+															aria-hidden="true"
+														>
+															<polyline points="16 18 22 12 16 6" />
+															<polyline points="8 6 2 12 8 18" />
+														</svg>
+														<code>{pt.code}</code>
+													</span>
+												{/if}
+											</div>
+										{/if}
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
+
 					<div class="proof-block">
-						<span class="proof-label">Official Sources & Documentation</span>
+						<span class="proof-label">Official Sources &amp; Documentation</span>
 						<div class="sources-grid">
 							{#each selectedTool.proof.officialLinks as link (link.url)}
 								<a
@@ -158,7 +237,7 @@
 					</div>
 
 					<div class="proof-block">
-						<span class="proof-label">Documented Facts & Evidence</span>
+						<span class="proof-label">Documented Facts &amp; Evidence</span>
 						<ul class="evidence-list">
 							{#each selectedTool.proof.evidence as point, i (i)}
 								<li class="evidence-item">
@@ -244,22 +323,24 @@
 	}
 
 	.th-tool {
-		width: 200px;
-		min-width: 190px;
-	}
-
-	.th-category {
-		width: 180px;
-		min-width: 170px;
+		width: 250px;
+		min-width: 230px;
 	}
 
 	.th-strength {
-		width: 28%;
+		width: 32%;
 		min-width: 260px;
 	}
 
 	.th-wins {
-		min-width: 320px;
+		min-width: 340px;
+	}
+
+	.tool-cell {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
 	}
 
 	.tool-head {
@@ -269,6 +350,14 @@
 		gap: 8px;
 	}
 
+	.tool-icon {
+		width: 20px;
+		height: 20px;
+		object-fit: contain;
+		border-radius: 4px;
+		flex-shrink: 0;
+	}
+
 	.tool-name {
 		font-weight: 600;
 		font-size: 14px;
@@ -276,7 +365,7 @@
 	}
 
 	.highlight-name {
-		color: #ffffff;
+		color: var(--fg);
 		font-size: 15px;
 		font-weight: 700;
 		letter-spacing: -0.01em;
@@ -335,6 +424,32 @@
 		border-right: none;
 	}
 
+	:global(:root[data-theme='light']) .highlight-row {
+		background-color: rgba(34, 197, 94, 0.04);
+	}
+
+	:global(:root[data-theme='light']) .highlight-row td {
+		border-right: 1px solid var(--line);
+	}
+
+	:global(:root[data-theme='light']) .highlight-row td:last-child {
+		border-right: none;
+	}
+
+	@media (prefers-color-scheme: light) {
+		:global(:root:not([data-theme='dark'])) .highlight-row {
+			background-color: rgba(34, 197, 94, 0.04);
+		}
+
+		:global(:root:not([data-theme='dark'])) .highlight-row td {
+			border-right: 1px solid var(--line);
+		}
+
+		:global(:root:not([data-theme='dark'])) .highlight-row td:last-child {
+			border-right: none;
+		}
+	}
+
 	@keyframes seamless-shine {
 		0% {
 			background-position: 100% 0;
@@ -348,8 +463,8 @@
 	}
 
 	.highlight-wins {
-		color: #f1f5f9;
-		font-weight: 450;
+		color: var(--fg);
+		font-weight: 500;
 	}
 
 	.lead-icon-hint {
@@ -396,8 +511,8 @@
 
 	/* Dialog Modal */
 	dialog.proof-dialog {
-		width: min(620px, calc(100vw - 32px));
-		max-height: min(760px, calc(100vh - 60px));
+		width: min(660px, calc(100vw - 32px));
+		max-height: min(800px, calc(100vh - 48px));
 		margin: auto;
 		padding: 0;
 		border: 1px solid var(--border);
@@ -449,6 +564,14 @@
 		align-items: center;
 		gap: 10px;
 		flex-wrap: wrap;
+	}
+
+	.proof-tool-icon {
+		width: 24px;
+		height: 24px;
+		object-fit: contain;
+		border-radius: 4px;
+		flex-shrink: 0;
 	}
 
 	.proof-title {
@@ -539,6 +662,104 @@
 		border: 1px solid var(--border);
 		font-size: 13px;
 		line-height: 1.5;
+	}
+
+	.audit-points {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.audit-card {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 12px 14px;
+		background: var(--secondary);
+		border: 1px solid var(--border);
+		border-left: 3px solid #22c55e;
+		border-radius: var(--radius);
+	}
+
+	.audit-head {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.audit-num {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: var(--bg);
+		border: 1px solid var(--border);
+		font-size: 10px;
+		font-weight: 700;
+		color: var(--dim);
+		flex-shrink: 0;
+	}
+
+	.audit-title {
+		margin: 0;
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--fg);
+		letter-spacing: -0.01em;
+	}
+
+	.audit-desc {
+		margin: 0;
+		font-size: 12.5px;
+		line-height: 1.5;
+		color: var(--muted-fg);
+	}
+
+	.audit-tags {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+		margin-top: 2px;
+	}
+
+	.audit-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		max-width: 100%;
+		padding: 3px 8px;
+		border-radius: 5px;
+		border: 1px solid var(--border);
+		background: var(--bg);
+		font-size: 11px;
+		line-height: 1.4;
+		color: var(--muted-fg);
+	}
+
+	.audit-tag-icon {
+		flex-shrink: 0;
+		color: var(--dim);
+	}
+
+	.file-tag {
+		font-family: var(--mono);
+		font-size: 11px;
+	}
+
+	.code-tag {
+		font-family: var(--mono);
+		color: var(--fg);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.code-tag code {
+		font-family: inherit;
+		font-size: 11px;
 	}
 
 	.sources-grid {
