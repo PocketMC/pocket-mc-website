@@ -9,6 +9,12 @@
 		return galleryItems.filter((item) => item.categoryId === activeCategory);
 	});
 
+	const currentIndex = $derived.by(() => {
+		const current = lightboxItem;
+		if (!current) return -1;
+		return visibleItems.findIndex((i) => i.id === current.id);
+	});
+
 	// Distinct sections when viewing "all"
 	const sections = $derived.by(() => {
 		const distinct = categories.filter((c) => c.id !== 'all');
@@ -317,20 +323,49 @@
 					<span class="lb-caption">{lightboxItem.caption}</span>
 				</div>
 
-				<button
-					type="button"
-					class="lb-close"
-					aria-label="Close"
-					onclick={closeLightbox}
-				>
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<line x1="18" y1="6" x2="6" y2="18" />
-						<line x1="6" y1="6" x2="18" y2="18" />
-					</svg>
-				</button>
+				<div class="lb-actions">
+					{#if currentIndex !== -1}
+						<span class="lb-counter">{currentIndex + 1} / {visibleItems.length}</span>
+					{/if}
+
+					<a
+						href={lightboxItem.src}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="lb-btn"
+						title="Open original image in new tab"
+						aria-label="Open original image in new tab"
+					>
+						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+							<polyline points="15 3 21 3 21 9" />
+							<line x1="10" y1="14" x2="21" y2="3" />
+						</svg>
+					</a>
+
+					<button
+						type="button"
+						class="lb-btn lb-close"
+						aria-label="Close image preview"
+						title="Close preview (Esc)"
+						onclick={closeLightbox}
+					>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<line x1="18" y1="6" x2="6" y2="18" />
+							<line x1="6" y1="6" x2="18" y2="18" />
+						</svg>
+					</button>
+				</div>
 			</div>
 
-			<div class="lb-stage">
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				class="lb-stage"
+				onclick={(e) => {
+					if (e.target === e.currentTarget) closeLightbox();
+				}}
+			>
 				<img
 					src={lightboxItem.src}
 					alt={lightboxItem.title}
@@ -634,8 +669,9 @@
 		position: fixed;
 		inset: 0;
 		z-index: 1000;
-		background: rgba(5, 5, 5, 0.94);
-		backdrop-filter: blur(14px);
+		background: var(--lb-bg);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
 		display: flex;
 		flex-direction: column;
 	}
@@ -644,57 +680,96 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 16px 24px;
+		gap: 16px;
+		padding: 14px 24px;
 		border-bottom: 1px solid var(--border);
-		background: rgba(10, 10, 10, 0.85);
+		background: var(--lb-bar-bg);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		flex-shrink: 0;
 	}
 
 	.lb-title-wrap {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		gap: 10px;
-		flex-wrap: wrap;
+		min-width: 0;
+		flex: 1;
 	}
 
 	.lb-cat {
-		font-size: 12px;
+		font-size: 11px;
 		font-weight: 600;
-		color: #22c55e;
+		color: var(--lb-badge-fg);
+		background: var(--lb-badge-bg);
+		border: 1px solid var(--lb-badge-border);
+		padding: 3px 8px;
+		border-radius: 9999px;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
+		flex-shrink: 0;
 	}
 
 	.lb-sep {
 		color: var(--dim);
+		flex-shrink: 0;
 	}
 
 	.lb-title {
-		font-size: 15px;
+		font-size: 14px;
 		font-weight: 600;
 		color: var(--fg);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.lb-caption {
-		font-size: 13px;
+		font-size: 12.5px;
 		color: var(--muted-fg);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
-	.lb-close {
-		width: 36px;
-		height: 36px;
+	.lb-actions {
 		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-shrink: 0;
+	}
+
+	.lb-counter {
+		font-size: 12px;
+		font-weight: 500;
+		font-family: var(--mono);
+		color: var(--muted-fg);
+		padding: 4px 10px;
+		border-radius: 9999px;
+		background: var(--lb-btn-bg);
+		border: 1px solid var(--border);
+		line-height: 1;
+	}
+
+	.lb-btn {
+		width: 34px;
+		height: 34px;
+		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
-		background: var(--card);
+		background: var(--lb-btn-bg);
 		color: var(--fg);
 		cursor: pointer;
-		transition: background-color 0.15s ease;
+		text-decoration: none;
+		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 	}
 
-	.lb-close:hover {
-		background: var(--secondary-hover);
+	.lb-btn:hover {
+		background: var(--lb-btn-hover);
+		border-color: var(--dim);
+		color: var(--fg);
 	}
 
 	.lb-stage {
@@ -704,19 +779,22 @@
 		justify-content: center;
 		padding: 24px;
 		overflow: hidden;
+		position: relative;
+		cursor: zoom-out;
 	}
 
 	.lb-img {
 		max-width: 95vw;
-		max-height: 85vh;
+		max-height: calc(100vh - 120px);
 		object-fit: contain;
 		border-radius: var(--radius-lg);
-		box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95);
+		box-shadow: var(--lb-img-shadow);
 		border: 1px solid var(--border);
+		cursor: default;
 	}
 
 	.lb-img.portrait {
-		max-height: 88vh;
+		max-height: calc(100vh - 110px);
 	}
 
 	.lb-nav-wrap {
@@ -738,16 +816,23 @@
 		justify-content: center;
 		border: 1px solid var(--border);
 		border-radius: 50%;
-		background: rgba(20, 20, 20, 0.85);
+		background: var(--lb-arrow-bg);
 		color: var(--fg);
-		backdrop-filter: blur(8px);
+		box-shadow: var(--lb-arrow-shadow);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 		cursor: pointer;
-		transition: background-color 0.15s ease, transform 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 	}
 
 	.lb-arrow:hover {
-		background: var(--secondary-hover);
+		background: var(--lb-arrow-hover);
+		border-color: var(--dim);
 		transform: scale(1.05);
+	}
+
+	.lb-arrow:active {
+		transform: scale(0.96);
 	}
 
 	/* Responsive for tablets and mobile phones */
@@ -799,11 +884,31 @@
 		}
 
 		.lb-bar {
-			padding: 12px 16px;
+			padding: 10px 14px;
+			gap: 10px;
 		}
 
-		.lb-caption {
+		.lb-caption,
+		.lb-sep {
 			display: none;
+		}
+
+		.lb-nav-wrap {
+			padding: 12px;
+		}
+
+		.lb-arrow {
+			width: 38px;
+			height: 38px;
+		}
+
+		.lb-stage {
+			padding: 12px;
+		}
+
+		.lb-counter {
+			font-size: 11px;
+			padding: 3px 8px;
 		}
 	}
 </style>

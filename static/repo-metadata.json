@@ -1,5 +1,5 @@
 {
-  "stars": 33,
+  "stars": 38,
   "version": "v1.9.10",
   "rawVersion": "1.9.10",
   "license": "MIT",
@@ -7,15 +7,15 @@
   "releasesUrl": "https://github.com/PocketMC/pocket-mc-windows/releases",
   "downloadUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/download/v1.9.10/PocketMC-Setup.exe",
   "latestReleaseUrl": "https://github.com/PocketMC/pocket-mc-windows/releases/latest",
-  "inspectedAt": "2026-10-19T19:42:05.460Z",
+  "inspectedAt": "2026-10-24T06:22:35.390Z",
   "name": "pocket-mc-windows",
   "full_name": "PocketMC/pocket-mc-windows",
   "description": "Windows desktop app to locally host and manage Minecraft Java and Bedrock Edition servers without any mess.",
   "html_url": "https://github.com/PocketMC/pocket-mc-windows",
-  "stargazers_count": 33,
-  "forks_count": 4,
+  "stargazers_count": 38,
+  "forks_count": 5,
   "open_issues_count": 4,
   "default_branch": "master",
-  "updated_at": "2026-10-18T23:40:26Z",
-  "pushed_at": "2026-10-16T10:19:54Z"
+  "updated_at": "2026-10-23T19:04:57Z",
+  "pushed_at": "2026-10-23T19:04:50Z"
 }
