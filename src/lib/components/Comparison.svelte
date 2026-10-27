@@ -1,10 +1,20 @@
 <script lang="ts">
-	import { toolComparisons, type CompetitorComparison } from '$lib/data/comparison';
+	import { toolComparisons, type CompetitorComparison, type CompetitorGroup } from '$lib/data/comparison';
 	import { reveal } from '$lib/reveal';
 	import Glyph from './Glyph.svelte';
 
 	let dialog = $state<HTMLDialogElement | null>(null);
 	let selectedTool = $state<CompetitorComparison | null>(null);
+	let activeFilter = $state<CompetitorGroup | 'all'>('all');
+
+	const filteredComparisons = $derived(
+		activeFilter === 'all'
+			? toolComparisons
+			: [
+					toolComparisons.find((t) => t.isPocketMC)!,
+					...toolComparisons.filter((t) => !t.isPocketMC && t.group === activeFilter)
+				]
+	);
 
 	function openProof(item: CompetitorComparison) {
 		selectedTool = item;
@@ -24,9 +34,53 @@
 		<div class="section-head" use:reveal>
 			<span class="kicker">Comparison</span>
 			<h2>How PocketMC Compares</h2>
-			<p class="lead">
-				See how PocketMC compares to other Minecraft server managers and hosting methods. Click the <span class="lead-icon-hint">ⓘ</span> icon beside any tool to inspect official sources and verified evidence.
-			</p>
+		</div>
+
+		<div class="filter-tabs" role="tablist" aria-label="Filter comparison by category" use:reveal>
+			<button
+				type="button"
+				role="tab"
+				class="filter-tab"
+				class:active={activeFilter === 'all'}
+				aria-selected={activeFilter === 'all'}
+				onclick={() => (activeFilter = 'all')}
+			>
+				<span>All Tools</span>
+				<span class="tab-badge">{toolComparisons.length}</span>
+			</button>
+			<button
+				type="button"
+				role="tab"
+				class="filter-tab"
+				class:active={activeFilter === 'desktop'}
+				aria-selected={activeFilter === 'desktop'}
+				onclick={() => (activeFilter = 'desktop')}
+			>
+				<span>Desktop Managers</span>
+				<span class="tab-badge">4</span>
+			</button>
+			<button
+				type="button"
+				role="tab"
+				class="filter-tab"
+				class:active={activeFilter === 'panel'}
+				aria-selected={activeFilter === 'panel'}
+				onclick={() => (activeFilter = 'panel')}
+			>
+				<span>Web &amp; VPS Panels</span>
+				<span class="tab-badge">3</span>
+			</button>
+			<button
+				type="button"
+				role="tab"
+				class="filter-tab"
+				class:active={activeFilter === 'alternative'}
+				aria-selected={activeFilter === 'alternative'}
+				onclick={() => (activeFilter = 'alternative')}
+			>
+				<span>Cloud &amp; Alternatives</span>
+				<span class="tab-badge">3</span>
+			</button>
 		</div>
 
 		<div class="wire table-wrap" use:reveal>
@@ -40,7 +94,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each toolComparisons as item (item.tool)}
+						{#each filteredComparisons as item (item.tool)}
 							<tr class:highlight-row={item.isPocketMC}>
 								<td class="cell-tool">
 									<div class="tool-cell">
@@ -145,6 +199,31 @@
 						<span class="proof-label">Comparison Summary</span>
 						<p class="proof-claim">{selectedTool.proof.claim}</p>
 					</div>
+
+					{#if selectedTool.concession}
+						<div class="proof-block">
+							<span class="proof-label">Acknowledged Competitor Strength</span>
+							<div class="concession-card">
+								<svg
+									width="14"
+									height="14"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="concession-icon"
+									aria-hidden="true"
+								>
+									<circle cx="12" cy="12" r="10" />
+									<line x1="12" y1="16" x2="12" y2="12" />
+									<line x1="12" y1="8" x2="12.01" y2="8" />
+								</svg>
+								<p class="concession-desc">{selectedTool.concession}</p>
+							</div>
+						</div>
+					{/if}
 
 					{#if selectedTool.proof.points && selectedTool.proof.points.length > 0}
 						<div class="proof-block">
@@ -269,7 +348,7 @@
 
 					<div class="proof-footer-note">
 						All technical citations are sourced directly from publicly accessible official documentation,
-						terms, and repositories to ensure objective, verifiable evaluation.
+						terms, and repositories as of October 2026 to ensure objective, verifiable evaluation.
 					</div>
 				</div>
 			</div>
@@ -280,6 +359,71 @@
 <style>
 	.page {
 		padding-bottom: 72px;
+	}
+
+	.filter-tabs {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 20px;
+		flex-wrap: wrap;
+	}
+
+	.filter-tab {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px;
+		border-radius: var(--radius);
+		border: 1px solid var(--border);
+		background: var(--secondary);
+		color: var(--muted-fg);
+		font-size: 13px;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.15s ease;
+		user-select: none;
+	}
+
+	.filter-tab:hover {
+		background: var(--secondary-hover);
+		color: var(--fg);
+		border-color: var(--dim);
+	}
+
+	.filter-tab.active {
+		background: var(--fg);
+		color: var(--bg);
+		border-color: var(--fg);
+		font-weight: 600;
+	}
+
+	.tab-badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 18px;
+		height: 18px;
+		padding: 0 5px;
+		border-radius: 999px;
+		font-size: 11px;
+		font-weight: 600;
+		background: rgba(255, 255, 255, 0.08);
+		color: var(--dim);
+	}
+
+	.filter-tab.active .tab-badge {
+		background: var(--bg);
+		color: var(--fg);
+	}
+
+	:global(:root[data-theme='light']) .filter-tab .tab-badge {
+		background: rgba(0, 0, 0, 0.06);
+	}
+
+	:global(:root[data-theme='light']) .filter-tab.active .tab-badge {
+		background: var(--bg);
+		color: var(--fg);
 	}
 
 	.methodology-note {
@@ -489,21 +633,6 @@
 		font-weight: 500;
 	}
 
-	.lead-icon-hint {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 17px;
-		height: 17px;
-		border-radius: 50%;
-		border: 1px solid var(--border);
-		background: var(--secondary);
-		color: var(--fg);
-		font-size: 11px;
-		vertical-align: middle;
-		margin: 0 2px;
-	}
-
 	.info-btn {
 		display: inline-flex;
 		align-items: center;
@@ -684,6 +813,30 @@
 		border: 1px solid var(--border);
 		font-size: 13px;
 		line-height: 1.5;
+	}
+
+	.concession-card {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		padding: 11px 13px;
+		background: var(--secondary);
+		border: 1px solid var(--border);
+		border-left: 3px solid var(--dim);
+		border-radius: var(--radius);
+	}
+
+	.concession-icon {
+		color: var(--dim);
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.concession-desc {
+		margin: 0;
+		font-size: 12.5px;
+		line-height: 1.5;
+		color: var(--muted-fg);
 	}
 
 	.audit-points {
@@ -878,6 +1031,16 @@
 	@media (max-width: 900px) {
 		.page {
 			padding-bottom: 48px;
+		}
+
+		.filter-tabs {
+			gap: 6px;
+			margin-bottom: 16px;
+		}
+
+		.filter-tab {
+			padding: 7px 11px;
+			font-size: 12px;
 		}
 
 		th,

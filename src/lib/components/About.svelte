@@ -87,9 +87,6 @@
 		<div class="section-head" use:reveal>
 			<span class="kicker">Features</span>
 			<h2>Built for Local Minecraft Server Hosting</h2>
-			<p class="lead">
-				Everything you need to run, configure, and share Minecraft servers locally on Windows without touching the command line.
-			</p>
 		</div>
 
 		<div class="wire cells" use:reveal={{ stagger: true }}>

@@ -2,7 +2,20 @@
 	import { installOptions } from '$lib/data/platforms';
 	import { reveal } from '$lib/reveal';
 	import CopyButton from './CopyButton.svelte';
+	import Glyph from './Glyph.svelte';
+
+	let openTooltip = $state<string | null>(null);
+
+	function toggleTooltip(id: string) {
+		openTooltip = openTooltip === id ? null : id;
+	}
 </script>
+
+<svelte:window
+	onclick={() => {
+		if (openTooltip) openTooltip = null;
+	}}
+/>
 
 <section id="steps" class="section">
 	<span class="cross start"></span>
@@ -12,9 +25,6 @@
 		<div class="section-head" use:reveal>
 			<span class="kicker">Install</span>
 			<h2>Get PocketMC</h2>
-			<p class="lead">
-				Choose how you want to install PocketMC on Windows 10 and 11.
-			</p>
 		</div>
 
 		<div class="wire grid" use:reveal={{ stagger: true }}>
@@ -75,8 +85,30 @@
 					</div>
 
 					<div class="card-body">
-						<h3>{opt.title}</h3>
-						<p class="desc">{opt.description}</p>
+						<div class="card-title-row">
+							<h3>{opt.title}</h3>
+							<div class="tooltip-wrap">
+								<button
+									type="button"
+									class="info-btn"
+									class:active={openTooltip === opt.id}
+									aria-label="Info about {opt.title}"
+									onclick={(e) => {
+										e.stopPropagation();
+										toggleTooltip(opt.id);
+									}}
+								>
+									<Glyph name="info" size={13} />
+								</button>
+								<div
+									class="tooltip-bubble"
+									class:visible={openTooltip === opt.id}
+									role="tooltip"
+								>
+									{opt.description}
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div class="card-action">
@@ -156,14 +188,10 @@
 		padding-bottom: 72px;
 	}
 
-	.lead {
-		max-width: 680px;
-		text-wrap: balance;
-	}
-
 	.grid {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		border-radius: var(--radius-lg);
+		overflow: visible;
 	}
 
 	.card {
@@ -173,6 +201,16 @@
 		padding: 26px 22px;
 		background: var(--bg);
 		transition: background-color 0.18s ease;
+	}
+
+	.card:first-child {
+		border-top-left-radius: var(--radius-lg);
+		border-bottom-left-radius: var(--radius-lg);
+	}
+
+	.card:last-child {
+		border-top-right-radius: var(--radius-lg);
+		border-bottom-right-radius: var(--radius-lg);
 	}
 
 	.card:hover {
@@ -217,19 +255,99 @@
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
-		flex: 1;
 	}
 
-	h3 {
+	.card-title-row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	.card-title-row h3 {
 		font-size: 16px;
 		font-weight: 600;
 		color: var(--fg);
+		margin: 0;
 	}
 
-	.desc {
-		font-size: 13.5px;
-		line-height: 1.55;
-		color: var(--muted-fg);
+	.tooltip-wrap {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.info-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		border-radius: 50%;
+		background: var(--secondary);
+		border: 1px solid var(--border);
+		color: var(--dim);
+		cursor: pointer;
+		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+		flex-shrink: 0;
+	}
+
+	.info-btn:hover,
+	.info-btn:focus-visible,
+	.info-btn.active {
+		color: var(--fg);
+		background: var(--secondary-hover);
+		border-color: var(--dim);
+	}
+
+	.info-btn:focus-visible {
+		outline: 2px solid var(--fg);
+		outline-offset: 2px;
+	}
+
+	.tooltip-bubble {
+		position: absolute;
+		top: calc(100% + 10px);
+		left: 50%;
+		transform: translateX(-50%) translateY(-4px);
+		width: max-content;
+		max-width: 260px;
+		padding: 9px 13px;
+		border-radius: var(--radius);
+		border: 1px solid var(--border);
+		background: var(--popover);
+		color: var(--fg);
+		font-size: 12px;
+		line-height: 1.5;
+		box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--border);
+		z-index: 50;
+		pointer-events: none;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+	}
+
+	.tooltip-bubble::before {
+		content: '';
+		position: absolute;
+		top: -5px;
+		left: 50%;
+		transform: translateX(-50%) rotate(45deg);
+		width: 8px;
+		height: 8px;
+		background: var(--popover);
+		border-top: 1px solid var(--border);
+		border-left: 1px solid var(--border);
+	}
+
+	.tooltip-wrap:hover .tooltip-bubble,
+	.tooltip-wrap:focus-within .tooltip-bubble,
+	.tooltip-bubble.visible {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(-50%) translateY(0);
+		pointer-events: auto;
 	}
 
 	.card-action {
@@ -411,9 +529,38 @@
 			grid-template-columns: 1fr;
 		}
 
+		.card:first-child {
+			border-top-left-radius: var(--radius-lg);
+			border-top-right-radius: var(--radius-lg);
+			border-bottom-left-radius: 0;
+		}
+
+		.card:last-child {
+			border-top-right-radius: 0;
+			border-bottom-left-radius: var(--radius-lg);
+			border-bottom-right-radius: var(--radius-lg);
+		}
+
 		.steps-row {
 			grid-template-columns: 1fr;
 			gap: 16px;
+		}
+
+		.tooltip-bubble {
+			left: 0;
+			transform: translateY(-4px);
+			max-width: min(260px, calc(100vw - 64px));
+		}
+
+		.tooltip-bubble::before {
+			left: 10px;
+			transform: rotate(45deg);
+		}
+
+		.tooltip-wrap:hover .tooltip-bubble,
+		.tooltip-wrap:focus-within .tooltip-bubble,
+		.tooltip-bubble.visible {
+			transform: translateY(0);
 		}
 	}
 </style>

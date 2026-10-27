@@ -37,7 +37,6 @@
 						</div>
 					</div>
 					<p class="desc">{s.description}</p>
-					<span class="mono versions">{s.versions}</span>
 				</article>
 			{/each}
 		</div>
@@ -124,11 +123,6 @@
 		line-height: 1.55;
 		color: var(--muted-fg);
 		flex: 1;
-	}
-
-	.versions {
-		font-size: 11.5px;
-		color: var(--dim);
 	}
 
 	.runtime-note {
