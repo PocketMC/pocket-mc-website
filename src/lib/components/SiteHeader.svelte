@@ -287,8 +287,8 @@
 
 	.toggle {
 		display: none;
-		width: 36px;
-		height: 36px;
+		width: 44px;
+		height: 44px;
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--radius);
@@ -296,8 +296,8 @@
 	}
 
 	.toggle svg {
-		width: 18px;
-		height: 18px;
+		width: 20px;
+		height: 20px;
 		fill: none;
 		stroke: currentColor;
 		stroke-width: 2;
@@ -312,20 +312,36 @@
 		right: 0;
 		display: flex;
 		flex-direction: column;
-		padding: 16px 20px 24px;
+		padding: 12px var(--gutter) 20px;
 		border-bottom: 1px solid var(--line);
 		background: var(--bg);
-		gap: 14px;
+		gap: 4px;
 		font-size: 15px;
+	}
+
+	.menu a {
+		min-height: 44px;
+		display: flex;
+		align-items: center;
+		padding: 0 12px;
+		border-radius: var(--radius);
+		color: var(--fg);
+		transition: background-color 0.15s ease;
+	}
+
+	.menu a:hover,
+	.menu a:active {
+		background: var(--secondary);
 	}
 
 	.menu .repo {
 		display: inline-flex;
 		align-items: center;
 		gap: 8px;
-		margin-top: 8px;
-		padding-top: 14px;
+		margin-top: 6px;
+		padding-top: 12px;
 		border-top: 1px solid var(--line);
+		border-radius: 0;
 		color: var(--fg);
 	}
 
@@ -334,6 +350,7 @@
 		inset: var(--header) 0 0 0;
 		z-index: 40;
 		background: rgb(0 0 0 / 0.5);
+		touch-action: none;
 	}
 
 	@media (max-width: 1040px) {

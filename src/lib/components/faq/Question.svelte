@@ -104,4 +104,16 @@
 	.answer[hidden] {
 		padding: 0;
 	}
+
+	@media (max-width: 640px) {
+		button {
+			padding: 14px 14px;
+			font-size: 14px;
+			gap: 12px;
+		}
+
+		.answer {
+			padding: 8px 14px 18px;
+		}
+	}
 </style>

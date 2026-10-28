@@ -363,4 +363,19 @@
 			display: block;
 		}
 	}
+
+	@media (max-width: 600px) {
+		.pager {
+			grid-template-columns: 1fr;
+		}
+
+		.next {
+			grid-column: 1;
+			text-align: left;
+		}
+
+		.pager a {
+			padding: 14px 16px;
+		}
+	}
 </style>

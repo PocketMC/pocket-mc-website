@@ -149,3 +149,38 @@
 		white-space: normal;
 	}
 }
+
+@media (max-width: 768px) {
+	.prose table {
+		display: block;
+		max-width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
+@media (max-width: 640px) {
+	.prose h1 {
+		font-size: 24px;
+	}
+
+	.prose h2 {
+		font-size: 19px;
+		margin-top: 28px;
+	}
+
+	.prose .summary {
+		font-size: 15px;
+	}
+
+	.prose p,
+	.prose li {
+		font-size: 14px;
+	}
+
+	.prose th,
+	.prose td {
+		padding: 8px 12px;
+		font-size: 12.5px;
+	}
+}

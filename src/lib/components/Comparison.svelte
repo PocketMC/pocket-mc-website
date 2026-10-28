@@ -83,6 +83,9 @@
 			</button>
 		</div>
 
+		<div class="table-meta-bar" aria-hidden="true">
+			<span class="scroll-hint">Scroll horizontally to compare &rarr;</span>
+		</div>
 		<div class="wire table-wrap" use:reveal>
 			<div class="scroll-table">
 				<table>
@@ -442,13 +445,30 @@
 		font-weight: 600;
 	}
 
+	.table-meta-bar {
+		display: none;
+		align-items: center;
+		justify-content: flex-end;
+		margin-bottom: 6px;
+	}
+
+	.scroll-hint {
+		font-size: 11px;
+		color: var(--dim);
+		letter-spacing: 0.02em;
+	}
+
 	.table-wrap {
 		width: 100%;
+		max-width: 100%;
+		min-width: 0;
 		overflow: hidden;
 	}
 
 	.scroll-table {
 		width: 100%;
+		max-width: 100%;
+		min-width: 0;
 		overflow-x: auto;
 		-webkit-overflow-scrolling: touch;
 	}
@@ -634,6 +654,7 @@
 	}
 
 	.info-btn {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -658,6 +679,12 @@
 	.info-btn:focus-visible {
 		outline: 2px solid var(--fg);
 		outline-offset: 2px;
+	}
+
+	.info-btn::before {
+		content: '';
+		position: absolute;
+		inset: -8px;
 	}
 
 	/* Dialog Modal */
@@ -1026,6 +1053,58 @@
 		font-size: 11.5px;
 		color: var(--dim);
 		line-height: 1.5;
+	}
+
+	@media (max-width: 768px) {
+		.table-meta-bar {
+			display: flex;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.filter-tabs {
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			padding-bottom: 6px;
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.filter-tabs::-webkit-scrollbar {
+			display: none;
+		}
+
+		.filter-tab {
+			flex-shrink: 0;
+			white-space: nowrap;
+		}
+
+		dialog.proof-dialog {
+			width: min(660px, calc(100vw - 20px));
+			max-height: calc(100dvh - 24px);
+			border-radius: var(--radius);
+		}
+
+		.proof-header {
+			padding: 14px 16px;
+		}
+
+		.proof-body {
+			padding: 14px 16px;
+			gap: 14px;
+		}
+
+		.close-btn {
+			width: 36px;
+			height: 36px;
+		}
+
+		.methodology-note {
+			padding: 12px 14px;
+			font-size: 12px;
+		}
 	}
 
 	@media (max-width: 900px) {

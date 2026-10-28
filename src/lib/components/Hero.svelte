@@ -113,7 +113,7 @@
 
 	h1 {
 		margin-top: 18px;
-		font-size: clamp(44px, 6.5vw, 76px);
+		font-size: clamp(34px, 8.5vw, 76px);
 		line-height: 1;
 		letter-spacing: -0.045em;
 		font-weight: 600;
@@ -180,8 +180,8 @@
 		}
 
 		.hero .page {
-			padding-top: 52px;
-			padding-bottom: 28px;
+			padding-top: 44px;
+			padding-bottom: 24px;
 		}
 
 		.hero-logo-img {
@@ -192,11 +192,31 @@
 		.tagline {
 			font-size: 15px;
 		}
+	}
+
+	@media (max-width: 540px) {
+		.hero-logo-img {
+			width: 76px;
+			height: 76px;
+		}
 
 		.cta {
 			flex-direction: column;
-			align-self: stretch;
-			margin-top: 28px;
+			width: 100%;
+			max-width: 320px;
+			margin-inline: auto;
+			margin-top: 24px;
+			gap: 10px;
+		}
+
+		.cta .btn {
+			width: 100%;
+			height: 44px;
+		}
+
+		.fine {
+			font-size: 11.5px;
+			gap: 6px;
 		}
 	}
 </style>

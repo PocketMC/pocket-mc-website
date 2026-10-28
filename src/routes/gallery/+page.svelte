@@ -851,13 +851,29 @@
 			margin-bottom: 18px;
 		}
 
+		.category-bar {
+			width: 100%;
+			max-width: 100%;
+			overflow-x: auto;
+			scrollbar-width: none;
+			-webkit-overflow-scrolling: touch;
+			padding-bottom: 4px;
+		}
+
+		.category-bar::-webkit-scrollbar {
+			display: none;
+		}
+
 		.switch {
 			height: 36px;
+			flex-wrap: nowrap;
+			flex-shrink: 0;
 		}
 
 		.switch-btn {
 			padding: 0 10px;
 			font-size: 12px;
+			flex-shrink: 0;
 		}
 
 		.gallery-content {

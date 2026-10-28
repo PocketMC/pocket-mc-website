@@ -245,7 +245,7 @@
 		background: none;
 		color: var(--fg);
 		font: inherit;
-		font-size: 15px;
+		font-size: 16px;
 	}
 
 	input::-webkit-search-cancel-button {
@@ -295,5 +295,17 @@
 		padding: 18px 12px;
 		font-size: 13px;
 		color: var(--dim);
+	}
+
+	@media (max-width: 640px) {
+		dialog {
+			width: min(620px, calc(100vw - 20px));
+			max-height: calc(100dvh - 32px);
+			margin: 16px auto;
+		}
+
+		.results a {
+			padding: 12px;
+		}
 	}
 </style>

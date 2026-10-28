@@ -173,5 +173,25 @@
 		.card:last-child {
 			grid-column: span 1;
 		}
+
+		.card {
+			padding: 18px 16px;
+		}
+
+		.meta h3 {
+			font-size: 15px;
+		}
+
+		.desc {
+			font-size: 13px;
+		}
+
+		.runtime-note {
+			padding: 14px 16px;
+		}
+
+		.runtime-note p {
+			font-size: 12.5px;
+		}
 	}
 </style>

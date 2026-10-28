@@ -255,6 +255,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
+		position: relative;
 	}
 
 	.card-title-row {
@@ -278,6 +279,7 @@
 	}
 
 	.info-btn {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -291,6 +293,21 @@
 		cursor: pointer;
 		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 		flex-shrink: 0;
+	}
+
+	.info-btn.active::after,
+	.tooltip-wrap:hover .info-btn::after {
+		content: '';
+		position: absolute;
+		bottom: -11px;
+		left: 50%;
+		transform: translateX(-50%) rotate(45deg);
+		width: 8px;
+		height: 8px;
+		background: var(--popover);
+		border-top: 1px solid var(--border);
+		border-left: 1px solid var(--border);
+		z-index: 52;
 	}
 
 	.info-btn:hover,
@@ -326,19 +343,6 @@
 		opacity: 0;
 		visibility: hidden;
 		transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
-	}
-
-	.tooltip-bubble::before {
-		content: '';
-		position: absolute;
-		top: -5px;
-		left: 50%;
-		transform: translateX(-50%) rotate(45deg);
-		width: 8px;
-		height: 8px;
-		background: var(--popover);
-		border-top: 1px solid var(--border);
-		border-left: 1px solid var(--border);
 	}
 
 	.tooltip-wrap:hover .tooltip-bubble,
@@ -546,21 +550,46 @@
 			gap: 16px;
 		}
 
-		.tooltip-bubble {
-			left: 0;
-			transform: translateY(-4px);
-			max-width: min(260px, calc(100vw - 64px));
+		.tooltip-wrap {
+			position: static;
 		}
 
-		.tooltip-bubble::before {
-			left: 10px;
-			transform: rotate(45deg);
+		.tooltip-bubble {
+			position: absolute;
+			top: calc(100% + 10px);
+			left: 0;
+			right: 0;
+			width: auto;
+			max-width: none;
+			transform: translateY(0);
+			box-shadow: 0 10px 24px -2px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border);
 		}
 
 		.tooltip-wrap:hover .tooltip-bubble,
 		.tooltip-wrap:focus-within .tooltip-bubble,
 		.tooltip-bubble.visible {
 			transform: translateY(0);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.card {
+			padding: 20px 16px;
+		}
+
+		.action-btn,
+		.cmd-box {
+			height: 44px;
+		}
+
+		.quick-start {
+			padding: 20px 16px;
+		}
+	}
+
+	@media (max-width: 400px) {
+		.cmd-text {
+			font-size: 11.5px;
 		}
 	}
 </style>

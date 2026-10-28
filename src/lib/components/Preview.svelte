@@ -1282,11 +1282,32 @@
 	}
 
 	@media (max-width: 480px) {
-		.time-total {
+		.jump-btn {
 			display: none;
 		}
 
+		.time-total,
 		.time-sep {
+			display: none;
+		}
+
+		.controls-bar {
+			gap: 4px;
+		}
+
+		.controls-left,
+		.controls-right {
+			gap: 3px;
+		}
+
+		.ctrl-btn {
+			width: 28px;
+			height: 28px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.speed-menu-container {
 			display: none;
 		}
 	}

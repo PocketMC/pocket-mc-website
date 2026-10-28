@@ -346,4 +346,49 @@
 			gap: 36px;
 		}
 	}
+
+	@media (max-width: 640px) {
+		.cols {
+			flex-direction: column;
+			gap: 28px;
+		}
+
+		.about {
+			max-width: 100%;
+		}
+
+		.links {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 28px 20px;
+			width: 100%;
+		}
+
+		.links a {
+			min-height: 28px;
+			padding: 2px 0;
+		}
+
+		.share-bar {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+		}
+
+		.share-links {
+			width: 100%;
+			flex-wrap: wrap;
+		}
+
+		.legal {
+			margin-top: 32px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		.links {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+	}
 </style>

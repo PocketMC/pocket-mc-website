@@ -43,7 +43,7 @@
 	--control: 32px;
 
 	--page: 1288px;
-	--gutter: clamp(20px, 4vw, 48px);
+	--gutter: clamp(16px, 4.5vw, 48px);
 	--header: 57px;
 	--fold-peek: 365px;
 	--mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
@@ -137,6 +137,7 @@
 	box-sizing: border-box;
 }
 
+html,
 body {
 	margin: 0;
 	overflow-x: clip;
@@ -156,6 +157,7 @@ a {
 	color: inherit;
 	text-decoration: none;
 	transition: color 0.18s ease;
+	-webkit-tap-highlight-color: transparent;
 }
 
 h1,
@@ -188,6 +190,7 @@ button {
 	background: none;
 	color: inherit;
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 
 /* Page column bounded by two vertical hairlines */
@@ -197,10 +200,12 @@ button {
 	max-width: var(--page);
 	margin: 0 auto;
 	border-inline: 1px solid var(--line);
+	overflow-x: clip;
 }
 
 .page {
-	padding-inline: var(--gutter);
+	padding-left: max(var(--gutter), env(safe-area-inset-left));
+	padding-right: max(var(--gutter), env(safe-area-inset-right));
 }
 
 /* Section with horizontal hairline spanning 100vw */
@@ -295,6 +300,7 @@ button {
 	border-radius: var(--radius);
 	background: var(--line);
 	overflow: hidden;
+	min-width: 0;
 }
 
 .wire > * {
@@ -381,11 +387,11 @@ body::-webkit-scrollbar {
 
 @media (max-width: 900px) {
 	h2 {
-		font-size: 22px;
+		font-size: clamp(21px, 4.5vw, 24px);
 	}
 
 	.section-head {
-		padding: 40px 0 28px;
+		padding: 38px 0 24px;
 	}
 
 	.lead {
@@ -398,6 +404,21 @@ body::-webkit-scrollbar {
 
 	.cross {
 		display: none;
+	}
+}
+
+@media (max-width: 640px) {
+	.section-head {
+		padding: 28px 0 18px;
+		gap: 8px;
+	}
+
+	.kicker {
+		font-size: 11px;
+	}
+
+	.btn {
+		height: 42px;
 	}
 }
 

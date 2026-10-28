@@ -25,6 +25,10 @@ screenshots_verify/
 *.sln
 *.sw?
 
+# Windows
+desktop.ini
+*.ico
+
 # GSD Planning
 .planning/
 
